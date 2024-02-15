@@ -1,4 +1,6 @@
 # _*_ coding: utf-8 _*_
+import re
+
 import pytest
 from pydantic.v1 import ValidationError
 from pydantic.v1.errors import UrlSchemeError
@@ -130,7 +132,7 @@ def test_issue_97():
     org = Organization(**data)
 
     assert org.dict()["address"][0]["line"] == [None]
-    assert '"line":[null]' in org.json()
+    assert re.search(r'"line":\s?\[null\]', str(org.json())) is not None
     assert Organization.parse_raw(org.json(return_bytes=True)).dict() == data
     assert "line:\n  - null\n" in org.yaml()
     assert (
