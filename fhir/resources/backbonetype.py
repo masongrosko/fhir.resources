@@ -23,7 +23,7 @@ class BackboneType(datatype.DataType):
     extensions.
     """
 
-    resource_type = Field("BackboneType", const=True)
+    resource_type: str = Field("BackboneType", const=True)
 
     modifierExtension: typing.List[fhirtypes.ExtensionType] = Field(
         None,

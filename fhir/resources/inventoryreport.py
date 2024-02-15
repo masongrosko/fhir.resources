@@ -13,6 +13,13 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .codeablereference import CodeableReference
+from .identifier import Identifier
+from .period import Period
+from .quantity import Quantity
+from .reference import Reference
 
 
 class InventoryReport(domainresource.DomainResource):
@@ -23,7 +30,7 @@ class InventoryReport(domainresource.DomainResource):
     A report of inventory or stock items.
     """
 
-    resource_type = Field("InventoryReport", const=True)
+    resource_type: str = Field("InventoryReport", const=True)
 
     countType: fhirtypes.Code = Field(
         None,
@@ -44,7 +51,7 @@ class InventoryReport(domainresource.DomainResource):
         None, alias="_countType", title="Extension field for ``countType``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business identifier for the report",
@@ -53,9 +60,7 @@ class InventoryReport(domainresource.DomainResource):
         element_property=True,
     )
 
-    inventoryListing: typing.List[
-        fhirtypes.InventoryReportInventoryListingType
-    ] = Field(
+    inventoryListing: typing.List["InventoryReportInventoryListing"] = Field(
         None,
         alias="inventoryListing",
         title="An inventory listing section (grouped by any of the attributes)",
@@ -64,7 +69,7 @@ class InventoryReport(domainresource.DomainResource):
         element_property=True,
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="A note associated with the InventoryReport",
@@ -73,7 +78,7 @@ class InventoryReport(domainresource.DomainResource):
         element_property=True,
     )
 
-    operationType: fhirtypes.CodeableConceptType = Field(
+    operationType: CodeableConcept = Field(
         None,
         alias="operationType",
         title="addition | subtraction",
@@ -82,7 +87,7 @@ class InventoryReport(domainresource.DomainResource):
         element_property=True,
     )
 
-    operationTypeReason: fhirtypes.CodeableConceptType = Field(
+    operationTypeReason: CodeableConcept = Field(
         None,
         alias="operationTypeReason",
         title=(
@@ -109,7 +114,7 @@ class InventoryReport(domainresource.DomainResource):
         title="Extension field for ``reportedDateTime``.",
     )
 
-    reporter: fhirtypes.ReferenceType = Field(
+    reporter: Reference = Field(
         None,
         alias="reporter",
         title="Who submits the report",
@@ -120,7 +125,7 @@ class InventoryReport(domainresource.DomainResource):
         enum_reference_types=["Practitioner", "Patient", "RelatedPerson", "Device"],
     )
 
-    reportingPeriod: fhirtypes.PeriodType = Field(
+    reportingPeriod: Period = Field(
         None,
         alias="reportingPeriod",
         title="The period the report refers to",
@@ -247,7 +252,7 @@ class InventoryReportInventoryListing(backboneelement.BackboneElement):
     An inventory listing section (grouped by any of the attributes).
     """
 
-    resource_type = Field("InventoryReportInventoryListing", const=True)
+    resource_type: str = Field("InventoryReportInventoryListing", const=True)
 
     countingDateTime: fhirtypes.DateTime = Field(
         None,
@@ -263,7 +268,7 @@ class InventoryReportInventoryListing(backboneelement.BackboneElement):
         title="Extension field for ``countingDateTime``.",
     )
 
-    item: typing.List[fhirtypes.InventoryReportInventoryListingItemType] = Field(
+    item: typing.List["InventoryReportInventoryListingItem"] = Field(
         None,
         alias="item",
         title="The item or items in this listing",
@@ -272,7 +277,7 @@ class InventoryReportInventoryListing(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    itemStatus: fhirtypes.CodeableConceptType = Field(
+    itemStatus: CodeableConcept = Field(
         None,
         alias="itemStatus",
         title="The status of the items that are being reported",
@@ -281,7 +286,7 @@ class InventoryReportInventoryListing(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    location: fhirtypes.ReferenceType = Field(
+    location: Reference = Field(
         None,
         alias="location",
         title="Location of the inventory items",
@@ -317,9 +322,9 @@ class InventoryReportInventoryListingItem(backboneelement.BackboneElement):
     The item or items in this listing.
     """
 
-    resource_type = Field("InventoryReportInventoryListingItem", const=True)
+    resource_type: str = Field("InventoryReportInventoryListingItem", const=True)
 
-    category: fhirtypes.CodeableConceptType = Field(
+    category: CodeableConcept = Field(
         None,
         alias="category",
         title="The inventory category or classification of the items being reported",
@@ -332,7 +337,7 @@ class InventoryReportInventoryListingItem(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    item: fhirtypes.CodeableReferenceType = Field(
+    item: CodeableReference = Field(
         ...,
         alias="item",
         title="The code or reference to the item type",
@@ -351,7 +356,7 @@ class InventoryReportInventoryListingItem(backboneelement.BackboneElement):
         ],
     )
 
-    quantity: fhirtypes.QuantityType = Field(
+    quantity: Quantity = Field(
         ...,
         alias="quantity",
         title="The quantity of the item or items being reported",
@@ -367,3 +372,7 @@ class InventoryReportInventoryListingItem(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "category", "quantity", "item"]
+
+
+InventoryReport.update_forward_refs()
+InventoryReportInventoryListing.update_forward_refs()

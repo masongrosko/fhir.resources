@@ -13,6 +13,16 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import domainresource, fhirtypes
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .contactdetail import ContactDetail
+from .datarequirement import DataRequirement
+from .identifier import Identifier
+from .parameterdefinition import ParameterDefinition
+from .period import Period
+from .reference import Reference
+from .relatedartifact import RelatedArtifact
+from .usagecontext import UsageContext
 
 
 class Library(domainresource.DomainResource):
@@ -27,7 +37,7 @@ class Library(domainresource.DomainResource):
     as to describe a collection of knowledge assets.
     """
 
-    resource_type = Field("Library", const=True)
+    resource_type: str = Field("Library", const=True)
 
     approvalDate: fhirtypes.Date = Field(
         None,
@@ -45,7 +55,7 @@ class Library(domainresource.DomainResource):
         None, alias="_approvalDate", title="Extension field for ``approvalDate``."
     )
 
-    author: typing.List[fhirtypes.ContactDetailType] = Field(
+    author: typing.List[ContactDetail] = Field(
         None,
         alias="author",
         title="Who authored the content",
@@ -57,7 +67,7 @@ class Library(domainresource.DomainResource):
         element_property=True,
     )
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -69,7 +79,7 @@ class Library(domainresource.DomainResource):
         element_property=True,
     )
 
-    content: typing.List[fhirtypes.AttachmentType] = Field(
+    content: typing.List[Attachment] = Field(
         None,
         alias="content",
         title="Contents of the library, either embedded or referenced",
@@ -99,7 +109,7 @@ class Library(domainresource.DomainResource):
         None, alias="_copyright", title="Extension field for ``copyright``."
     )
 
-    dataRequirement: typing.List[fhirtypes.DataRequirementType] = Field(
+    dataRequirement: typing.List[DataRequirement] = Field(
         None,
         alias="dataRequirement",
         title="What data is referenced by this library",
@@ -143,7 +153,7 @@ class Library(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    editor: typing.List[fhirtypes.ContactDetailType] = Field(
+    editor: typing.List[ContactDetail] = Field(
         None,
         alias="editor",
         title="Who edited the content",
@@ -155,7 +165,7 @@ class Library(domainresource.DomainResource):
         element_property=True,
     )
 
-    effectivePeriod: fhirtypes.PeriodType = Field(
+    effectivePeriod: Period = Field(
         None,
         alias="effectivePeriod",
         title="When the library is expected to be used",
@@ -167,7 +177,7 @@ class Library(domainresource.DomainResource):
         element_property=True,
     )
 
-    endorser: typing.List[fhirtypes.ContactDetailType] = Field(
+    endorser: typing.List[ContactDetail] = Field(
         None,
         alias="endorser",
         title="Who endorsed the content",
@@ -195,7 +205,7 @@ class Library(domainresource.DomainResource):
         None, alias="_experimental", title="Extension field for ``experimental``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Additional identifier for the library",
@@ -210,7 +220,7 @@ class Library(domainresource.DomainResource):
         element_property=True,
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction for library (if applicable)",
@@ -254,7 +264,7 @@ class Library(domainresource.DomainResource):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    parameter: typing.List[fhirtypes.ParameterDefinitionType] = Field(
+    parameter: typing.List[ParameterDefinition] = Field(
         None,
         alias="parameter",
         title="Parameters defined by the library",
@@ -290,7 +300,7 @@ class Library(domainresource.DomainResource):
         None, alias="_purpose", title="Extension field for ``purpose``."
     )
 
-    relatedArtifact: typing.List[fhirtypes.RelatedArtifactType] = Field(
+    relatedArtifact: typing.List[RelatedArtifact] = Field(
         None,
         alias="relatedArtifact",
         title="Additional documentation, citations, etc.",
@@ -302,7 +312,7 @@ class Library(domainresource.DomainResource):
         element_property=True,
     )
 
-    reviewer: typing.List[fhirtypes.ContactDetailType] = Field(
+    reviewer: typing.List[ContactDetail] = Field(
         None,
         alias="reviewer",
         title="Who reviewed the content",
@@ -333,7 +343,7 @@ class Library(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subjectCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    subjectCodeableConcept: CodeableConcept = Field(
         None,
         alias="subjectCodeableConcept",
         title="Type of individual the library content is focused on",
@@ -348,7 +358,7 @@ class Library(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    subjectReference: fhirtypes.ReferenceType = Field(
+    subjectReference: Reference = Field(
         None,
         alias="subjectReference",
         title="Type of individual the library content is focused on",
@@ -392,7 +402,7 @@ class Library(domainresource.DomainResource):
         None, alias="_title", title="Extension field for ``title``."
     )
 
-    topic: typing.List[fhirtypes.CodeableConceptType] = Field(
+    topic: typing.List[CodeableConcept] = Field(
         None,
         alias="topic",
         title="E.g. Education, Treatment, Assessment, etc.",
@@ -405,7 +415,7 @@ class Library(domainresource.DomainResource):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title=(
@@ -457,7 +467,7 @@ class Library(domainresource.DomainResource):
         None, alias="_usage", title="Extension field for ``usage``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="The context that the content is intended to support",

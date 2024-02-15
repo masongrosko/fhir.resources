@@ -12,7 +12,11 @@ from pydantic.v1 import Field, root_validator
 
 from . import fhirtypes
 from .backboneelement import BackboneElement
+from .codeableconcept import CodeableConcept
 from .domainresource import DomainResource
+from .identifier import Identifier
+from .reference import Reference
+from .timing import Timing
 
 
 class Order(DomainResource):
@@ -35,9 +39,9 @@ class Order(DomainResource):
     are only implicit in the order details.
     """
 
-    resource_type = Field("Order", const=True)
+    resource_type: str = Field("Order", const=True)
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="List of `Identifier` items (represented as `dict` in JSON).",
@@ -55,7 +59,7 @@ class Order(DomainResource):
         element_property=True,
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title="subject",
@@ -66,7 +70,7 @@ class Order(DomainResource):
         enum_reference_types=["Patient", "Group", "Device", "Substance"],
     )
 
-    source: fhirtypes.ReferenceType = Field(
+    source: Reference = Field(
         None,
         alias="source",
         title="source",
@@ -77,7 +81,7 @@ class Order(DomainResource):
         enum_reference_types=["Practitioner", "Organization"],
     )
 
-    target: fhirtypes.ReferenceType = Field(
+    target: Reference = Field(
         None,
         alias="target",
         title="target",
@@ -88,7 +92,7 @@ class Order(DomainResource):
         enum_reference_types=["Practitioner", "Organization", "Device"],
     )
 
-    reasonCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    reasonCodeableConcept: CodeableConcept = Field(
         None,
         alias="reasonCodeableConcept",
         title="reasonCodeableConcept",
@@ -100,7 +104,7 @@ class Order(DomainResource):
         one_of_many_required=False,
     )
 
-    reasonReference: fhirtypes.ReferenceType = Field(
+    reasonReference: Reference = Field(
         None,
         alias="reasonReference",
         title="reasonReference",
@@ -112,7 +116,7 @@ class Order(DomainResource):
         one_of_many_required=False,
     )
 
-    when: fhirtypes.OrderWhenType = Field(
+    when: "OrderWhen" = Field(
         None,
         alias="when",
         title="when",
@@ -124,7 +128,7 @@ class Order(DomainResource):
         element_property=True,
     )
 
-    detail: ListType[fhirtypes.ReferenceType] = Field(
+    detail: ListType[Reference] = Field(
         ...,
         alias="detail",
         title="detail",
@@ -176,9 +180,9 @@ class OrderWhen(BackboneElement):
     Provide a code or a schedule, but not both
     """
 
-    resource_type = Field("OrderWhen", const=True)
+    resource_type: str = Field("OrderWhen", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="code",
@@ -190,7 +194,7 @@ class OrderWhen(BackboneElement):
         element_property=True,
     )
 
-    schedule: fhirtypes.TimingType = Field(
+    schedule: Timing = Field(
         None,
         alias="schedule",
         title="schedule",
@@ -198,3 +202,6 @@ class OrderWhen(BackboneElement):
         # if property is element of this resource.
         element_property=True,
     )
+
+
+Order.update_forward_refs()

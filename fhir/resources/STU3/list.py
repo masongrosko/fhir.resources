@@ -13,6 +13,10 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .reference import Reference
 
 
 class List(domainresource.DomainResource):
@@ -24,9 +28,9 @@ class List(domainresource.DomainResource):
     A set of information summarized from a list of other resources.
     """
 
-    resource_type = Field("List", const=True)
+    resource_type: str = Field("List", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="What the purpose of this list is",
@@ -47,7 +51,7 @@ class List(domainresource.DomainResource):
         None, alias="_date", title="Extension field for ``date``."
     )
 
-    emptyReason: fhirtypes.CodeableConceptType = Field(
+    emptyReason: CodeableConcept = Field(
         None,
         alias="emptyReason",
         title="Why list is empty",
@@ -56,7 +60,7 @@ class List(domainresource.DomainResource):
         element_property=True,
     )
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title="Context in which list created",
@@ -67,7 +71,7 @@ class List(domainresource.DomainResource):
         enum_reference_types=["Encounter"],
     )
 
-    entry: typing.List[fhirtypes.ListEntryType] = Field(
+    entry: typing.List["ListEntry"] = Field(
         None,
         alias="entry",
         title="Entries in the list",
@@ -76,7 +80,7 @@ class List(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business identifier",
@@ -110,7 +114,7 @@ class List(domainresource.DomainResource):
         None, alias="_mode", title="Extension field for ``mode``."
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Comments about the list",
@@ -119,7 +123,7 @@ class List(domainresource.DomainResource):
         element_property=True,
     )
 
-    orderedBy: fhirtypes.CodeableConceptType = Field(
+    orderedBy: CodeableConcept = Field(
         None,
         alias="orderedBy",
         title="What order the list has",
@@ -128,7 +132,7 @@ class List(domainresource.DomainResource):
         element_property=True,
     )
 
-    source: fhirtypes.ReferenceType = Field(
+    source: Reference = Field(
         None,
         alias="source",
         title="Who and/or what defined the list contents (aka Author)",
@@ -159,7 +163,7 @@ class List(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title="If all resources have the same subject",
@@ -284,7 +288,7 @@ class ListEntry(backboneelement.BackboneElement):
     Entries in this list.
     """
 
-    resource_type = Field("ListEntry", const=True)
+    resource_type: str = Field("ListEntry", const=True)
 
     date: fhirtypes.DateTime = Field(
         None,
@@ -310,7 +314,7 @@ class ListEntry(backboneelement.BackboneElement):
         None, alias="_deleted", title="Extension field for ``deleted``."
     )
 
-    flag: fhirtypes.CodeableConceptType = Field(
+    flag: CodeableConcept = Field(
         None,
         alias="flag",
         title="Status/Workflow information about this item",
@@ -322,7 +326,7 @@ class ListEntry(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    item: fhirtypes.ReferenceType = Field(
+    item: Reference = Field(
         ...,
         alias="item",
         title="Actual entry",
@@ -348,3 +352,6 @@ class ListEntry(backboneelement.BackboneElement):
             "date",
             "item",
         ]
+
+
+List.update_forward_refs()

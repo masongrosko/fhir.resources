@@ -11,6 +11,14 @@ import typing
 from pydantic.v1 import Field, root_validator
 
 from . import backboneelement, domainresource, fhirtypes
+from .address import Address
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .contactpoint import ContactPoint
+from .humanname import HumanName
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class Practitioner(domainresource.DomainResource):
@@ -24,7 +32,7 @@ class Practitioner(domainresource.DomainResource):
     healthcare or related services.
     """
 
-    resource_type = Field("Practitioner", const=True)
+    resource_type: str = Field("Practitioner", const=True)
 
     active: bool = Field(
         None,
@@ -38,7 +46,7 @@ class Practitioner(domainresource.DomainResource):
         None, alias="_active", title="Extension field for ``active``."
     )
 
-    address: typing.List[fhirtypes.AddressType] = Field(
+    address: typing.List[Address] = Field(
         None,
         alias="address",
         title=(
@@ -66,7 +74,7 @@ class Practitioner(domainresource.DomainResource):
         None, alias="_birthDate", title="Extension field for ``birthDate``."
     )
 
-    communication: typing.List[fhirtypes.PractitionerCommunicationType] = Field(
+    communication: typing.List["PractitionerCommunication"] = Field(
         None,
         alias="communication",
         title="A language which may be used to communicate with the practitioner",
@@ -131,7 +139,7 @@ class Practitioner(domainresource.DomainResource):
         None, alias="_gender", title="Extension field for ``gender``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="An identifier for the person as this agent",
@@ -140,7 +148,7 @@ class Practitioner(domainresource.DomainResource):
         element_property=True,
     )
 
-    name: typing.List[fhirtypes.HumanNameType] = Field(
+    name: typing.List[HumanName] = Field(
         None,
         alias="name",
         title="The name(s) associated with the practitioner",
@@ -149,7 +157,7 @@ class Practitioner(domainresource.DomainResource):
         element_property=True,
     )
 
-    photo: typing.List[fhirtypes.AttachmentType] = Field(
+    photo: typing.List[Attachment] = Field(
         None,
         alias="photo",
         title="Image of the person",
@@ -158,7 +166,7 @@ class Practitioner(domainresource.DomainResource):
         element_property=True,
     )
 
-    qualification: typing.List[fhirtypes.PractitionerQualificationType] = Field(
+    qualification: typing.List["PractitionerQualification"] = Field(
         None,
         alias="qualification",
         title=(
@@ -177,7 +185,7 @@ class Practitioner(domainresource.DomainResource):
         element_property=True,
     )
 
-    telecom: typing.List[fhirtypes.ContactPointType] = Field(
+    telecom: typing.List[ContactPoint] = Field(
         None,
         alias="telecom",
         title="A contact detail for the practitioner (that apply to all roles)",
@@ -271,9 +279,9 @@ class PractitionerCommunication(backboneelement.BackboneElement):
     a per Organization/Role basis).
     """
 
-    resource_type = Field("PractitionerCommunication", const=True)
+    resource_type: str = Field("PractitionerCommunication", const=True)
 
-    language: fhirtypes.CodeableConceptType = Field(
+    language: CodeableConcept = Field(
         ...,
         alias="language",
         title="The language code used to communicate with the practitioner",
@@ -327,9 +335,9 @@ class PractitionerQualification(backboneelement.BackboneElement):
     locality.
     """
 
-    resource_type = Field("PractitionerQualification", const=True)
+    resource_type: str = Field("PractitionerQualification", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         ...,
         alias="code",
         title="Coded representation of the qualification",
@@ -338,7 +346,7 @@ class PractitionerQualification(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="An identifier for this qualification for the practitioner",
@@ -347,7 +355,7 @@ class PractitionerQualification(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    issuer: fhirtypes.ReferenceType = Field(
+    issuer: Reference = Field(
         None,
         alias="issuer",
         title="Organization that regulates and issues the qualification",
@@ -358,7 +366,7 @@ class PractitionerQualification(backboneelement.BackboneElement):
         enum_reference_types=["Organization"],
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Period during which the qualification is valid",
@@ -382,3 +390,6 @@ class PractitionerQualification(backboneelement.BackboneElement):
             "period",
             "issuer",
         ]
+
+
+Practitioner.update_forward_refs()

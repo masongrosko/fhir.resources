@@ -11,6 +11,7 @@ from typing import List as ListType
 from pydantic.v1 import Field
 
 from . import fhirtypes
+from .coding import Coding
 from .element import Element
 
 
@@ -22,7 +23,7 @@ class Meta(Element):
     associated with version changes to the resource.
     """
 
-    resource_type = Field("Meta", const=True)
+    resource_type: str = Field("Meta", const=True)
 
     lastUpdated: fhirtypes.Instant = Field(
         None,
@@ -38,14 +39,14 @@ class Meta(Element):
         description="Profiles this resource claims to conform to",
     )
 
-    security: ListType[fhirtypes.CodingType] = Field(
+    security: ListType[Coding] = Field(
         None,
         alias="security",
         title="List of `Coding` items (represented as `dict` in JSON)",
         description="Security Labels applied to this resource",
     )
 
-    tag: ListType[fhirtypes.CodingType] = Field(
+    tag: ListType[Coding] = Field(
         None,
         alias="tag",
         title="List of `Coding` items (represented as `dict` in JSON)",

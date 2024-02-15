@@ -10,7 +10,12 @@ import typing
 
 from pydantic.v1 import Field, root_validator
 
-from . import datatype, fhirtypes
+from . import datatype
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .quantity import Quantity
+from .range import Range
+from .reference import Reference
 
 
 class UsageContext(datatype.DataType):
@@ -25,9 +30,9 @@ class UsageContext(datatype.DataType):
     context of care (e.g., venue, care setting, provider of care).
     """
 
-    resource_type = Field("UsageContext", const=True)
+    resource_type: str = Field("UsageContext", const=True)
 
-    code: fhirtypes.CodingType = Field(
+    code: Coding = Field(
         ...,
         alias="code",
         title="Type of context being specified",
@@ -39,7 +44,7 @@ class UsageContext(datatype.DataType):
         element_property=True,
     )
 
-    valueCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    valueCodeableConcept: CodeableConcept = Field(
         None,
         alias="valueCodeableConcept",
         title="Value that defines the context",
@@ -54,7 +59,7 @@ class UsageContext(datatype.DataType):
         one_of_many_required=True,
     )
 
-    valueQuantity: fhirtypes.QuantityType = Field(
+    valueQuantity: Quantity = Field(
         None,
         alias="valueQuantity",
         title="Value that defines the context",
@@ -69,7 +74,7 @@ class UsageContext(datatype.DataType):
         one_of_many_required=True,
     )
 
-    valueRange: fhirtypes.RangeType = Field(
+    valueRange: Range = Field(
         None,
         alias="valueRange",
         title="Value that defines the context",
@@ -84,7 +89,7 @@ class UsageContext(datatype.DataType):
         one_of_many_required=True,
     )
 
-    valueReference: fhirtypes.ReferenceType = Field(
+    valueReference: Reference = Field(
         None,
         alias="valueReference",
         title="Value that defines the context",

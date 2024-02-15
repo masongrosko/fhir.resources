@@ -13,6 +13,10 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .quantity import Quantity
+from .reference import Reference
 
 
 class MolecularSequence(domainresource.DomainResource):
@@ -24,7 +28,7 @@ class MolecularSequence(domainresource.DomainResource):
     Raw data describing a biological sequence.
     """
 
-    resource_type = Field("MolecularSequence", const=True)
+    resource_type: str = Field("MolecularSequence", const=True)
 
     coordinateSystem: fhirtypes.Integer = Field(
         None,
@@ -49,7 +53,7 @@ class MolecularSequence(domainresource.DomainResource):
         title="Extension field for ``coordinateSystem``.",
     )
 
-    device: fhirtypes.ReferenceType = Field(
+    device: Reference = Field(
         None,
         alias="device",
         title="The method for sequencing",
@@ -60,7 +64,7 @@ class MolecularSequence(domainresource.DomainResource):
         enum_reference_types=["Device"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Unique ID for this particular sequence. This is a FHIR-defined id",
@@ -88,7 +92,7 @@ class MolecularSequence(domainresource.DomainResource):
         None, alias="_observedSeq", title="Extension field for ``observedSeq``."
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         None,
         alias="patient",
         title="Who and/or what this is about",
@@ -99,7 +103,7 @@ class MolecularSequence(domainresource.DomainResource):
         enum_reference_types=["Patient"],
     )
 
-    performer: fhirtypes.ReferenceType = Field(
+    performer: Reference = Field(
         None,
         alias="performer",
         title="Who should be responsible for test result",
@@ -110,7 +114,7 @@ class MolecularSequence(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    pointer: typing.List[fhirtypes.ReferenceType] = Field(
+    pointer: typing.List[Reference] = Field(
         None,
         alias="pointer",
         title="Pointer to next atomic sequence",
@@ -121,7 +125,7 @@ class MolecularSequence(domainresource.DomainResource):
         enum_reference_types=["MolecularSequence"],
     )
 
-    quality: typing.List[fhirtypes.MolecularSequenceQualityType] = Field(
+    quality: typing.List["MolecularSequenceQuality"] = Field(
         None,
         alias="quality",
         title="An set of value as quality of sequence",
@@ -135,7 +139,7 @@ class MolecularSequence(domainresource.DomainResource):
         element_property=True,
     )
 
-    quantity: fhirtypes.QuantityType = Field(
+    quantity: Quantity = Field(
         None,
         alias="quantity",
         title="The number of copies of the sequence of interest.  (RNASeq)",
@@ -162,7 +166,7 @@ class MolecularSequence(domainresource.DomainResource):
         None, alias="_readCoverage", title="Extension field for ``readCoverage``."
     )
 
-    referenceSeq: fhirtypes.MolecularSequenceReferenceSeqType = Field(
+    referenceSeq: "MolecularSequenceReferenceSeq" = Field(
         None,
         alias="referenceSeq",
         title="A sequence used as reference",
@@ -174,7 +178,7 @@ class MolecularSequence(domainresource.DomainResource):
         element_property=True,
     )
 
-    repository: typing.List[fhirtypes.MolecularSequenceRepositoryType] = Field(
+    repository: typing.List["MolecularSequenceRepository"] = Field(
         None,
         alias="repository",
         title=(
@@ -189,7 +193,7 @@ class MolecularSequence(domainresource.DomainResource):
         element_property=True,
     )
 
-    specimen: fhirtypes.ReferenceType = Field(
+    specimen: Reference = Field(
         None,
         alias="specimen",
         title="Specimen used for sequencing",
@@ -200,9 +204,7 @@ class MolecularSequence(domainresource.DomainResource):
         enum_reference_types=["Specimen"],
     )
 
-    structureVariant: typing.List[
-        fhirtypes.MolecularSequenceStructureVariantType
-    ] = Field(
+    structureVariant: typing.List["MolecularSequenceStructureVariant"] = Field(
         None,
         alias="structureVariant",
         title="Structural variant",
@@ -226,7 +228,7 @@ class MolecularSequence(domainresource.DomainResource):
         None, alias="_type", title="Extension field for ``type``."
     )
 
-    variant: typing.List[fhirtypes.MolecularSequenceVariantType] = Field(
+    variant: typing.List["MolecularSequenceVariant"] = Field(
         None,
         alias="variant",
         title="Variant in sequence",
@@ -345,7 +347,7 @@ class MolecularSequenceQuality(backboneelement.BackboneElement):
     ww.sequenceontology.org/browser/current_svn/term/SO:0001686)).
     """
 
-    resource_type = Field("MolecularSequenceQuality", const=True)
+    resource_type: str = Field("MolecularSequenceQuality", const=True)
 
     end: fhirtypes.Integer = Field(
         None,
@@ -398,7 +400,7 @@ class MolecularSequenceQuality(backboneelement.BackboneElement):
         None, alias="_gtFP", title="Extension field for ``gtFP``."
     )
 
-    method: fhirtypes.CodeableConceptType = Field(
+    method: CodeableConcept = Field(
         None,
         alias="method",
         title="Method to get quality",
@@ -466,7 +468,7 @@ class MolecularSequenceQuality(backboneelement.BackboneElement):
         None, alias="_recall", title="Extension field for ``recall``."
     )
 
-    roc: fhirtypes.MolecularSequenceQualityRocType = Field(
+    roc: "MolecularSequenceQualityRoc" = Field(
         None,
         alias="roc",
         title="Receiver Operator Characteristic (ROC) Curve",
@@ -478,7 +480,7 @@ class MolecularSequenceQuality(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    score: fhirtypes.QuantityType = Field(
+    score: Quantity = Field(
         None,
         alias="score",
         title="Quality score for the comparison",
@@ -491,7 +493,7 @@ class MolecularSequenceQuality(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    standardSequence: fhirtypes.CodeableConceptType = Field(
+    standardSequence: CodeableConcept = Field(
         None,
         alias="standardSequence",
         title="Standard sequence for comparison",
@@ -664,7 +666,7 @@ class MolecularSequenceQualityRoc(backboneelement.BackboneElement):
     sensitivity/specificity tradeoff.
     """
 
-    resource_type = Field("MolecularSequenceQualityRoc", const=True)
+    resource_type: str = Field("MolecularSequenceQualityRoc", const=True)
 
     fMeasure: typing.List[typing.Optional[fhirtypes.Decimal]] = Field(
         None,
@@ -801,9 +803,9 @@ class MolecularSequenceReferenceSeq(backboneelement.BackboneElement):
     present in a sequence analyzed.
     """
 
-    resource_type = Field("MolecularSequenceReferenceSeq", const=True)
+    resource_type: str = Field("MolecularSequenceReferenceSeq", const=True)
 
-    chromosome: fhirtypes.CodeableConceptType = Field(
+    chromosome: CodeableConcept = Field(
         None,
         alias="chromosome",
         title="Chromosome containing genetic finding",
@@ -856,7 +858,7 @@ class MolecularSequenceReferenceSeq(backboneelement.BackboneElement):
         None, alias="_orientation", title="Extension field for ``orientation``."
     )
 
-    referenceSeqId: fhirtypes.CodeableConceptType = Field(
+    referenceSeqId: CodeableConcept = Field(
         None,
         alias="referenceSeqId",
         title="Reference identifier",
@@ -872,7 +874,7 @@ class MolecularSequenceReferenceSeq(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    referenceSeqPointer: fhirtypes.ReferenceType = Field(
+    referenceSeqPointer: Reference = Field(
         None,
         alias="referenceSeqPointer",
         title="A pointer to another MolecularSequence entity as reference sequence",
@@ -982,7 +984,7 @@ class MolecularSequenceRepository(backboneelement.BackboneElement):
     target's observedSeq or records related with target's observedSeq.
     """
 
-    resource_type = Field("MolecularSequenceRepository", const=True)
+    resource_type: str = Field("MolecularSequenceRepository", const=True)
 
     datasetId: fhirtypes.String = Field(
         None,
@@ -1164,7 +1166,7 @@ class MolecularSequenceStructureVariant(backboneelement.BackboneElement):
     Information about chromosome structure variation.
     """
 
-    resource_type = Field("MolecularSequenceStructureVariant", const=True)
+    resource_type: str = Field("MolecularSequenceStructureVariant", const=True)
 
     exact: bool = Field(
         None,
@@ -1181,7 +1183,7 @@ class MolecularSequenceStructureVariant(backboneelement.BackboneElement):
         None, alias="_exact", title="Extension field for ``exact``."
     )
 
-    inner: fhirtypes.MolecularSequenceStructureVariantInnerType = Field(
+    inner: "MolecularSequenceStructureVariantInner" = Field(
         None,
         alias="inner",
         title="Structural variant inner",
@@ -1202,7 +1204,7 @@ class MolecularSequenceStructureVariant(backboneelement.BackboneElement):
         None, alias="_length", title="Extension field for ``length``."
     )
 
-    outer: fhirtypes.MolecularSequenceStructureVariantOuterType = Field(
+    outer: "MolecularSequenceStructureVariantOuter" = Field(
         None,
         alias="outer",
         title="Structural variant outer",
@@ -1211,7 +1213,7 @@ class MolecularSequenceStructureVariant(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    variantType: fhirtypes.CodeableConceptType = Field(
+    variantType: CodeableConcept = Field(
         None,
         alias="variantType",
         title="Structural variant change type",
@@ -1246,7 +1248,7 @@ class MolecularSequenceStructureVariantInner(backboneelement.BackboneElement):
     Structural variant inner.
     """
 
-    resource_type = Field("MolecularSequenceStructureVariantInner", const=True)
+    resource_type: str = Field("MolecularSequenceStructureVariantInner", const=True)
 
     end: fhirtypes.Integer = Field(
         None,
@@ -1297,7 +1299,7 @@ class MolecularSequenceStructureVariantOuter(backboneelement.BackboneElement):
     Structural variant outer.
     """
 
-    resource_type = Field("MolecularSequenceStructureVariantOuter", const=True)
+    resource_type: str = Field("MolecularSequenceStructureVariantOuter", const=True)
 
     end: fhirtypes.Integer = Field(
         None,
@@ -1353,7 +1355,7 @@ class MolecularSequenceVariant(backboneelement.BackboneElement):
     segment variation with the assist of CIGAR string.
     """
 
-    resource_type = Field("MolecularSequenceVariant", const=True)
+    resource_type: str = Field("MolecularSequenceVariant", const=True)
 
     cigar: fhirtypes.String = Field(
         None,
@@ -1445,7 +1447,7 @@ class MolecularSequenceVariant(backboneelement.BackboneElement):
         None, alias="_start", title="Extension field for ``start``."
     )
 
-    variantPointer: fhirtypes.ReferenceType = Field(
+    variantPointer: Reference = Field(
         None,
         alias="variantPointer",
         title="Pointer to observed variant information",
@@ -1473,3 +1475,8 @@ class MolecularSequenceVariant(backboneelement.BackboneElement):
             "cigar",
             "variantPointer",
         ]
+
+
+MolecularSequence.update_forward_refs()
+MolecularSequenceQuality.update_forward_refs()
+MolecularSequenceStructureVariant.update_forward_refs()

@@ -13,6 +13,11 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .quantity import Quantity
+from .reference import Reference
 
 
 class VisionPrescription(domainresource.DomainResource):
@@ -25,7 +30,7 @@ class VisionPrescription(domainresource.DomainResource):
     patient.
     """
 
-    resource_type = Field("VisionPrescription", const=True)
+    resource_type: str = Field("VisionPrescription", const=True)
 
     created: fhirtypes.DateTime = Field(
         None,
@@ -53,7 +58,7 @@ class VisionPrescription(domainresource.DomainResource):
         None, alias="_dateWritten", title="Extension field for ``dateWritten``."
     )
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title="Created during encounter / admission / stay",
@@ -68,7 +73,7 @@ class VisionPrescription(domainresource.DomainResource):
         enum_reference_types=["Encounter"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business Identifier for vision prescription",
@@ -77,9 +82,7 @@ class VisionPrescription(domainresource.DomainResource):
         element_property=True,
     )
 
-    lensSpecification: typing.List[
-        fhirtypes.VisionPrescriptionLensSpecificationType
-    ] = Field(
+    lensSpecification: typing.List["VisionPrescriptionLensSpecification"] = Field(
         ...,
         alias="lensSpecification",
         title="Vision lens authorization",
@@ -91,7 +94,7 @@ class VisionPrescription(domainresource.DomainResource):
         element_property=True,
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         ...,
         alias="patient",
         title="Who prescription is for",
@@ -105,7 +108,7 @@ class VisionPrescription(domainresource.DomainResource):
         enum_reference_types=["Patient"],
     )
 
-    prescriber: fhirtypes.ReferenceType = Field(
+    prescriber: Reference = Field(
         ...,
         alias="prescriber",
         title="Who authorized the vision prescription",
@@ -234,7 +237,7 @@ class VisionPrescriptionLensSpecification(backboneelement.BackboneElement):
     the authorization for the fullfillment by certified professionals.
     """
 
-    resource_type = Field("VisionPrescriptionLensSpecification", const=True)
+    resource_type: str = Field("VisionPrescriptionLensSpecification", const=True)
 
     add: fhirtypes.Decimal = Field(
         None,
@@ -323,7 +326,7 @@ class VisionPrescriptionLensSpecification(backboneelement.BackboneElement):
         None, alias="_diameter", title="Extension field for ``diameter``."
     )
 
-    duration: fhirtypes.QuantityType = Field(
+    duration: Quantity = Field(
         None,
         alias="duration",
         title="Lens wear duration",
@@ -348,7 +351,7 @@ class VisionPrescriptionLensSpecification(backboneelement.BackboneElement):
         None, alias="_eye", title="Extension field for ``eye``."
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Notes for coatings",
@@ -369,7 +372,7 @@ class VisionPrescriptionLensSpecification(backboneelement.BackboneElement):
         None, alias="_power", title="Extension field for ``power``."
     )
 
-    prism: typing.List[fhirtypes.VisionPrescriptionLensSpecificationPrismType] = Field(
+    prism: typing.List["VisionPrescriptionLensSpecificationPrism"] = Field(
         None,
         alias="prism",
         title="Eye alignment compensation",
@@ -378,7 +381,7 @@ class VisionPrescriptionLensSpecification(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    product: fhirtypes.CodeableConceptType = Field(
+    product: CodeableConcept = Field(
         ...,
         alias="product",
         title="Product to be supplied",
@@ -497,7 +500,7 @@ class VisionPrescriptionLensSpecificationPrism(backboneelement.BackboneElement):
     Allows for adjustment on two axis.
     """
 
-    resource_type = Field("VisionPrescriptionLensSpecificationPrism", const=True)
+    resource_type: str = Field("VisionPrescriptionLensSpecificationPrism", const=True)
 
     amount: fhirtypes.Decimal = Field(
         None,
@@ -594,3 +597,7 @@ class VisionPrescriptionLensSpecificationPrism(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+VisionPrescription.update_forward_refs()
+VisionPrescriptionLensSpecification.update_forward_refs()

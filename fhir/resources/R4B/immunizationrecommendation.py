@@ -13,6 +13,9 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .reference import Reference
 
 
 class ImmunizationRecommendation(domainresource.DomainResource):
@@ -25,9 +28,9 @@ class ImmunizationRecommendation(domainresource.DomainResource):
     according to a published schedule with optional supporting justification.
     """
 
-    resource_type = Field("ImmunizationRecommendation", const=True)
+    resource_type: str = Field("ImmunizationRecommendation", const=True)
 
-    authority: fhirtypes.ReferenceType = Field(
+    authority: Reference = Field(
         None,
         alias="authority",
         title="Who is responsible for protocol",
@@ -51,7 +54,7 @@ class ImmunizationRecommendation(domainresource.DomainResource):
         None, alias="_date", title="Extension field for ``date``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business identifier",
@@ -60,7 +63,7 @@ class ImmunizationRecommendation(domainresource.DomainResource):
         element_property=True,
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         ...,
         alias="patient",
         title="Who this profile is for",
@@ -71,9 +74,7 @@ class ImmunizationRecommendation(domainresource.DomainResource):
         enum_reference_types=["Patient"],
     )
 
-    recommendation: typing.List[
-        fhirtypes.ImmunizationRecommendationRecommendationType
-    ] = Field(
+    recommendation: typing.List["ImmunizationRecommendationRecommendation"] = Field(
         ...,
         alias="recommendation",
         title="Vaccine administration recommendations",
@@ -172,9 +173,9 @@ class ImmunizationRecommendationRecommendation(backboneelement.BackboneElement):
     Vaccine administration recommendations.
     """
 
-    resource_type = Field("ImmunizationRecommendationRecommendation", const=True)
+    resource_type: str = Field("ImmunizationRecommendationRecommendation", const=True)
 
-    contraindicatedVaccineCode: typing.List[fhirtypes.CodeableConceptType] = Field(
+    contraindicatedVaccineCode: typing.List[CodeableConcept] = Field(
         None,
         alias="contraindicatedVaccineCode",
         title="Vaccine which is contraindicated to fulfill the recommendation",
@@ -184,7 +185,7 @@ class ImmunizationRecommendationRecommendation(backboneelement.BackboneElement):
     )
 
     dateCriterion: typing.List[
-        fhirtypes.ImmunizationRecommendationRecommendationDateCriterionType
+        "ImmunizationRecommendationRecommendationDateCriterion"
     ] = Field(
         None,
         alias="dateCriterion",
@@ -252,7 +253,7 @@ class ImmunizationRecommendationRecommendation(backboneelement.BackboneElement):
         title="Extension field for ``doseNumberString``.",
     )
 
-    forecastReason: typing.List[fhirtypes.CodeableConceptType] = Field(
+    forecastReason: typing.List[CodeableConcept] = Field(
         None,
         alias="forecastReason",
         title="Vaccine administration status reason",
@@ -261,7 +262,7 @@ class ImmunizationRecommendationRecommendation(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    forecastStatus: fhirtypes.CodeableConceptType = Field(
+    forecastStatus: CodeableConcept = Field(
         ...,
         alias="forecastStatus",
         title="Vaccine recommendation status",
@@ -322,7 +323,7 @@ class ImmunizationRecommendationRecommendation(backboneelement.BackboneElement):
         title="Extension field for ``seriesDosesString``.",
     )
 
-    supportingImmunization: typing.List[fhirtypes.ReferenceType] = Field(
+    supportingImmunization: typing.List[Reference] = Field(
         None,
         alias="supportingImmunization",
         title="Past immunizations supporting recommendation",
@@ -336,7 +337,7 @@ class ImmunizationRecommendationRecommendation(backboneelement.BackboneElement):
         enum_reference_types=["Immunization", "ImmunizationEvaluation"],
     )
 
-    supportingPatientInformation: typing.List[fhirtypes.ReferenceType] = Field(
+    supportingPatientInformation: typing.List[Reference] = Field(
         None,
         alias="supportingPatientInformation",
         title="Patient observations supporting recommendation",
@@ -351,7 +352,7 @@ class ImmunizationRecommendationRecommendation(backboneelement.BackboneElement):
         enum_reference_types=["Resource"],
     )
 
-    targetDisease: fhirtypes.CodeableConceptType = Field(
+    targetDisease: CodeableConcept = Field(
         None,
         alias="targetDisease",
         title="Disease to be immunized against",
@@ -360,7 +361,7 @@ class ImmunizationRecommendationRecommendation(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    vaccineCode: typing.List[fhirtypes.CodeableConceptType] = Field(
+    vaccineCode: typing.List[CodeableConcept] = Field(
         None,
         alias="vaccineCode",
         title="Vaccine  or vaccine group recommendation applies to",
@@ -449,11 +450,11 @@ class ImmunizationRecommendationRecommendationDateCriterion(
     latest date to administer, etc.
     """
 
-    resource_type = Field(
+    resource_type: str = Field(
         "ImmunizationRecommendationRecommendationDateCriterion", const=True
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         ...,
         alias="code",
         title="Type of date",
@@ -544,3 +545,7 @@ class ImmunizationRecommendationRecommendationDateCriterion(
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+ImmunizationRecommendation.update_forward_refs()
+ImmunizationRecommendationRecommendation.update_forward_refs()

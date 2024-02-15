@@ -11,6 +11,11 @@ import typing
 from pydantic.v1 import Field, root_validator
 
 from . import backboneelement, domainresource, fhirtypes
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .quantity import Quantity
+from .ratio import Ratio
+from .reference import Reference
 
 
 class Medication(domainresource.DomainResource):
@@ -23,9 +28,9 @@ class Medication(domainresource.DomainResource):
     medication. It covers the ingredients and the packaging for a medication.
     """
 
-    resource_type = Field("Medication", const=True)
+    resource_type: str = Field("Medication", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Codes that identify this medication",
@@ -40,7 +45,7 @@ class Medication(domainresource.DomainResource):
         element_property=True,
     )
 
-    form: fhirtypes.CodeableConceptType = Field(
+    form: CodeableConcept = Field(
         None,
         alias="form",
         title="powder | tablets | capsule +",
@@ -49,7 +54,7 @@ class Medication(domainresource.DomainResource):
         element_property=True,
     )
 
-    image: typing.List[fhirtypes.AttachmentType] = Field(
+    image: typing.List[Attachment] = Field(
         None,
         alias="image",
         title="Picture of the medication",
@@ -58,7 +63,7 @@ class Medication(domainresource.DomainResource):
         element_property=True,
     )
 
-    ingredient: typing.List[fhirtypes.MedicationIngredientType] = Field(
+    ingredient: typing.List["MedicationIngredient"] = Field(
         None,
         alias="ingredient",
         title="Active or inactive ingredient",
@@ -96,7 +101,7 @@ class Medication(domainresource.DomainResource):
         title="Extension field for ``isOverTheCounter``.",
     )
 
-    manufacturer: fhirtypes.ReferenceType = Field(
+    manufacturer: Reference = Field(
         None,
         alias="manufacturer",
         title="Manufacturer of the item",
@@ -111,7 +116,7 @@ class Medication(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    package: fhirtypes.MedicationPackageType = Field(
+    package: "MedicationPackage" = Field(
         None,
         alias="package",
         title="Details about packaged medications",
@@ -171,9 +176,9 @@ class MedicationIngredient(backboneelement.BackboneElement):
     Identifies a particular constituent of interest in the product.
     """
 
-    resource_type = Field("MedicationIngredient", const=True)
+    resource_type: str = Field("MedicationIngredient", const=True)
 
-    amount: fhirtypes.RatioType = Field(
+    amount: Ratio = Field(
         None,
         alias="amount",
         title="Quantity of ingredient present",
@@ -201,7 +206,7 @@ class MedicationIngredient(backboneelement.BackboneElement):
         None, alias="_isActive", title="Extension field for ``isActive``."
     )
 
-    itemCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    itemCodeableConcept: CodeableConcept = Field(
         None,
         alias="itemCodeableConcept",
         title="The product contained",
@@ -216,7 +221,7 @@ class MedicationIngredient(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    itemReference: fhirtypes.ReferenceType = Field(
+    itemReference: Reference = Field(
         None,
         alias="itemReference",
         title="The product contained",
@@ -298,9 +303,9 @@ class MedicationPackage(backboneelement.BackboneElement):
     Information that only applies to packages (not products).
     """
 
-    resource_type = Field("MedicationPackage", const=True)
+    resource_type: str = Field("MedicationPackage", const=True)
 
-    batch: typing.List[fhirtypes.MedicationPackageBatchType] = Field(
+    batch: typing.List["MedicationPackageBatch"] = Field(
         None,
         alias="batch",
         title="Identifies a single production run",
@@ -312,7 +317,7 @@ class MedicationPackage(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    container: fhirtypes.CodeableConceptType = Field(
+    container: CodeableConcept = Field(
         None,
         alias="container",
         title="E.g. box, vial, blister-pack",
@@ -321,7 +326,7 @@ class MedicationPackage(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    content: typing.List[fhirtypes.MedicationPackageContentType] = Field(
+    content: typing.List["MedicationPackageContent"] = Field(
         None,
         alias="content",
         title="What is  in the package",
@@ -349,7 +354,7 @@ class MedicationPackageBatch(backboneelement.BackboneElement):
     production run.
     """
 
-    resource_type = Field("MedicationPackageBatch", const=True)
+    resource_type: str = Field("MedicationPackageBatch", const=True)
 
     expirationDate: fhirtypes.DateTime = Field(
         None,
@@ -393,9 +398,9 @@ class MedicationPackageContent(backboneelement.BackboneElement):
     A set of components that go to make up the described item.
     """
 
-    resource_type = Field("MedicationPackageContent", const=True)
+    resource_type: str = Field("MedicationPackageContent", const=True)
 
-    amount: fhirtypes.QuantityType = Field(
+    amount: Quantity = Field(
         None,
         alias="amount",
         title="Quantity present in the package",
@@ -404,7 +409,7 @@ class MedicationPackageContent(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    itemCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    itemCodeableConcept: CodeableConcept = Field(
         None,
         alias="itemCodeableConcept",
         title="The item in the package",
@@ -416,7 +421,7 @@ class MedicationPackageContent(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    itemReference: fhirtypes.ReferenceType = Field(
+    itemReference: Reference = Field(
         None,
         alias="itemReference",
         title="The item in the package",
@@ -482,3 +487,7 @@ class MedicationPackageContent(backboneelement.BackboneElement):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+Medication.update_forward_refs()
+MedicationPackage.update_forward_refs()

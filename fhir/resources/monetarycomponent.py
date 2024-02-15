@@ -13,6 +13,8 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import datatype, fhirtypes
+from .codeableconcept import CodeableConcept
+from .money import Money
 
 
 class MonetaryComponent(datatype.DataType):
@@ -23,9 +25,9 @@ class MonetaryComponent(datatype.DataType):
     Availability data for an {item}.
     """
 
-    resource_type = Field("MonetaryComponent", const=True)
+    resource_type: str = Field("MonetaryComponent", const=True)
 
-    amount: fhirtypes.MoneyType = Field(
+    amount: Money = Field(
         None,
         alias="amount",
         title="Explicit value amount to be used",
@@ -34,7 +36,7 @@ class MonetaryComponent(datatype.DataType):
         element_property=True,
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title=(

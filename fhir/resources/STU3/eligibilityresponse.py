@@ -11,6 +11,10 @@ import typing
 from pydantic.v1 import Field, root_validator
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .money import Money
+from .reference import Reference
 
 
 class EligibilityResponse(domainresource.DomainResource):
@@ -23,7 +27,7 @@ class EligibilityResponse(domainresource.DomainResource):
     an Eligibility resource.
     """
 
-    resource_type = Field("EligibilityResponse", const=True)
+    resource_type: str = Field("EligibilityResponse", const=True)
 
     created: fhirtypes.DateTime = Field(
         None,
@@ -52,7 +56,7 @@ class EligibilityResponse(domainresource.DomainResource):
         None, alias="_disposition", title="Extension field for ``disposition``."
     )
 
-    error: typing.List[fhirtypes.EligibilityResponseErrorType] = Field(
+    error: typing.List["EligibilityResponseError"] = Field(
         None,
         alias="error",
         title="Processing errors",
@@ -61,7 +65,7 @@ class EligibilityResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    form: fhirtypes.CodeableConceptType = Field(
+    form: CodeableConcept = Field(
         None,
         alias="form",
         title="Printed Form Identifier",
@@ -70,7 +74,7 @@ class EligibilityResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business Identifier",
@@ -95,7 +99,7 @@ class EligibilityResponse(domainresource.DomainResource):
         None, alias="_inforce", title="Extension field for ``inforce``."
     )
 
-    insurance: typing.List[fhirtypes.EligibilityResponseInsuranceType] = Field(
+    insurance: typing.List["EligibilityResponseInsurance"] = Field(
         None,
         alias="insurance",
         title="Details by insurance coverage",
@@ -107,7 +111,7 @@ class EligibilityResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    insurer: fhirtypes.ReferenceType = Field(
+    insurer: Reference = Field(
         None,
         alias="insurer",
         title="Insurer issuing the coverage",
@@ -118,7 +122,7 @@ class EligibilityResponse(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    outcome: fhirtypes.CodeableConceptType = Field(
+    outcome: CodeableConcept = Field(
         None,
         alias="outcome",
         title="complete | error | partial",
@@ -127,7 +131,7 @@ class EligibilityResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    request: fhirtypes.ReferenceType = Field(
+    request: Reference = Field(
         None,
         alias="request",
         title="Eligibility reference",
@@ -138,7 +142,7 @@ class EligibilityResponse(domainresource.DomainResource):
         enum_reference_types=["EligibilityRequest"],
     )
 
-    requestOrganization: fhirtypes.ReferenceType = Field(
+    requestOrganization: Reference = Field(
         None,
         alias="requestOrganization",
         title="Responsible organization",
@@ -152,7 +156,7 @@ class EligibilityResponse(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    requestProvider: fhirtypes.ReferenceType = Field(
+    requestProvider: Reference = Field(
         None,
         alias="requestProvider",
         title="Responsible practitioner",
@@ -221,9 +225,9 @@ class EligibilityResponseError(backboneelement.BackboneElement):
     Mutually exclusive with Services Provided (Item).
     """
 
-    resource_type = Field("EligibilityResponseError", const=True)
+    resource_type: str = Field("EligibilityResponseError", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         ...,
         alias="code",
         title="Error code detailing processing issues",
@@ -254,11 +258,9 @@ class EligibilityResponseInsurance(backboneelement.BackboneElement):
     as details for additional coverages known to the insurer.
     """
 
-    resource_type = Field("EligibilityResponseInsurance", const=True)
+    resource_type: str = Field("EligibilityResponseInsurance", const=True)
 
-    benefitBalance: typing.List[
-        fhirtypes.EligibilityResponseInsuranceBenefitBalanceType
-    ] = Field(
+    benefitBalance: typing.List["EligibilityResponseInsuranceBenefitBalance"] = Field(
         None,
         alias="benefitBalance",
         title="Benefits by Category",
@@ -267,7 +269,7 @@ class EligibilityResponseInsurance(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    contract: fhirtypes.ReferenceType = Field(
+    contract: Reference = Field(
         None,
         alias="contract",
         title="Contract details",
@@ -278,7 +280,7 @@ class EligibilityResponseInsurance(backboneelement.BackboneElement):
         enum_reference_types=["Contract"],
     )
 
-    coverage: fhirtypes.ReferenceType = Field(
+    coverage: Reference = Field(
         None,
         alias="coverage",
         title="Updated Coverage details",
@@ -314,9 +316,9 @@ class EligibilityResponseInsuranceBenefitBalance(backboneelement.BackboneElement
     Benefits and optionally current balances by Category.
     """
 
-    resource_type = Field("EligibilityResponseInsuranceBenefitBalance", const=True)
+    resource_type: str = Field("EligibilityResponseInsuranceBenefitBalance", const=True)
 
-    category: fhirtypes.CodeableConceptType = Field(
+    category: CodeableConcept = Field(
         ...,
         alias="category",
         title="Type of services covered",
@@ -356,15 +358,15 @@ class EligibilityResponseInsuranceBenefitBalance(backboneelement.BackboneElement
         None, alias="_excluded", title="Extension field for ``excluded``."
     )
 
-    financial: typing.List[
-        fhirtypes.EligibilityResponseInsuranceBenefitBalanceFinancialType
-    ] = Field(
-        None,
-        alias="financial",
-        title="Benefit Summary",
-        description="Benefits Used to date.",
-        # if property is element of this resource.
-        element_property=True,
+    financial: typing.List["EligibilityResponseInsuranceBenefitBalanceFinancial"] = (
+        Field(
+            None,
+            alias="financial",
+            title="Benefit Summary",
+            description="Benefits Used to date.",
+            # if property is element of this resource.
+            element_property=True,
+        )
     )
 
     name: fhirtypes.String = Field(
@@ -379,7 +381,7 @@ class EligibilityResponseInsuranceBenefitBalance(backboneelement.BackboneElement
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    network: fhirtypes.CodeableConceptType = Field(
+    network: CodeableConcept = Field(
         None,
         alias="network",
         title="In or out of network",
@@ -388,7 +390,7 @@ class EligibilityResponseInsuranceBenefitBalance(backboneelement.BackboneElement
         element_property=True,
     )
 
-    subCategory: fhirtypes.CodeableConceptType = Field(
+    subCategory: CodeableConcept = Field(
         None,
         alias="subCategory",
         title="Detailed services covered within the type",
@@ -397,7 +399,7 @@ class EligibilityResponseInsuranceBenefitBalance(backboneelement.BackboneElement
         element_property=True,
     )
 
-    term: fhirtypes.CodeableConceptType = Field(
+    term: CodeableConcept = Field(
         None,
         alias="term",
         title="Annual or lifetime",
@@ -409,7 +411,7 @@ class EligibilityResponseInsuranceBenefitBalance(backboneelement.BackboneElement
         element_property=True,
     )
 
-    unit: fhirtypes.CodeableConceptType = Field(
+    unit: CodeableConcept = Field(
         None,
         alias="unit",
         title="Individual or family",
@@ -451,11 +453,11 @@ class EligibilityResponseInsuranceBenefitBalanceFinancial(
     Benefits Used to date.
     """
 
-    resource_type = Field(
+    resource_type: str = Field(
         "EligibilityResponseInsuranceBenefitBalanceFinancial", const=True
     )
 
-    allowedMoney: fhirtypes.MoneyType = Field(
+    allowedMoney: Money = Field(
         None,
         alias="allowedMoney",
         title="Benefits allowed",
@@ -499,7 +501,7 @@ class EligibilityResponseInsuranceBenefitBalanceFinancial(
         title="Extension field for ``allowedUnsignedInt``.",
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title="Deductable, visits, benefit amount",
@@ -508,7 +510,7 @@ class EligibilityResponseInsuranceBenefitBalanceFinancial(
         element_property=True,
     )
 
-    usedMoney: fhirtypes.MoneyType = Field(
+    usedMoney: Money = Field(
         None,
         alias="usedMoney",
         title="Benefits used",
@@ -593,3 +595,8 @@ class EligibilityResponseInsuranceBenefitBalanceFinancial(
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+EligibilityResponse.update_forward_refs()
+EligibilityResponseInsurance.update_forward_refs()
+EligibilityResponseInsuranceBenefitBalance.update_forward_refs()

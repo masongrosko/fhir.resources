@@ -13,6 +13,11 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .contactdetail import ContactDetail
+from .identifier import Identifier
+from .usagecontext import UsageContext
 
 
 class GraphDefinition(domainresource.DomainResource):
@@ -26,9 +31,9 @@ class GraphDefinition(domainresource.DomainResource):
     Graph Definition resource defines a set and makes rules about the set.
     """
 
-    resource_type = Field("GraphDefinition", const=True)
+    resource_type: str = Field("GraphDefinition", const=True)
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -122,7 +127,7 @@ class GraphDefinition(domainresource.DomainResource):
         None, alias="_experimental", title="Extension field for ``experimental``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Additional identifier for the GraphDefinition (business identifier)",
@@ -135,7 +140,7 @@ class GraphDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction for graph definition (if applicable)",
@@ -147,7 +152,7 @@ class GraphDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    link: typing.List[fhirtypes.GraphDefinitionLinkType] = Field(
+    link: typing.List["GraphDefinitionLink"] = Field(
         None,
         alias="link",
         title="Links this graph makes rules about",
@@ -173,7 +178,7 @@ class GraphDefinition(domainresource.DomainResource):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    node: typing.List[fhirtypes.GraphDefinitionNodeType] = Field(
+    node: typing.List["GraphDefinitionNode"] = Field(
         None,
         alias="node",
         title="Potential target for the link",
@@ -283,7 +288,7 @@ class GraphDefinition(domainresource.DomainResource):
         None, alias="_url", title="Extension field for ``url``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="The context that the content is intended to support",
@@ -318,7 +323,7 @@ class GraphDefinition(domainresource.DomainResource):
         None, alias="_version", title="Extension field for ``version``."
     )
 
-    versionAlgorithmCoding: fhirtypes.CodingType = Field(
+    versionAlgorithmCoding: Coding = Field(
         None,
         alias="versionAlgorithmCoding",
         title="How to compare versions",
@@ -499,9 +504,9 @@ class GraphDefinitionLink(backboneelement.BackboneElement):
     Links this graph makes rules about.
     """
 
-    resource_type = Field("GraphDefinitionLink", const=True)
+    resource_type: str = Field("GraphDefinitionLink", const=True)
 
-    compartment: typing.List[fhirtypes.GraphDefinitionLinkCompartmentType] = Field(
+    compartment: typing.List["GraphDefinitionLinkCompartment"] = Field(
         None,
         alias="compartment",
         title="Compartment Consistency Rules",
@@ -703,7 +708,7 @@ class GraphDefinitionLinkCompartment(backboneelement.BackboneElement):
     Compartment Consistency Rules.
     """
 
-    resource_type = Field("GraphDefinitionLinkCompartment", const=True)
+    resource_type: str = Field("GraphDefinitionLinkCompartment", const=True)
 
     code: fhirtypes.Code = Field(
         None,
@@ -880,7 +885,7 @@ class GraphDefinitionNode(backboneelement.BackboneElement):
     Potential target for the link.
     """
 
-    resource_type = Field("GraphDefinitionNode", const=True)
+    resource_type: str = Field("GraphDefinitionNode", const=True)
 
     description: fhirtypes.String = Field(
         None,
@@ -1011,3 +1016,7 @@ class GraphDefinitionNode(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+GraphDefinition.update_forward_refs()
+GraphDefinitionLink.update_forward_refs()

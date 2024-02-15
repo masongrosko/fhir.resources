@@ -13,6 +13,16 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .annotation import Annotation
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .contactdetail import ContactDetail
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
+from .relatedartifact import RelatedArtifact
+from .usagecontext import UsageContext
 
 
 class Citation(domainresource.DomainResource):
@@ -29,7 +39,7 @@ class Citation(domainresource.DomainResource):
     computable resources.
     """
 
-    resource_type = Field("Citation", const=True)
+    resource_type: str = Field("Citation", const=True)
 
     approvalDate: fhirtypes.Date = Field(
         None,
@@ -47,7 +57,7 @@ class Citation(domainresource.DomainResource):
         None, alias="_approvalDate", title="Extension field for ``approvalDate``."
     )
 
-    author: typing.List[fhirtypes.ContactDetailType] = Field(
+    author: typing.List[ContactDetail] = Field(
         None,
         alias="author",
         title="Who authored the citation record",
@@ -56,7 +66,7 @@ class Citation(domainresource.DomainResource):
         element_property=True,
     )
 
-    citedArtifact: fhirtypes.CitationCitedArtifactType = Field(
+    citedArtifact: "CitationCitedArtifact" = Field(
         None,
         alias="citedArtifact",
         title="The article or artifact being described",
@@ -65,7 +75,7 @@ class Citation(domainresource.DomainResource):
         element_property=True,
     )
 
-    classification: typing.List[fhirtypes.CitationClassificationType] = Field(
+    classification: typing.List["CitationClassification"] = Field(
         None,
         alias="classification",
         title="The assignment to an organizing scheme",
@@ -74,7 +84,7 @@ class Citation(domainresource.DomainResource):
         element_property=True,
     )
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher of the citation record",
@@ -121,7 +131,7 @@ class Citation(domainresource.DomainResource):
         None, alias="_copyrightLabel", title="Extension field for ``copyrightLabel``."
     )
 
-    currentState: typing.List[fhirtypes.CodeableConceptType] = Field(
+    currentState: typing.List[CodeableConcept] = Field(
         None,
         alias="currentState",
         title="The status of the citation record",
@@ -163,7 +173,7 @@ class Citation(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    editor: typing.List[fhirtypes.ContactDetailType] = Field(
+    editor: typing.List[ContactDetail] = Field(
         None,
         alias="editor",
         title="Who edited the citation record",
@@ -172,7 +182,7 @@ class Citation(domainresource.DomainResource):
         element_property=True,
     )
 
-    effectivePeriod: fhirtypes.PeriodType = Field(
+    effectivePeriod: Period = Field(
         None,
         alias="effectivePeriod",
         title="When the citation record is expected to be used",
@@ -184,7 +194,7 @@ class Citation(domainresource.DomainResource):
         element_property=True,
     )
 
-    endorser: typing.List[fhirtypes.ContactDetailType] = Field(
+    endorser: typing.List[ContactDetail] = Field(
         None,
         alias="endorser",
         title="Who endorsed the citation record",
@@ -209,7 +219,7 @@ class Citation(domainresource.DomainResource):
         None, alias="_experimental", title="Extension field for ``experimental``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Identifier for the citation record itself",
@@ -222,7 +232,7 @@ class Citation(domainresource.DomainResource):
         element_property=True,
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction for citation record (if applicable)",
@@ -266,7 +276,7 @@ class Citation(domainresource.DomainResource):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Used for general notes and annotations not coded elsewhere",
@@ -308,7 +318,7 @@ class Citation(domainresource.DomainResource):
         None, alias="_purpose", title="Extension field for ``purpose``."
     )
 
-    relatedArtifact: typing.List[fhirtypes.RelatedArtifactType] = Field(
+    relatedArtifact: typing.List[RelatedArtifact] = Field(
         None,
         alias="relatedArtifact",
         title="Artifact related to the citation record",
@@ -317,7 +327,7 @@ class Citation(domainresource.DomainResource):
         element_property=True,
     )
 
-    reviewer: typing.List[fhirtypes.ContactDetailType] = Field(
+    reviewer: typing.List[ContactDetail] = Field(
         None,
         alias="reviewer",
         title="Who reviewed the citation record",
@@ -345,7 +355,7 @@ class Citation(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    statusDate: typing.List[fhirtypes.CitationStatusDateType] = Field(
+    statusDate: typing.List["CitationStatusDate"] = Field(
         None,
         alias="statusDate",
         title="An effective date or period for a status of the citation record",
@@ -357,7 +367,7 @@ class Citation(domainresource.DomainResource):
         element_property=True,
     )
 
-    summary: typing.List[fhirtypes.CitationSummaryType] = Field(
+    summary: typing.List["CitationSummary"] = Field(
         None,
         alias="summary",
         title="A human-readable display of key concepts to represent the citation",
@@ -401,7 +411,7 @@ class Citation(domainresource.DomainResource):
         None, alias="_url", title="Extension field for ``url``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="The context that the citation record content is intended to support",
@@ -436,7 +446,7 @@ class Citation(domainresource.DomainResource):
         None, alias="_version", title="Extension field for ``version``."
     )
 
-    versionAlgorithmCoding: fhirtypes.CodingType = Field(
+    versionAlgorithmCoding: Coding = Field(
         None,
         alias="versionAlgorithmCoding",
         title="How to compare versions",
@@ -628,9 +638,9 @@ class CitationCitedArtifact(backboneelement.BackboneElement):
     The article or artifact being described.
     """
 
-    resource_type = Field("CitationCitedArtifact", const=True)
+    resource_type: str = Field("CitationCitedArtifact", const=True)
 
-    abstract: typing.List[fhirtypes.CitationCitedArtifactAbstractType] = Field(
+    abstract: typing.List["CitationCitedArtifactAbstract"] = Field(
         None,
         alias="abstract",
         title="Summary of the article or artifact",
@@ -642,9 +652,7 @@ class CitationCitedArtifact(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    classification: typing.List[
-        fhirtypes.CitationCitedArtifactClassificationType
-    ] = Field(
+    classification: typing.List["CitationCitedArtifactClassification"] = Field(
         None,
         alias="classification",
         title="The assignment to an organizing scheme",
@@ -653,7 +661,7 @@ class CitationCitedArtifact(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    contributorship: fhirtypes.CitationCitedArtifactContributorshipType = Field(
+    contributorship: "CitationCitedArtifactContributorship" = Field(
         None,
         alias="contributorship",
         title="Attribution of authors and other contributors",
@@ -665,7 +673,7 @@ class CitationCitedArtifact(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    currentState: typing.List[fhirtypes.CodeableConceptType] = Field(
+    currentState: typing.List[CodeableConcept] = Field(
         None,
         alias="currentState",
         title="The status of the cited artifact",
@@ -686,7 +694,7 @@ class CitationCitedArtifact(backboneelement.BackboneElement):
         None, alias="_dateAccessed", title="Extension field for ``dateAccessed``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Unique identifier. May include DOI, PMID, PMCID, etc",
@@ -699,7 +707,7 @@ class CitationCitedArtifact(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Any additional information or content for the article or artifact",
@@ -708,7 +716,7 @@ class CitationCitedArtifact(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    part: fhirtypes.CitationCitedArtifactPartType = Field(
+    part: "CitationCitedArtifactPart" = Field(
         None,
         alias="part",
         title="The component of the article or artifact",
@@ -717,9 +725,7 @@ class CitationCitedArtifact(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    publicationForm: typing.List[
-        fhirtypes.CitationCitedArtifactPublicationFormType
-    ] = Field(
+    publicationForm: typing.List["CitationCitedArtifactPublicationForm"] = Field(
         None,
         alias="publicationForm",
         title=(
@@ -731,7 +737,7 @@ class CitationCitedArtifact(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    relatedIdentifier: typing.List[fhirtypes.IdentifierType] = Field(
+    relatedIdentifier: typing.List[Identifier] = Field(
         None,
         alias="relatedIdentifier",
         title=(
@@ -746,7 +752,7 @@ class CitationCitedArtifact(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    relatesTo: typing.List[fhirtypes.CitationCitedArtifactRelatesToType] = Field(
+    relatesTo: typing.List["CitationCitedArtifactRelatesTo"] = Field(
         None,
         alias="relatesTo",
         title="The artifact related to the cited artifact",
@@ -755,7 +761,7 @@ class CitationCitedArtifact(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    statusDate: typing.List[fhirtypes.CitationCitedArtifactStatusDateType] = Field(
+    statusDate: typing.List["CitationCitedArtifactStatusDate"] = Field(
         None,
         alias="statusDate",
         title="An effective date or period for a status of the cited artifact",
@@ -767,7 +773,7 @@ class CitationCitedArtifact(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    title: typing.List[fhirtypes.CitationCitedArtifactTitleType] = Field(
+    title: typing.List["CitationCitedArtifactTitle"] = Field(
         None,
         alias="title",
         title="The title details of the article or artifact",
@@ -776,7 +782,7 @@ class CitationCitedArtifact(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    version: fhirtypes.CitationCitedArtifactVersionType = Field(
+    version: "CitationCitedArtifactVersion" = Field(
         None,
         alias="version",
         title="The defined version of the cited artifact",
@@ -785,7 +791,7 @@ class CitationCitedArtifact(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    webLocation: typing.List[fhirtypes.CitationCitedArtifactWebLocationType] = Field(
+    webLocation: typing.List["CitationCitedArtifactWebLocation"] = Field(
         None,
         alias="webLocation",
         title="Used for any URL for the article or artifact cited",
@@ -832,7 +838,7 @@ class CitationCitedArtifactAbstract(backboneelement.BackboneElement):
     created abstracts, or other descriptive summaries.
     """
 
-    resource_type = Field("CitationCitedArtifactAbstract", const=True)
+    resource_type: str = Field("CitationCitedArtifactAbstract", const=True)
 
     copyright: fhirtypes.Markdown = Field(
         None,
@@ -846,7 +852,7 @@ class CitationCitedArtifactAbstract(backboneelement.BackboneElement):
         None, alias="_copyright", title="Extension field for ``copyright``."
     )
 
-    language: fhirtypes.CodeableConceptType = Field(
+    language: CodeableConcept = Field(
         None,
         alias="language",
         title="Used to express the specific language",
@@ -868,7 +874,7 @@ class CitationCitedArtifactAbstract(backboneelement.BackboneElement):
         None, alias="_text", title="Extension field for ``text``."
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="The kind of abstract",
@@ -961,9 +967,9 @@ class CitationCitedArtifactClassification(backboneelement.BackboneElement):
     The assignment to an organizing scheme.
     """
 
-    resource_type = Field("CitationCitedArtifactClassification", const=True)
+    resource_type: str = Field("CitationCitedArtifactClassification", const=True)
 
-    artifactAssessment: typing.List[fhirtypes.ReferenceType] = Field(
+    artifactAssessment: typing.List[Reference] = Field(
         None,
         alias="artifactAssessment",
         title="Complex or externally created classification",
@@ -974,7 +980,7 @@ class CitationCitedArtifactClassification(backboneelement.BackboneElement):
         enum_reference_types=["ArtifactAssessment"],
     )
 
-    classifier: typing.List[fhirtypes.CodeableConceptType] = Field(
+    classifier: typing.List[CodeableConcept] = Field(
         None,
         alias="classifier",
         title="The specific classification value",
@@ -983,7 +989,7 @@ class CitationCitedArtifactClassification(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="The kind of classifier (e.g. publication type, keyword)",
@@ -1018,7 +1024,7 @@ class CitationCitedArtifactContributorship(backboneelement.BackboneElement):
     information, specific contributions, and summary statements.
     """
 
-    resource_type = Field("CitationCitedArtifactContributorship", const=True)
+    resource_type: str = Field("CitationCitedArtifactContributorship", const=True)
 
     complete: bool = Field(
         None,
@@ -1032,7 +1038,7 @@ class CitationCitedArtifactContributorship(backboneelement.BackboneElement):
         None, alias="_complete", title="Extension field for ``complete``."
     )
 
-    entry: typing.List[fhirtypes.CitationCitedArtifactContributorshipEntryType] = Field(
+    entry: typing.List["CitationCitedArtifactContributorshipEntry"] = Field(
         None,
         alias="entry",
         title="An individual entity named as a contributor",
@@ -1044,9 +1050,7 @@ class CitationCitedArtifactContributorship(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    summary: typing.List[
-        fhirtypes.CitationCitedArtifactContributorshipSummaryType
-    ] = Field(
+    summary: typing.List["CitationCitedArtifactContributorshipSummary"] = Field(
         None,
         alias="summary",
         title=(
@@ -1077,9 +1081,9 @@ class CitationCitedArtifactContributorshipEntry(backboneelement.BackboneElement)
     or contributor list.
     """
 
-    resource_type = Field("CitationCitedArtifactContributorshipEntry", const=True)
+    resource_type: str = Field("CitationCitedArtifactContributorshipEntry", const=True)
 
-    affiliation: typing.List[fhirtypes.ReferenceType] = Field(
+    affiliation: typing.List[Reference] = Field(
         None,
         alias="affiliation",
         title="Organizational affiliation",
@@ -1091,7 +1095,7 @@ class CitationCitedArtifactContributorshipEntry(backboneelement.BackboneElement)
     )
 
     contributionInstance: typing.List[
-        fhirtypes.CitationCitedArtifactContributorshipEntryContributionInstanceType
+        "CitationCitedArtifactContributorshipEntryContributionInstance"
     ] = Field(
         None,
         alias="contributionInstance",
@@ -1101,7 +1105,7 @@ class CitationCitedArtifactContributorshipEntry(backboneelement.BackboneElement)
         element_property=True,
     )
 
-    contributionType: typing.List[fhirtypes.CodeableConceptType] = Field(
+    contributionType: typing.List[CodeableConcept] = Field(
         None,
         alias="contributionType",
         title="The specific contribution",
@@ -1113,7 +1117,7 @@ class CitationCitedArtifactContributorshipEntry(backboneelement.BackboneElement)
         element_property=True,
     )
 
-    contributor: fhirtypes.ReferenceType = Field(
+    contributor: Reference = Field(
         ...,
         alias="contributor",
         title="The identity of the individual contributor",
@@ -1168,7 +1172,7 @@ class CitationCitedArtifactContributorshipEntry(backboneelement.BackboneElement)
         None, alias="_rankingOrder", title="Extension field for ``rankingOrder``."
     )
 
-    role: fhirtypes.CodeableConceptType = Field(
+    role: CodeableConcept = Field(
         None,
         alias="role",
         title="The role of the contributor (e.g. author, editor, reviewer, funder)",
@@ -1208,7 +1212,7 @@ class CitationCitedArtifactContributorshipEntryContributionInstance(
     Contributions with accounting for time or number.
     """
 
-    resource_type = Field(
+    resource_type: str = Field(
         "CitationCitedArtifactContributorshipEntryContributionInstance", const=True
     )
 
@@ -1224,7 +1228,7 @@ class CitationCitedArtifactContributorshipEntryContributionInstance(
         None, alias="_time", title="Extension field for ``time``."
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title="The specific contribution",
@@ -1252,9 +1256,11 @@ class CitationCitedArtifactContributorshipSummary(backboneelement.BackboneElemen
     data element for each list member.
     """
 
-    resource_type = Field("CitationCitedArtifactContributorshipSummary", const=True)
+    resource_type: str = Field(
+        "CitationCitedArtifactContributorshipSummary", const=True
+    )
 
-    source: fhirtypes.CodeableConceptType = Field(
+    source: CodeableConcept = Field(
         None,
         alias="source",
         title="Used to code the producer or rule for creating the display string",
@@ -1263,7 +1269,7 @@ class CitationCitedArtifactContributorshipSummary(backboneelement.BackboneElemen
         element_property=True,
     )
 
-    style: fhirtypes.CodeableConceptType = Field(
+    style: CodeableConcept = Field(
         None,
         alias="style",
         title="The format for the display string",
@@ -1275,7 +1281,7 @@ class CitationCitedArtifactContributorshipSummary(backboneelement.BackboneElemen
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title=(
@@ -1390,9 +1396,9 @@ class CitationCitedArtifactPart(backboneelement.BackboneElement):
     The component of the article or artifact.
     """
 
-    resource_type = Field("CitationCitedArtifactPart", const=True)
+    resource_type: str = Field("CitationCitedArtifactPart", const=True)
 
-    baseCitation: fhirtypes.ReferenceType = Field(
+    baseCitation: Reference = Field(
         None,
         alias="baseCitation",
         title="The citation for the full article or artifact",
@@ -1403,7 +1409,7 @@ class CitationCitedArtifactPart(backboneelement.BackboneElement):
         enum_reference_types=["Citation"],
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="The kind of component",
@@ -1442,7 +1448,7 @@ class CitationCitedArtifactPublicationForm(backboneelement.BackboneElement):
     not separate citations.
     """
 
-    resource_type = Field("CitationCitedArtifactPublicationForm", const=True)
+    resource_type: str = Field("CitationCitedArtifactPublicationForm", const=True)
 
     accessionNumber: fhirtypes.String = Field(
         None,
@@ -1471,7 +1477,7 @@ class CitationCitedArtifactPublicationForm(backboneelement.BackboneElement):
         None, alias="_articleDate", title="Extension field for ``articleDate``."
     )
 
-    citedMedium: fhirtypes.CodeableConceptType = Field(
+    citedMedium: CodeableConcept = Field(
         None,
         alias="citedMedium",
         title="Internet or Print",
@@ -1530,7 +1536,7 @@ class CitationCitedArtifactPublicationForm(backboneelement.BackboneElement):
         None, alias="_issue", title="Extension field for ``issue``."
     )
 
-    language: typing.List[fhirtypes.CodeableConceptType] = Field(
+    language: typing.List[CodeableConcept] = Field(
         None,
         alias="language",
         title="Language(s) in which this form of the article is published",
@@ -1626,7 +1632,7 @@ class CitationCitedArtifactPublicationForm(backboneelement.BackboneElement):
         title="Extension field for ``publicationDateText``.",
     )
 
-    publishedIn: fhirtypes.CitationCitedArtifactPublicationFormPublishedInType = Field(
+    publishedIn: "CitationCitedArtifactPublicationFormPublishedIn" = Field(
         None,
         alias="publishedIn",
         title="The collection the cited article or artifact is published in",
@@ -1686,9 +1692,11 @@ class CitationCitedArtifactPublicationFormPublishedIn(backboneelement.BackboneEl
     The collection the cited article or artifact is published in.
     """
 
-    resource_type = Field("CitationCitedArtifactPublicationFormPublishedIn", const=True)
+    resource_type: str = Field(
+        "CitationCitedArtifactPublicationFormPublishedIn", const=True
+    )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title=(
@@ -1700,7 +1708,7 @@ class CitationCitedArtifactPublicationFormPublishedIn(backboneelement.BackboneEl
         element_property=True,
     )
 
-    publisher: fhirtypes.ReferenceType = Field(
+    publisher: Reference = Field(
         None,
         alias="publisher",
         title="Name of or resource describing the publisher",
@@ -1737,7 +1745,7 @@ class CitationCitedArtifactPublicationFormPublishedIn(backboneelement.BackboneEl
         None, alias="_title", title="Extension field for ``title``."
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Kind of container (e.g. Periodical, database, or book)",
@@ -1772,7 +1780,7 @@ class CitationCitedArtifactRelatesTo(backboneelement.BackboneElement):
     The artifact related to the cited artifact.
     """
 
-    resource_type = Field("CitationCitedArtifactRelatesTo", const=True)
+    resource_type: str = Field("CitationCitedArtifactRelatesTo", const=True)
 
     citation: fhirtypes.Markdown = Field(
         None,
@@ -1789,7 +1797,7 @@ class CitationCitedArtifactRelatesTo(backboneelement.BackboneElement):
         None, alias="_citation", title="Extension field for ``citation``."
     )
 
-    classifier: typing.List[fhirtypes.CodeableConceptType] = Field(
+    classifier: typing.List[CodeableConcept] = Field(
         None,
         alias="classifier",
         title="Additional classifiers",
@@ -1813,7 +1821,7 @@ class CitationCitedArtifactRelatesTo(backboneelement.BackboneElement):
         None, alias="_display", title="Extension field for ``display``."
     )
 
-    document: fhirtypes.AttachmentType = Field(
+    document: Attachment = Field(
         None,
         alias="document",
         title="What document is being referenced",
@@ -1856,7 +1864,7 @@ class CitationCitedArtifactRelatesTo(backboneelement.BackboneElement):
         None, alias="_resource", title="Extension field for ``resource``."
     )
 
-    resourceReference: fhirtypes.ReferenceType = Field(
+    resourceReference: Reference = Field(
         None,
         alias="resourceReference",
         title="What artifact, if not a conformance resource",
@@ -2022,9 +2030,9 @@ class CitationCitedArtifactStatusDate(backboneelement.BackboneElement):
     a status of the cited artifact.
     """
 
-    resource_type = Field("CitationCitedArtifactStatusDate", const=True)
+    resource_type: str = Field("CitationCitedArtifactStatusDate", const=True)
 
-    activity: fhirtypes.CodeableConceptType = Field(
+    activity: CodeableConcept = Field(
         ...,
         alias="activity",
         title="Classification of the status",
@@ -2045,7 +2053,7 @@ class CitationCitedArtifactStatusDate(backboneelement.BackboneElement):
         None, alias="_actual", title="Extension field for ``actual``."
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         ...,
         alias="period",
         title="When the status started and/or ended",
@@ -2071,9 +2079,9 @@ class CitationCitedArtifactTitle(backboneelement.BackboneElement):
     The title details of the article or artifact.
     """
 
-    resource_type = Field("CitationCitedArtifactTitle", const=True)
+    resource_type: str = Field("CitationCitedArtifactTitle", const=True)
 
-    language: fhirtypes.CodeableConceptType = Field(
+    language: CodeableConcept = Field(
         None,
         alias="language",
         title="Used to express the specific language",
@@ -2095,7 +2103,7 @@ class CitationCitedArtifactTitle(backboneelement.BackboneElement):
         None, alias="_text", title="Extension field for ``text``."
     )
 
-    type: typing.List[fhirtypes.CodeableConceptType] = Field(
+    type: typing.List[CodeableConcept] = Field(
         None,
         alias="type",
         title="The kind of title",
@@ -2180,9 +2188,9 @@ class CitationCitedArtifactVersion(backboneelement.BackboneElement):
     The defined version of the cited artifact.
     """
 
-    resource_type = Field("CitationCitedArtifactVersion", const=True)
+    resource_type: str = Field("CitationCitedArtifactVersion", const=True)
 
-    baseCitation: fhirtypes.ReferenceType = Field(
+    baseCitation: Reference = Field(
         None,
         alias="baseCitation",
         title="Citation for the main version of the cited artifact",
@@ -2282,9 +2290,9 @@ class CitationCitedArtifactWebLocation(backboneelement.BackboneElement):
     Used for any URL for the article or artifact cited.
     """
 
-    resource_type = Field("CitationCitedArtifactWebLocation", const=True)
+    resource_type: str = Field("CitationCitedArtifactWebLocation", const=True)
 
-    classifier: typing.List[fhirtypes.CodeableConceptType] = Field(
+    classifier: typing.List[CodeableConcept] = Field(
         None,
         alias="classifier",
         title="Code the reason for different URLs, e.g. abstract and full-text",
@@ -2322,9 +2330,9 @@ class CitationClassification(backboneelement.BackboneElement):
     The assignment to an organizing scheme.
     """
 
-    resource_type = Field("CitationClassification", const=True)
+    resource_type: str = Field("CitationClassification", const=True)
 
-    classifier: typing.List[fhirtypes.CodeableConceptType] = Field(
+    classifier: typing.List[CodeableConcept] = Field(
         None,
         alias="classifier",
         title="The specific classification value",
@@ -2333,7 +2341,7 @@ class CitationClassification(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="The kind of classifier (e.g. publication type, keyword)",
@@ -2361,9 +2369,9 @@ class CitationStatusDate(backboneelement.BackboneElement):
     period for that state.
     """
 
-    resource_type = Field("CitationStatusDate", const=True)
+    resource_type: str = Field("CitationStatusDate", const=True)
 
-    activity: fhirtypes.CodeableConceptType = Field(
+    activity: CodeableConcept = Field(
         ...,
         alias="activity",
         title="Classification of the status",
@@ -2390,7 +2398,7 @@ class CitationStatusDate(backboneelement.BackboneElement):
         None, alias="_actual", title="Extension field for ``actual``."
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         ...,
         alias="period",
         title="When the status started and/or ended",
@@ -2416,9 +2424,9 @@ class CitationSummary(backboneelement.BackboneElement):
     A human-readable display of key concepts to represent the citation.
     """
 
-    resource_type = Field("CitationSummary", const=True)
+    resource_type: str = Field("CitationSummary", const=True)
 
-    style: fhirtypes.CodeableConceptType = Field(
+    style: CodeableConcept = Field(
         None,
         alias="style",
         title="Format for display of the citation summary",
@@ -2506,3 +2514,10 @@ class CitationSummary(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+Citation.update_forward_refs()
+CitationCitedArtifact.update_forward_refs()
+CitationCitedArtifactContributorship.update_forward_refs()
+CitationCitedArtifactContributorshipEntry.update_forward_refs()
+CitationCitedArtifactPublicationForm.update_forward_refs()

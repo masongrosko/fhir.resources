@@ -11,6 +11,11 @@ import typing
 from pydantic.v1 import Field
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .extendedcontactdetail import ExtendedContactDetail
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class Organization(domainresource.DomainResource):
@@ -25,7 +30,7 @@ class Organization(domainresource.DomainResource):
     groups, healthcare practice groups, payer/insurer, etc.
     """
 
-    resource_type = Field("Organization", const=True)
+    resource_type: str = Field("Organization", const=True)
 
     active: bool = Field(
         None,
@@ -54,7 +59,7 @@ class Organization(domainresource.DomainResource):
         typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
     ] = Field(None, alias="_alias", title="Extension field for ``alias``.")
 
-    contact: typing.List[fhirtypes.ExtendedContactDetailType] = Field(
+    contact: typing.List[ExtendedContactDetail] = Field(
         None,
         alias="contact",
         title="Official contact details for the Organization",
@@ -86,7 +91,7 @@ class Organization(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    endpoint: typing.List[fhirtypes.ReferenceType] = Field(
+    endpoint: typing.List[Reference] = Field(
         None,
         alias="endpoint",
         title=(
@@ -100,7 +105,7 @@ class Organization(domainresource.DomainResource):
         enum_reference_types=["Endpoint"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Identifies this organization  across multiple systems",
@@ -124,7 +129,7 @@ class Organization(domainresource.DomainResource):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    partOf: fhirtypes.ReferenceType = Field(
+    partOf: Reference = Field(
         None,
         alias="partOf",
         title="The organization of which this organization forms a part",
@@ -135,7 +140,7 @@ class Organization(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    qualification: typing.List[fhirtypes.OrganizationQualificationType] = Field(
+    qualification: typing.List["OrganizationQualification"] = Field(
         None,
         alias="qualification",
         title=(
@@ -153,7 +158,7 @@ class Organization(domainresource.DomainResource):
         element_property=True,
     )
 
-    type: typing.List[fhirtypes.CodeableConceptType] = Field(
+    type: typing.List[CodeableConcept] = Field(
         None,
         alias="type",
         title="Kind of organization",
@@ -205,9 +210,9 @@ class OrganizationQualification(backboneelement.BackboneElement):
     certifying body (such as the US Joint Commission) to an organization.
     """
 
-    resource_type = Field("OrganizationQualification", const=True)
+    resource_type: str = Field("OrganizationQualification", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         ...,
         alias="code",
         title="Coded representation of the qualification",
@@ -216,7 +221,7 @@ class OrganizationQualification(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="An identifier for this qualification for the organization",
@@ -225,7 +230,7 @@ class OrganizationQualification(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    issuer: fhirtypes.ReferenceType = Field(
+    issuer: Reference = Field(
         None,
         alias="issuer",
         title="Organization that regulates and issues the qualification",
@@ -236,7 +241,7 @@ class OrganizationQualification(backboneelement.BackboneElement):
         enum_reference_types=["Organization"],
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Period during which the qualification is valid",
@@ -260,3 +265,6 @@ class OrganizationQualification(backboneelement.BackboneElement):
             "period",
             "issuer",
         ]
+
+
+Organization.update_forward_refs()

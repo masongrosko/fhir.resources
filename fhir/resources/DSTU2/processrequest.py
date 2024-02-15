@@ -11,6 +11,10 @@ from pydantic.v1 import Field
 
 from . import domainresource, fhirtypes
 from .backboneelement import BackboneElement
+from .coding import Coding
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class ProcessRequest(domainresource.DomainResource):
@@ -21,7 +25,7 @@ class ProcessRequest(domainresource.DomainResource):
     for an action to be performed by the target on or about existing resources.
     """
 
-    resource_type = Field("ProcessRequest", const=True)
+    resource_type: str = Field("ProcessRequest", const=True)
 
     action: fhirtypes.Code = Field(
         None,
@@ -34,7 +38,7 @@ class ProcessRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="Business identifier",
@@ -42,7 +46,7 @@ class ProcessRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    ruleset: fhirtypes.CodingType = Field(
+    ruleset: Coding = Field(
         None,
         alias="ruleset",
         title="Type `Coding` (represented as `dict` in JSON).",
@@ -50,7 +54,7 @@ class ProcessRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    originalRuleset: fhirtypes.CodingType = Field(
+    originalRuleset: Coding = Field(
         None,
         alias="originalRuleset",
         title="Type `Coding` (represented as `dict` in JSON).",
@@ -66,7 +70,7 @@ class ProcessRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    target: fhirtypes.ReferenceType = Field(
+    target: Reference = Field(
         None,
         alias="target",
         title="Type 'Reference' referencing 'Organization'  (represented as 'dict' in JSON).",
@@ -76,7 +80,7 @@ class ProcessRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    provider: fhirtypes.ReferenceType = Field(
+    provider: Reference = Field(
         None,
         alias="provider",
         title="Type 'Reference' referencing 'Practitioner'  (represented as 'dict' in JSON).",
@@ -86,7 +90,7 @@ class ProcessRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    request: fhirtypes.ReferenceType = Field(
+    request: Reference = Field(
         None,
         alias="request",
         title="Type 'Reference' referencing 'Any'  (represented as 'dict' in JSON).",
@@ -96,7 +100,7 @@ class ProcessRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    response: fhirtypes.ReferenceType = Field(
+    response: Reference = Field(
         None,
         alias="response",
         title="Type 'Reference' referencing 'Any'  (represented as 'dict' in JSON).",
@@ -123,7 +127,7 @@ class ProcessRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    item: ListType[fhirtypes.ProcessRequestItemType] = Field(
+    item: ListType["ProcessRequestItem"] = Field(
         None,
         alias="item",
         title="Items to re-adjudicate",
@@ -148,7 +152,7 @@ class ProcessRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Period",
@@ -169,7 +173,7 @@ class ProcessRequestItem(BackboneElement):
     entire submission is re-adjudicated..
     """
 
-    resource_type = Field("ProcessRequestItem", const=True)
+    resource_type: str = Field("ProcessRequestItem", const=True)
 
     sequenceLinkId: fhirtypes.Integer = Field(
         None,
@@ -177,3 +181,6 @@ class ProcessRequestItem(BackboneElement):
         title="Type `Integer` (represented as `dict` in JSON)",
         description="Service instance",
     )
+
+
+ProcessRequest.update_forward_refs()

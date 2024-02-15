@@ -11,6 +11,9 @@ import typing
 from pydantic.v1 import Field
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .reference import Reference
 
 
 class DeviceComponent(domainresource.DomainResource):
@@ -23,9 +26,9 @@ class DeviceComponent(domainresource.DomainResource):
     related component of a medical device.
     """
 
-    resource_type = Field("DeviceComponent", const=True)
+    resource_type: str = Field("DeviceComponent", const=True)
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         ...,
         alias="identifier",
         title="Instance id assigned by the software stack",
@@ -37,7 +40,7 @@ class DeviceComponent(domainresource.DomainResource):
         element_property=True,
     )
 
-    languageCode: fhirtypes.CodeableConceptType = Field(
+    languageCode: CodeableConcept = Field(
         None,
         alias="languageCode",
         title=(
@@ -105,7 +108,7 @@ class DeviceComponent(domainresource.DomainResource):
         title="Extension field for ``measurementPrinciple``.",
     )
 
-    operationalStatus: typing.List[fhirtypes.CodeableConceptType] = Field(
+    operationalStatus: typing.List[CodeableConcept] = Field(
         None,
         alias="operationalStatus",
         title=(
@@ -120,7 +123,7 @@ class DeviceComponent(domainresource.DomainResource):
         element_property=True,
     )
 
-    parameterGroup: fhirtypes.CodeableConceptType = Field(
+    parameterGroup: CodeableConcept = Field(
         None,
         alias="parameterGroup",
         title="Current supported parameter group",
@@ -132,7 +135,7 @@ class DeviceComponent(domainresource.DomainResource):
         element_property=True,
     )
 
-    parent: fhirtypes.ReferenceType = Field(
+    parent: Reference = Field(
         None,
         alias="parent",
         title="Parent resource link",
@@ -146,21 +149,21 @@ class DeviceComponent(domainresource.DomainResource):
         enum_reference_types=["DeviceComponent"],
     )
 
-    productionSpecification: typing.List[
-        fhirtypes.DeviceComponentProductionSpecificationType
-    ] = Field(
-        None,
-        alias="productionSpecification",
-        title="Specification details such as Component Revisions, or Serial Numbers",
-        description=(
-            "The production specification such as component revision, serial "
-            "number, etc."
-        ),
-        # if property is element of this resource.
-        element_property=True,
+    productionSpecification: typing.List["DeviceComponentProductionSpecification"] = (
+        Field(
+            None,
+            alias="productionSpecification",
+            title="Specification details such as Component Revisions, or Serial Numbers",
+            description=(
+                "The production specification such as component revision, serial "
+                "number, etc."
+            ),
+            # if property is element of this resource.
+            element_property=True,
+        )
     )
 
-    source: fhirtypes.ReferenceType = Field(
+    source: Reference = Field(
         None,
         alias="source",
         title="Top-level device resource link",
@@ -174,7 +177,7 @@ class DeviceComponent(domainresource.DomainResource):
         enum_reference_types=["Device"],
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title="What kind of component it is",
@@ -224,9 +227,9 @@ class DeviceComponentProductionSpecification(backboneelement.BackboneElement):
     etc.
     """
 
-    resource_type = Field("DeviceComponentProductionSpecification", const=True)
+    resource_type: str = Field("DeviceComponentProductionSpecification", const=True)
 
-    componentId: fhirtypes.IdentifierType = Field(
+    componentId: Identifier = Field(
         None,
         alias="componentId",
         title="Internal component unique identification",
@@ -252,7 +255,7 @@ class DeviceComponentProductionSpecification(backboneelement.BackboneElement):
         None, alias="_productionSpec", title="Extension field for ``productionSpec``."
     )
 
-    specType: fhirtypes.CodeableConceptType = Field(
+    specType: CodeableConcept = Field(
         None,
         alias="specType",
         title=(
@@ -281,3 +284,6 @@ class DeviceComponentProductionSpecification(backboneelement.BackboneElement):
             "componentId",
             "productionSpec",
         ]
+
+
+DeviceComponent.update_forward_refs()

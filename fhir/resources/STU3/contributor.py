@@ -13,6 +13,7 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import element, fhirtypes
+from .contactdetail import ContactDetail
 
 
 class Contributor(element.Element):
@@ -25,9 +26,9 @@ class Contributor(element.Element):
     editors, reviewers, and endorsers.
     """
 
-    resource_type = Field("Contributor", const=True)
+    resource_type: str = Field("Contributor", const=True)
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details of the contributor",

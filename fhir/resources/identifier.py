@@ -9,6 +9,9 @@ Last updated: 2023-03-26T15:21:02.749+11:00
 from pydantic.v1 import Field
 
 from . import datatype, fhirtypes
+from .codeableconcept import CodeableConcept
+from .period import Period
+from .reference import Reference
 
 
 class Identifier(datatype.DataType):
@@ -21,9 +24,9 @@ class Identifier(datatype.DataType):
     Typically this is used for business identifiers.
     """
 
-    resource_type = Field("Identifier", const=True)
+    resource_type: str = Field("Identifier", const=True)
 
-    assigner: fhirtypes.ReferenceType = Field(
+    assigner: Reference = Field(
         None,
         alias="assigner",
         title="Organization that issued id (may be just text)",
@@ -34,7 +37,7 @@ class Identifier(datatype.DataType):
         enum_reference_types=["Organization"],
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Time period when id is/was valid for use",
@@ -58,7 +61,7 @@ class Identifier(datatype.DataType):
         None, alias="_system", title="Extension field for ``system``."
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Description of identifier",

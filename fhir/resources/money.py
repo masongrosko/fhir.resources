@@ -19,7 +19,7 @@ class Money(datatype.DataType):
     An amount of economic utility in some recognized currency.
     """
 
-    resource_type = Field("Money", const=True)
+    resource_type: str = Field("Money", const=True)
 
     currency: fhirtypes.Code = Field(
         None,

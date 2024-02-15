@@ -13,6 +13,11 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class DiagnosticReport(domainresource.DomainResource):
@@ -29,9 +34,9 @@ class DiagnosticReport(domainresource.DomainResource):
     interpretations, and formatted representation of diagnostic reports.
     """
 
-    resource_type = Field("DiagnosticReport", const=True)
+    resource_type: str = Field("DiagnosticReport", const=True)
 
-    basedOn: typing.List[fhirtypes.ReferenceType] = Field(
+    basedOn: typing.List[Reference] = Field(
         None,
         alias="basedOn",
         title="What was requested",
@@ -48,7 +53,7 @@ class DiagnosticReport(domainresource.DomainResource):
         ],
     )
 
-    category: typing.List[fhirtypes.CodeableConceptType] = Field(
+    category: typing.List[CodeableConcept] = Field(
         None,
         alias="category",
         title="Service category",
@@ -62,7 +67,7 @@ class DiagnosticReport(domainresource.DomainResource):
         element_property=True,
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         ...,
         alias="code",
         title="Name/Code for this diagnostic report",
@@ -86,7 +91,7 @@ class DiagnosticReport(domainresource.DomainResource):
         None, alias="_conclusion", title="Extension field for ``conclusion``."
     )
 
-    conclusionCode: typing.List[fhirtypes.CodeableConceptType] = Field(
+    conclusionCode: typing.List[CodeableConcept] = Field(
         None,
         alias="conclusionCode",
         title="Codes for the clinical conclusion of test results",
@@ -120,7 +125,7 @@ class DiagnosticReport(domainresource.DomainResource):
         title="Extension field for ``effectiveDateTime``.",
     )
 
-    effectivePeriod: fhirtypes.PeriodType = Field(
+    effectivePeriod: Period = Field(
         None,
         alias="effectivePeriod",
         title="Clinically relevant time/time-period for report",
@@ -137,7 +142,7 @@ class DiagnosticReport(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title="Health care event when test ordered",
@@ -151,7 +156,7 @@ class DiagnosticReport(domainresource.DomainResource):
         enum_reference_types=["Encounter"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business identifier for report",
@@ -160,7 +165,7 @@ class DiagnosticReport(domainresource.DomainResource):
         element_property=True,
     )
 
-    imagingStudy: typing.List[fhirtypes.ReferenceType] = Field(
+    imagingStudy: typing.List[Reference] = Field(
         None,
         alias="imagingStudy",
         title=(
@@ -195,7 +200,7 @@ class DiagnosticReport(domainresource.DomainResource):
         None, alias="_issued", title="Extension field for ``issued``."
     )
 
-    media: typing.List[fhirtypes.DiagnosticReportMediaType] = Field(
+    media: typing.List["DiagnosticReportMedia"] = Field(
         None,
         alias="media",
         title="Key images associated with this report",
@@ -208,7 +213,7 @@ class DiagnosticReport(domainresource.DomainResource):
         element_property=True,
     )
 
-    performer: typing.List[fhirtypes.ReferenceType] = Field(
+    performer: typing.List[Reference] = Field(
         None,
         alias="performer",
         title="Responsible Diagnostic Service",
@@ -224,7 +229,7 @@ class DiagnosticReport(domainresource.DomainResource):
         ],
     )
 
-    presentedForm: typing.List[fhirtypes.AttachmentType] = Field(
+    presentedForm: typing.List[Attachment] = Field(
         None,
         alias="presentedForm",
         title="Entire report as issued",
@@ -237,7 +242,7 @@ class DiagnosticReport(domainresource.DomainResource):
         element_property=True,
     )
 
-    result: typing.List[fhirtypes.ReferenceType] = Field(
+    result: typing.List[Reference] = Field(
         None,
         alias="result",
         title="Observations",
@@ -251,7 +256,7 @@ class DiagnosticReport(domainresource.DomainResource):
         enum_reference_types=["Observation"],
     )
 
-    resultsInterpreter: typing.List[fhirtypes.ReferenceType] = Field(
+    resultsInterpreter: typing.List[Reference] = Field(
         None,
         alias="resultsInterpreter",
         title="Primary result interpreter",
@@ -270,7 +275,7 @@ class DiagnosticReport(domainresource.DomainResource):
         ],
     )
 
-    specimen: typing.List[fhirtypes.ReferenceType] = Field(
+    specimen: typing.List[Reference] = Field(
         None,
         alias="specimen",
         title="Specimens this report is based on",
@@ -297,7 +302,7 @@ class DiagnosticReport(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title="The subject of the report - usually, but not always, the patient",
@@ -467,7 +472,7 @@ class DiagnosticReportMedia(backboneelement.BackboneElement):
     or of treated specimens (i.e. slides of interest).
     """
 
-    resource_type = Field("DiagnosticReportMedia", const=True)
+    resource_type: str = Field("DiagnosticReportMedia", const=True)
 
     comment: fhirtypes.String = Field(
         None,
@@ -485,7 +490,7 @@ class DiagnosticReportMedia(backboneelement.BackboneElement):
         None, alias="_comment", title="Extension field for ``comment``."
     )
 
-    link: fhirtypes.ReferenceType = Field(
+    link: Reference = Field(
         ...,
         alias="link",
         title="Reference to the image source",
@@ -503,3 +508,6 @@ class DiagnosticReportMedia(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "comment", "link"]
+
+
+DiagnosticReport.update_forward_refs()

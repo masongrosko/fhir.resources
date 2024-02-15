@@ -10,7 +10,13 @@ import typing
 
 from pydantic.v1 import Field
 
-from . import datatype, fhirtypes
+from . import datatype
+from .address import Address
+from .codeableconcept import CodeableConcept
+from .contactpoint import ContactPoint
+from .humanname import HumanName
+from .period import Period
+from .reference import Reference
 
 
 class ExtendedContactDetail(datatype.DataType):
@@ -23,9 +29,9 @@ class ExtendedContactDetail(datatype.DataType):
     might be handled/monitored by a specific named person or organization.
     """
 
-    resource_type = Field("ExtendedContactDetail", const=True)
+    resource_type: str = Field("ExtendedContactDetail", const=True)
 
-    address: fhirtypes.AddressType = Field(
+    address: Address = Field(
         None,
         alias="address",
         title="Address for the contact",
@@ -34,7 +40,7 @@ class ExtendedContactDetail(datatype.DataType):
         element_property=True,
     )
 
-    name: typing.List[fhirtypes.HumanNameType] = Field(
+    name: typing.List[HumanName] = Field(
         None,
         alias="name",
         title="Name of an individual to contact",
@@ -46,7 +52,7 @@ class ExtendedContactDetail(datatype.DataType):
         element_property=True,
     )
 
-    organization: fhirtypes.ReferenceType = Field(
+    organization: Reference = Field(
         None,
         alias="organization",
         title="This contact detail is handled/monitored by a specific organization",
@@ -61,7 +67,7 @@ class ExtendedContactDetail(datatype.DataType):
         enum_reference_types=["Organization"],
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Period that this contact was valid for usage",
@@ -70,7 +76,7 @@ class ExtendedContactDetail(datatype.DataType):
         element_property=True,
     )
 
-    purpose: fhirtypes.CodeableConceptType = Field(
+    purpose: CodeableConcept = Field(
         None,
         alias="purpose",
         title="The type of contact",
@@ -79,7 +85,7 @@ class ExtendedContactDetail(datatype.DataType):
         element_property=True,
     )
 
-    telecom: typing.List[fhirtypes.ContactPointType] = Field(
+    telecom: typing.List[ContactPoint] = Field(
         None,
         alias="telecom",
         title="Contact details (e.g.phone/fax/url)",

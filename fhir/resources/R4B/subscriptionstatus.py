@@ -13,6 +13,8 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .reference import Reference
 
 
 class SubscriptionStatus(domainresource.DomainResource):
@@ -25,9 +27,9 @@ class SubscriptionStatus(domainresource.DomainResource):
     during notifications.
     """
 
-    resource_type = Field("SubscriptionStatus", const=True)
+    resource_type: str = Field("SubscriptionStatus", const=True)
 
-    error: typing.List[fhirtypes.CodeableConceptType] = Field(
+    error: typing.List[CodeableConcept] = Field(
         None,
         alias="error",
         title="List of errors on the subscription",
@@ -58,9 +60,7 @@ class SubscriptionStatus(domainresource.DomainResource):
         title="Extension field for ``eventsSinceSubscriptionStart``.",
     )
 
-    notificationEvent: typing.List[
-        fhirtypes.SubscriptionStatusNotificationEventType
-    ] = Field(
+    notificationEvent: typing.List["SubscriptionStatusNotificationEvent"] = Field(
         None,
         alias="notificationEvent",
         title="Detailed information about any events relevant to this notification",
@@ -90,7 +90,7 @@ class SubscriptionStatus(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subscription: fhirtypes.ReferenceType = Field(
+    subscription: Reference = Field(
         ...,
         alias="subscription",
         title="Reference to the Subscription responsible for this notification",
@@ -236,9 +236,9 @@ class SubscriptionStatusNotificationEvent(backboneelement.BackboneElement):
     notification.
     """
 
-    resource_type = Field("SubscriptionStatusNotificationEvent", const=True)
+    resource_type: str = Field("SubscriptionStatusNotificationEvent", const=True)
 
-    additionalContext: typing.List[fhirtypes.ReferenceType] = Field(
+    additionalContext: typing.List[Reference] = Field(
         None,
         alias="additionalContext",
         title="Additional context for this event",
@@ -270,7 +270,7 @@ class SubscriptionStatusNotificationEvent(backboneelement.BackboneElement):
         None, alias="_eventNumber", title="Extension field for ``eventNumber``."
     )
 
-    focus: fhirtypes.ReferenceType = Field(
+    focus: Reference = Field(
         None,
         alias="focus",
         title="The focus of this event",
@@ -371,3 +371,6 @@ class SubscriptionStatusNotificationEvent(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+SubscriptionStatus.update_forward_refs()

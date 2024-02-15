@@ -13,6 +13,10 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .money import Money
+from .reference import Reference
 
 
 class PaymentNotice(domainresource.DomainResource):
@@ -25,9 +29,9 @@ class PaymentNotice(domainresource.DomainResource):
     rendered, and the request and response resource references.
     """
 
-    resource_type = Field("PaymentNotice", const=True)
+    resource_type: str = Field("PaymentNotice", const=True)
 
-    amount: fhirtypes.MoneyType = Field(
+    amount: Money = Field(
         ...,
         alias="amount",
         title="Monetary amount of the payment",
@@ -49,7 +53,7 @@ class PaymentNotice(domainresource.DomainResource):
         None, alias="_created", title="Extension field for ``created``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business Identifier for the payment noctice",
@@ -58,7 +62,7 @@ class PaymentNotice(domainresource.DomainResource):
         element_property=True,
     )
 
-    payee: fhirtypes.ReferenceType = Field(
+    payee: Reference = Field(
         None,
         alias="payee",
         title="Party being paid",
@@ -72,7 +76,7 @@ class PaymentNotice(domainresource.DomainResource):
         enum_reference_types=["Practitioner", "PractitionerRole", "Organization"],
     )
 
-    payment: fhirtypes.ReferenceType = Field(
+    payment: Reference = Field(
         ...,
         alias="payment",
         title="Payment reference",
@@ -95,7 +99,7 @@ class PaymentNotice(domainresource.DomainResource):
         None, alias="_paymentDate", title="Extension field for ``paymentDate``."
     )
 
-    paymentStatus: fhirtypes.CodeableConceptType = Field(
+    paymentStatus: CodeableConcept = Field(
         None,
         alias="paymentStatus",
         title="Issued or cleared Status of the payment",
@@ -104,7 +108,7 @@ class PaymentNotice(domainresource.DomainResource):
         element_property=True,
     )
 
-    provider: fhirtypes.ReferenceType = Field(
+    provider: Reference = Field(
         None,
         alias="provider",
         title="Responsible practitioner",
@@ -118,7 +122,7 @@ class PaymentNotice(domainresource.DomainResource):
         enum_reference_types=["Practitioner", "PractitionerRole", "Organization"],
     )
 
-    recipient: fhirtypes.ReferenceType = Field(
+    recipient: Reference = Field(
         ...,
         alias="recipient",
         title="Party being notified",
@@ -129,7 +133,7 @@ class PaymentNotice(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    request: fhirtypes.ReferenceType = Field(
+    request: Reference = Field(
         None,
         alias="request",
         title="Request reference",
@@ -140,7 +144,7 @@ class PaymentNotice(domainresource.DomainResource):
         enum_reference_types=["Resource"],
     )
 
-    response: fhirtypes.ReferenceType = Field(
+    response: Reference = Field(
         None,
         alias="response",
         title="Response reference",

@@ -10,6 +10,9 @@ from typing import List as ListType
 from pydantic.v1 import Field
 
 from . import domainresource, fhirtypes
+from .coding import Coding
+from .identifier import Identifier
+from .reference import Reference
 
 
 class EnrollmentRequest(domainresource.DomainResource):
@@ -18,16 +21,16 @@ class EnrollmentRequest(domainresource.DomainResource):
     regarding a specified coverage.
     """
 
-    resource_type = Field("EnrollmentRequest", const=True)
+    resource_type: str = Field("EnrollmentRequest", const=True)
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="Business Identifier",
         description="The Response business identifier.",
     )
 
-    ruleset: fhirtypes.CodingType = Field(
+    ruleset: Coding = Field(
         None,
         alias="ruleset",
         title="Resource version",
@@ -37,7 +40,7 @@ class EnrollmentRequest(domainresource.DomainResource):
         ),
     )
 
-    originalRuleset: fhirtypes.CodingType = Field(
+    originalRuleset: Coding = Field(
         None,
         alias="originalRuleset",
         title="Original version",
@@ -54,7 +57,7 @@ class EnrollmentRequest(domainresource.DomainResource):
         description="The date when this resource was created.",
     )
 
-    target: fhirtypes.ReferenceType = Field(
+    target: Reference = Field(
         None,
         alias="target",
         title="Target",
@@ -63,7 +66,7 @@ class EnrollmentRequest(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    provider: fhirtypes.ReferenceType = Field(
+    provider: Reference = Field(
         None,
         alias="provider",
         title="Responsible practitioner",
@@ -75,7 +78,7 @@ class EnrollmentRequest(domainresource.DomainResource):
         enum_reference_types=["Practitioner"],
     )
 
-    organization: fhirtypes.ReferenceType = Field(
+    organization: Reference = Field(
         None,
         alias="organization",
         title="Responsible organization",
@@ -87,7 +90,7 @@ class EnrollmentRequest(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         ...,
         alias="subject",
         title="The subject to be enrolled",
@@ -96,7 +99,7 @@ class EnrollmentRequest(domainresource.DomainResource):
         enum_reference_types=["Patient"],
     )
 
-    coverage: fhirtypes.ReferenceType = Field(
+    coverage: Reference = Field(
         ...,
         alias="coverage",
         title="Insurance information",
@@ -105,7 +108,7 @@ class EnrollmentRequest(domainresource.DomainResource):
         enum_reference_types=["Coverage"],
     )
 
-    relationship: fhirtypes.CodingType = Field(
+    relationship: Coding = Field(
         ...,
         alias="relationship",
         title="Patient relationship to subscriber",

@@ -13,6 +13,11 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .contactpoint import ContactPoint
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class Endpoint(domainresource.DomainResource):
@@ -28,7 +33,7 @@ class Endpoint(domainresource.DomainResource):
     security context information.
     """
 
-    resource_type = Field("Endpoint", const=True)
+    resource_type: str = Field("Endpoint", const=True)
 
     address: fhirtypes.Url = Field(
         None,
@@ -43,7 +48,7 @@ class Endpoint(domainresource.DomainResource):
         None, alias="_address", title="Extension field for ``address``."
     )
 
-    connectionType: typing.List[fhirtypes.CodeableConceptType] = Field(
+    connectionType: typing.List[CodeableConcept] = Field(
         ...,
         alias="connectionType",
         title="Protocol/Profile/Standard to be used with this endpoint connection",
@@ -56,7 +61,7 @@ class Endpoint(domainresource.DomainResource):
         element_property=True,
     )
 
-    contact: typing.List[fhirtypes.ContactPointType] = Field(
+    contact: typing.List[ContactPoint] = Field(
         None,
         alias="contact",
         title="Contact details for source (e.g. troubleshooting)",
@@ -87,7 +92,7 @@ class Endpoint(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    environmentType: typing.List[fhirtypes.CodeableConceptType] = Field(
+    environmentType: typing.List[CodeableConcept] = Field(
         None,
         alias="environmentType",
         title="The type of environment(s) exposed at this endpoint",
@@ -111,7 +116,7 @@ class Endpoint(domainresource.DomainResource):
         typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
     ] = Field(None, alias="_header", title="Extension field for ``header``.")
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Identifies this endpoint across multiple systems",
@@ -123,7 +128,7 @@ class Endpoint(domainresource.DomainResource):
         element_property=True,
     )
 
-    managingOrganization: fhirtypes.ReferenceType = Field(
+    managingOrganization: Reference = Field(
         None,
         alias="managingOrganization",
         title=(
@@ -153,7 +158,7 @@ class Endpoint(domainresource.DomainResource):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    payload: typing.List[fhirtypes.EndpointPayloadType] = Field(
+    payload: typing.List["EndpointPayload"] = Field(
         None,
         alias="payload",
         title="Set of payloads that are provided by this endpoint",
@@ -162,7 +167,7 @@ class Endpoint(domainresource.DomainResource):
         element_property=True,
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Interval the endpoint is expected to be operational",
@@ -288,7 +293,7 @@ class EndpointPayload(backboneelement.BackboneElement):
     The set of payloads that are provided/available at this endpoint.
     """
 
-    resource_type = Field("EndpointPayload", const=True)
+    resource_type: str = Field("EndpointPayload", const=True)
 
     mimeType: typing.List[typing.Optional[fhirtypes.Code]] = Field(
         None,
@@ -310,7 +315,7 @@ class EndpointPayload(backboneelement.BackboneElement):
         typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
     ] = Field(None, alias="_mimeType", title="Extension field for ``mimeType``.")
 
-    type: typing.List[fhirtypes.CodeableConceptType] = Field(
+    type: typing.List[CodeableConcept] = Field(
         None,
         alias="type",
         title=(
@@ -332,3 +337,6 @@ class EndpointPayload(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "type", "mimeType"]
+
+
+Endpoint.update_forward_refs()

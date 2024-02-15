@@ -13,6 +13,13 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .codeablereference import CodeableReference
+from .identifier import Identifier
+from .marketingstatus import MarketingStatus
+from .quantity import Quantity
+from .reference import Reference
 
 
 class ManufacturedItemDefinition(domainresource.DomainResource):
@@ -24,9 +31,9 @@ class ManufacturedItemDefinition(domainresource.DomainResource):
     as a tablet or capsule, as contained in a packaged medicinal product.
     """
 
-    resource_type = Field("ManufacturedItemDefinition", const=True)
+    resource_type: str = Field("ManufacturedItemDefinition", const=True)
 
-    component: typing.List[fhirtypes.ManufacturedItemDefinitionComponentType] = Field(
+    component: typing.List["ManufacturedItemDefinitionComponent"] = Field(
         None,
         alias="component",
         title=(
@@ -39,7 +46,7 @@ class ManufacturedItemDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Unique identifier",
@@ -48,7 +55,7 @@ class ManufacturedItemDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    ingredient: typing.List[fhirtypes.CodeableConceptType] = Field(
+    ingredient: typing.List[CodeableConcept] = Field(
         None,
         alias="ingredient",
         title=(
@@ -64,7 +71,7 @@ class ManufacturedItemDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    manufacturedDoseForm: fhirtypes.CodeableConceptType = Field(
+    manufacturedDoseForm: CodeableConcept = Field(
         ...,
         alias="manufacturedDoseForm",
         title="Dose form as manufactured (before any necessary transformation)",
@@ -76,7 +83,7 @@ class ManufacturedItemDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    manufacturer: typing.List[fhirtypes.ReferenceType] = Field(
+    manufacturer: typing.List[Reference] = Field(
         None,
         alias="manufacturer",
         title="Manufacturer of the item, one of several possible",
@@ -87,7 +94,7 @@ class ManufacturedItemDefinition(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    marketingStatus: typing.List[fhirtypes.MarketingStatusType] = Field(
+    marketingStatus: typing.List[MarketingStatus] = Field(
         None,
         alias="marketingStatus",
         title=(
@@ -111,7 +118,7 @@ class ManufacturedItemDefinition(domainresource.DomainResource):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    property: typing.List[fhirtypes.ManufacturedItemDefinitionPropertyType] = Field(
+    property: typing.List["ManufacturedItemDefinitionProperty"] = Field(
         None,
         alias="property",
         title="General characteristics of this item",
@@ -139,7 +146,7 @@ class ManufacturedItemDefinition(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    unitOfPresentation: fhirtypes.CodeableConceptType = Field(
+    unitOfPresentation: CodeableConcept = Field(
         None,
         alias="unitOfPresentation",
         title="The \u201creal-world\u201d units in which the quantity of the item is described",
@@ -247,9 +254,9 @@ class ManufacturedItemDefinitionComponent(backboneelement.BackboneElement):
     This is distinct from the ingredients that are part of its chemical makeup.
     """
 
-    resource_type = Field("ManufacturedItemDefinitionComponent", const=True)
+    resource_type: str = Field("ManufacturedItemDefinitionComponent", const=True)
 
-    amount: typing.List[fhirtypes.QuantityType] = Field(
+    amount: typing.List[Quantity] = Field(
         None,
         alias="amount",
         title=(
@@ -261,7 +268,7 @@ class ManufacturedItemDefinitionComponent(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    component: typing.List[fhirtypes.ManufacturedItemDefinitionComponentType] = Field(
+    component: typing.List["ManufacturedItemDefinitionComponent"] = Field(
         None,
         alias="component",
         title="A component that this component contains or is made from",
@@ -270,9 +277,7 @@ class ManufacturedItemDefinitionComponent(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    constituent: typing.List[
-        fhirtypes.ManufacturedItemDefinitionComponentConstituentType
-    ] = Field(
+    constituent: typing.List["ManufacturedItemDefinitionComponentConstituent"] = Field(
         None,
         alias="constituent",
         title=(
@@ -287,7 +292,7 @@ class ManufacturedItemDefinitionComponent(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    function: typing.List[fhirtypes.CodeableConceptType] = Field(
+    function: typing.List[CodeableConcept] = Field(
         None,
         alias="function",
         title=(
@@ -299,7 +304,7 @@ class ManufacturedItemDefinitionComponent(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    property: typing.List[fhirtypes.ManufacturedItemDefinitionPropertyType] = Field(
+    property: typing.List["ManufacturedItemDefinitionProperty"] = Field(
         None,
         alias="property",
         title="General characteristics of this component",
@@ -308,7 +313,7 @@ class ManufacturedItemDefinitionComponent(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title="Defining type of the component e.g. shell, layer, ink",
@@ -347,9 +352,11 @@ class ManufacturedItemDefinitionComponentConstituent(backboneelement.BackboneEle
     Ingredient.for or ManufacturedItemDefinition.ingredient).
     """
 
-    resource_type = Field("ManufacturedItemDefinitionComponentConstituent", const=True)
+    resource_type: str = Field(
+        "ManufacturedItemDefinitionComponentConstituent", const=True
+    )
 
-    amount: typing.List[fhirtypes.QuantityType] = Field(
+    amount: typing.List[Quantity] = Field(
         None,
         alias="amount",
         title=(
@@ -361,7 +368,7 @@ class ManufacturedItemDefinitionComponentConstituent(backboneelement.BackboneEle
         element_property=True,
     )
 
-    function: typing.List[fhirtypes.CodeableConceptType] = Field(
+    function: typing.List[CodeableConcept] = Field(
         None,
         alias="function",
         title="The function of this constituent within the component e.g. binder",
@@ -370,7 +377,7 @@ class ManufacturedItemDefinitionComponentConstituent(backboneelement.BackboneEle
         element_property=True,
     )
 
-    hasIngredient: typing.List[fhirtypes.CodeableReferenceType] = Field(
+    hasIngredient: typing.List[CodeableReference] = Field(
         None,
         alias="hasIngredient",
         title="The ingredient that is the constituent of the given component",
@@ -381,7 +388,7 @@ class ManufacturedItemDefinitionComponentConstituent(backboneelement.BackboneEle
         enum_reference_types=["Ingredient"],
     )
 
-    location: typing.List[fhirtypes.CodeableConceptType] = Field(
+    location: typing.List[CodeableConcept] = Field(
         None,
         alias="location",
         title=(
@@ -423,9 +430,9 @@ class ManufacturedItemDefinitionProperty(backboneelement.BackboneElement):
     General characteristics of this item.
     """
 
-    resource_type = Field("ManufacturedItemDefinitionProperty", const=True)
+    resource_type: str = Field("ManufacturedItemDefinitionProperty", const=True)
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title="A code expressing the type of characteristic",
@@ -434,7 +441,7 @@ class ManufacturedItemDefinitionProperty(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    valueAttachment: fhirtypes.AttachmentType = Field(
+    valueAttachment: Attachment = Field(
         None,
         alias="valueAttachment",
         title="A value for the characteristic",
@@ -461,7 +468,7 @@ class ManufacturedItemDefinitionProperty(backboneelement.BackboneElement):
         None, alias="_valueBoolean", title="Extension field for ``valueBoolean``."
     )
 
-    valueCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    valueCodeableConcept: CodeableConcept = Field(
         None,
         alias="valueCodeableConcept",
         title="A value for the characteristic",
@@ -503,7 +510,7 @@ class ManufacturedItemDefinitionProperty(backboneelement.BackboneElement):
         None, alias="_valueMarkdown", title="Extension field for ``valueMarkdown``."
     )
 
-    valueQuantity: fhirtypes.QuantityType = Field(
+    valueQuantity: Quantity = Field(
         None,
         alias="valueQuantity",
         title="A value for the characteristic",
@@ -515,7 +522,7 @@ class ManufacturedItemDefinitionProperty(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    valueReference: fhirtypes.ReferenceType = Field(
+    valueReference: Reference = Field(
         None,
         alias="valueReference",
         title="A value for the characteristic",
@@ -596,3 +603,7 @@ class ManufacturedItemDefinitionProperty(backboneelement.BackboneElement):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+ManufacturedItemDefinition.update_forward_refs()
+ManufacturedItemDefinitionComponent.update_forward_refs()

@@ -11,6 +11,10 @@ import typing
 from pydantic.v1 import Field
 
 from . import domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .contactdetail import ContactDetail
+from .period import Period
+from .relatedartifact import RelatedArtifact
 
 
 class MetadataResource(domainresource.DomainResource):
@@ -23,7 +27,7 @@ class MetadataResource(domainresource.DomainResource):
     resources.
     """
 
-    resource_type = Field("MetadataResource", const=True)
+    resource_type: str = Field("MetadataResource", const=True)
 
     approvalDate: fhirtypes.Date = Field(
         None,
@@ -41,7 +45,7 @@ class MetadataResource(domainresource.DomainResource):
         None, alias="_approvalDate", title="Extension field for ``approvalDate``."
     )
 
-    author: typing.List[fhirtypes.ContactDetailType] = Field(
+    author: typing.List[ContactDetail] = Field(
         None,
         alias="author",
         title="Who authored the {{title}}",
@@ -53,7 +57,7 @@ class MetadataResource(domainresource.DomainResource):
         element_property=True,
     )
 
-    editor: typing.List[fhirtypes.ContactDetailType] = Field(
+    editor: typing.List[ContactDetail] = Field(
         None,
         alias="editor",
         title="Who edited the {{title}}",
@@ -65,7 +69,7 @@ class MetadataResource(domainresource.DomainResource):
         element_property=True,
     )
 
-    effectivePeriod: fhirtypes.PeriodType = Field(
+    effectivePeriod: Period = Field(
         None,
         alias="effectivePeriod",
         title="When the {{title}} is expected to be used",
@@ -77,7 +81,7 @@ class MetadataResource(domainresource.DomainResource):
         element_property=True,
     )
 
-    endorser: typing.List[fhirtypes.ContactDetailType] = Field(
+    endorser: typing.List[ContactDetail] = Field(
         None,
         alias="endorser",
         title="Who endorsed the {{title}}",
@@ -106,7 +110,7 @@ class MetadataResource(domainresource.DomainResource):
         None, alias="_lastReviewDate", title="Extension field for ``lastReviewDate``."
     )
 
-    relatedArtifact: typing.List[fhirtypes.RelatedArtifactType] = Field(
+    relatedArtifact: typing.List[RelatedArtifact] = Field(
         None,
         alias="relatedArtifact",
         title="Additional documentation, citations, etc",
@@ -119,7 +123,7 @@ class MetadataResource(domainresource.DomainResource):
         element_property=True,
     )
 
-    reviewer: typing.List[fhirtypes.ContactDetailType] = Field(
+    reviewer: typing.List[ContactDetail] = Field(
         None,
         alias="reviewer",
         title="Who reviewed the {{title}}",
@@ -131,7 +135,7 @@ class MetadataResource(domainresource.DomainResource):
         element_property=True,
     )
 
-    topic: typing.List[fhirtypes.CodeableConceptType] = Field(
+    topic: typing.List[CodeableConcept] = Field(
         None,
         alias="topic",
         title="E.g. Education, Treatment, Assessment, etc",

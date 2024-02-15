@@ -13,6 +13,12 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .contactdetail import ContactDetail
+from .identifier import Identifier
+from .reference import Reference
+from .usagecontext import UsageContext
 
 
 class Requirements(domainresource.DomainResource):
@@ -25,7 +31,7 @@ class Requirements(domainresource.DomainResource):
     that are necessary to achieve organizational or regulatory goals.
     """
 
-    resource_type = Field("Requirements", const=True)
+    resource_type: str = Field("Requirements", const=True)
 
     actor: typing.List[typing.Optional[fhirtypes.Canonical]] = Field(
         None,
@@ -41,7 +47,7 @@ class Requirements(domainresource.DomainResource):
         typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
     ] = Field(None, alias="_actor", title="Extension field for ``actor``.")
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -148,7 +154,7 @@ class Requirements(domainresource.DomainResource):
         None, alias="_experimental", title="Extension field for ``experimental``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Additional identifier for the Requirements (business identifier)",
@@ -161,7 +167,7 @@ class Requirements(domainresource.DomainResource):
         element_property=True,
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction for Requirements (if applicable)",
@@ -238,7 +244,7 @@ class Requirements(domainresource.DomainResource):
         typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
     ] = Field(None, alias="_reference", title="Extension field for ``reference``.")
 
-    statement: typing.List[fhirtypes.RequirementsStatementType] = Field(
+    statement: typing.List["RequirementsStatement"] = Field(
         None,
         alias="statement",
         title="Actual statement as markdown",
@@ -301,7 +307,7 @@ class Requirements(domainresource.DomainResource):
         None, alias="_url", title="Extension field for ``url``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="The context that the content is intended to support",
@@ -336,7 +342,7 @@ class Requirements(domainresource.DomainResource):
         None, alias="_version", title="Extension field for ``version``."
     )
 
-    versionAlgorithmCoding: fhirtypes.CodingType = Field(
+    versionAlgorithmCoding: Coding = Field(
         None,
         alias="versionAlgorithmCoding",
         title="How to compare versions",
@@ -519,7 +525,7 @@ class RequirementsStatement(backboneelement.BackboneElement):
     The actual statement of requirement, in markdown format.
     """
 
-    resource_type = Field("RequirementsStatement", const=True)
+    resource_type: str = Field("RequirementsStatement", const=True)
 
     conditionality: bool = Field(
         None,
@@ -651,7 +657,7 @@ class RequirementsStatement(backboneelement.BackboneElement):
         typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
     ] = Field(None, alias="_satisfiedBy", title="Extension field for ``satisfiedBy``.")
 
-    source: typing.List[fhirtypes.ReferenceType] = Field(
+    source: typing.List[Reference] = Field(
         None,
         alias="source",
         title="Who asked for this statement",
@@ -755,3 +761,6 @@ class RequirementsStatement(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+Requirements.update_forward_refs()

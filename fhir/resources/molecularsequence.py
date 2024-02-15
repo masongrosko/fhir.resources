@@ -11,6 +11,11 @@ import typing
 from pydantic.v1 import Field, root_validator
 
 from . import backboneelement, domainresource, fhirtypes
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .range import Range
+from .reference import Reference
 
 
 class MolecularSequence(domainresource.DomainResource):
@@ -21,9 +26,9 @@ class MolecularSequence(domainresource.DomainResource):
     Representation of a molecular sequence.
     """
 
-    resource_type = Field("MolecularSequence", const=True)
+    resource_type: str = Field("MolecularSequence", const=True)
 
-    device: fhirtypes.ReferenceType = Field(
+    device: Reference = Field(
         None,
         alias="device",
         title="The method for sequencing",
@@ -34,7 +39,7 @@ class MolecularSequence(domainresource.DomainResource):
         enum_reference_types=["Device"],
     )
 
-    focus: typing.List[fhirtypes.ReferenceType] = Field(
+    focus: typing.List[Reference] = Field(
         None,
         alias="focus",
         title=(
@@ -54,7 +59,7 @@ class MolecularSequence(domainresource.DomainResource):
         enum_reference_types=["Resource"],
     )
 
-    formatted: typing.List[fhirtypes.AttachmentType] = Field(
+    formatted: typing.List[Attachment] = Field(
         None,
         alias="formatted",
         title=(
@@ -69,7 +74,7 @@ class MolecularSequence(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Unique ID for this particular sequence",
@@ -90,7 +95,7 @@ class MolecularSequence(domainresource.DomainResource):
         None, alias="_literal", title="Extension field for ``literal``."
     )
 
-    performer: fhirtypes.ReferenceType = Field(
+    performer: Reference = Field(
         None,
         alias="performer",
         title="Who should be responsible for test result",
@@ -101,7 +106,7 @@ class MolecularSequence(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    relative: typing.List[fhirtypes.MolecularSequenceRelativeType] = Field(
+    relative: typing.List["MolecularSequenceRelative"] = Field(
         None,
         alias="relative",
         title="A sequence defined relative to another sequence",
@@ -110,7 +115,7 @@ class MolecularSequence(domainresource.DomainResource):
         element_property=True,
     )
 
-    specimen: fhirtypes.ReferenceType = Field(
+    specimen: Reference = Field(
         None,
         alias="specimen",
         title="Specimen used for sequencing",
@@ -121,7 +126,7 @@ class MolecularSequence(domainresource.DomainResource):
         enum_reference_types=["Specimen"],
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title="Subject this sequence is associated too",
@@ -189,9 +194,9 @@ class MolecularSequenceRelative(backboneelement.BackboneElement):
     A sequence defined relative to another sequence.
     """
 
-    resource_type = Field("MolecularSequenceRelative", const=True)
+    resource_type: str = Field("MolecularSequenceRelative", const=True)
 
-    coordinateSystem: fhirtypes.CodeableConceptType = Field(
+    coordinateSystem: CodeableConcept = Field(
         ...,
         alias="coordinateSystem",
         title="Ways of identifying nucleotides or amino acids within a sequence",
@@ -205,7 +210,7 @@ class MolecularSequenceRelative(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    edit: typing.List[fhirtypes.MolecularSequenceRelativeEditType] = Field(
+    edit: typing.List["MolecularSequenceRelativeEdit"] = Field(
         None,
         alias="edit",
         title="Changes in sequence from the starting sequence",
@@ -229,7 +234,7 @@ class MolecularSequenceRelative(backboneelement.BackboneElement):
         None, alias="_ordinalPosition", title="Extension field for ``ordinalPosition``."
     )
 
-    sequenceRange: fhirtypes.RangeType = Field(
+    sequenceRange: Range = Field(
         None,
         alias="sequenceRange",
         title=(
@@ -241,7 +246,7 @@ class MolecularSequenceRelative(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    startingSequence: fhirtypes.MolecularSequenceRelativeStartingSequenceType = Field(
+    startingSequence: "MolecularSequenceRelativeStartingSequence" = Field(
         None,
         alias="startingSequence",
         title="A sequence used as starting sequence",
@@ -279,7 +284,7 @@ class MolecularSequenceRelativeEdit(backboneelement.BackboneElement):
     Changes in sequence from the starting sequence.
     """
 
-    resource_type = Field("MolecularSequenceRelativeEdit", const=True)
+    resource_type: str = Field("MolecularSequenceRelativeEdit", const=True)
 
     end: fhirtypes.Integer = Field(
         None,
@@ -381,9 +386,9 @@ class MolecularSequenceRelativeStartingSequence(backboneelement.BackboneElement)
     are present in a sequence analyzed.
     """
 
-    resource_type = Field("MolecularSequenceRelativeStartingSequence", const=True)
+    resource_type: str = Field("MolecularSequenceRelativeStartingSequence", const=True)
 
-    chromosome: fhirtypes.CodeableConceptType = Field(
+    chromosome: CodeableConcept = Field(
         None,
         alias="chromosome",
         title="Chromosome Identifier",
@@ -397,7 +402,7 @@ class MolecularSequenceRelativeStartingSequence(backboneelement.BackboneElement)
         element_property=True,
     )
 
-    genomeAssembly: fhirtypes.CodeableConceptType = Field(
+    genomeAssembly: CodeableConcept = Field(
         None,
         alias="genomeAssembly",
         title="The genome assembly used for starting sequence, e.g. GRCh38",
@@ -426,7 +431,7 @@ class MolecularSequenceRelativeStartingSequence(backboneelement.BackboneElement)
         None, alias="_orientation", title="Extension field for ``orientation``."
     )
 
-    sequenceCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    sequenceCodeableConcept: CodeableConcept = Field(
         None,
         alias="sequenceCodeableConcept",
         title="The reference sequence that represents the starting sequence",
@@ -438,7 +443,7 @@ class MolecularSequenceRelativeStartingSequence(backboneelement.BackboneElement)
         one_of_many_required=False,
     )
 
-    sequenceReference: fhirtypes.ReferenceType = Field(
+    sequenceReference: Reference = Field(
         None,
         alias="sequenceReference",
         title="The reference sequence that represents the starting sequence",
@@ -580,3 +585,7 @@ class MolecularSequenceRelativeStartingSequence(backboneelement.BackboneElement)
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+MolecularSequence.update_forward_refs()
+MolecularSequenceRelative.update_forward_refs()

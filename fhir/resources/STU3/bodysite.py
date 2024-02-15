@@ -11,6 +11,10 @@ import typing
 from pydantic.v1 import Field
 
 from . import domainresource, fhirtypes
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .reference import Reference
 
 
 class BodySite(domainresource.DomainResource):
@@ -24,7 +28,7 @@ class BodySite(domainresource.DomainResource):
     necessary detail needed for the use case.
     """
 
-    resource_type = Field("BodySite", const=True)
+    resource_type: str = Field("BodySite", const=True)
 
     active: bool = Field(
         None,
@@ -38,7 +42,7 @@ class BodySite(domainresource.DomainResource):
         None, alias="_active", title="Extension field for ``active``."
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Named anatomical location",
@@ -59,7 +63,7 @@ class BodySite(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Bodysite identifier",
@@ -68,7 +72,7 @@ class BodySite(domainresource.DomainResource):
         element_property=True,
     )
 
-    image: typing.List[fhirtypes.AttachmentType] = Field(
+    image: typing.List[Attachment] = Field(
         None,
         alias="image",
         title="Attached images",
@@ -77,7 +81,7 @@ class BodySite(domainresource.DomainResource):
         element_property=True,
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         ...,
         alias="patient",
         title="Who this is about",
@@ -88,7 +92,7 @@ class BodySite(domainresource.DomainResource):
         enum_reference_types=["Patient"],
     )
 
-    qualifier: typing.List[fhirtypes.CodeableConceptType] = Field(
+    qualifier: typing.List[CodeableConcept] = Field(
         None,
         alias="qualifier",
         title="Modification to location code",

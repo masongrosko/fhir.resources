@@ -13,6 +13,9 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .contactdetail import ContactDetail
+from .usagecontext import UsageContext
 
 
 class MetadataResource(domainresource.DomainResource):
@@ -25,9 +28,9 @@ class MetadataResource(domainresource.DomainResource):
     resources.
     """
 
-    resource_type = Field("MetadataResource", const=True)
+    resource_type: str = Field("MetadataResource", const=True)
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -88,7 +91,7 @@ class MetadataResource(domainresource.DomainResource):
         None, alias="_experimental", title="Extension field for ``experimental``."
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction for metadata resource (if applicable)",
@@ -182,7 +185,7 @@ class MetadataResource(domainresource.DomainResource):
         None, alias="_url", title="Extension field for ``url``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="Context the content is intended to support",

@@ -13,6 +13,7 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .reference import Reference
 
 
 class Linkage(domainresource.DomainResource):
@@ -25,7 +26,7 @@ class Linkage(domainresource.DomainResource):
     real-world "occurrence".
     """
 
-    resource_type = Field("Linkage", const=True)
+    resource_type: str = Field("Linkage", const=True)
 
     active: bool = Field(
         None,
@@ -42,7 +43,7 @@ class Linkage(domainresource.DomainResource):
         None, alias="_active", title="Extension field for ``active``."
     )
 
-    author: fhirtypes.ReferenceType = Field(
+    author: Reference = Field(
         None,
         alias="author",
         title="Who is responsible for linkages",
@@ -57,7 +58,7 @@ class Linkage(domainresource.DomainResource):
         enum_reference_types=["Practitioner", "PractitionerRole", "Organization"],
     )
 
-    item: typing.List[fhirtypes.LinkageItemType] = Field(
+    item: typing.List["LinkageItem"] = Field(
         ...,
         alias="item",
         title="Item to be linked",
@@ -102,9 +103,9 @@ class LinkageItem(backboneelement.BackboneElement):
     collection of linked items.
     """
 
-    resource_type = Field("LinkageItem", const=True)
+    resource_type: str = Field("LinkageItem", const=True)
 
-    resource: fhirtypes.ReferenceType = Field(
+    resource: Reference = Field(
         ...,
         alias="resource",
         title="Resource being linked",
@@ -200,3 +201,6 @@ class LinkageItem(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+Linkage.update_forward_refs()

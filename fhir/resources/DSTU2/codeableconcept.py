@@ -10,6 +10,7 @@ from typing import List as ListType
 from pydantic.v1 import Field
 
 from . import fhirtypes
+from .coding import Coding
 from .element import Element
 
 
@@ -20,9 +21,9 @@ class CodeableConcept(Element):
     ontology or may be provided by text.
     """
 
-    resource_type = Field("CodeableConcept", const=True)
+    resource_type: str = Field("CodeableConcept", const=True)
 
-    coding: ListType[fhirtypes.CodingType] = Field(
+    coding: ListType[Coding] = Field(
         None,
         alias="coding",
         title="List of `Coding` items (represented as `dict` in JSON)",

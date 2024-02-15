@@ -13,6 +13,13 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .codeablereference import CodeableReference
+from .coding import Coding
+from .contactdetail import ContactDetail
+from .identifier import Identifier
+from .reference import Reference
+from .usagecontext import UsageContext
 
 
 class TestPlan(domainresource.DomainResource):
@@ -24,9 +31,9 @@ class TestPlan(domainresource.DomainResource):
     A plan for executing testing on an artifact or specifications.
     """
 
-    resource_type = Field("TestPlan", const=True)
+    resource_type: str = Field("TestPlan", const=True)
 
-    category: typing.List[fhirtypes.CodeableConceptType] = Field(
+    category: typing.List[CodeableConcept] = Field(
         None,
         alias="category",
         title="The category of the Test Plan - can be acceptance, unit, performance",
@@ -38,7 +45,7 @@ class TestPlan(domainresource.DomainResource):
         element_property=True,
     )
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -102,7 +109,7 @@ class TestPlan(domainresource.DomainResource):
         None, alias="_date", title="Extension field for ``date``."
     )
 
-    dependency: typing.List[fhirtypes.TestPlanDependencyType] = Field(
+    dependency: typing.List["TestPlanDependency"] = Field(
         None,
         alias="dependency",
         title=(
@@ -163,7 +170,7 @@ class TestPlan(domainresource.DomainResource):
         None, alias="_experimental", title="Extension field for ``experimental``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business identifier identifier for the test plan",
@@ -176,7 +183,7 @@ class TestPlan(domainresource.DomainResource):
         element_property=True,
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction where the test plan applies (if applicable)",
@@ -234,7 +241,7 @@ class TestPlan(domainresource.DomainResource):
         None, alias="_purpose", title="Extension field for ``purpose``."
     )
 
-    scope: typing.List[fhirtypes.ReferenceType] = Field(
+    scope: typing.List[Reference] = Field(
         None,
         alias="scope",
         title=(
@@ -268,7 +275,7 @@ class TestPlan(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    testCase: typing.List[fhirtypes.TestPlanTestCaseType] = Field(
+    testCase: typing.List["TestPlanTestCase"] = Field(
         None,
         alias="testCase",
         title="The test cases that constitute this plan",
@@ -330,7 +337,7 @@ class TestPlan(domainresource.DomainResource):
         None, alias="_url", title="Extension field for ``url``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="The context that the content is intended to support",
@@ -365,7 +372,7 @@ class TestPlan(domainresource.DomainResource):
         None, alias="_version", title="Extension field for ``version``."
     )
 
-    versionAlgorithmCoding: fhirtypes.CodingType = Field(
+    versionAlgorithmCoding: Coding = Field(
         None,
         alias="versionAlgorithmCoding",
         title="How to compare versions",
@@ -552,7 +559,7 @@ class TestPlanDependency(backboneelement.BackboneElement):
     previous tests...
     """
 
-    resource_type = Field("TestPlanDependency", const=True)
+    resource_type: str = Field("TestPlanDependency", const=True)
 
     description: fhirtypes.Markdown = Field(
         None,
@@ -569,7 +576,7 @@ class TestPlanDependency(backboneelement.BackboneElement):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    predecessor: fhirtypes.ReferenceType = Field(
+    predecessor: Reference = Field(
         None,
         alias="predecessor",
         title="Link to predecessor test plans",
@@ -600,9 +607,9 @@ class TestPlanTestCase(backboneelement.BackboneElement):
     made explicit.
     """
 
-    resource_type = Field("TestPlanTestCase", const=True)
+    resource_type: str = Field("TestPlanTestCase", const=True)
 
-    assertion: typing.List[fhirtypes.TestPlanTestCaseAssertionType] = Field(
+    assertion: typing.List["TestPlanTestCaseAssertion"] = Field(
         None,
         alias="assertion",
         title="Test assertions or expectations",
@@ -614,7 +621,7 @@ class TestPlanTestCase(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    dependency: typing.List[fhirtypes.TestPlanTestCaseDependencyType] = Field(
+    dependency: typing.List["TestPlanTestCaseDependency"] = Field(
         None,
         alias="dependency",
         title="Required criteria to execute the test case",
@@ -626,7 +633,7 @@ class TestPlanTestCase(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    scope: typing.List[fhirtypes.ReferenceType] = Field(
+    scope: typing.List[Reference] = Field(
         None,
         alias="scope",
         title="The scope or artifact covered by the case",
@@ -653,7 +660,7 @@ class TestPlanTestCase(backboneelement.BackboneElement):
         None, alias="_sequence", title="Extension field for ``sequence``."
     )
 
-    testData: typing.List[fhirtypes.TestPlanTestCaseTestDataType] = Field(
+    testData: typing.List["TestPlanTestCaseTestData"] = Field(
         None,
         alias="testData",
         title="The test data used in the test case",
@@ -662,7 +669,7 @@ class TestPlanTestCase(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    testRun: typing.List[fhirtypes.TestPlanTestCaseTestRunType] = Field(
+    testRun: typing.List["TestPlanTestCaseTestRun"] = Field(
         None,
         alias="testRun",
         title="The actual test to be executed",
@@ -700,9 +707,9 @@ class TestPlanTestCaseAssertion(backboneelement.BackboneElement):
     of the test case.
     """
 
-    resource_type = Field("TestPlanTestCaseAssertion", const=True)
+    resource_type: str = Field("TestPlanTestCaseAssertion", const=True)
 
-    object: typing.List[fhirtypes.CodeableReferenceType] = Field(
+    object: typing.List[CodeableReference] = Field(
         None,
         alias="object",
         title="The focus or object of the assertion",
@@ -711,7 +718,7 @@ class TestPlanTestCaseAssertion(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    result: typing.List[fhirtypes.CodeableReferenceType] = Field(
+    result: typing.List[CodeableReference] = Field(
         None,
         alias="result",
         title="The actual result assertion",
@@ -722,7 +729,7 @@ class TestPlanTestCaseAssertion(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    type: typing.List[fhirtypes.CodeableConceptType] = Field(
+    type: typing.List[CodeableConcept] = Field(
         None,
         alias="type",
         title="Assertion type - for example 'informative' or 'required' ",
@@ -754,7 +761,7 @@ class TestPlanTestCaseDependency(backboneelement.BackboneElement):
     previous tests.
     """
 
-    resource_type = Field("TestPlanTestCaseDependency", const=True)
+    resource_type: str = Field("TestPlanTestCaseDependency", const=True)
 
     description: fhirtypes.Markdown = Field(
         None,
@@ -768,7 +775,7 @@ class TestPlanTestCaseDependency(backboneelement.BackboneElement):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    predecessor: fhirtypes.ReferenceType = Field(
+    predecessor: Reference = Field(
         None,
         alias="predecessor",
         title="Link to predecessor test plans",
@@ -794,9 +801,9 @@ class TestPlanTestCaseTestData(backboneelement.BackboneElement):
     The test data used in the test case.
     """
 
-    resource_type = Field("TestPlanTestCaseTestData", const=True)
+    resource_type: str = Field("TestPlanTestCaseTestData", const=True)
 
-    content: fhirtypes.ReferenceType = Field(
+    content: Reference = Field(
         None,
         alias="content",
         title="The actual test resources when they exist",
@@ -805,7 +812,7 @@ class TestPlanTestCaseTestData(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    sourceReference: fhirtypes.ReferenceType = Field(
+    sourceReference: Reference = Field(
         None,
         alias="sourceReference",
         title=(
@@ -838,7 +845,7 @@ class TestPlanTestCaseTestData(backboneelement.BackboneElement):
         None, alias="_sourceString", title="Extension field for ``sourceString``."
     )
 
-    type: fhirtypes.CodingType = Field(
+    type: Coding = Field(
         ...,
         alias="type",
         title="The type of test data description, e.g. 'synthea'",
@@ -910,7 +917,7 @@ class TestPlanTestCaseTestRun(backboneelement.BackboneElement):
     The actual test to be executed.
     """
 
-    resource_type = Field("TestPlanTestCaseTestRun", const=True)
+    resource_type: str = Field("TestPlanTestCaseTestRun", const=True)
 
     narrative: fhirtypes.Markdown = Field(
         None,
@@ -924,7 +931,7 @@ class TestPlanTestCaseTestRun(backboneelement.BackboneElement):
         None, alias="_narrative", title="Extension field for ``narrative``."
     )
 
-    script: fhirtypes.TestPlanTestCaseTestRunScriptType = Field(
+    script: "TestPlanTestCaseTestRunScript" = Field(
         None,
         alias="script",
         title=(
@@ -954,9 +961,9 @@ class TestPlanTestCaseTestRunScript(backboneelement.BackboneElement):
     TestScript.
     """
 
-    resource_type = Field("TestPlanTestCaseTestRunScript", const=True)
+    resource_type: str = Field("TestPlanTestCaseTestRunScript", const=True)
 
-    language: fhirtypes.CodeableConceptType = Field(
+    language: CodeableConcept = Field(
         None,
         alias="language",
         title="The language for the test cases e.g. 'gherkin', 'testscript'",
@@ -965,7 +972,7 @@ class TestPlanTestCaseTestRunScript(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    sourceReference: fhirtypes.ReferenceType = Field(
+    sourceReference: Reference = Field(
         None,
         alias="sourceReference",
         title=(
@@ -1050,3 +1057,8 @@ class TestPlanTestCaseTestRunScript(backboneelement.BackboneElement):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+TestPlan.update_forward_refs()
+TestPlanTestCase.update_forward_refs()
+TestPlanTestCaseTestRun.update_forward_refs()

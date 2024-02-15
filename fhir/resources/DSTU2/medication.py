@@ -12,7 +12,11 @@ from pydantic.v1 import Field
 
 from . import fhirtypes
 from .backboneelement import BackboneElement
+from .codeableconcept import CodeableConcept
 from .domainresource import DomainResource
+from .quantity import Quantity
+from .ratio import Ratio
+from .reference import Reference
 
 
 class Medication(DomainResource):
@@ -22,9 +26,9 @@ class Medication(DomainResource):
     medication. It covers the ingredients and the packaging for a medication.
     """
 
-    resource_type = Field("Medication", const=True)
+    resource_type: str = Field("Medication", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -35,21 +39,21 @@ class Medication(DomainResource):
         None, alias="isBrand", title="Type `Boolean`.", description="True if a brand."
     )
 
-    manufacturer: fhirtypes.ReferenceType = Field(
+    manufacturer: Reference = Field(
         None,
         alias="manufacturer",
         title="Type `Reference` referencing `Organization` (represented as `dict` in JSON).",
         description="Manufacturer of the item.",
     )
 
-    package: fhirtypes.MedicationPackageType = Field(
+    package: "MedicationPackage" = Field(
         None,
         alias="package",
         title="Type `MedicationPackage` (represented as `dict` in JSON).",
         description="Details about packaged medications.",
     )
 
-    product: fhirtypes.MedicationProductType = Field(
+    product: "MedicationProduct" = Field(
         None,
         alias="product",
         title="Type `MedicationProduct` (represented as `dict` in JSON).",
@@ -63,16 +67,16 @@ class MedicationPackage(BackboneElement):
     Information that only applies to packages (not products).
     """
 
-    resource_type = Field("MedicationPackage", const=True)
+    resource_type: str = Field("MedicationPackage", const=True)
 
-    container: fhirtypes.CodeableConceptType = Field(
+    container: CodeableConcept = Field(
         None,
         alias="container",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="E.g. box, vial, blister-pack.",
     )
 
-    content: ListType[fhirtypes.MedicationPackageContentType] = Field(
+    content: ListType["MedicationPackageContent"] = Field(
         None,
         alias="content",
         title="List of `MedicationPackageContent` items (represented as `dict` in JSON).",
@@ -86,16 +90,16 @@ class MedicationPackageContent(BackboneElement):
     A set of components that go to make up the described item.
     """
 
-    resource_type = Field("MedicationPackageContent", const=True)
+    resource_type: str = Field("MedicationPackageContent", const=True)
 
-    amount: fhirtypes.QuantityType = Field(
+    amount: Quantity = Field(
         None,
         alias="amount",
         title="Type `Quantity` (represented as `dict` in JSON).",
         description="Quantity present in the package.",
     )
 
-    item: fhirtypes.ReferenceType = Field(
+    item: Reference = Field(
         None,
         alias="item",
         title="Type `Reference` referencing `Medication` (represented as `dict` in JSON).",
@@ -109,22 +113,22 @@ class MedicationProduct(BackboneElement):
     Information that only applies to products (not packages).
     """
 
-    resource_type = Field("MedicationProduct", const=True)
+    resource_type: str = Field("MedicationProduct", const=True)
 
-    form: fhirtypes.CodeableConceptType = Field(
+    form: CodeableConcept = Field(
         None,
         alias="form",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="powder | tablets | carton +.",
     )
-    batch: ListType[fhirtypes.MedicationProductBatchType] = Field(
+    batch: ListType["MedicationProductBatch"] = Field(
         None,
         alias="batch",
         title="List of `MedicationProductBatch` items (represented as `dict` in JSON).",
         description=None,
     )
 
-    ingredient: ListType[fhirtypes.MedicationProductIngredientType] = Field(
+    ingredient: ListType["MedicationProductIngredient"] = Field(
         None,
         alias="ingredient",
         title="List of `MedicationProductIngredient` items (represented as `dict` in JSON).",
@@ -139,7 +143,7 @@ class MedicationProductBatch(BackboneElement):
     production run.
     """
 
-    resource_type = Field("MedicationProductBatch", const=True)
+    resource_type: str = Field("MedicationProductBatch", const=True)
 
     expirationDate: fhirtypes.DateTime = Field(
         None, alias="expirationDate", title="Type `DateTime`.", description=None
@@ -155,16 +159,16 @@ class MedicationProductIngredient(BackboneElement):
     Identifies a particular constituent of interest in the product.
     """
 
-    resource_type = Field("MedicationProductIngredient", const=True)
+    resource_type: str = Field("MedicationProductIngredient", const=True)
 
-    amount: fhirtypes.RatioType = Field(
+    amount: Ratio = Field(
         None,
         alias="amount",
         title="Type `Ratio` (represented as `dict` in JSON).",
         description="Quantity of ingredient present.",
     )
 
-    item: fhirtypes.ReferenceType = Field(
+    item: Reference = Field(
         None,
         alias="item",
         title=(
@@ -173,3 +177,8 @@ class MedicationProductIngredient(BackboneElement):
         ),
         description="The product contained.",
     )
+
+
+Medication.update_forward_refs()
+MedicationPackage.update_forward_refs()
+MedicationProduct.update_forward_refs()

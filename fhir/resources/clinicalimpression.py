@@ -13,6 +13,12 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .codeablereference import CodeableReference
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class ClinicalImpression(domainresource.DomainResource):
@@ -31,9 +37,9 @@ class ClinicalImpression(domainresource.DomainResource):
     with the recording of assessment tools such as Apgar score.
     """
 
-    resource_type = Field("ClinicalImpression", const=True)
+    resource_type: str = Field("ClinicalImpression", const=True)
 
-    changePattern: fhirtypes.CodeableConceptType = Field(
+    changePattern: CodeableConcept = Field(
         None,
         alias="changePattern",
         title=(
@@ -93,7 +99,7 @@ class ClinicalImpression(domainresource.DomainResource):
         title="Extension field for ``effectiveDateTime``.",
     )
 
-    effectivePeriod: fhirtypes.PeriodType = Field(
+    effectivePeriod: Period = Field(
         None,
         alias="effectivePeriod",
         title="Time of assessment",
@@ -105,7 +111,7 @@ class ClinicalImpression(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title="The Encounter during which this ClinicalImpression was created",
@@ -119,7 +125,7 @@ class ClinicalImpression(domainresource.DomainResource):
         enum_reference_types=["Encounter"],
     )
 
-    finding: typing.List[fhirtypes.ClinicalImpressionFindingType] = Field(
+    finding: typing.List["ClinicalImpressionFinding"] = Field(
         None,
         alias="finding",
         title="Possible or likely findings and diagnoses",
@@ -131,7 +137,7 @@ class ClinicalImpression(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business identifier",
@@ -144,7 +150,7 @@ class ClinicalImpression(domainresource.DomainResource):
         element_property=True,
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Comments made about the ClinicalImpression",
@@ -157,7 +163,7 @@ class ClinicalImpression(domainresource.DomainResource):
         element_property=True,
     )
 
-    performer: fhirtypes.ReferenceType = Field(
+    performer: Reference = Field(
         None,
         alias="performer",
         title="The clinician performing the assessment",
@@ -168,7 +174,7 @@ class ClinicalImpression(domainresource.DomainResource):
         enum_reference_types=["Practitioner", "PractitionerRole"],
     )
 
-    previous: fhirtypes.ReferenceType = Field(
+    previous: Reference = Field(
         None,
         alias="previous",
         title="Reference to last assessment",
@@ -184,7 +190,7 @@ class ClinicalImpression(domainresource.DomainResource):
         enum_reference_types=["ClinicalImpression"],
     )
 
-    problem: typing.List[fhirtypes.ReferenceType] = Field(
+    problem: typing.List[Reference] = Field(
         None,
         alias="problem",
         title="Relevant impressions of patient state",
@@ -195,7 +201,7 @@ class ClinicalImpression(domainresource.DomainResource):
         enum_reference_types=["Condition", "AllergyIntolerance"],
     )
 
-    prognosisCodeableConcept: typing.List[fhirtypes.CodeableConceptType] = Field(
+    prognosisCodeableConcept: typing.List[CodeableConcept] = Field(
         None,
         alias="prognosisCodeableConcept",
         title="Estimate of likely outcome",
@@ -204,7 +210,7 @@ class ClinicalImpression(domainresource.DomainResource):
         element_property=True,
     )
 
-    prognosisReference: typing.List[fhirtypes.ReferenceType] = Field(
+    prognosisReference: typing.List[Reference] = Field(
         None,
         alias="prognosisReference",
         title="RiskAssessment expressing likely outcome",
@@ -259,7 +265,7 @@ class ClinicalImpression(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    statusReason: fhirtypes.CodeableConceptType = Field(
+    statusReason: CodeableConcept = Field(
         None,
         alias="statusReason",
         title="Reason for current status",
@@ -268,7 +274,7 @@ class ClinicalImpression(domainresource.DomainResource):
         element_property=True,
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         ...,
         alias="subject",
         title="Patient or group assessed",
@@ -291,7 +297,7 @@ class ClinicalImpression(domainresource.DomainResource):
         None, alias="_summary", title="Extension field for ``summary``."
     )
 
-    supportingInfo: typing.List[fhirtypes.ReferenceType] = Field(
+    supportingInfo: typing.List[Reference] = Field(
         None,
         alias="supportingInfo",
         title="Information supporting the clinical impression",
@@ -450,7 +456,7 @@ class ClinicalImpressionFinding(backboneelement.BackboneElement):
     ongoing treatment.
     """
 
-    resource_type = Field("ClinicalImpressionFinding", const=True)
+    resource_type: str = Field("ClinicalImpressionFinding", const=True)
 
     basis: fhirtypes.String = Field(
         None,
@@ -464,7 +470,7 @@ class ClinicalImpressionFinding(backboneelement.BackboneElement):
         None, alias="_basis", title="Extension field for ``basis``."
     )
 
-    item: fhirtypes.CodeableReferenceType = Field(
+    item: CodeableReference = Field(
         None,
         alias="item",
         title="What was found",
@@ -485,3 +491,6 @@ class ClinicalImpressionFinding(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "item", "basis"]
+
+
+ClinicalImpression.update_forward_refs()

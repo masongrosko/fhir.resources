@@ -11,6 +11,10 @@ import typing
 from pydantic.v1 import Field
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .range import Range
+from .reference import Reference
 
 
 class ObservationDefinition(domainresource.DomainResource):
@@ -23,9 +27,9 @@ class ObservationDefinition(domainresource.DomainResource):
     measurement produced or consumed by an orderable health care service.
     """
 
-    resource_type = Field("ObservationDefinition", const=True)
+    resource_type: str = Field("ObservationDefinition", const=True)
 
-    abnormalCodedValueSet: fhirtypes.ReferenceType = Field(
+    abnormalCodedValueSet: Reference = Field(
         None,
         alias="abnormalCodedValueSet",
         title=(
@@ -42,7 +46,7 @@ class ObservationDefinition(domainresource.DomainResource):
         enum_reference_types=["ValueSet"],
     )
 
-    category: typing.List[fhirtypes.CodeableConceptType] = Field(
+    category: typing.List[CodeableConcept] = Field(
         None,
         alias="category",
         title="Category of observation",
@@ -51,7 +55,7 @@ class ObservationDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         ...,
         alias="code",
         title="Type of observation (code / type)",
@@ -63,7 +67,7 @@ class ObservationDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    criticalCodedValueSet: fhirtypes.ReferenceType = Field(
+    criticalCodedValueSet: Reference = Field(
         None,
         alias="criticalCodedValueSet",
         title=(
@@ -80,7 +84,7 @@ class ObservationDefinition(domainresource.DomainResource):
         enum_reference_types=["ValueSet"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business identifier for this ObservationDefinition instance",
@@ -89,7 +93,7 @@ class ObservationDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    method: fhirtypes.CodeableConceptType = Field(
+    method: CodeableConcept = Field(
         None,
         alias="method",
         title="Method used to produce the observation",
@@ -115,7 +119,7 @@ class ObservationDefinition(domainresource.DomainResource):
         title="Extension field for ``multipleResultsAllowed``.",
     )
 
-    normalCodedValueSet: fhirtypes.ReferenceType = Field(
+    normalCodedValueSet: Reference = Field(
         None,
         alias="normalCodedValueSet",
         title=(
@@ -186,9 +190,7 @@ class ObservationDefinition(domainresource.DomainResource):
         title="Extension field for ``preferredReportName``.",
     )
 
-    qualifiedInterval: typing.List[
-        fhirtypes.ObservationDefinitionQualifiedIntervalType
-    ] = Field(
+    qualifiedInterval: typing.List["ObservationDefinitionQualifiedInterval"] = Field(
         None,
         alias="qualifiedInterval",
         title="Qualified range for continuous and ordinal observation results",
@@ -201,7 +203,7 @@ class ObservationDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    quantitativeDetails: fhirtypes.ObservationDefinitionQuantitativeDetailsType = Field(
+    quantitativeDetails: "ObservationDefinitionQuantitativeDetails" = Field(
         None,
         alias="quantitativeDetails",
         title="Characteristics of quantitative results",
@@ -210,7 +212,7 @@ class ObservationDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    validCodedValueSet: fhirtypes.ReferenceType = Field(
+    validCodedValueSet: Reference = Field(
         None,
         alias="validCodedValueSet",
         title=(
@@ -268,9 +270,9 @@ class ObservationDefinitionQualifiedInterval(backboneelement.BackboneElement):
     continuous observations conforming to this ObservationDefinition.
     """
 
-    resource_type = Field("ObservationDefinitionQualifiedInterval", const=True)
+    resource_type: str = Field("ObservationDefinitionQualifiedInterval", const=True)
 
-    age: fhirtypes.RangeType = Field(
+    age: Range = Field(
         None,
         alias="age",
         title="Applicable age range, if relevant",
@@ -282,7 +284,7 @@ class ObservationDefinitionQualifiedInterval(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    appliesTo: typing.List[fhirtypes.CodeableConceptType] = Field(
+    appliesTo: typing.List[CodeableConcept] = Field(
         None,
         alias="appliesTo",
         title="Targetted population of the range",
@@ -324,7 +326,7 @@ class ObservationDefinitionQualifiedInterval(backboneelement.BackboneElement):
         None, alias="_condition", title="Extension field for ``condition``."
     )
 
-    context: fhirtypes.CodeableConceptType = Field(
+    context: CodeableConcept = Field(
         None,
         alias="context",
         title="Range context qualifier",
@@ -351,7 +353,7 @@ class ObservationDefinitionQualifiedInterval(backboneelement.BackboneElement):
         None, alias="_gender", title="Extension field for ``gender``."
     )
 
-    gestationalAge: fhirtypes.RangeType = Field(
+    gestationalAge: Range = Field(
         None,
         alias="gestationalAge",
         title="Applicable gestational age range, if relevant",
@@ -363,7 +365,7 @@ class ObservationDefinitionQualifiedInterval(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    range: fhirtypes.RangeType = Field(
+    range: Range = Field(
         None,
         alias="range",
         title="The interval itself, for continuous or ordinal observations",
@@ -405,7 +407,7 @@ class ObservationDefinitionQuantitativeDetails(backboneelement.BackboneElement):
     Characteristics for quantitative results of this observation.
     """
 
-    resource_type = Field("ObservationDefinitionQuantitativeDetails", const=True)
+    resource_type: str = Field("ObservationDefinitionQuantitativeDetails", const=True)
 
     conversionFactor: fhirtypes.Decimal = Field(
         None,
@@ -424,7 +426,7 @@ class ObservationDefinitionQuantitativeDetails(backboneelement.BackboneElement):
         title="Extension field for ``conversionFactor``.",
     )
 
-    customaryUnit: fhirtypes.CodeableConceptType = Field(
+    customaryUnit: CodeableConcept = Field(
         None,
         alias="customaryUnit",
         title="Customary unit for quantitative results",
@@ -453,7 +455,7 @@ class ObservationDefinitionQuantitativeDetails(backboneelement.BackboneElement):
         title="Extension field for ``decimalPrecision``.",
     )
 
-    unit: fhirtypes.CodeableConceptType = Field(
+    unit: CodeableConcept = Field(
         None,
         alias="unit",
         title="SI unit for quantitative results",
@@ -480,3 +482,6 @@ class ObservationDefinitionQuantitativeDetails(backboneelement.BackboneElement):
             "conversionFactor",
             "decimalPrecision",
         ]
+
+
+ObservationDefinition.update_forward_refs()

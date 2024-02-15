@@ -11,6 +11,8 @@ import typing
 from pydantic.v1 import Field
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
 
 
 class SubstanceSourceMaterial(domainresource.DomainResource):
@@ -34,9 +36,9 @@ class SubstanceSourceMaterial(domainresource.DomainResource):
     herbal annex.
     """
 
-    resource_type = Field("SubstanceSourceMaterial", const=True)
+    resource_type: str = Field("SubstanceSourceMaterial", const=True)
 
-    countryOfOrigin: typing.List[fhirtypes.CodeableConceptType] = Field(
+    countryOfOrigin: typing.List[CodeableConcept] = Field(
         None,
         alias="countryOfOrigin",
         title=(
@@ -51,7 +53,7 @@ class SubstanceSourceMaterial(domainresource.DomainResource):
         element_property=True,
     )
 
-    developmentStage: fhirtypes.CodeableConceptType = Field(
+    developmentStage: CodeableConcept = Field(
         None,
         alias="developmentStage",
         title=(
@@ -64,25 +66,25 @@ class SubstanceSourceMaterial(domainresource.DomainResource):
         element_property=True,
     )
 
-    fractionDescription: typing.List[
-        fhirtypes.SubstanceSourceMaterialFractionDescriptionType
-    ] = Field(
-        None,
-        alias="fractionDescription",
-        title=(
-            "Many complex materials are fractions of parts of plants, animals, or "
-            "minerals. Fraction elements are often necessary to define both "
-            "Substances and Specified Group 1 Substances. For substances derived "
-            "from Plants, fraction information will be captured at the Substance "
-            "information level ( . Oils, Juices and Exudates). Additional "
-            "information for Extracts, such as extraction solvent composition, will"
-            " be captured at the Specified Substance Group 1 information level. For"
-            " plasma-derived products fraction information will be captured at the "
-            "Substance and the Specified Substance Group 1 levels"
-        ),
-        description=None,
-        # if property is element of this resource.
-        element_property=True,
+    fractionDescription: typing.List["SubstanceSourceMaterialFractionDescription"] = (
+        Field(
+            None,
+            alias="fractionDescription",
+            title=(
+                "Many complex materials are fractions of parts of plants, animals, or "
+                "minerals. Fraction elements are often necessary to define both "
+                "Substances and Specified Group 1 Substances. For substances derived "
+                "from Plants, fraction information will be captured at the Substance "
+                "information level ( . Oils, Juices and Exudates). Additional "
+                "information for Extracts, such as extraction solvent composition, will"
+                " be captured at the Specified Substance Group 1 information level. For"
+                " plasma-derived products fraction information will be captured at the "
+                "Substance and the Specified Substance Group 1 levels"
+            ),
+            description=None,
+            # if property is element of this resource.
+            element_property=True,
+        )
     )
 
     geographicalLocation: typing.List[typing.Optional[fhirtypes.String]] = Field(
@@ -104,7 +106,7 @@ class SubstanceSourceMaterial(domainresource.DomainResource):
         title="Extension field for ``geographicalLocation``.",
     )
 
-    organism: fhirtypes.SubstanceSourceMaterialOrganismType = Field(
+    organism: "SubstanceSourceMaterialOrganism" = Field(
         None,
         alias="organism",
         title=(
@@ -118,7 +120,7 @@ class SubstanceSourceMaterial(domainresource.DomainResource):
         element_property=True,
     )
 
-    organismId: fhirtypes.IdentifierType = Field(
+    organismId: Identifier = Field(
         None,
         alias="organismId",
         title=(
@@ -145,7 +147,7 @@ class SubstanceSourceMaterial(domainresource.DomainResource):
         None, alias="_organismName", title="Extension field for ``organismName``."
     )
 
-    parentSubstanceId: typing.List[fhirtypes.IdentifierType] = Field(
+    parentSubstanceId: typing.List[Identifier] = Field(
         None,
         alias="parentSubstanceId",
         title=(
@@ -174,9 +176,7 @@ class SubstanceSourceMaterial(domainresource.DomainResource):
         title="Extension field for ``parentSubstanceName``.",
     )
 
-    partDescription: typing.List[
-        fhirtypes.SubstanceSourceMaterialPartDescriptionType
-    ] = Field(
+    partDescription: typing.List["SubstanceSourceMaterialPartDescription"] = Field(
         None,
         alias="partDescription",
         title="To do",
@@ -185,7 +185,7 @@ class SubstanceSourceMaterial(domainresource.DomainResource):
         element_property=True,
     )
 
-    sourceMaterialClass: fhirtypes.CodeableConceptType = Field(
+    sourceMaterialClass: CodeableConcept = Field(
         None,
         alias="sourceMaterialClass",
         title=(
@@ -197,7 +197,7 @@ class SubstanceSourceMaterial(domainresource.DomainResource):
         element_property=True,
     )
 
-    sourceMaterialState: fhirtypes.CodeableConceptType = Field(
+    sourceMaterialState: CodeableConcept = Field(
         None,
         alias="sourceMaterialState",
         title="The state of the source material when extracted",
@@ -206,7 +206,7 @@ class SubstanceSourceMaterial(domainresource.DomainResource):
         element_property=True,
     )
 
-    sourceMaterialType: fhirtypes.CodeableConceptType = Field(
+    sourceMaterialType: CodeableConcept = Field(
         None,
         alias="sourceMaterialType",
         title=(
@@ -266,7 +266,7 @@ class SubstanceSourceMaterialFractionDescription(backboneelement.BackboneElement
     levels.
     """
 
-    resource_type = Field("SubstanceSourceMaterialFractionDescription", const=True)
+    resource_type: str = Field("SubstanceSourceMaterialFractionDescription", const=True)
 
     fraction: fhirtypes.String = Field(
         None,
@@ -283,7 +283,7 @@ class SubstanceSourceMaterialFractionDescription(backboneelement.BackboneElement
         None, alias="_fraction", title="Extension field for ``fraction``."
     )
 
-    materialType: fhirtypes.CodeableConceptType = Field(
+    materialType: CodeableConcept = Field(
         None,
         alias="materialType",
         title=(
@@ -316,9 +316,9 @@ class SubstanceSourceMaterialOrganism(backboneelement.BackboneElement):
     Substance Name: ., Leaf.
     """
 
-    resource_type = Field("SubstanceSourceMaterialOrganism", const=True)
+    resource_type: str = Field("SubstanceSourceMaterialOrganism", const=True)
 
-    author: typing.List[fhirtypes.SubstanceSourceMaterialOrganismAuthorType] = Field(
+    author: typing.List["SubstanceSourceMaterialOrganismAuthor"] = Field(
         None,
         alias="author",
         title="4.9.13.6.1 Author type (Conditional)",
@@ -327,7 +327,7 @@ class SubstanceSourceMaterialOrganism(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    family: fhirtypes.CodeableConceptType = Field(
+    family: CodeableConcept = Field(
         None,
         alias="family",
         title="The family of an organism shall be specified",
@@ -336,7 +336,7 @@ class SubstanceSourceMaterialOrganism(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    genus: fhirtypes.CodeableConceptType = Field(
+    genus: CodeableConcept = Field(
         None,
         alias="genus",
         title=(
@@ -349,7 +349,7 @@ class SubstanceSourceMaterialOrganism(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    hybrid: fhirtypes.SubstanceSourceMaterialOrganismHybridType = Field(
+    hybrid: "SubstanceSourceMaterialOrganismHybrid" = Field(
         None,
         alias="hybrid",
         title="4.9.13.8.1 Hybrid species maternal organism ID (Optional)",
@@ -377,7 +377,7 @@ class SubstanceSourceMaterialOrganism(backboneelement.BackboneElement):
         title="Extension field for ``intraspecificDescription``.",
     )
 
-    intraspecificType: fhirtypes.CodeableConceptType = Field(
+    intraspecificType: CodeableConcept = Field(
         None,
         alias="intraspecificType",
         title="The Intraspecific type of an organism shall be specified",
@@ -386,7 +386,7 @@ class SubstanceSourceMaterialOrganism(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    organismGeneral: fhirtypes.SubstanceSourceMaterialOrganismOrganismGeneralType = Field(
+    organismGeneral: "SubstanceSourceMaterialOrganismOrganismGeneral" = Field(
         None,
         alias="organismGeneral",
         title="4.9.13.7.1 Kingdom (Conditional)",
@@ -395,7 +395,7 @@ class SubstanceSourceMaterialOrganism(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    species: fhirtypes.CodeableConceptType = Field(
+    species: CodeableConcept = Field(
         None,
         alias="species",
         title=(
@@ -437,7 +437,7 @@ class SubstanceSourceMaterialOrganismAuthor(backboneelement.BackboneElement):
     4.9.13.6.1 Author type (Conditional).
     """
 
-    resource_type = Field("SubstanceSourceMaterialOrganismAuthor", const=True)
+    resource_type: str = Field("SubstanceSourceMaterialOrganismAuthor", const=True)
 
     authorDescription: fhirtypes.String = Field(
         None,
@@ -458,7 +458,7 @@ class SubstanceSourceMaterialOrganismAuthor(backboneelement.BackboneElement):
         title="Extension field for ``authorDescription``.",
     )
 
-    authorType: fhirtypes.CodeableConceptType = Field(
+    authorType: CodeableConcept = Field(
         None,
         alias="authorType",
         title=(
@@ -496,9 +496,9 @@ class SubstanceSourceMaterialOrganismHybrid(backboneelement.BackboneElement):
     4.9.13.8.1 Hybrid species maternal organism ID (Optional).
     """
 
-    resource_type = Field("SubstanceSourceMaterialOrganismHybrid", const=True)
+    resource_type: str = Field("SubstanceSourceMaterialOrganismHybrid", const=True)
 
-    hybridType: fhirtypes.CodeableConceptType = Field(
+    hybridType: CodeableConcept = Field(
         None,
         alias="hybridType",
         title="The hybrid type of an organism shall be specified",
@@ -605,9 +605,11 @@ class SubstanceSourceMaterialOrganismOrganismGeneral(backboneelement.BackboneEle
     4.9.13.7.1 Kingdom (Conditional).
     """
 
-    resource_type = Field("SubstanceSourceMaterialOrganismOrganismGeneral", const=True)
+    resource_type: str = Field(
+        "SubstanceSourceMaterialOrganismOrganismGeneral", const=True
+    )
 
-    class_fhir: fhirtypes.CodeableConceptType = Field(
+    class_fhir: CodeableConcept = Field(
         None,
         alias="class",
         title="The class of an organism shall be specified",
@@ -616,7 +618,7 @@ class SubstanceSourceMaterialOrganismOrganismGeneral(backboneelement.BackboneEle
         element_property=True,
     )
 
-    kingdom: fhirtypes.CodeableConceptType = Field(
+    kingdom: CodeableConcept = Field(
         None,
         alias="kingdom",
         title="The kingdom of an organism shall be specified",
@@ -625,7 +627,7 @@ class SubstanceSourceMaterialOrganismOrganismGeneral(backboneelement.BackboneEle
         element_property=True,
     )
 
-    order: fhirtypes.CodeableConceptType = Field(
+    order: CodeableConcept = Field(
         None,
         alias="order",
         title="The order of an organism shall be specified,",
@@ -634,7 +636,7 @@ class SubstanceSourceMaterialOrganismOrganismGeneral(backboneelement.BackboneEle
         element_property=True,
     )
 
-    phylum: fhirtypes.CodeableConceptType = Field(
+    phylum: CodeableConcept = Field(
         None,
         alias="phylum",
         title="The phylum of an organism shall be specified",
@@ -668,9 +670,9 @@ class SubstanceSourceMaterialPartDescription(backboneelement.BackboneElement):
     To do.
     """
 
-    resource_type = Field("SubstanceSourceMaterialPartDescription", const=True)
+    resource_type: str = Field("SubstanceSourceMaterialPartDescription", const=True)
 
-    part: fhirtypes.CodeableConceptType = Field(
+    part: CodeableConcept = Field(
         None,
         alias="part",
         title="Entity of anatomical origin of source material within an organism",
@@ -679,7 +681,7 @@ class SubstanceSourceMaterialPartDescription(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    partLocation: fhirtypes.CodeableConceptType = Field(
+    partLocation: CodeableConcept = Field(
         None,
         alias="partLocation",
         title=(
@@ -699,3 +701,7 @@ class SubstanceSourceMaterialPartDescription(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "part", "partLocation"]
+
+
+SubstanceSourceMaterial.update_forward_refs()
+SubstanceSourceMaterialOrganism.update_forward_refs()

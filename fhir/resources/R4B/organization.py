@@ -11,6 +11,12 @@ import typing
 from pydantic.v1 import Field
 
 from . import backboneelement, domainresource, fhirtypes
+from .address import Address
+from .codeableconcept import CodeableConcept
+from .contactpoint import ContactPoint
+from .humanname import HumanName
+from .identifier import Identifier
+from .reference import Reference
 
 
 class Organization(domainresource.DomainResource):
@@ -25,7 +31,7 @@ class Organization(domainresource.DomainResource):
     groups, healthcare practice groups, payer/insurer, etc.
     """
 
-    resource_type = Field("Organization", const=True)
+    resource_type: str = Field("Organization", const=True)
 
     active: bool = Field(
         None,
@@ -39,7 +45,7 @@ class Organization(domainresource.DomainResource):
         None, alias="_active", title="Extension field for ``active``."
     )
 
-    address: typing.List[fhirtypes.AddressType] = Field(
+    address: typing.List[Address] = Field(
         None,
         alias="address",
         title="An address for the organization",
@@ -63,7 +69,7 @@ class Organization(domainresource.DomainResource):
         typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
     ] = Field(None, alias="_alias", title="Extension field for ``alias``.")
 
-    contact: typing.List[fhirtypes.OrganizationContactType] = Field(
+    contact: typing.List["OrganizationContact"] = Field(
         None,
         alias="contact",
         title="Contact for the organization for a certain purpose",
@@ -72,7 +78,7 @@ class Organization(domainresource.DomainResource):
         element_property=True,
     )
 
-    endpoint: typing.List[fhirtypes.ReferenceType] = Field(
+    endpoint: typing.List[Reference] = Field(
         None,
         alias="endpoint",
         title=(
@@ -86,7 +92,7 @@ class Organization(domainresource.DomainResource):
         enum_reference_types=["Endpoint"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Identifies this organization  across multiple systems",
@@ -110,7 +116,7 @@ class Organization(domainresource.DomainResource):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    partOf: fhirtypes.ReferenceType = Field(
+    partOf: Reference = Field(
         None,
         alias="partOf",
         title="The organization of which this organization forms a part",
@@ -121,7 +127,7 @@ class Organization(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    telecom: typing.List[fhirtypes.ContactPointType] = Field(
+    telecom: typing.List[ContactPoint] = Field(
         None,
         alias="telecom",
         title="A contact detail for the organization",
@@ -130,7 +136,7 @@ class Organization(domainresource.DomainResource):
         element_property=True,
     )
 
-    type: typing.List[fhirtypes.CodeableConceptType] = Field(
+    type: typing.List[CodeableConcept] = Field(
         None,
         alias="type",
         title="Kind of organization",
@@ -175,9 +181,9 @@ class OrganizationContact(backboneelement.BackboneElement):
     Contact for the organization for a certain purpose.
     """
 
-    resource_type = Field("OrganizationContact", const=True)
+    resource_type: str = Field("OrganizationContact", const=True)
 
-    address: fhirtypes.AddressType = Field(
+    address: Address = Field(
         None,
         alias="address",
         title="Visiting or postal addresses for the contact",
@@ -186,7 +192,7 @@ class OrganizationContact(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    name: fhirtypes.HumanNameType = Field(
+    name: HumanName = Field(
         None,
         alias="name",
         title="A name associated with the contact",
@@ -195,7 +201,7 @@ class OrganizationContact(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    purpose: fhirtypes.CodeableConceptType = Field(
+    purpose: CodeableConcept = Field(
         None,
         alias="purpose",
         title="The type of contact",
@@ -204,7 +210,7 @@ class OrganizationContact(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    telecom: typing.List[fhirtypes.ContactPointType] = Field(
+    telecom: typing.List[ContactPoint] = Field(
         None,
         alias="telecom",
         title="Contact details (telephone, email, etc.)  for a contact",
@@ -231,3 +237,6 @@ class OrganizationContact(backboneelement.BackboneElement):
             "telecom",
             "address",
         ]
+
+
+Organization.update_forward_refs()

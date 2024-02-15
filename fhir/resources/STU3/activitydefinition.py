@@ -13,6 +13,18 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .contactdetail import ContactDetail
+from .contributor import Contributor
+from .dosage import Dosage
+from .identifier import Identifier
+from .period import Period
+from .quantity import Quantity
+from .range import Range
+from .reference import Reference
+from .relatedartifact import RelatedArtifact
+from .timing import Timing
+from .usagecontext import UsageContext
 
 
 class ActivityDefinition(domainresource.DomainResource):
@@ -27,7 +39,7 @@ class ActivityDefinition(domainresource.DomainResource):
     context.
     """
 
-    resource_type = Field("ActivityDefinition", const=True)
+    resource_type: str = Field("ActivityDefinition", const=True)
 
     approvalDate: fhirtypes.Date = Field(
         None,
@@ -45,7 +57,7 @@ class ActivityDefinition(domainresource.DomainResource):
         None, alias="_approvalDate", title="Extension field for ``approvalDate``."
     )
 
-    bodySite: typing.List[fhirtypes.CodeableConceptType] = Field(
+    bodySite: typing.List[CodeableConcept] = Field(
         None,
         alias="bodySite",
         title="What part of body to perform on",
@@ -57,7 +69,7 @@ class ActivityDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Detail type of activity",
@@ -69,7 +81,7 @@ class ActivityDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -81,7 +93,7 @@ class ActivityDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    contributor: typing.List[fhirtypes.ContributorType] = Field(
+    contributor: typing.List[Contributor] = Field(
         None,
         alias="contributor",
         title="A content contributor",
@@ -142,7 +154,7 @@ class ActivityDefinition(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    dosage: typing.List[fhirtypes.DosageType] = Field(
+    dosage: typing.List[Dosage] = Field(
         None,
         alias="dosage",
         title="Detailed dosage instructions",
@@ -154,7 +166,7 @@ class ActivityDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    dynamicValue: typing.List[fhirtypes.ActivityDefinitionDynamicValueType] = Field(
+    dynamicValue: typing.List["ActivityDefinitionDynamicValue"] = Field(
         None,
         alias="dynamicValue",
         title="Dynamic aspects of the definition",
@@ -169,7 +181,7 @@ class ActivityDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    effectivePeriod: fhirtypes.PeriodType = Field(
+    effectivePeriod: Period = Field(
         None,
         alias="effectivePeriod",
         title="When the activity definition is expected to be used",
@@ -197,7 +209,7 @@ class ActivityDefinition(domainresource.DomainResource):
         None, alias="_experimental", title="Extension field for ``experimental``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Additional identifier for the activity definition",
@@ -210,7 +222,7 @@ class ActivityDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction for activity definition (if applicable)",
@@ -255,7 +267,7 @@ class ActivityDefinition(domainresource.DomainResource):
         None, alias="_lastReviewDate", title="Extension field for ``lastReviewDate``."
     )
 
-    library: typing.List[fhirtypes.ReferenceType] = Field(
+    library: typing.List[Reference] = Field(
         None,
         alias="library",
         title="Logic used by the asset",
@@ -269,7 +281,7 @@ class ActivityDefinition(domainresource.DomainResource):
         enum_reference_types=["Library"],
     )
 
-    location: fhirtypes.ReferenceType = Field(
+    location: Reference = Field(
         None,
         alias="location",
         title="Where it should happen",
@@ -299,7 +311,7 @@ class ActivityDefinition(domainresource.DomainResource):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    participant: typing.List[fhirtypes.ActivityDefinitionParticipantType] = Field(
+    participant: typing.List["ActivityDefinitionParticipant"] = Field(
         None,
         alias="participant",
         title="Who should participate in the action",
@@ -308,7 +320,7 @@ class ActivityDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    productCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    productCodeableConcept: CodeableConcept = Field(
         None,
         alias="productCodeableConcept",
         title="What's administered/supplied",
@@ -323,7 +335,7 @@ class ActivityDefinition(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    productReference: fhirtypes.ReferenceType = Field(
+    productReference: Reference = Field(
         None,
         alias="productReference",
         title="What's administered/supplied",
@@ -370,7 +382,7 @@ class ActivityDefinition(domainresource.DomainResource):
         None, alias="_purpose", title="Extension field for ``purpose``."
     )
 
-    quantity: fhirtypes.QuantityType = Field(
+    quantity: Quantity = Field(
         None,
         alias="quantity",
         title="How much is administered/consumed/supplied",
@@ -382,7 +394,7 @@ class ActivityDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    relatedArtifact: typing.List[fhirtypes.RelatedArtifactType] = Field(
+    relatedArtifact: typing.List[RelatedArtifact] = Field(
         None,
         alias="relatedArtifact",
         title="Additional documentation, citations, etc",
@@ -431,7 +443,7 @@ class ActivityDefinition(domainresource.DomainResource):
         None, alias="_timingDateTime", title="Extension field for ``timingDateTime``."
     )
 
-    timingPeriod: fhirtypes.PeriodType = Field(
+    timingPeriod: Period = Field(
         None,
         alias="timingPeriod",
         title="When activity is to occur",
@@ -446,7 +458,7 @@ class ActivityDefinition(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    timingRange: fhirtypes.RangeType = Field(
+    timingRange: Range = Field(
         None,
         alias="timingRange",
         title="When activity is to occur",
@@ -461,7 +473,7 @@ class ActivityDefinition(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    timingTiming: fhirtypes.TimingType = Field(
+    timingTiming: Timing = Field(
         None,
         alias="timingTiming",
         title="When activity is to occur",
@@ -488,7 +500,7 @@ class ActivityDefinition(domainresource.DomainResource):
         None, alias="_title", title="Extension field for ``title``."
     )
 
-    topic: typing.List[fhirtypes.CodeableConceptType] = Field(
+    topic: typing.List[CodeableConcept] = Field(
         None,
         alias="topic",
         title="E.g. Education, Treatment, Assessment, etc",
@@ -501,7 +513,7 @@ class ActivityDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    transform: fhirtypes.ReferenceType = Field(
+    transform: Reference = Field(
         None,
         alias="transform",
         title="Transform to apply the template",
@@ -551,7 +563,7 @@ class ActivityDefinition(domainresource.DomainResource):
         None, alias="_usage", title="Extension field for ``usage``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="Context the content is intended to support",
@@ -758,7 +770,7 @@ class ActivityDefinitionDynamicValue(backboneelement.BackboneElement):
     intent resource that would contain the result.
     """
 
-    resource_type = Field("ActivityDefinitionDynamicValue", const=True)
+    resource_type: str = Field("ActivityDefinitionDynamicValue", const=True)
 
     description: fhirtypes.String = Field(
         None,
@@ -841,9 +853,9 @@ class ActivityDefinitionParticipant(backboneelement.BackboneElement):
     Indicates who should participate in performing the action described.
     """
 
-    resource_type = Field("ActivityDefinitionParticipant", const=True)
+    resource_type: str = Field("ActivityDefinitionParticipant", const=True)
 
-    role: fhirtypes.CodeableConceptType = Field(
+    role: CodeableConcept = Field(
         None,
         alias="role",
         title="E.g. Nurse, Surgeon, Parent, etc",
@@ -937,3 +949,6 @@ class ActivityDefinitionParticipant(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+ActivityDefinition.update_forward_refs()

@@ -13,6 +13,8 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import element, fhirtypes
+from .coding import Coding
+from .reference import Reference
 
 
 class Signature(element.Element):
@@ -28,7 +30,7 @@ class Signature(element.Element):
     ceremony Different signature approaches have different utilities.
     """
 
-    resource_type = Field("Signature", const=True)
+    resource_type: str = Field("Signature", const=True)
 
     data: fhirtypes.Base64Binary = Field(
         None,
@@ -45,7 +47,7 @@ class Signature(element.Element):
         None, alias="_data", title="Extension field for ``data``."
     )
 
-    onBehalfOf: fhirtypes.ReferenceType = Field(
+    onBehalfOf: Reference = Field(
         None,
         alias="onBehalfOf",
         title="The party represented",
@@ -98,7 +100,7 @@ class Signature(element.Element):
         None, alias="_targetFormat", title="Extension field for ``targetFormat``."
     )
 
-    type: typing.List[fhirtypes.CodingType] = Field(
+    type: typing.List[Coding] = Field(
         ...,
         alias="type",
         title="Indication of the reason the entity signed the object(s)",
@@ -125,7 +127,7 @@ class Signature(element.Element):
         None, alias="_when", title="Extension field for ``when``."
     )
 
-    who: fhirtypes.ReferenceType = Field(
+    who: Reference = Field(
         ...,
         alias="who",
         title="Who signed",

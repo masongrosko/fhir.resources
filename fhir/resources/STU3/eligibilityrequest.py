@@ -11,6 +11,10 @@ import typing
 from pydantic.v1 import Field, root_validator
 
 from . import domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class EligibilityRequest(domainresource.DomainResource):
@@ -25,9 +29,9 @@ class EligibilityRequest(domainresource.DomainResource):
     force and optionally to provide the insurance details of the policy.
     """
 
-    resource_type = Field("EligibilityRequest", const=True)
+    resource_type: str = Field("EligibilityRequest", const=True)
 
-    benefitCategory: fhirtypes.CodeableConceptType = Field(
+    benefitCategory: CodeableConcept = Field(
         None,
         alias="benefitCategory",
         title="Type of services covered",
@@ -36,7 +40,7 @@ class EligibilityRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    benefitSubCategory: fhirtypes.CodeableConceptType = Field(
+    benefitSubCategory: CodeableConcept = Field(
         None,
         alias="benefitSubCategory",
         title="Detailed services covered within the type",
@@ -62,7 +66,7 @@ class EligibilityRequest(domainresource.DomainResource):
         title="Extension field for ``businessArrangement``.",
     )
 
-    coverage: fhirtypes.ReferenceType = Field(
+    coverage: Reference = Field(
         None,
         alias="coverage",
         title="Insurance or medical plan",
@@ -85,7 +89,7 @@ class EligibilityRequest(domainresource.DomainResource):
         None, alias="_created", title="Extension field for ``created``."
     )
 
-    enterer: fhirtypes.ReferenceType = Field(
+    enterer: Reference = Field(
         None,
         alias="enterer",
         title="Author",
@@ -99,7 +103,7 @@ class EligibilityRequest(domainresource.DomainResource):
         enum_reference_types=["Practitioner"],
     )
 
-    facility: fhirtypes.ReferenceType = Field(
+    facility: Reference = Field(
         None,
         alias="facility",
         title="Servicing Facility",
@@ -110,7 +114,7 @@ class EligibilityRequest(domainresource.DomainResource):
         enum_reference_types=["Location"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business Identifier",
@@ -119,7 +123,7 @@ class EligibilityRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    insurer: fhirtypes.ReferenceType = Field(
+    insurer: Reference = Field(
         None,
         alias="insurer",
         title="Target",
@@ -130,7 +134,7 @@ class EligibilityRequest(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    organization: fhirtypes.ReferenceType = Field(
+    organization: Reference = Field(
         None,
         alias="organization",
         title="Responsible organization",
@@ -144,7 +148,7 @@ class EligibilityRequest(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         None,
         alias="patient",
         title="The subject of the Products and Services",
@@ -155,7 +159,7 @@ class EligibilityRequest(domainresource.DomainResource):
         enum_reference_types=["Patient"],
     )
 
-    priority: fhirtypes.CodeableConceptType = Field(
+    priority: CodeableConcept = Field(
         None,
         alias="priority",
         title="Desired processing priority",
@@ -164,7 +168,7 @@ class EligibilityRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    provider: fhirtypes.ReferenceType = Field(
+    provider: Reference = Field(
         None,
         alias="provider",
         title="Responsible practitioner",
@@ -196,7 +200,7 @@ class EligibilityRequest(domainresource.DomainResource):
         None, alias="_servicedDate", title="Extension field for ``servicedDate``."
     )
 
-    servicedPeriod: fhirtypes.PeriodType = Field(
+    servicedPeriod: Period = Field(
         None,
         alias="servicedPeriod",
         title="Estimated date or dates of Service",

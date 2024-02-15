@@ -13,6 +13,14 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .contactdetail import ContactDetail
+from .identifier import Identifier
+from .period import Period
+from .range import Range
+from .reference import Reference
+from .usagecontext import UsageContext
 
 
 class ObservationDefinition(domainresource.DomainResource):
@@ -25,7 +33,7 @@ class ObservationDefinition(domainresource.DomainResource):
     measurement produced or consumed by an orderable health care service.
     """
 
-    resource_type = Field("ObservationDefinition", const=True)
+    resource_type: str = Field("ObservationDefinition", const=True)
 
     approvalDate: fhirtypes.Date = Field(
         None,
@@ -43,7 +51,7 @@ class ObservationDefinition(domainresource.DomainResource):
         None, alias="_approvalDate", title="Extension field for ``approvalDate``."
     )
 
-    bodySite: fhirtypes.CodeableConceptType = Field(
+    bodySite: CodeableConcept = Field(
         None,
         alias="bodySite",
         title="Body part to be observed",
@@ -52,7 +60,7 @@ class ObservationDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    category: typing.List[fhirtypes.CodeableConceptType] = Field(
+    category: typing.List[CodeableConcept] = Field(
         None,
         alias="category",
         title="General type of observation",
@@ -61,7 +69,7 @@ class ObservationDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         ...,
         alias="code",
         title="Type of observation",
@@ -73,7 +81,7 @@ class ObservationDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    component: typing.List[fhirtypes.ObservationDefinitionComponentType] = Field(
+    component: typing.List["ObservationDefinitionComponent"] = Field(
         None,
         alias="component",
         title="Component results",
@@ -85,7 +93,7 @@ class ObservationDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -203,7 +211,7 @@ class ObservationDefinition(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    device: typing.List[fhirtypes.ReferenceType] = Field(
+    device: typing.List[Reference] = Field(
         None,
         alias="device",
         title="Measurement device or model of device",
@@ -217,7 +225,7 @@ class ObservationDefinition(domainresource.DomainResource):
         enum_reference_types=["DeviceDefinition", "Device"],
     )
 
-    effectivePeriod: fhirtypes.PeriodType = Field(
+    effectivePeriod: Period = Field(
         None,
         alias="effectivePeriod",
         title="The effective date range for the ObservationDefinition",
@@ -245,7 +253,7 @@ class ObservationDefinition(domainresource.DomainResource):
         None, alias="_experimental", title="Extension field for ``experimental``."
     )
 
-    hasMember: typing.List[fhirtypes.ReferenceType] = Field(
+    hasMember: typing.List[Reference] = Field(
         None,
         alias="hasMember",
         title=(
@@ -263,7 +271,7 @@ class ObservationDefinition(domainresource.DomainResource):
         enum_reference_types=["ObservationDefinition", "Questionnaire"],
     )
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="Business identifier of the ObservationDefinition",
@@ -276,7 +284,7 @@ class ObservationDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction for this ObservationDefinition (if applicable)",
@@ -304,7 +312,7 @@ class ObservationDefinition(domainresource.DomainResource):
         None, alias="_lastReviewDate", title="Extension field for ``lastReviewDate``."
     )
 
-    method: fhirtypes.CodeableConceptType = Field(
+    method: CodeableConcept = Field(
         None,
         alias="method",
         title="Method used to produce the observation",
@@ -346,7 +354,7 @@ class ObservationDefinition(domainresource.DomainResource):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    performerType: fhirtypes.CodeableConceptType = Field(
+    performerType: CodeableConcept = Field(
         None,
         alias="performerType",
         title="Desired kind of performer for such kind of observation",
@@ -395,7 +403,7 @@ class ObservationDefinition(domainresource.DomainResource):
         title="Extension field for ``permittedDataType``.",
     )
 
-    permittedUnit: typing.List[fhirtypes.CodingType] = Field(
+    permittedUnit: typing.List[Coding] = Field(
         None,
         alias="permittedUnit",
         title="Unit for quantitative results",
@@ -457,9 +465,7 @@ class ObservationDefinition(domainresource.DomainResource):
         None, alias="_purpose", title="Extension field for ``purpose``."
     )
 
-    qualifiedValue: typing.List[
-        fhirtypes.ObservationDefinitionQualifiedValueType
-    ] = Field(
+    qualifiedValue: typing.List["ObservationDefinitionQualifiedValue"] = Field(
         None,
         alias="qualifiedValue",
         title="Set of qualified values for observation results",
@@ -473,7 +479,7 @@ class ObservationDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    specimen: typing.List[fhirtypes.ReferenceType] = Field(
+    specimen: typing.List[Reference] = Field(
         None,
         alias="specimen",
         title="Kind of specimen used by this type of observation",
@@ -500,7 +506,7 @@ class ObservationDefinition(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subject: typing.List[fhirtypes.CodeableConceptType] = Field(
+    subject: typing.List[CodeableConcept] = Field(
         None,
         alias="subject",
         title="Type of subject for the defined observation",
@@ -550,7 +556,7 @@ class ObservationDefinition(domainresource.DomainResource):
         None, alias="_url", title="Extension field for ``url``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="Content intends to support these contexts",
@@ -586,7 +592,7 @@ class ObservationDefinition(domainresource.DomainResource):
         None, alias="_version", title="Extension field for ``version``."
     )
 
-    versionAlgorithmCoding: fhirtypes.CodingType = Field(
+    versionAlgorithmCoding: Coding = Field(
         None,
         alias="versionAlgorithmCoding",
         title="How to compare versions",
@@ -786,9 +792,9 @@ class ObservationDefinitionComponent(backboneelement.BackboneElement):
     separate code value pairs.
     """
 
-    resource_type = Field("ObservationDefinitionComponent", const=True)
+    resource_type: str = Field("ObservationDefinitionComponent", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         ...,
         alias="code",
         title="Type of observation",
@@ -834,7 +840,7 @@ class ObservationDefinitionComponent(backboneelement.BackboneElement):
         title="Extension field for ``permittedDataType``.",
     )
 
-    permittedUnit: typing.List[fhirtypes.CodingType] = Field(
+    permittedUnit: typing.List[Coding] = Field(
         None,
         alias="permittedUnit",
         title="Unit for quantitative results",
@@ -846,9 +852,7 @@ class ObservationDefinitionComponent(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    qualifiedValue: typing.List[
-        fhirtypes.ObservationDefinitionQualifiedValueType
-    ] = Field(
+    qualifiedValue: typing.List["ObservationDefinitionQualifiedValue"] = Field(
         None,
         alias="qualifiedValue",
         title="Set of qualified values for observation results",
@@ -890,7 +894,7 @@ class ObservationDefinitionQualifiedValue(backboneelement.BackboneElement):
     collection of value sets for qualitative observations.
     """
 
-    resource_type = Field("ObservationDefinitionQualifiedValue", const=True)
+    resource_type: str = Field("ObservationDefinitionQualifiedValue", const=True)
 
     abnormalCodedValueSet: fhirtypes.Canonical = Field(
         None,
@@ -914,7 +918,7 @@ class ObservationDefinitionQualifiedValue(backboneelement.BackboneElement):
         title="Extension field for ``abnormalCodedValueSet``.",
     )
 
-    age: fhirtypes.RangeType = Field(
+    age: Range = Field(
         None,
         alias="age",
         title="Applicable age range for the set of qualified values",
@@ -923,7 +927,7 @@ class ObservationDefinitionQualifiedValue(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    appliesTo: typing.List[fhirtypes.CodeableConceptType] = Field(
+    appliesTo: typing.List[CodeableConcept] = Field(
         None,
         alias="appliesTo",
         title="Targetted population for the set of qualified values",
@@ -947,7 +951,7 @@ class ObservationDefinitionQualifiedValue(backboneelement.BackboneElement):
         None, alias="_condition", title="Extension field for ``condition``."
     )
 
-    context: fhirtypes.CodeableConceptType = Field(
+    context: CodeableConcept = Field(
         None,
         alias="context",
         title="Context qualifier for the set of qualified values",
@@ -993,7 +997,7 @@ class ObservationDefinitionQualifiedValue(backboneelement.BackboneElement):
         None, alias="_gender", title="Extension field for ``gender``."
     )
 
-    gestationalAge: fhirtypes.RangeType = Field(
+    gestationalAge: Range = Field(
         None,
         alias="gestationalAge",
         title="Applicable gestational age range for the set of qualified values",
@@ -1024,7 +1028,7 @@ class ObservationDefinitionQualifiedValue(backboneelement.BackboneElement):
         title="Extension field for ``normalCodedValueSet``.",
     )
 
-    range: fhirtypes.RangeType = Field(
+    range: Range = Field(
         None,
         alias="range",
         title="The range for continuous or ordinal observations",
@@ -1098,3 +1102,7 @@ class ObservationDefinitionQualifiedValue(backboneelement.BackboneElement):
             "abnormalCodedValueSet",
             "criticalCodedValueSet",
         ]
+
+
+ObservationDefinition.update_forward_refs()
+ObservationDefinitionComponent.update_forward_refs()

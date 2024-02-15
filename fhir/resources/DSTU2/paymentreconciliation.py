@@ -11,6 +11,11 @@ from pydantic.v1 import Field
 
 from . import domainresource, fhirtypes
 from .backboneelement import BackboneElement
+from .coding import Coding
+from .identifier import Identifier
+from .money import Money
+from .period import Period
+from .reference import Reference
 
 
 class PaymentReconciliation(domainresource.DomainResource):
@@ -21,9 +26,9 @@ class PaymentReconciliation(domainresource.DomainResource):
     supporting a bulk payment.
     """
 
-    resource_type = Field("PaymentReconciliation", const=True)
+    resource_type: str = Field("PaymentReconciliation", const=True)
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="Business identifier",
@@ -31,7 +36,7 @@ class PaymentReconciliation(domainresource.DomainResource):
         element_property=True,
     )
 
-    request: fhirtypes.ReferenceType = Field(
+    request: Reference = Field(
         None,
         alias="request",
         title="Type 'Reference' referencing 'ProcessRequest'  (represented as 'dict' in JSON).",
@@ -60,7 +65,7 @@ class PaymentReconciliation(domainresource.DomainResource):
         element_property=True,
     )
 
-    ruleset: fhirtypes.CodingType = Field(
+    ruleset: Coding = Field(
         None,
         alias="ruleset",
         title="Type `Coding` (represented as `dict` in JSON).",
@@ -68,7 +73,7 @@ class PaymentReconciliation(domainresource.DomainResource):
         element_property=True,
     )
 
-    originalRuleset: fhirtypes.CodingType = Field(
+    originalRuleset: Coding = Field(
         None,
         alias="originalRuleset",
         title="Type `Coding` (represented as `dict` in JSON).",
@@ -84,7 +89,7 @@ class PaymentReconciliation(domainresource.DomainResource):
         element_property=True,
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Period covered",
@@ -96,7 +101,7 @@ class PaymentReconciliation(domainresource.DomainResource):
         element_property=True,
     )
 
-    organization: fhirtypes.ReferenceType = Field(
+    organization: Reference = Field(
         None,
         alias="organization",
         title="Type 'Reference' referencing 'Organization'  (represented as 'dict' in JSON).",
@@ -106,7 +111,7 @@ class PaymentReconciliation(domainresource.DomainResource):
         element_property=True,
     )
 
-    requestProvider: fhirtypes.ReferenceType = Field(
+    requestProvider: Reference = Field(
         None,
         alias="requestProvider",
         title="Type 'Reference' referencing 'Practitioner'  (represented as 'dict' in JSON).",
@@ -116,7 +121,7 @@ class PaymentReconciliation(domainresource.DomainResource):
         element_property=True,
     )
 
-    requestOrganization: fhirtypes.ReferenceType = Field(
+    requestOrganization: Reference = Field(
         None,
         alias="requestOrganization",
         title="Type 'Reference' referencing 'Organization'  (represented as 'dict' in JSON).",
@@ -126,7 +131,7 @@ class PaymentReconciliation(domainresource.DomainResource):
         element_property=True,
     )
 
-    detail: ListType[fhirtypes.PaymentReconciliationDetailType] = Field(
+    detail: ListType["PaymentReconciliationDetail"] = Field(
         None,
         alias="detail",
         title="Details",
@@ -135,7 +140,7 @@ class PaymentReconciliation(domainresource.DomainResource):
         element_property=True,
     )
 
-    form: fhirtypes.CodingType = Field(
+    form: Coding = Field(
         None,
         alias="form",
         title="Type `Coding` (represented as `dict` in JSON).",
@@ -143,7 +148,7 @@ class PaymentReconciliation(domainresource.DomainResource):
         element_property=True,
     )
 
-    total: fhirtypes.MoneyType = Field(
+    total: Money = Field(
         None,
         alias="total",
         title="Total amount of Payment",
@@ -152,7 +157,7 @@ class PaymentReconciliation(domainresource.DomainResource):
         element_property=True,
     )
 
-    note: ListType[fhirtypes.PaymentReconciliationNoteType] = Field(
+    note: ListType["PaymentReconciliationNote"] = Field(
         None,
         alias="detail",
         title="Details",
@@ -169,9 +174,9 @@ class PaymentReconciliationDetail(BackboneElement):
     List of individual settlement amounts and the corresponding transaction.
     """
 
-    resource_type = Field("PaymentReconciliationDetail", const=True)
+    resource_type: str = Field("PaymentReconciliationDetail", const=True)
 
-    type: fhirtypes.CodingType = Field(
+    type: Coding = Field(
         None,
         alias="type",
         title="Type `Coding` (represented as `dict` in JSON).",
@@ -179,7 +184,7 @@ class PaymentReconciliationDetail(BackboneElement):
         element_property=True,
     )
 
-    request: fhirtypes.ReferenceType = Field(
+    request: Reference = Field(
         None,
         alias="request",
         title="Type 'Reference' referencing 'Any'  (represented as 'dict' in JSON).",
@@ -189,7 +194,7 @@ class PaymentReconciliationDetail(BackboneElement):
         element_property=True,
     )
 
-    response: fhirtypes.ReferenceType = Field(
+    response: Reference = Field(
         None,
         alias="response",
         title="Type 'Reference' referencing 'Any'  (represented as 'dict' in JSON).",
@@ -199,7 +204,7 @@ class PaymentReconciliationDetail(BackboneElement):
         element_property=True,
     )
 
-    submitter: fhirtypes.ReferenceType = Field(
+    submitter: Reference = Field(
         None,
         alias="submitter",
         title="Type 'Reference' referencing 'Organization'  (represented as 'dict' in JSON).",
@@ -209,7 +214,7 @@ class PaymentReconciliationDetail(BackboneElement):
         element_property=True,
     )
 
-    payee: fhirtypes.ReferenceType = Field(
+    payee: Reference = Field(
         None,
         alias="payee",
         title="Type 'Reference' referencing 'Organization'  (represented as 'dict' in JSON).",
@@ -227,7 +232,7 @@ class PaymentReconciliationDetail(BackboneElement):
         element_property=True,
     )
 
-    amount: fhirtypes.MoneyType = Field(
+    amount: Money = Field(
         None,
         alias="amount",
         title="Detail amount",
@@ -244,9 +249,9 @@ class PaymentReconciliationNote(BackboneElement):
     Suite of notes.
     """
 
-    resource_type = Field("PaymentReconciliationNote", const=True)
+    resource_type: str = Field("PaymentReconciliationNote", const=True)
 
-    type: fhirtypes.CodingType = Field(
+    type: Coding = Field(
         None,
         alias="type",
         title="Type `Coding` (represented as `dict` in JSON).",
@@ -261,3 +266,6 @@ class PaymentReconciliationNote(BackboneElement):
         description="Notes text",
         element_property=True,
     )
+
+
+PaymentReconciliation.update_forward_refs()

@@ -13,6 +13,15 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .contactdetail import ContactDetail
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
+from .relatedartifact import RelatedArtifact
+from .triggerdefinition import TriggerDefinition
+from .usagecontext import UsageContext
 
 
 class EventDefinition(domainresource.DomainResource):
@@ -25,7 +34,7 @@ class EventDefinition(domainresource.DomainResource):
     particular event can occur.
     """
 
-    resource_type = Field("EventDefinition", const=True)
+    resource_type: str = Field("EventDefinition", const=True)
 
     approvalDate: fhirtypes.Date = Field(
         None,
@@ -43,7 +52,7 @@ class EventDefinition(domainresource.DomainResource):
         None, alias="_approvalDate", title="Extension field for ``approvalDate``."
     )
 
-    author: typing.List[fhirtypes.ContactDetailType] = Field(
+    author: typing.List[ContactDetail] = Field(
         None,
         alias="author",
         title="Who authored the content",
@@ -55,7 +64,7 @@ class EventDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -133,7 +142,7 @@ class EventDefinition(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    editor: typing.List[fhirtypes.ContactDetailType] = Field(
+    editor: typing.List[ContactDetail] = Field(
         None,
         alias="editor",
         title="Who edited the content",
@@ -145,7 +154,7 @@ class EventDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    effectivePeriod: fhirtypes.PeriodType = Field(
+    effectivePeriod: Period = Field(
         None,
         alias="effectivePeriod",
         title="When the event definition is expected to be used",
@@ -157,7 +166,7 @@ class EventDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    endorser: typing.List[fhirtypes.ContactDetailType] = Field(
+    endorser: typing.List[ContactDetail] = Field(
         None,
         alias="endorser",
         title="Who endorsed the content",
@@ -186,7 +195,7 @@ class EventDefinition(domainresource.DomainResource):
         None, alias="_experimental", title="Extension field for ``experimental``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Additional identifier for the event definition",
@@ -199,7 +208,7 @@ class EventDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction for event definition (if applicable)",
@@ -273,7 +282,7 @@ class EventDefinition(domainresource.DomainResource):
         None, alias="_purpose", title="Extension field for ``purpose``."
     )
 
-    relatedArtifact: typing.List[fhirtypes.RelatedArtifactType] = Field(
+    relatedArtifact: typing.List[RelatedArtifact] = Field(
         None,
         alias="relatedArtifact",
         title="Additional documentation, citations, etc",
@@ -285,7 +294,7 @@ class EventDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    reviewer: typing.List[fhirtypes.ContactDetailType] = Field(
+    reviewer: typing.List[ContactDetail] = Field(
         None,
         alias="reviewer",
         title="Who reviewed the content",
@@ -316,7 +325,7 @@ class EventDefinition(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subjectCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    subjectCodeableConcept: CodeableConcept = Field(
         None,
         alias="subjectCodeableConcept",
         title="Type of individual the event definition is focused on",
@@ -331,7 +340,7 @@ class EventDefinition(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    subjectReference: fhirtypes.ReferenceType = Field(
+    subjectReference: Reference = Field(
         None,
         alias="subjectReference",
         title="Type of individual the event definition is focused on",
@@ -375,7 +384,7 @@ class EventDefinition(domainresource.DomainResource):
         None, alias="_title", title="Extension field for ``title``."
     )
 
-    topic: typing.List[fhirtypes.CodeableConceptType] = Field(
+    topic: typing.List[CodeableConcept] = Field(
         None,
         alias="topic",
         title="E.g. Education, Treatment, Assessment, etc",
@@ -388,7 +397,7 @@ class EventDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    trigger: typing.List[fhirtypes.TriggerDefinitionType] = Field(
+    trigger: typing.List[TriggerDefinition] = Field(
         ...,
         alias="trigger",
         title="\"when\" the event occurs (multiple = 'or')",
@@ -439,7 +448,7 @@ class EventDefinition(domainresource.DomainResource):
         None, alias="_usage", title="Extension field for ``usage``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="The context that the content is intended to support",
@@ -474,7 +483,7 @@ class EventDefinition(domainresource.DomainResource):
         None, alias="_version", title="Extension field for ``version``."
     )
 
-    versionAlgorithmCoding: fhirtypes.CodingType = Field(
+    versionAlgorithmCoding: Coding = Field(
         None,
         alias="versionAlgorithmCoding",
         title="How to compare versions",

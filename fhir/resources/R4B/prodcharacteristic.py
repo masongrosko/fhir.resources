@@ -11,6 +11,9 @@ import typing
 from pydantic.v1 import Field
 
 from . import backboneelement, fhirtypes
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .quantity import Quantity
 
 
 class ProdCharacteristic(backboneelement.BackboneElement):
@@ -23,7 +26,7 @@ class ProdCharacteristic(backboneelement.BackboneElement):
     available.
     """
 
-    resource_type = Field("ProdCharacteristic", const=True)
+    resource_type: str = Field("ProdCharacteristic", const=True)
 
     color: typing.List[typing.Optional[fhirtypes.String]] = Field(
         None,
@@ -41,7 +44,7 @@ class ProdCharacteristic(backboneelement.BackboneElement):
         typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
     ] = Field(None, alias="_color", title="Extension field for ``color``.")
 
-    depth: fhirtypes.QuantityType = Field(
+    depth: Quantity = Field(
         None,
         alias="depth",
         title=(
@@ -55,7 +58,7 @@ class ProdCharacteristic(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    externalDiameter: fhirtypes.QuantityType = Field(
+    externalDiameter: Quantity = Field(
         None,
         alias="externalDiameter",
         title=(
@@ -69,7 +72,7 @@ class ProdCharacteristic(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    height: fhirtypes.QuantityType = Field(
+    height: Quantity = Field(
         None,
         alias="height",
         title=(
@@ -83,7 +86,7 @@ class ProdCharacteristic(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    image: typing.List[fhirtypes.AttachmentType] = Field(
+    image: typing.List[Attachment] = Field(
         None,
         alias="image",
         title=(
@@ -107,7 +110,7 @@ class ProdCharacteristic(backboneelement.BackboneElement):
         typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
     ] = Field(None, alias="_imprint", title="Extension field for ``imprint``.")
 
-    nominalVolume: fhirtypes.QuantityType = Field(
+    nominalVolume: Quantity = Field(
         None,
         alias="nominalVolume",
         title=(
@@ -121,7 +124,7 @@ class ProdCharacteristic(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    scoring: fhirtypes.CodeableConceptType = Field(
+    scoring: CodeableConcept = Field(
         None,
         alias="scoring",
         title=(
@@ -150,7 +153,7 @@ class ProdCharacteristic(backboneelement.BackboneElement):
         None, alias="_shape", title="Extension field for ``shape``."
     )
 
-    weight: fhirtypes.QuantityType = Field(
+    weight: Quantity = Field(
         None,
         alias="weight",
         title=(
@@ -164,7 +167,7 @@ class ProdCharacteristic(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    width: fhirtypes.QuantityType = Field(
+    width: Quantity = Field(
         None,
         alias="width",
         title=(

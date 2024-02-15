@@ -10,6 +10,9 @@ from typing import List as ListType
 from pydantic.v1 import Field
 
 from . import domainresource, fhirtypes
+from .coding import Coding
+from .identifier import Identifier
+from .reference import Reference
 
 
 class ExplanationOfBenefit(domainresource.DomainResource):
@@ -20,7 +23,7 @@ class ExplanationOfBenefit(domainresource.DomainResource):
     informing the subscriber of the benefits provided.
     """
 
-    resource_type = Field("ExplanationOfBenefit", const=True)
+    resource_type: str = Field("ExplanationOfBenefit", const=True)
 
     created: fhirtypes.DateTime = Field(
         None,
@@ -36,14 +39,14 @@ class ExplanationOfBenefit(domainresource.DomainResource):
         description="A human readable description of the status of the adjudication.",
     )
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="Business Identifier for the resource",
         description="A unique identifier assigned to this explanation of benefit.",
     )
 
-    organization: fhirtypes.ReferenceType = Field(
+    organization: Reference = Field(
         None,
         alias="organization",
         title="Type `Reference` referencing `Organization` (represented as `dict` in JSON).",
@@ -52,7 +55,7 @@ class ExplanationOfBenefit(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    originalRuleset: fhirtypes.CodingType = Field(
+    originalRuleset: Coding = Field(
         None,
         alias="originalRuleset",
         title="Type `Coding` (represented as `dict` in JSON).",
@@ -72,7 +75,7 @@ class ExplanationOfBenefit(domainresource.DomainResource):
         enum_values=["complete", "error"],
     )
 
-    request: fhirtypes.ReferenceType = Field(
+    request: Reference = Field(
         None,
         alias="request",
         title="Type `Reference` referencing `Claim` (represented as `dict` in JSON).",
@@ -81,7 +84,7 @@ class ExplanationOfBenefit(domainresource.DomainResource):
         enum_reference_types=["Claim"],
     )
 
-    requestOrganization: fhirtypes.ReferenceType = Field(
+    requestOrganization: Reference = Field(
         None,
         alias="requestOrganization",
         title=(
@@ -93,7 +96,7 @@ class ExplanationOfBenefit(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    requestProvider: fhirtypes.ReferenceType = Field(
+    requestProvider: Reference = Field(
         None,
         alias="requestProvider",
         title="Type `Reference` referencing `Practitioner` (represented as `dict` in JSON).",
@@ -102,7 +105,7 @@ class ExplanationOfBenefit(domainresource.DomainResource):
         enum_reference_types=["Practitioner"],
     )
 
-    ruleset: fhirtypes.CodingType = Field(
+    ruleset: Coding = Field(
         None,
         alias="ruleset",
         title="Type `Coding` (represented as `dict` in JSON).",

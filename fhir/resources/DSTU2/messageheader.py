@@ -10,6 +10,10 @@ from typing import List as ListType
 from pydantic.v1 import Field
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .contactpoint import ContactPoint
+from .reference import Reference
 
 
 class MessageHeader(domainresource.DomainResource):
@@ -22,9 +26,9 @@ class MessageHeader(domainresource.DomainResource):
     in the bundle.
     """
 
-    resource_type = Field("MessageHeader", const=True)
+    resource_type: str = Field("MessageHeader", const=True)
 
-    author: fhirtypes.ReferenceType = Field(
+    author: Reference = Field(
         None,
         alias="author",
         title="The source of the decision",
@@ -38,7 +42,7 @@ class MessageHeader(domainresource.DomainResource):
         enum_reference_types=["Practitioner"],
     )
 
-    data: ListType[fhirtypes.ReferenceType] = Field(
+    data: ListType[Reference] = Field(
         None,
         alias="data",
         title=(
@@ -50,14 +54,14 @@ class MessageHeader(domainresource.DomainResource):
         enum_reference_types=["Resource"],
     )
 
-    destination: ListType[fhirtypes.MessageHeaderDestinationType] = Field(
+    destination: ListType["MessageHeaderDestination"] = Field(
         None,
         alias="destination",
         title="Message destination application(s)",
         description="The destination application which the message is intended for.",
     )
 
-    enterer: fhirtypes.ReferenceType = Field(
+    enterer: Reference = Field(
         None,
         alias="enterer",
         title="The source of the data entry",
@@ -70,7 +74,7 @@ class MessageHeader(domainresource.DomainResource):
         enum_reference_types=["Practitioner"],
     )
 
-    event: fhirtypes.CodingType = Field(
+    event: Coding = Field(
         ...,
         alias="event",
         title="Code for the event this message represents or link to event definition",
@@ -82,7 +86,7 @@ class MessageHeader(domainresource.DomainResource):
         ),
     )
 
-    reason: fhirtypes.CodeableConceptType = Field(
+    reason: CodeableConcept = Field(
         None,
         alias="reason",
         title="Cause of event",
@@ -92,7 +96,7 @@ class MessageHeader(domainresource.DomainResource):
         ),
     )
 
-    receiver: fhirtypes.ReferenceType = Field(
+    receiver: Reference = Field(
         None,
         alias="receiver",
         title=(
@@ -104,7 +108,7 @@ class MessageHeader(domainresource.DomainResource):
         enum_reference_types=["Practitioner", "Organization"],
     )
 
-    response: fhirtypes.MessageHeaderResponseType = Field(
+    response: "MessageHeaderResponse" = Field(
         None,
         alias="response",
         title="If this is a reply to prior message",
@@ -114,7 +118,7 @@ class MessageHeader(domainresource.DomainResource):
         ),
     )
 
-    responsible: fhirtypes.ReferenceType = Field(
+    responsible: Reference = Field(
         None,
         alias="responsible",
         title="Final responsibility for event",
@@ -127,7 +131,7 @@ class MessageHeader(domainresource.DomainResource):
         enum_reference_types=["Practitioner", "Organization"],
     )
 
-    source: fhirtypes.MessageHeaderSourceType = Field(
+    source: "MessageHeaderSource" = Field(
         ...,
         alias="source",
         title="Message source application",
@@ -148,7 +152,7 @@ class MessageHeaderDestination(backboneelement.BackboneElement):
     The destination application which the message is intended for.
     """
 
-    resource_type = Field("MessageHeaderDestination", const=True)
+    resource_type: str = Field("MessageHeaderDestination", const=True)
 
     endpoint: fhirtypes.Uri = Field(
         ...,
@@ -164,7 +168,7 @@ class MessageHeaderDestination(backboneelement.BackboneElement):
         description="Human-readable name for the target system.",
     )
 
-    target: fhirtypes.ReferenceType = Field(
+    target: Reference = Field(
         None,
         alias="target",
         title="Particular delivery destination within the destination",
@@ -184,7 +188,7 @@ class MessageHeaderResponse(backboneelement.BackboneElement):
     present if this message is a response.
     """
 
-    resource_type = Field("MessageHeaderResponse", const=True)
+    resource_type: str = Field("MessageHeaderResponse", const=True)
 
     code: fhirtypes.Code = Field(
         ...,
@@ -199,7 +203,7 @@ class MessageHeaderResponse(backboneelement.BackboneElement):
         enum_values=["ok", "transient-error", "fatal-error"],
     )
 
-    details: fhirtypes.ReferenceType = Field(
+    details: Reference = Field(
         None,
         alias="details",
         title="Specific list of hints/warnings/errors",
@@ -225,9 +229,9 @@ class MessageHeaderSource(backboneelement.BackboneElement):
     The source application from which this message originated.
     """
 
-    resource_type = Field("MessageHeaderSource", const=True)
+    resource_type: str = Field("MessageHeaderSource", const=True)
 
-    contact: fhirtypes.ContactPointType = Field(
+    contact: ContactPoint = Field(
         None,
         alias="contact",
         title="Human contact for problems",
@@ -267,3 +271,6 @@ class MessageHeaderSource(backboneelement.BackboneElement):
             "passes through multiple hands."
         ),
     )
+
+
+MessageHeader.update_forward_refs()

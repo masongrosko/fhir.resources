@@ -11,8 +11,13 @@ from typing import List as ListType
 from pydantic.v1 import Field, root_validator
 
 from . import fhirtypes
+from .annotation import Annotation
 from .backboneelement import BackboneElement
+from .codeableconcept import CodeableConcept
 from .domainresource import DomainResource
+from .identifier import Identifier
+from .quantity import Quantity
+from .reference import Reference
 
 
 class Goal(DomainResource):
@@ -24,9 +29,9 @@ class Goal(DomainResource):
     objective, etc.
     """
 
-    resource_type = Field("Goal", const=True)
+    resource_type: str = Field("Goal", const=True)
 
-    addresses: ListType[fhirtypes.ReferenceType] = Field(
+    addresses: ListType[Reference] = Field(
         None,
         alias="addresses",
         title=(
@@ -37,7 +42,7 @@ class Goal(DomainResource):
         ),
         description="Issues addressed by this goal.",
     )
-    author: fhirtypes.ReferenceType = Field(
+    author: Reference = Field(
         None,
         alias="author",
         title=(
@@ -47,7 +52,7 @@ class Goal(DomainResource):
         description="Who's responsible for creating Goal?.",
     )
 
-    category: ListType[fhirtypes.CodeableConceptType] = Field(
+    category: ListType[CodeableConcept] = Field(
         None,
         alias="category",
         title="List of `CodeableConcept` items (represented as `dict` in JSON).",
@@ -60,33 +65,33 @@ class Goal(DomainResource):
         description="What's the desired outcome?.",
     )
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="List of `Identifier` items (represented as `dict` in JSON).",
         description="External Ids for this goal.",
     )
-    note: ListType[fhirtypes.AnnotationType] = Field(
+    note: ListType[Annotation] = Field(
         None,
         alias="note",
         title="List of `Annotation` items (represented as `dict` in JSON).",
         description="Comments about the goal.",
     )
 
-    outcome: ListType[fhirtypes.GoalOutcomeType] = Field(
+    outcome: ListType["GoalOutcome"] = Field(
         None,
         alias="outcome",
         title="List of `GoalOutcome` items (represented as `dict` in JSON).",
         description="What was end result of goal?.",
     )
 
-    priority: fhirtypes.CodeableConceptType = Field(
+    priority: CodeableConcept = Field(
         None,
         alias="priority",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="high | medium |low.",
     )
-    startCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    startCodeableConcept: CodeableConcept = Field(
         None,
         alias="startCodeableConcept",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -120,14 +125,14 @@ class Goal(DomainResource):
         description="When goal status took effect.",
     )
 
-    statusReason: fhirtypes.CodeableConceptType = Field(
+    statusReason: CodeableConcept = Field(
         None,
         alias="statusReason",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="Reason for current status.",
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title=(
@@ -145,7 +150,7 @@ class Goal(DomainResource):
         one_of_many="target",  # Choice of Data Types. i.e reason[x]
         one_of_many_required=False,
     )
-    targetQuantity: fhirtypes.QuantityType = Field(
+    targetQuantity: Quantity = Field(
         None,
         alias="targetQuantity",
         title="Type `Quantity` referencing `Duration` (represented as `dict` in JSON).",
@@ -201,9 +206,9 @@ class GoalOutcome(BackboneElement):
     deepmed to be cancelled or achieved.
     """
 
-    resource_type = Field("GoalOutcome", const=True)
+    resource_type: str = Field("GoalOutcome", const=True)
 
-    resultCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    resultCodeableConcept: CodeableConcept = Field(
         None,
         alias="resultCodeableConcept",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -212,7 +217,7 @@ class GoalOutcome(BackboneElement):
         one_of_many_required=False,
     )
 
-    resultReference: fhirtypes.ReferenceType = Field(
+    resultReference: Reference = Field(
         None,
         alias="resultReference",
         title="Type `Reference` referencing `Observation` (represented as `dict` in JSON).",
@@ -256,3 +261,6 @@ class GoalOutcome(BackboneElement):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+Goal.update_forward_refs()

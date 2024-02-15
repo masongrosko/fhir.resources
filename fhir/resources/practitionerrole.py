@@ -11,6 +11,12 @@ import typing
 from pydantic.v1 import Field
 
 from . import domainresource, fhirtypes
+from .availability import Availability
+from .codeableconcept import CodeableConcept
+from .extendedcontactdetail import ExtendedContactDetail
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class PractitionerRole(domainresource.DomainResource):
@@ -23,7 +29,7 @@ class PractitionerRole(domainresource.DomainResource):
     may perform at an organization for a period of time.
     """
 
-    resource_type = Field("PractitionerRole", const=True)
+    resource_type: str = Field("PractitionerRole", const=True)
 
     active: bool = Field(
         None,
@@ -41,7 +47,7 @@ class PractitionerRole(domainresource.DomainResource):
         None, alias="_active", title="Extension field for ``active``."
     )
 
-    availability: typing.List[fhirtypes.AvailabilityType] = Field(
+    availability: typing.List[Availability] = Field(
         None,
         alias="availability",
         title=(
@@ -56,7 +62,7 @@ class PractitionerRole(domainresource.DomainResource):
         element_property=True,
     )
 
-    characteristic: typing.List[fhirtypes.CodeableConceptType] = Field(
+    characteristic: typing.List[CodeableConcept] = Field(
         None,
         alias="characteristic",
         title="Collection of characteristics (attributes)",
@@ -65,7 +71,7 @@ class PractitionerRole(domainresource.DomainResource):
         element_property=True,
     )
 
-    code: typing.List[fhirtypes.CodeableConceptType] = Field(
+    code: typing.List[CodeableConcept] = Field(
         None,
         alias="code",
         title="Roles which this practitioner may perform",
@@ -77,7 +83,7 @@ class PractitionerRole(domainresource.DomainResource):
         element_property=True,
     )
 
-    communication: typing.List[fhirtypes.CodeableConceptType] = Field(
+    communication: typing.List[CodeableConcept] = Field(
         None,
         alias="communication",
         title=(
@@ -94,7 +100,7 @@ class PractitionerRole(domainresource.DomainResource):
         element_property=True,
     )
 
-    contact: typing.List[fhirtypes.ExtendedContactDetailType] = Field(
+    contact: typing.List[ExtendedContactDetail] = Field(
         None,
         alias="contact",
         title="Official contact details relating to this PractitionerRole",
@@ -107,7 +113,7 @@ class PractitionerRole(domainresource.DomainResource):
         element_property=True,
     )
 
-    endpoint: typing.List[fhirtypes.ReferenceType] = Field(
+    endpoint: typing.List[Reference] = Field(
         None,
         alias="endpoint",
         title="Endpoints for interacting with the practitioner in this role",
@@ -122,7 +128,7 @@ class PractitionerRole(domainresource.DomainResource):
         enum_reference_types=["Endpoint"],
     )
 
-    healthcareService: typing.List[fhirtypes.ReferenceType] = Field(
+    healthcareService: typing.List[Reference] = Field(
         None,
         alias="healthcareService",
         title="Healthcare services provided for this role's Organization/Location(s)",
@@ -136,7 +142,7 @@ class PractitionerRole(domainresource.DomainResource):
         enum_reference_types=["HealthcareService"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Identifiers for a role/location",
@@ -145,7 +151,7 @@ class PractitionerRole(domainresource.DomainResource):
         element_property=True,
     )
 
-    location: typing.List[fhirtypes.ReferenceType] = Field(
+    location: typing.List[Reference] = Field(
         None,
         alias="location",
         title="Location(s) where the practitioner provides care",
@@ -156,7 +162,7 @@ class PractitionerRole(domainresource.DomainResource):
         enum_reference_types=["Location"],
     )
 
-    organization: fhirtypes.ReferenceType = Field(
+    organization: Reference = Field(
         None,
         alias="organization",
         title="Organization where the roles are available",
@@ -167,7 +173,7 @@ class PractitionerRole(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title=(
@@ -182,7 +188,7 @@ class PractitionerRole(domainresource.DomainResource):
         element_property=True,
     )
 
-    practitioner: fhirtypes.ReferenceType = Field(
+    practitioner: Reference = Field(
         None,
         alias="practitioner",
         title="Practitioner that provides services for the organization",
@@ -196,7 +202,7 @@ class PractitionerRole(domainresource.DomainResource):
         enum_reference_types=["Practitioner"],
     )
 
-    specialty: typing.List[fhirtypes.CodeableConceptType] = Field(
+    specialty: typing.List[CodeableConcept] = Field(
         None,
         alias="specialty",
         title="Specific specialty of the practitioner",

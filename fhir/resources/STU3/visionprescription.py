@@ -11,6 +11,11 @@ import typing
 from pydantic.v1 import Field, root_validator
 
 from . import backboneelement, domainresource, fhirtypes
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .quantity import Quantity
+from .reference import Reference
 
 
 class VisionPrescription(domainresource.DomainResource):
@@ -23,7 +28,7 @@ class VisionPrescription(domainresource.DomainResource):
     patient.
     """
 
-    resource_type = Field("VisionPrescription", const=True)
+    resource_type: str = Field("VisionPrescription", const=True)
 
     dateWritten: fhirtypes.DateTime = Field(
         None,
@@ -37,7 +42,7 @@ class VisionPrescription(domainresource.DomainResource):
         None, alias="_dateWritten", title="Extension field for ``dateWritten``."
     )
 
-    dispense: typing.List[fhirtypes.VisionPrescriptionDispenseType] = Field(
+    dispense: typing.List["VisionPrescriptionDispense"] = Field(
         None,
         alias="dispense",
         title="Vision supply authorization",
@@ -46,7 +51,7 @@ class VisionPrescription(domainresource.DomainResource):
         element_property=True,
     )
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title="Created during encounter / admission / stay",
@@ -60,7 +65,7 @@ class VisionPrescription(domainresource.DomainResource):
         enum_reference_types=["Encounter"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business identifier",
@@ -72,7 +77,7 @@ class VisionPrescription(domainresource.DomainResource):
         element_property=True,
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         None,
         alias="patient",
         title="Who prescription is for",
@@ -86,7 +91,7 @@ class VisionPrescription(domainresource.DomainResource):
         enum_reference_types=["Patient"],
     )
 
-    prescriber: fhirtypes.ReferenceType = Field(
+    prescriber: Reference = Field(
         None,
         alias="prescriber",
         title="Who authorizes the vision product",
@@ -100,7 +105,7 @@ class VisionPrescription(domainresource.DomainResource):
         enum_reference_types=["Practitioner"],
     )
 
-    reasonCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    reasonCodeableConcept: CodeableConcept = Field(
         None,
         alias="reasonCodeableConcept",
         title="Reason or indication for writing the prescription",
@@ -112,7 +117,7 @@ class VisionPrescription(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    reasonReference: fhirtypes.ReferenceType = Field(
+    reasonReference: Reference = Field(
         None,
         alias="reasonReference",
         title="Reason or indication for writing the prescription",
@@ -215,7 +220,7 @@ class VisionPrescriptionDispense(backboneelement.BackboneElement):
     Deals with details of the dispense part of the supply specification.
     """
 
-    resource_type = Field("VisionPrescriptionDispense", const=True)
+    resource_type: str = Field("VisionPrescriptionDispense", const=True)
 
     add: fhirtypes.Decimal = Field(
         None,
@@ -319,7 +324,7 @@ class VisionPrescriptionDispense(backboneelement.BackboneElement):
         None, alias="_diameter", title="Extension field for ``diameter``."
     )
 
-    duration: fhirtypes.QuantityType = Field(
+    duration: Quantity = Field(
         None,
         alias="duration",
         title="Lens wear duration",
@@ -343,7 +348,7 @@ class VisionPrescriptionDispense(backboneelement.BackboneElement):
         None, alias="_eye", title="Extension field for ``eye``."
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Notes for coatings",
@@ -376,7 +381,7 @@ class VisionPrescriptionDispense(backboneelement.BackboneElement):
         None, alias="_prism", title="Extension field for ``prism``."
     )
 
-    product: fhirtypes.CodeableConceptType = Field(
+    product: CodeableConcept = Field(
         None,
         alias="product",
         title="Product to be supplied",
@@ -426,3 +431,6 @@ class VisionPrescriptionDispense(backboneelement.BackboneElement):
             "brand",
             "note",
         ]
+
+
+VisionPrescription.update_forward_refs()

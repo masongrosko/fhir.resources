@@ -13,6 +13,13 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .contactdetail import ContactDetail
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
+from .relatedartifact import RelatedArtifact
 
 
 class ResearchStudy(domainresource.DomainResource):
@@ -29,9 +36,9 @@ class ResearchStudy(domainresource.DomainResource):
     involves the gathering of information about human or animal subjects.
     """
 
-    resource_type = Field("ResearchStudy", const=True)
+    resource_type: str = Field("ResearchStudy", const=True)
 
-    arm: typing.List[fhirtypes.ResearchStudyArmType] = Field(
+    arm: typing.List["ResearchStudyArm"] = Field(
         None,
         alias="arm",
         title="Defined path through the study for a subject",
@@ -44,7 +51,7 @@ class ResearchStudy(domainresource.DomainResource):
         element_property=True,
     )
 
-    category: typing.List[fhirtypes.CodeableConceptType] = Field(
+    category: typing.List[CodeableConcept] = Field(
         None,
         alias="category",
         title="Classifications for the study",
@@ -57,7 +64,7 @@ class ResearchStudy(domainresource.DomainResource):
         element_property=True,
     )
 
-    condition: typing.List[fhirtypes.CodeableConceptType] = Field(
+    condition: typing.List[CodeableConcept] = Field(
         None,
         alias="condition",
         title="Condition being studied",
@@ -71,7 +78,7 @@ class ResearchStudy(domainresource.DomainResource):
         element_property=True,
     )
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the study",
@@ -95,7 +102,7 @@ class ResearchStudy(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    enrollment: typing.List[fhirtypes.ReferenceType] = Field(
+    enrollment: typing.List[Reference] = Field(
         None,
         alias="enrollment",
         title="Inclusion & exclusion criteria",
@@ -110,7 +117,7 @@ class ResearchStudy(domainresource.DomainResource):
         enum_reference_types=["Group"],
     )
 
-    focus: typing.List[fhirtypes.CodeableConceptType] = Field(
+    focus: typing.List[CodeableConcept] = Field(
         None,
         alias="focus",
         title="Drugs, devices, etc. under study",
@@ -123,7 +130,7 @@ class ResearchStudy(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business Identifier for study",
@@ -135,7 +142,7 @@ class ResearchStudy(domainresource.DomainResource):
         element_property=True,
     )
 
-    keyword: typing.List[fhirtypes.CodeableConceptType] = Field(
+    keyword: typing.List[CodeableConcept] = Field(
         None,
         alias="keyword",
         title="Used to search for the study",
@@ -144,7 +151,7 @@ class ResearchStudy(domainresource.DomainResource):
         element_property=True,
     )
 
-    location: typing.List[fhirtypes.CodeableConceptType] = Field(
+    location: typing.List[CodeableConcept] = Field(
         None,
         alias="location",
         title="Geographic region(s) for study",
@@ -156,7 +163,7 @@ class ResearchStudy(domainresource.DomainResource):
         element_property=True,
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Comments made about the study",
@@ -168,7 +175,7 @@ class ResearchStudy(domainresource.DomainResource):
         element_property=True,
     )
 
-    objective: typing.List[fhirtypes.ResearchStudyObjectiveType] = Field(
+    objective: typing.List["ResearchStudyObjective"] = Field(
         None,
         alias="objective",
         title="A goal for the study",
@@ -181,7 +188,7 @@ class ResearchStudy(domainresource.DomainResource):
         element_property=True,
     )
 
-    partOf: typing.List[fhirtypes.ReferenceType] = Field(
+    partOf: typing.List[Reference] = Field(
         None,
         alias="partOf",
         title="Part of larger study",
@@ -195,7 +202,7 @@ class ResearchStudy(domainresource.DomainResource):
         enum_reference_types=["ResearchStudy"],
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="When the study began and ended",
@@ -207,7 +214,7 @@ class ResearchStudy(domainresource.DomainResource):
         element_property=True,
     )
 
-    phase: fhirtypes.CodeableConceptType = Field(
+    phase: CodeableConcept = Field(
         None,
         alias="phase",
         title=(
@@ -222,7 +229,7 @@ class ResearchStudy(domainresource.DomainResource):
         element_property=True,
     )
 
-    primaryPurposeType: fhirtypes.CodeableConceptType = Field(
+    primaryPurposeType: CodeableConcept = Field(
         None,
         alias="primaryPurposeType",
         title=(
@@ -237,7 +244,7 @@ class ResearchStudy(domainresource.DomainResource):
         element_property=True,
     )
 
-    principalInvestigator: fhirtypes.ReferenceType = Field(
+    principalInvestigator: Reference = Field(
         None,
         alias="principalInvestigator",
         title="Researcher who oversees multiple aspects of the study",
@@ -253,7 +260,7 @@ class ResearchStudy(domainresource.DomainResource):
         enum_reference_types=["Practitioner", "PractitionerRole"],
     )
 
-    protocol: typing.List[fhirtypes.ReferenceType] = Field(
+    protocol: typing.List[Reference] = Field(
         None,
         alias="protocol",
         title="Steps followed in executing study",
@@ -267,7 +274,7 @@ class ResearchStudy(domainresource.DomainResource):
         enum_reference_types=["PlanDefinition"],
     )
 
-    reasonStopped: fhirtypes.CodeableConceptType = Field(
+    reasonStopped: CodeableConcept = Field(
         None,
         alias="reasonStopped",
         title=(
@@ -282,7 +289,7 @@ class ResearchStudy(domainresource.DomainResource):
         element_property=True,
     )
 
-    relatedArtifact: typing.List[fhirtypes.RelatedArtifactType] = Field(
+    relatedArtifact: typing.List[RelatedArtifact] = Field(
         None,
         alias="relatedArtifact",
         title="References and dependencies",
@@ -291,7 +298,7 @@ class ResearchStudy(domainresource.DomainResource):
         element_property=True,
     )
 
-    site: typing.List[fhirtypes.ReferenceType] = Field(
+    site: typing.List[Reference] = Field(
         None,
         alias="site",
         title="Facility where study activities are conducted",
@@ -302,7 +309,7 @@ class ResearchStudy(domainresource.DomainResource):
         enum_reference_types=["Location"],
     )
 
-    sponsor: fhirtypes.ReferenceType = Field(
+    sponsor: Reference = Field(
         None,
         alias="sponsor",
         title="Organization that initiates and is legally responsible for the study",
@@ -473,7 +480,7 @@ class ResearchStudyArm(backboneelement.BackboneElement):
     follow-up.
     """
 
-    resource_type = Field("ResearchStudyArm", const=True)
+    resource_type: str = Field("ResearchStudyArm", const=True)
 
     description: fhirtypes.String = Field(
         None,
@@ -503,7 +510,7 @@ class ResearchStudyArm(backboneelement.BackboneElement):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Categorization of study arm",
@@ -593,7 +600,7 @@ class ResearchStudyObjective(backboneelement.BackboneElement):
     question to be answered by the analysis of data collected during the study.
     """
 
-    resource_type = Field("ResearchStudyObjective", const=True)
+    resource_type: str = Field("ResearchStudyObjective", const=True)
 
     name: fhirtypes.String = Field(
         None,
@@ -607,7 +614,7 @@ class ResearchStudyObjective(backboneelement.BackboneElement):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="primary | secondary | exploratory",
@@ -623,3 +630,6 @@ class ResearchStudyObjective(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "name", "type"]
+
+
+ResearchStudy.update_forward_refs()

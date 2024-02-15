@@ -11,6 +11,9 @@ from typing import List as ListType
 from pydantic.v1 import Field, root_validator
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .contactpoint import ContactPoint
+from .reference import Reference
 
 
 class ImplementationGuide(domainresource.DomainResource):
@@ -22,7 +25,7 @@ class ImplementationGuide(domainresource.DomainResource):
     to publish a computable definition of all the parts.
     """
 
-    resource_type = Field("ImplementationGuide", const=True)
+    resource_type: str = Field("ImplementationGuide", const=True)
 
     binary: ListType[fhirtypes.Uri] = Field(
         None,
@@ -31,7 +34,7 @@ class ImplementationGuide(domainresource.DomainResource):
         description="Image, css, script, etc..",
     )
 
-    contact: ListType[fhirtypes.ImplementationGuideContactType] = Field(
+    contact: ListType["ImplementationGuideContact"] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -65,7 +68,7 @@ class ImplementationGuide(domainresource.DomainResource):
         ),
     )
 
-    dependency: ListType[fhirtypes.ImplementationGuideDependencyType] = Field(
+    dependency: ListType["ImplementationGuideDependency"] = Field(
         None,
         alias="dependency",
         title="Another Implementation guide this depends on",
@@ -109,7 +112,7 @@ class ImplementationGuide(domainresource.DomainResource):
         ),
     )
 
-    global_fhir: ListType[fhirtypes.ImplementationGuideGlobalType] = Field(
+    global_fhir: ListType["ImplementationGuideGlobal"] = Field(
         None,
         alias="global",
         title="Profiles that apply globally",
@@ -130,14 +133,14 @@ class ImplementationGuide(domainresource.DomainResource):
         ),
     )
 
-    package: ListType[fhirtypes.ImplementationGuidePackageType] = Field(
+    package: ListType["ImplementationGuidePackage"] = Field(
         ...,
         alias="package",
         title="List of `ImplementationGuidePackage` items (represented as `dict` in JSON).",
         description="Group of resources as used in .page.package.",
     )
 
-    page: fhirtypes.ImplementationGuidePageType = Field(
+    page: "ImplementationGuidePage" = Field(
         ...,
         alias="page",
         title="Type `ImplementationGuidePage` (represented as `dict` in JSON).",
@@ -186,7 +189,7 @@ class ImplementationGuide(domainresource.DomainResource):
         ),
     )
 
-    useContext: ListType[fhirtypes.CodeableConceptType] = Field(
+    useContext: ListType[CodeableConcept] = Field(
         None,
         alias="useContext",
         title="The context that the content is intended to support",
@@ -221,7 +224,7 @@ class ImplementationGuideContact(backboneelement.BackboneElement):
     Contacts to assist a user in finding and communicating with the publisher.
     """
 
-    resource_type = Field("ImplementationGuideContact", const=True)
+    resource_type: str = Field("ImplementationGuideContact", const=True)
 
     name: fhirtypes.String = Field(
         None,
@@ -230,7 +233,7 @@ class ImplementationGuideContact(backboneelement.BackboneElement):
         description="Name of a individual to contact.",
     )
 
-    telecom: ListType[fhirtypes.ContactPointType] = Field(
+    telecom: ListType[ContactPoint] = Field(
         None,
         alias="telecom",
         title="List of `ContactPoint` items (represented as `dict` in JSON).",
@@ -246,7 +249,7 @@ class ImplementationGuideDependency(backboneelement.BackboneElement):
     other implementation guides.
     """
 
-    resource_type = Field("ImplementationGuideDependsOn", const=True)
+    resource_type: str = Field("ImplementationGuideDependsOn", const=True)
 
     type: fhirtypes.Code = Field(
         ...,
@@ -273,9 +276,9 @@ class ImplementationGuideGlobal(backboneelement.BackboneElement):
     must conform to.
     """
 
-    resource_type = Field("ImplementationGuideGlobal", const=True)
+    resource_type: str = Field("ImplementationGuideGlobal", const=True)
 
-    profile: fhirtypes.ReferenceType = Field(
+    profile: Reference = Field(
         ...,
         alias="profile",
         title="Profile that all resources must conform to",
@@ -299,7 +302,7 @@ class ImplementationGuidePackage(backboneelement.BackboneElement):
     pages.
     """
 
-    resource_type = Field("ImplementationGuidePackage", const=True)
+    resource_type: str = Field("ImplementationGuidePackage", const=True)
 
     description: fhirtypes.String = Field(
         None,
@@ -315,7 +318,7 @@ class ImplementationGuidePackage(backboneelement.BackboneElement):
         description="Name used .page.package.",
     )
 
-    resource: ListType[fhirtypes.ImplementationGuidePackageResourceType] = Field(
+    resource: ListType["ImplementationGuidePackageResource"] = Field(
         ...,
         alias="resource",
         title=(
@@ -335,7 +338,7 @@ class ImplementationGuidePackageResource(backboneelement.BackboneElement):
     example resource.
     """
 
-    resource_type = Field("ImplementationGuidePackageResource", const=True)
+    resource_type: str = Field("ImplementationGuidePackageResource", const=True)
 
     acronym: fhirtypes.String = Field(
         None,
@@ -351,7 +354,7 @@ class ImplementationGuidePackageResource(backboneelement.BackboneElement):
         description="Reason why included in guide.",
     )
 
-    exampleFor: fhirtypes.ReferenceType = Field(
+    exampleFor: Reference = Field(
         None,
         alias="exampleFor",
         title=(
@@ -389,7 +392,7 @@ class ImplementationGuidePackageResource(backboneelement.BackboneElement):
         ],
     )
 
-    sourceReference: fhirtypes.ReferenceType = Field(
+    sourceReference: Reference = Field(
         None,
         alias="sourceReference",
         title="Type `Reference` referencing `Resource` (represented as `dict` in JSON).",
@@ -457,7 +460,7 @@ class ImplementationGuidePage(backboneelement.BackboneElement):
     implementation guide home page.
     """
 
-    resource_type = Field("ImplementationGuidePage", const=True)
+    resource_type: str = Field("ImplementationGuidePage", const=True)
 
     format: fhirtypes.Code = Field(
         None,
@@ -501,7 +504,7 @@ class ImplementationGuidePage(backboneelement.BackboneElement):
         description="Name of package to include.",
     )
 
-    page: ListType[fhirtypes.ImplementationGuidePageType] = Field(
+    page: ListType["ImplementationGuidePage"] = Field(
         None,
         alias="page",
         title=(
@@ -523,3 +526,8 @@ class ImplementationGuidePage(backboneelement.BackboneElement):
         title="List of `Code` items.",
         description="Kind of resource to include in the list.",
     )
+
+
+ImplementationGuide.update_forward_refs()
+ImplementationGuidePackage.update_forward_refs()
+ImplementationGuidePage.update_forward_refs()

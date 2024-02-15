@@ -13,6 +13,16 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .duration import Duration
+from .identifier import Identifier
+from .period import Period
+from .range import Range
+from .reference import Reference
+from .relatedartifact import RelatedArtifact
+from .timing import Timing
 
 
 class RequestGroup(domainresource.DomainResource):
@@ -25,9 +35,9 @@ class RequestGroup(domainresource.DomainResource):
     that have inter-dependencies such as "give this medication after that one".
     """
 
-    resource_type = Field("RequestGroup", const=True)
+    resource_type: str = Field("RequestGroup", const=True)
 
-    action: typing.List[fhirtypes.RequestGroupActionType] = Field(
+    action: typing.List["RequestGroupAction"] = Field(
         None,
         alias="action",
         title="Proposed actions, if any",
@@ -36,7 +46,7 @@ class RequestGroup(domainresource.DomainResource):
         element_property=True,
     )
 
-    author: fhirtypes.ReferenceType = Field(
+    author: Reference = Field(
         None,
         alias="author",
         title="Device or practitioner that authored the request group",
@@ -59,7 +69,7 @@ class RequestGroup(domainresource.DomainResource):
         None, alias="_authoredOn", title="Extension field for ``authoredOn``."
     )
 
-    basedOn: typing.List[fhirtypes.ReferenceType] = Field(
+    basedOn: typing.List[Reference] = Field(
         None,
         alias="basedOn",
         title="Fulfills plan, proposal, or order",
@@ -73,7 +83,7 @@ class RequestGroup(domainresource.DomainResource):
         enum_reference_types=["Resource"],
     )
 
-    context: fhirtypes.ReferenceType = Field(
+    context: Reference = Field(
         None,
         alias="context",
         title="Encounter or Episode for the request group",
@@ -84,7 +94,7 @@ class RequestGroup(domainresource.DomainResource):
         enum_reference_types=["Encounter", "EpisodeOfCare"],
     )
 
-    definition: typing.List[fhirtypes.ReferenceType] = Field(
+    definition: typing.List[Reference] = Field(
         None,
         alias="definition",
         title="Instantiates protocol or definition",
@@ -98,7 +108,7 @@ class RequestGroup(domainresource.DomainResource):
         enum_reference_types=["Resource"],
     )
 
-    groupIdentifier: fhirtypes.IdentifierType = Field(
+    groupIdentifier: Identifier = Field(
         None,
         alias="groupIdentifier",
         title="Composite request this is part of",
@@ -111,7 +121,7 @@ class RequestGroup(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business identifier",
@@ -142,7 +152,7 @@ class RequestGroup(domainresource.DomainResource):
         None, alias="_intent", title="Extension field for ``intent``."
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Additional notes about the response",
@@ -172,7 +182,7 @@ class RequestGroup(domainresource.DomainResource):
         None, alias="_priority", title="Extension field for ``priority``."
     )
 
-    reasonCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    reasonCodeableConcept: CodeableConcept = Field(
         None,
         alias="reasonCodeableConcept",
         title="Reason for the request group",
@@ -189,7 +199,7 @@ class RequestGroup(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    reasonReference: fhirtypes.ReferenceType = Field(
+    reasonReference: Reference = Field(
         None,
         alias="reasonReference",
         title="Reason for the request group",
@@ -208,7 +218,7 @@ class RequestGroup(domainresource.DomainResource):
         enum_reference_types=["Resource"],
     )
 
-    replaces: typing.List[fhirtypes.ReferenceType] = Field(
+    replaces: typing.List[Reference] = Field(
         None,
         alias="replaces",
         title="Request(s) replaced by this request",
@@ -252,7 +262,7 @@ class RequestGroup(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title="Who the request group is about",
@@ -403,9 +413,9 @@ class RequestGroupAction(backboneelement.BackboneElement):
     The actions, if any, produced by the evaluation of the artifact.
     """
 
-    resource_type = Field("RequestGroupAction", const=True)
+    resource_type: str = Field("RequestGroupAction", const=True)
 
-    action: typing.List[fhirtypes.RequestGroupActionType] = Field(
+    action: typing.List["RequestGroupAction"] = Field(
         None,
         alias="action",
         title="Sub action",
@@ -431,7 +441,7 @@ class RequestGroupAction(backboneelement.BackboneElement):
         title="Extension field for ``cardinalityBehavior``.",
     )
 
-    code: typing.List[fhirtypes.CodeableConceptType] = Field(
+    code: typing.List[CodeableConcept] = Field(
         None,
         alias="code",
         title="Code representing the meaning of the action or sub-actions",
@@ -444,7 +454,7 @@ class RequestGroupAction(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    condition: typing.List[fhirtypes.RequestGroupActionConditionType] = Field(
+    condition: typing.List["RequestGroupActionCondition"] = Field(
         None,
         alias="condition",
         title="Whether or not the action is applicable",
@@ -471,7 +481,7 @@ class RequestGroupAction(backboneelement.BackboneElement):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    documentation: typing.List[fhirtypes.RelatedArtifactType] = Field(
+    documentation: typing.List[RelatedArtifact] = Field(
         None,
         alias="documentation",
         title="Supporting documentation for the intended performer of the action",
@@ -513,7 +523,7 @@ class RequestGroupAction(backboneelement.BackboneElement):
         None, alias="_label", title="Extension field for ``label``."
     )
 
-    participant: typing.List[fhirtypes.ReferenceType] = Field(
+    participant: typing.List[Reference] = Field(
         None,
         alias="participant",
         title="Who should perform the action",
@@ -541,7 +551,7 @@ class RequestGroupAction(backboneelement.BackboneElement):
         title="Extension field for ``precheckBehavior``.",
     )
 
-    relatedAction: typing.List[fhirtypes.RequestGroupActionRelatedActionType] = Field(
+    relatedAction: typing.List["RequestGroupActionRelatedAction"] = Field(
         None,
         alias="relatedAction",
         title="Relationship to another action",
@@ -570,7 +580,7 @@ class RequestGroupAction(backboneelement.BackboneElement):
         title="Extension field for ``requiredBehavior``.",
     )
 
-    resource: fhirtypes.ReferenceType = Field(
+    resource: Reference = Field(
         None,
         alias="resource",
         title="The target of the action",
@@ -643,7 +653,7 @@ class RequestGroupAction(backboneelement.BackboneElement):
         None, alias="_timingDateTime", title="Extension field for ``timingDateTime``."
     )
 
-    timingDuration: fhirtypes.DurationType = Field(
+    timingDuration: Duration = Field(
         None,
         alias="timingDuration",
         title="When the action should take place",
@@ -655,7 +665,7 @@ class RequestGroupAction(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    timingPeriod: fhirtypes.PeriodType = Field(
+    timingPeriod: Period = Field(
         None,
         alias="timingPeriod",
         title="When the action should take place",
@@ -667,7 +677,7 @@ class RequestGroupAction(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    timingRange: fhirtypes.RangeType = Field(
+    timingRange: Range = Field(
         None,
         alias="timingRange",
         title="When the action should take place",
@@ -679,7 +689,7 @@ class RequestGroupAction(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    timingTiming: fhirtypes.TimingType = Field(
+    timingTiming: Timing = Field(
         None,
         alias="timingTiming",
         title="When the action should take place",
@@ -703,7 +713,7 @@ class RequestGroupAction(backboneelement.BackboneElement):
         None, alias="_title", title="Extension field for ``title``."
     )
 
-    type: fhirtypes.CodingType = Field(
+    type: Coding = Field(
         None,
         alias="type",
         title="create | update | remove | fire-event",
@@ -803,7 +813,7 @@ class RequestGroupActionCondition(backboneelement.BackboneElement):
     conditions for the action.
     """
 
-    resource_type = Field("RequestGroupActionCondition", const=True)
+    resource_type: str = Field("RequestGroupActionCondition", const=True)
 
     description: fhirtypes.String = Field(
         None,
@@ -949,7 +959,7 @@ class RequestGroupActionRelatedAction(backboneelement.BackboneElement):
     start of".
     """
 
-    resource_type = Field("RequestGroupActionRelatedAction", const=True)
+    resource_type: str = Field("RequestGroupActionRelatedAction", const=True)
 
     actionId: fhirtypes.Id = Field(
         None,
@@ -964,7 +974,7 @@ class RequestGroupActionRelatedAction(backboneelement.BackboneElement):
         None, alias="_actionId", title="Extension field for ``actionId``."
     )
 
-    offsetDuration: fhirtypes.DurationType = Field(
+    offsetDuration: Duration = Field(
         None,
         alias="offsetDuration",
         title="Time offset for the relationship",
@@ -979,7 +989,7 @@ class RequestGroupActionRelatedAction(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    offsetRange: fhirtypes.RangeType = Field(
+    offsetRange: Range = Field(
         None,
         alias="offsetRange",
         title="Time offset for the relationship",
@@ -1138,3 +1148,7 @@ class RequestGroupActionRelatedAction(backboneelement.BackboneElement):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+RequestGroup.update_forward_refs()
+RequestGroupAction.update_forward_refs()

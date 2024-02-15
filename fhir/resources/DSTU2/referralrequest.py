@@ -10,6 +10,10 @@ from typing import List as ListType
 from pydantic.v1 import Field
 
 from . import domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class ReferralRequest(domainresource.DomainResource):
@@ -19,7 +23,7 @@ class ReferralRequest(domainresource.DomainResource):
     transfer of a patient to the care of another provider or provider organization.
     """
 
-    resource_type = Field("ReferralRequest", const=True)
+    resource_type: str = Field("ReferralRequest", const=True)
 
     status: fhirtypes.Code = Field(
         None,
@@ -40,7 +44,7 @@ class ReferralRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="Business identifier",
@@ -59,7 +63,7 @@ class ReferralRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -67,7 +71,7 @@ class ReferralRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    specialty: fhirtypes.CodeableConceptType = Field(
+    specialty: CodeableConcept = Field(
         None,
         alias="specialty",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -75,7 +79,7 @@ class ReferralRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    priority: fhirtypes.CodeableConceptType = Field(
+    priority: CodeableConcept = Field(
         None,
         alias="priority",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -83,7 +87,7 @@ class ReferralRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         None,
         alias="patient",
         title="Type 'Reference' referencing 'Patient'  (represented as 'dict' in JSON).",
@@ -93,7 +97,7 @@ class ReferralRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    requester: fhirtypes.ReferenceType = Field(
+    requester: Reference = Field(
         None,
         alias="requester",
         title=(
@@ -106,7 +110,7 @@ class ReferralRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    recipient: ListType[fhirtypes.ReferenceType] = Field(
+    recipient: ListType[Reference] = Field(
         None,
         alias="recipient",
         title=(
@@ -119,7 +123,7 @@ class ReferralRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title="Type 'Reference' referencing 'Encounter'  (represented as 'dict' in JSON).",
@@ -140,7 +144,7 @@ class ReferralRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    reason: fhirtypes.CodeableConceptType = Field(
+    reason: CodeableConcept = Field(
         None,
         alias="reason",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -156,7 +160,7 @@ class ReferralRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    serviceRequested: ListType[fhirtypes.CodeableConceptType] = Field(
+    serviceRequested: ListType[CodeableConcept] = Field(
         None,
         alias="serviceRequested",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -164,7 +168,7 @@ class ReferralRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    supportingInformation: ListType[fhirtypes.ReferenceType] = Field(
+    supportingInformation: ListType[Reference] = Field(
         None,
         alias="supportingInformation",
         title="Type 'Reference' referencing 'Any'  (represented as 'dict' in JSON).",
@@ -174,7 +178,7 @@ class ReferralRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    fulfillmentTime: fhirtypes.PeriodType = Field(
+    fulfillmentTime: Period = Field(
         None,
         alias="fulfillmentTime",
         title="Requested service(s) fulfillment time",

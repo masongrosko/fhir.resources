@@ -22,7 +22,7 @@ class Quantity(datatype.DataType):
     including amounts involving arbitrary units and floating currencies.
     """
 
-    resource_type = Field("Quantity", const=True)
+    resource_type: str = Field("Quantity", const=True)
 
     code: fhirtypes.Code = Field(
         None,

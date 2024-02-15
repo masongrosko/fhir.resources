@@ -13,6 +13,17 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .annotation import Annotation
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .period import Period
+from .quantity import Quantity
+from .range import Range
+from .ratio import Ratio
+from .reference import Reference
+from .sampleddata import SampledData
+from .timing import Timing
 
 
 class Observation(domainresource.DomainResource):
@@ -25,9 +36,9 @@ class Observation(domainresource.DomainResource):
     subject.
     """
 
-    resource_type = Field("Observation", const=True)
+    resource_type: str = Field("Observation", const=True)
 
-    basedOn: typing.List[fhirtypes.ReferenceType] = Field(
+    basedOn: typing.List[Reference] = Field(
         None,
         alias="basedOn",
         title="Fulfills plan, proposal or order",
@@ -49,7 +60,7 @@ class Observation(domainresource.DomainResource):
         ],
     )
 
-    bodySite: fhirtypes.CodeableConceptType = Field(
+    bodySite: CodeableConcept = Field(
         None,
         alias="bodySite",
         title="Observed body part",
@@ -61,7 +72,7 @@ class Observation(domainresource.DomainResource):
         element_property=True,
     )
 
-    bodyStructure: fhirtypes.ReferenceType = Field(
+    bodyStructure: Reference = Field(
         None,
         alias="bodyStructure",
         title="Observed body structure",
@@ -75,7 +86,7 @@ class Observation(domainresource.DomainResource):
         enum_reference_types=["BodyStructure"],
     )
 
-    category: typing.List[fhirtypes.CodeableConceptType] = Field(
+    category: typing.List[CodeableConcept] = Field(
         None,
         alias="category",
         title="Classification of  type of observation",
@@ -84,7 +95,7 @@ class Observation(domainresource.DomainResource):
         element_property=True,
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         ...,
         alias="code",
         title="Type of observation (code / type)",
@@ -96,7 +107,7 @@ class Observation(domainresource.DomainResource):
         element_property=True,
     )
 
-    component: typing.List[fhirtypes.ObservationComponentType] = Field(
+    component: typing.List["ObservationComponent"] = Field(
         None,
         alias="component",
         title="Component results",
@@ -111,7 +122,7 @@ class Observation(domainresource.DomainResource):
         element_property=True,
     )
 
-    dataAbsentReason: fhirtypes.CodeableConceptType = Field(
+    dataAbsentReason: CodeableConcept = Field(
         None,
         alias="dataAbsentReason",
         title="Why the result is missing",
@@ -123,7 +134,7 @@ class Observation(domainresource.DomainResource):
         element_property=True,
     )
 
-    derivedFrom: typing.List[fhirtypes.ReferenceType] = Field(
+    derivedFrom: typing.List[Reference] = Field(
         None,
         alias="derivedFrom",
         title="Related resource from which the observation is made",
@@ -146,7 +157,7 @@ class Observation(domainresource.DomainResource):
         ],
     )
 
-    device: fhirtypes.ReferenceType = Field(
+    device: Reference = Field(
         None,
         alias="device",
         title=(
@@ -206,7 +217,7 @@ class Observation(domainresource.DomainResource):
         title="Extension field for ``effectiveInstant``.",
     )
 
-    effectivePeriod: fhirtypes.PeriodType = Field(
+    effectivePeriod: Period = Field(
         None,
         alias="effectivePeriod",
         title="Clinically relevant time/time-period for observation",
@@ -224,7 +235,7 @@ class Observation(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    effectiveTiming: fhirtypes.TimingType = Field(
+    effectiveTiming: Timing = Field(
         None,
         alias="effectiveTiming",
         title="Clinically relevant time/time-period for observation",
@@ -242,7 +253,7 @@ class Observation(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title="Healthcare event during which this observation is made",
@@ -256,7 +267,7 @@ class Observation(domainresource.DomainResource):
         enum_reference_types=["Encounter"],
     )
 
-    focus: typing.List[fhirtypes.ReferenceType] = Field(
+    focus: typing.List[Reference] = Field(
         None,
         alias="focus",
         title=(
@@ -281,7 +292,7 @@ class Observation(domainresource.DomainResource):
         enum_reference_types=["Resource"],
     )
 
-    hasMember: typing.List[fhirtypes.ReferenceType] = Field(
+    hasMember: typing.List[Reference] = Field(
         None,
         alias="hasMember",
         title="Related resource that belongs to the Observation group",
@@ -300,7 +311,7 @@ class Observation(domainresource.DomainResource):
         ],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business Identifier for observation",
@@ -332,7 +343,7 @@ class Observation(domainresource.DomainResource):
         title="Extension field for ``instantiatesCanonical``.",
     )
 
-    instantiatesReference: fhirtypes.ReferenceType = Field(
+    instantiatesReference: Reference = Field(
         None,
         alias="instantiatesReference",
         title="Instantiates FHIR ObservationDefinition",
@@ -350,7 +361,7 @@ class Observation(domainresource.DomainResource):
         enum_reference_types=["ObservationDefinition"],
     )
 
-    interpretation: typing.List[fhirtypes.CodeableConceptType] = Field(
+    interpretation: typing.List[CodeableConcept] = Field(
         None,
         alias="interpretation",
         title="High, low, normal, etc",
@@ -378,7 +389,7 @@ class Observation(domainresource.DomainResource):
         None, alias="_issued", title="Extension field for ``issued``."
     )
 
-    method: fhirtypes.CodeableConceptType = Field(
+    method: CodeableConcept = Field(
         None,
         alias="method",
         title="How it was done",
@@ -387,7 +398,7 @@ class Observation(domainresource.DomainResource):
         element_property=True,
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Comments about the observation",
@@ -396,7 +407,7 @@ class Observation(domainresource.DomainResource):
         element_property=True,
     )
 
-    partOf: typing.List[fhirtypes.ReferenceType] = Field(
+    partOf: typing.List[Reference] = Field(
         None,
         alias="partOf",
         title="Part of referenced event",
@@ -418,7 +429,7 @@ class Observation(domainresource.DomainResource):
         ],
     )
 
-    performer: typing.List[fhirtypes.ReferenceType] = Field(
+    performer: typing.List[Reference] = Field(
         None,
         alias="performer",
         title="Who is responsible for the observation",
@@ -436,7 +447,7 @@ class Observation(domainresource.DomainResource):
         ],
     )
 
-    referenceRange: typing.List[fhirtypes.ObservationReferenceRangeType] = Field(
+    referenceRange: typing.List["ObservationReferenceRange"] = Field(
         None,
         alias="referenceRange",
         title="Provides guide for interpretation",
@@ -450,7 +461,7 @@ class Observation(domainresource.DomainResource):
         element_property=True,
     )
 
-    specimen: fhirtypes.ReferenceType = Field(
+    specimen: Reference = Field(
         None,
         alias="specimen",
         title="Specimen used for this observation",
@@ -477,7 +488,7 @@ class Observation(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title="Who and/or what the observation is about",
@@ -507,7 +518,7 @@ class Observation(domainresource.DomainResource):
         ],
     )
 
-    triggeredBy: typing.List[fhirtypes.ObservationTriggeredByType] = Field(
+    triggeredBy: typing.List["ObservationTriggeredBy"] = Field(
         None,
         alias="triggeredBy",
         title="Triggering observation(s)",
@@ -519,7 +530,7 @@ class Observation(domainresource.DomainResource):
         element_property=True,
     )
 
-    valueAttachment: fhirtypes.AttachmentType = Field(
+    valueAttachment: Attachment = Field(
         None,
         alias="valueAttachment",
         title="Actual result",
@@ -552,7 +563,7 @@ class Observation(domainresource.DomainResource):
         None, alias="_valueBoolean", title="Extension field for ``valueBoolean``."
     )
 
-    valueCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    valueCodeableConcept: CodeableConcept = Field(
         None,
         alias="valueCodeableConcept",
         title="Actual result",
@@ -603,7 +614,7 @@ class Observation(domainresource.DomainResource):
         None, alias="_valueInteger", title="Extension field for ``valueInteger``."
     )
 
-    valuePeriod: fhirtypes.PeriodType = Field(
+    valuePeriod: Period = Field(
         None,
         alias="valuePeriod",
         title="Actual result",
@@ -618,7 +629,7 @@ class Observation(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    valueQuantity: fhirtypes.QuantityType = Field(
+    valueQuantity: Quantity = Field(
         None,
         alias="valueQuantity",
         title="Actual result",
@@ -633,7 +644,7 @@ class Observation(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    valueRange: fhirtypes.RangeType = Field(
+    valueRange: Range = Field(
         None,
         alias="valueRange",
         title="Actual result",
@@ -648,7 +659,7 @@ class Observation(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    valueRatio: fhirtypes.RatioType = Field(
+    valueRatio: Ratio = Field(
         None,
         alias="valueRatio",
         title="Actual result",
@@ -663,7 +674,7 @@ class Observation(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    valueReference: fhirtypes.ReferenceType = Field(
+    valueReference: Reference = Field(
         None,
         alias="valueReference",
         title="Actual result",
@@ -680,7 +691,7 @@ class Observation(domainresource.DomainResource):
         enum_reference_types=["MolecularSequence"],
     )
 
-    valueSampledData: fhirtypes.SampledDataType = Field(
+    valueSampledData: SampledData = Field(
         None,
         alias="valueSampledData",
         title="Actual result",
@@ -925,9 +936,9 @@ class ObservationComponent(backboneelement.BackboneElement):
     genetics observations.
     """
 
-    resource_type = Field("ObservationComponent", const=True)
+    resource_type: str = Field("ObservationComponent", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         ...,
         alias="code",
         title="Type of component observation (code / type)",
@@ -939,7 +950,7 @@ class ObservationComponent(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    dataAbsentReason: fhirtypes.CodeableConceptType = Field(
+    dataAbsentReason: CodeableConcept = Field(
         None,
         alias="dataAbsentReason",
         title="Why the component result is missing",
@@ -951,7 +962,7 @@ class ObservationComponent(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    interpretation: typing.List[fhirtypes.CodeableConceptType] = Field(
+    interpretation: typing.List[CodeableConcept] = Field(
         None,
         alias="interpretation",
         title="High, low, normal, etc",
@@ -963,7 +974,7 @@ class ObservationComponent(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    referenceRange: typing.List[fhirtypes.ObservationReferenceRangeType] = Field(
+    referenceRange: typing.List["ObservationReferenceRange"] = Field(
         None,
         alias="referenceRange",
         title="Provides guide for interpretation of component result",
@@ -975,7 +986,7 @@ class ObservationComponent(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    valueAttachment: fhirtypes.AttachmentType = Field(
+    valueAttachment: Attachment = Field(
         None,
         alias="valueAttachment",
         title="Actual component result",
@@ -1008,7 +1019,7 @@ class ObservationComponent(backboneelement.BackboneElement):
         None, alias="_valueBoolean", title="Extension field for ``valueBoolean``."
     )
 
-    valueCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    valueCodeableConcept: CodeableConcept = Field(
         None,
         alias="valueCodeableConcept",
         title="Actual component result",
@@ -1059,7 +1070,7 @@ class ObservationComponent(backboneelement.BackboneElement):
         None, alias="_valueInteger", title="Extension field for ``valueInteger``."
     )
 
-    valuePeriod: fhirtypes.PeriodType = Field(
+    valuePeriod: Period = Field(
         None,
         alias="valuePeriod",
         title="Actual component result",
@@ -1074,7 +1085,7 @@ class ObservationComponent(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    valueQuantity: fhirtypes.QuantityType = Field(
+    valueQuantity: Quantity = Field(
         None,
         alias="valueQuantity",
         title="Actual component result",
@@ -1089,7 +1100,7 @@ class ObservationComponent(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    valueRange: fhirtypes.RangeType = Field(
+    valueRange: Range = Field(
         None,
         alias="valueRange",
         title="Actual component result",
@@ -1104,7 +1115,7 @@ class ObservationComponent(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    valueRatio: fhirtypes.RatioType = Field(
+    valueRatio: Ratio = Field(
         None,
         alias="valueRatio",
         title="Actual component result",
@@ -1119,7 +1130,7 @@ class ObservationComponent(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    valueReference: fhirtypes.ReferenceType = Field(
+    valueReference: Reference = Field(
         None,
         alias="valueReference",
         title="Actual component result",
@@ -1136,7 +1147,7 @@ class ObservationComponent(backboneelement.BackboneElement):
         enum_reference_types=["MolecularSequence"],
     )
 
-    valueSampledData: fhirtypes.SampledDataType = Field(
+    valueSampledData: SampledData = Field(
         None,
         alias="valueSampledData",
         title="Actual component result",
@@ -1283,9 +1294,9 @@ class ObservationReferenceRange(backboneelement.BackboneElement):
     `referenceRange` elements would be used.
     """
 
-    resource_type = Field("ObservationReferenceRange", const=True)
+    resource_type: str = Field("ObservationReferenceRange", const=True)
 
-    age: fhirtypes.RangeType = Field(
+    age: Range = Field(
         None,
         alias="age",
         title="Applicable age range, if relevant",
@@ -1297,7 +1308,7 @@ class ObservationReferenceRange(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    appliesTo: typing.List[fhirtypes.CodeableConceptType] = Field(
+    appliesTo: typing.List[CodeableConcept] = Field(
         None,
         alias="appliesTo",
         title="Reference range population",
@@ -1313,7 +1324,7 @@ class ObservationReferenceRange(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    high: fhirtypes.QuantityType = Field(
+    high: Quantity = Field(
         None,
         alias="high",
         title="High Range, if relevant",
@@ -1327,7 +1338,7 @@ class ObservationReferenceRange(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    low: fhirtypes.QuantityType = Field(
+    low: Quantity = Field(
         None,
         alias="low",
         title="Low Range, if relevant",
@@ -1341,7 +1352,7 @@ class ObservationReferenceRange(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    normalValue: fhirtypes.CodeableConceptType = Field(
+    normalValue: CodeableConcept = Field(
         None,
         alias="normalValue",
         title="Normal value, if relevant",
@@ -1367,7 +1378,7 @@ class ObservationReferenceRange(backboneelement.BackboneElement):
         None, alias="_text", title="Extension field for ``text``."
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Reference range qualifier",
@@ -1409,9 +1420,9 @@ class ObservationTriggeredBy(backboneelement.BackboneElement):
     observation.
     """
 
-    resource_type = Field("ObservationTriggeredBy", const=True)
+    resource_type: str = Field("ObservationTriggeredBy", const=True)
 
-    observation: fhirtypes.ReferenceType = Field(
+    observation: Reference = Field(
         ...,
         alias="observation",
         title="Triggering observation",
@@ -1519,3 +1530,7 @@ class ObservationTriggeredBy(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+Observation.update_forward_refs()
+ObservationComponent.update_forward_refs()

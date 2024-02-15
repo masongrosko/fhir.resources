@@ -10,7 +10,9 @@ import typing
 
 from pydantic.v1 import Field, root_validator
 
-from . import backboneelement, fhirtypes
+from . import backboneelement
+from .codeableconcept import CodeableConcept
+from .range import Range
 
 
 class Population(backboneelement.BackboneElement):
@@ -23,9 +25,9 @@ class Population(backboneelement.BackboneElement):
     A populatioof people with some set of grouping criteria.
     """
 
-    resource_type = Field("Population", const=True)
+    resource_type: str = Field("Population", const=True)
 
-    ageCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    ageCodeableConcept: CodeableConcept = Field(
         None,
         alias="ageCodeableConcept",
         title="The age of the specific population",
@@ -37,7 +39,7 @@ class Population(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    ageRange: fhirtypes.RangeType = Field(
+    ageRange: Range = Field(
         None,
         alias="ageRange",
         title="The age of the specific population",
@@ -49,7 +51,7 @@ class Population(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    gender: fhirtypes.CodeableConceptType = Field(
+    gender: CodeableConcept = Field(
         None,
         alias="gender",
         title="The gender of the specific population",
@@ -58,7 +60,7 @@ class Population(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    physiologicalCondition: fhirtypes.CodeableConceptType = Field(
+    physiologicalCondition: CodeableConcept = Field(
         None,
         alias="physiologicalCondition",
         title=(
@@ -70,7 +72,7 @@ class Population(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    race: fhirtypes.CodeableConceptType = Field(
+    race: CodeableConcept = Field(
         None,
         alias="race",
         title="Race of the specific population",

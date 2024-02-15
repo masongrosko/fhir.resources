@@ -19,7 +19,7 @@ class Coding(element.Element):
     A reference to a code defined by a terminology system.
     """
 
-    resource_type = Field("Coding", const=True)
+    resource_type: str = Field("Coding", const=True)
 
     code: fhirtypes.Code = Field(
         None,

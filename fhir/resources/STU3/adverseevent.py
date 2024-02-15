@@ -11,6 +11,9 @@ import typing
 from pydantic.v1 import Field
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .reference import Reference
 
 
 class AdverseEvent(domainresource.DomainResource):
@@ -26,7 +29,7 @@ class AdverseEvent(domainresource.DomainResource):
     or hospitalization, or that results in death.
     """
 
-    resource_type = Field("AdverseEvent", const=True)
+    resource_type: str = Field("AdverseEvent", const=True)
 
     category: fhirtypes.Code = Field(
         None,
@@ -77,7 +80,7 @@ class AdverseEvent(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    eventParticipant: fhirtypes.ReferenceType = Field(
+    eventParticipant: Reference = Field(
         None,
         alias="eventParticipant",
         title="Who  was involved in the adverse event or the potential adverse event",
@@ -95,7 +98,7 @@ class AdverseEvent(domainresource.DomainResource):
         enum_reference_types=["Practitioner", "Device"],
     )
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="Business identifier for the event",
@@ -108,7 +111,7 @@ class AdverseEvent(domainresource.DomainResource):
         element_property=True,
     )
 
-    location: fhirtypes.ReferenceType = Field(
+    location: Reference = Field(
         None,
         alias="location",
         title="Location where adverse event occurred",
@@ -119,7 +122,7 @@ class AdverseEvent(domainresource.DomainResource):
         enum_reference_types=["Location"],
     )
 
-    outcome: fhirtypes.CodeableConceptType = Field(
+    outcome: CodeableConcept = Field(
         None,
         alias="outcome",
         title=(
@@ -131,7 +134,7 @@ class AdverseEvent(domainresource.DomainResource):
         element_property=True,
     )
 
-    reaction: typing.List[fhirtypes.ReferenceType] = Field(
+    reaction: typing.List[Reference] = Field(
         None,
         alias="reaction",
         title="Adverse Reaction Events linked to exposure to substance",
@@ -145,7 +148,7 @@ class AdverseEvent(domainresource.DomainResource):
         enum_reference_types=["Condition"],
     )
 
-    recorder: fhirtypes.ReferenceType = Field(
+    recorder: Reference = Field(
         None,
         alias="recorder",
         title="Who recorded the adverse event",
@@ -159,7 +162,7 @@ class AdverseEvent(domainresource.DomainResource):
         enum_reference_types=["Patient", "Practitioner", "RelatedPerson"],
     )
 
-    referenceDocument: typing.List[fhirtypes.ReferenceType] = Field(
+    referenceDocument: typing.List[Reference] = Field(
         None,
         alias="referenceDocument",
         title="AdverseEvent.referenceDocument",
@@ -170,7 +173,7 @@ class AdverseEvent(domainresource.DomainResource):
         enum_reference_types=["DocumentReference"],
     )
 
-    seriousness: fhirtypes.CodeableConceptType = Field(
+    seriousness: CodeableConcept = Field(
         None,
         alias="seriousness",
         title="Mild | Moderate | Severe",
@@ -179,7 +182,7 @@ class AdverseEvent(domainresource.DomainResource):
         element_property=True,
     )
 
-    study: typing.List[fhirtypes.ReferenceType] = Field(
+    study: typing.List[Reference] = Field(
         None,
         alias="study",
         title="AdverseEvent.study",
@@ -190,7 +193,7 @@ class AdverseEvent(domainresource.DomainResource):
         enum_reference_types=["ResearchStudy"],
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title="Subject or group impacted by event",
@@ -205,7 +208,7 @@ class AdverseEvent(domainresource.DomainResource):
         enum_reference_types=["Patient", "ResearchSubject", "Medication", "Device"],
     )
 
-    subjectMedicalHistory: typing.List[fhirtypes.ReferenceType] = Field(
+    subjectMedicalHistory: typing.List[Reference] = Field(
         None,
         alias="subjectMedicalHistory",
         title="AdverseEvent.subjectMedicalHistory",
@@ -223,7 +226,7 @@ class AdverseEvent(domainresource.DomainResource):
         ],
     )
 
-    suspectEntity: typing.List[fhirtypes.AdverseEventSuspectEntityType] = Field(
+    suspectEntity: typing.List["AdverseEventSuspectEntity"] = Field(
         None,
         alias="suspectEntity",
         title="The suspected agent causing the adverse event",
@@ -235,7 +238,7 @@ class AdverseEvent(domainresource.DomainResource):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="actual | potential",
@@ -290,7 +293,7 @@ class AdverseEventSuspectEntity(backboneelement.BackboneElement):
     Describes the entity that is suspected to have caused the adverse event.
     """
 
-    resource_type = Field("AdverseEventSuspectEntity", const=True)
+    resource_type: str = Field("AdverseEventSuspectEntity", const=True)
 
     causality: fhirtypes.Code = Field(
         None,
@@ -307,7 +310,7 @@ class AdverseEventSuspectEntity(backboneelement.BackboneElement):
         None, alias="_causality", title="Extension field for ``causality``."
     )
 
-    causalityAssessment: fhirtypes.CodeableConceptType = Field(
+    causalityAssessment: CodeableConcept = Field(
         None,
         alias="causalityAssessment",
         title="assess1 | assess2",
@@ -316,7 +319,7 @@ class AdverseEventSuspectEntity(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    causalityAuthor: fhirtypes.ReferenceType = Field(
+    causalityAuthor: Reference = Field(
         None,
         alias="causalityAuthor",
         title="AdverseEvent.suspectEntity.causalityAuthor",
@@ -327,7 +330,7 @@ class AdverseEventSuspectEntity(backboneelement.BackboneElement):
         enum_reference_types=["Practitioner", "PractitionerRole"],
     )
 
-    causalityMethod: fhirtypes.CodeableConceptType = Field(
+    causalityMethod: CodeableConcept = Field(
         None,
         alias="causalityMethod",
         title="method1 | method2",
@@ -350,7 +353,7 @@ class AdverseEventSuspectEntity(backboneelement.BackboneElement):
         title="Extension field for ``causalityProductRelatedness``.",
     )
 
-    causalityResult: fhirtypes.CodeableConceptType = Field(
+    causalityResult: CodeableConcept = Field(
         None,
         alias="causalityResult",
         title="result1 | result2",
@@ -359,7 +362,7 @@ class AdverseEventSuspectEntity(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    instance: fhirtypes.ReferenceType = Field(
+    instance: Reference = Field(
         ...,
         alias="instance",
         title="Refers to the specific entity that caused the adverse event",
@@ -398,3 +401,6 @@ class AdverseEventSuspectEntity(backboneelement.BackboneElement):
             "causalityAuthor",
             "causalityResult",
         ]
+
+
+AdverseEvent.update_forward_refs()

@@ -13,6 +13,11 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .codeablereference import CodeableReference
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class EpisodeOfCare(domainresource.DomainResource):
@@ -29,9 +34,9 @@ class EpisodeOfCare(domainresource.DomainResource):
     time.
     """
 
-    resource_type = Field("EpisodeOfCare", const=True)
+    resource_type: str = Field("EpisodeOfCare", const=True)
 
-    account: typing.List[fhirtypes.ReferenceType] = Field(
+    account: typing.List[Reference] = Field(
         None,
         alias="account",
         title=(
@@ -44,7 +49,7 @@ class EpisodeOfCare(domainresource.DomainResource):
         enum_reference_types=["Account"],
     )
 
-    careManager: fhirtypes.ReferenceType = Field(
+    careManager: Reference = Field(
         None,
         alias="careManager",
         title="Care manager/care coordinator for the patient",
@@ -58,7 +63,7 @@ class EpisodeOfCare(domainresource.DomainResource):
         enum_reference_types=["Practitioner", "PractitionerRole"],
     )
 
-    careTeam: typing.List[fhirtypes.ReferenceType] = Field(
+    careTeam: typing.List[Reference] = Field(
         None,
         alias="careTeam",
         title="Other practitioners facilitating this episode of care",
@@ -72,7 +77,7 @@ class EpisodeOfCare(domainresource.DomainResource):
         enum_reference_types=["CareTeam"],
     )
 
-    diagnosis: typing.List[fhirtypes.EpisodeOfCareDiagnosisType] = Field(
+    diagnosis: typing.List["EpisodeOfCareDiagnosis"] = Field(
         None,
         alias="diagnosis",
         title=(
@@ -84,7 +89,7 @@ class EpisodeOfCare(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business Identifier(s) relevant for this EpisodeOfCare",
@@ -97,7 +102,7 @@ class EpisodeOfCare(domainresource.DomainResource):
         element_property=True,
     )
 
-    managingOrganization: fhirtypes.ReferenceType = Field(
+    managingOrganization: Reference = Field(
         None,
         alias="managingOrganization",
         title="Organization that assumes responsibility for care coordination",
@@ -112,7 +117,7 @@ class EpisodeOfCare(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         ...,
         alias="patient",
         title="The patient who is the focus of this episode of care",
@@ -123,7 +128,7 @@ class EpisodeOfCare(domainresource.DomainResource):
         enum_reference_types=["Patient"],
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Interval during responsibility is assumed",
@@ -135,7 +140,7 @@ class EpisodeOfCare(domainresource.DomainResource):
         element_property=True,
     )
 
-    reason: typing.List[fhirtypes.EpisodeOfCareReasonType] = Field(
+    reason: typing.List["EpisodeOfCareReason"] = Field(
         None,
         alias="reason",
         title=(
@@ -147,7 +152,7 @@ class EpisodeOfCare(domainresource.DomainResource):
         element_property=True,
     )
 
-    referralRequest: typing.List[fhirtypes.ReferenceType] = Field(
+    referralRequest: typing.List[Reference] = Field(
         None,
         alias="referralRequest",
         title="Originating Referral Request(s)",
@@ -188,7 +193,7 @@ class EpisodeOfCare(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    statusHistory: typing.List[fhirtypes.EpisodeOfCareStatusHistoryType] = Field(
+    statusHistory: typing.List["EpisodeOfCareStatusHistory"] = Field(
         None,
         alias="statusHistory",
         title=(
@@ -203,7 +208,7 @@ class EpisodeOfCare(domainresource.DomainResource):
         element_property=True,
     )
 
-    type: typing.List[fhirtypes.CodeableConceptType] = Field(
+    type: typing.List[CodeableConcept] = Field(
         None,
         alias="type",
         title="Type/class  - e.g. specialist referral, disease management",
@@ -314,9 +319,9 @@ class EpisodeOfCareDiagnosis(backboneelement.BackboneElement):
     care.
     """
 
-    resource_type = Field("EpisodeOfCareDiagnosis", const=True)
+    resource_type: str = Field("EpisodeOfCareDiagnosis", const=True)
 
-    condition: typing.List[fhirtypes.CodeableReferenceType] = Field(
+    condition: typing.List[CodeableReference] = Field(
         None,
         alias="condition",
         title="The medical condition that was addressed during the episode of care",
@@ -330,7 +335,7 @@ class EpisodeOfCareDiagnosis(backboneelement.BackboneElement):
         enum_reference_types=["Condition"],
     )
 
-    use: fhirtypes.CodeableConceptType = Field(
+    use: CodeableConcept = Field(
         None,
         alias="use",
         title=(
@@ -360,9 +365,9 @@ class EpisodeOfCareReason(backboneelement.BackboneElement):
     episode of care.
     """
 
-    resource_type = Field("EpisodeOfCareReason", const=True)
+    resource_type: str = Field("EpisodeOfCareReason", const=True)
 
-    use: fhirtypes.CodeableConceptType = Field(
+    use: CodeableConcept = Field(
         None,
         alias="use",
         title="What the reason value should be used for/as",
@@ -374,7 +379,7 @@ class EpisodeOfCareReason(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    value: typing.List[fhirtypes.CodeableReferenceType] = Field(
+    value: typing.List[CodeableReference] = Field(
         None,
         alias="value",
         title="Medical reason to be addressed",
@@ -414,9 +419,9 @@ class EpisodeOfCareStatusHistory(backboneelement.BackboneElement):
     requiring processing the history of the resource).
     """
 
-    resource_type = Field("EpisodeOfCareStatusHistory", const=True)
+    resource_type: str = Field("EpisodeOfCareStatusHistory", const=True)
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         ...,
         alias="period",
         title="Duration the EpisodeOfCare was in the specified status",
@@ -518,3 +523,6 @@ class EpisodeOfCareStatusHistory(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+EpisodeOfCare.update_forward_refs()

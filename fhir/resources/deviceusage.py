@@ -13,6 +13,13 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .codeablereference import CodeableReference
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
+from .timing import Timing
 
 
 class DeviceUsage(domainresource.DomainResource):
@@ -25,9 +32,9 @@ class DeviceUsage(domainresource.DomainResource):
     of a report from the patient or a clinician.
     """
 
-    resource_type = Field("DeviceUsage", const=True)
+    resource_type: str = Field("DeviceUsage", const=True)
 
-    adherence: fhirtypes.DeviceUsageAdherenceType = Field(
+    adherence: "DeviceUsageAdherence" = Field(
         None,
         alias="adherence",
         title="How device is being used",
@@ -36,7 +43,7 @@ class DeviceUsage(domainresource.DomainResource):
         element_property=True,
     )
 
-    basedOn: typing.List[fhirtypes.ReferenceType] = Field(
+    basedOn: typing.List[Reference] = Field(
         None,
         alias="basedOn",
         title="Fulfills plan, proposal or order",
@@ -50,7 +57,7 @@ class DeviceUsage(domainresource.DomainResource):
         enum_reference_types=["ServiceRequest"],
     )
 
-    bodySite: fhirtypes.CodeableReferenceType = Field(
+    bodySite: CodeableReference = Field(
         None,
         alias="bodySite",
         title="Target body site",
@@ -64,7 +71,7 @@ class DeviceUsage(domainresource.DomainResource):
         enum_reference_types=["BodyStructure"],
     )
 
-    category: typing.List[fhirtypes.CodeableConceptType] = Field(
+    category: typing.List[CodeableConcept] = Field(
         None,
         alias="category",
         title="The category of the statement - classifying how the statement is made",
@@ -77,7 +84,7 @@ class DeviceUsage(domainresource.DomainResource):
         element_property=True,
     )
 
-    context: fhirtypes.ReferenceType = Field(
+    context: Reference = Field(
         None,
         alias="context",
         title=(
@@ -103,7 +110,7 @@ class DeviceUsage(domainresource.DomainResource):
         None, alias="_dateAsserted", title="Extension field for ``dateAsserted``."
     )
 
-    derivedFrom: typing.List[fhirtypes.ReferenceType] = Field(
+    derivedFrom: typing.List[Reference] = Field(
         None,
         alias="derivedFrom",
         title="Supporting information",
@@ -124,7 +131,7 @@ class DeviceUsage(domainresource.DomainResource):
         ],
     )
 
-    device: fhirtypes.CodeableReferenceType = Field(
+    device: CodeableReference = Field(
         ...,
         alias="device",
         title="Code or Reference to device used",
@@ -135,7 +142,7 @@ class DeviceUsage(domainresource.DomainResource):
         enum_reference_types=["Device", "DeviceDefinition"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="External identifier for this record",
@@ -144,7 +151,7 @@ class DeviceUsage(domainresource.DomainResource):
         element_property=True,
     )
 
-    informationSource: fhirtypes.ReferenceType = Field(
+    informationSource: Reference = Field(
         None,
         alias="informationSource",
         title="Who made the statement",
@@ -161,7 +168,7 @@ class DeviceUsage(domainresource.DomainResource):
         ],
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Addition details (comments, instructions)",
@@ -175,7 +182,7 @@ class DeviceUsage(domainresource.DomainResource):
         element_property=True,
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         ...,
         alias="patient",
         title="Patient using device",
@@ -186,7 +193,7 @@ class DeviceUsage(domainresource.DomainResource):
         enum_reference_types=["Patient"],
     )
 
-    reason: typing.List[fhirtypes.CodeableReferenceType] = Field(
+    reason: typing.List[CodeableReference] = Field(
         None,
         alias="reason",
         title="Why device was used",
@@ -241,7 +248,7 @@ class DeviceUsage(domainresource.DomainResource):
         None, alias="_timingDateTime", title="Extension field for ``timingDateTime``."
     )
 
-    timingPeriod: fhirtypes.PeriodType = Field(
+    timingPeriod: Period = Field(
         None,
         alias="timingPeriod",
         title="How often  the device was used",
@@ -253,7 +260,7 @@ class DeviceUsage(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    timingTiming: fhirtypes.TimingType = Field(
+    timingTiming: Timing = Field(
         None,
         alias="timingTiming",
         title="How often  the device was used",
@@ -265,7 +272,7 @@ class DeviceUsage(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    usageReason: typing.List[fhirtypes.CodeableConceptType] = Field(
+    usageReason: typing.List[CodeableConcept] = Field(
         None,
         alias="usageReason",
         title=(
@@ -277,7 +284,7 @@ class DeviceUsage(domainresource.DomainResource):
         element_property=True,
     )
 
-    usageStatus: fhirtypes.CodeableConceptType = Field(
+    usageStatus: CodeableConcept = Field(
         None,
         alias="usageStatus",
         title=(
@@ -434,9 +441,9 @@ class DeviceUsageAdherence(backboneelement.BackboneElement):
     This indicates how or if the device is being used.
     """
 
-    resource_type = Field("DeviceUsageAdherence", const=True)
+    resource_type: str = Field("DeviceUsageAdherence", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         ...,
         alias="code",
         title="always | never | sometimes",
@@ -445,7 +452,7 @@ class DeviceUsageAdherence(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    reason: typing.List[fhirtypes.CodeableConceptType] = Field(
+    reason: typing.List[CodeableConcept] = Field(
         ...,
         alias="reason",
         title="lost | stolen | prescribed | broken | burned | forgot",
@@ -461,3 +468,6 @@ class DeviceUsageAdherence(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "code", "reason"]
+
+
+DeviceUsage.update_forward_refs()

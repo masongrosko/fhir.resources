@@ -12,7 +12,9 @@ from pydantic.v1 import Field, root_validator
 
 from . import fhirtypes
 from .backboneelement import BackboneElement
+from .codeableconcept import CodeableConcept
 from .domainresource import DomainResource
+from .reference import Reference
 
 
 class ClinicalImpression(DomainResource):
@@ -28,9 +30,9 @@ class ClinicalImpression(DomainResource):
     with the recording of assessment tools such as Apgar score.
     """
 
-    resource_type = Field("ClinicalImpression", const=True)
+    resource_type: str = Field("ClinicalImpression", const=True)
 
-    action: ListType[fhirtypes.ReferenceType] = Field(
+    action: ListType[Reference] = Field(
         None,
         alias="action",
         title=(
@@ -41,7 +43,7 @@ class ClinicalImpression(DomainResource):
         description="Action taken as part of assessment procedure",
     )
 
-    assessor: fhirtypes.ReferenceType = Field(
+    assessor: Reference = Field(
         None,
         alias="assessor",
         title=(
@@ -65,7 +67,7 @@ class ClinicalImpression(DomainResource):
         description="Why/how the assessment was performed",
     )
 
-    finding: ListType[fhirtypes.ClinicalImpressionFindingType] = Field(
+    finding: ListType["ClinicalImpressionFinding"] = Field(
         None,
         alias="finding",
         title=(
@@ -75,7 +77,7 @@ class ClinicalImpression(DomainResource):
         description="Possible or likely findings and diagnoses",
     )
 
-    investigations: ListType[fhirtypes.ClinicalImpressionInvestigationsType] = Field(
+    investigations: ListType["ClinicalImpressionInvestigations"] = Field(
         None,
         alias="investigations",
         title=(
@@ -85,7 +87,7 @@ class ClinicalImpression(DomainResource):
         description="One or more sets of investigations (signs, symptions, etc.)",
     )
 
-    previous: fhirtypes.ReferenceType = Field(
+    previous: Reference = Field(
         None,
         alias="previous",
         title=(
@@ -95,7 +97,7 @@ class ClinicalImpression(DomainResource):
         description="Reference to last assessment",
     )
 
-    problem: ListType[fhirtypes.ReferenceType] = Field(
+    problem: ListType[Reference] = Field(
         None,
         alias="problem",
         title=(
@@ -126,7 +128,7 @@ class ClinicalImpression(DomainResource):
         description="draft | completed | entered-in-error",
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         ...,
         alias="patient",
         title=(
@@ -136,7 +138,7 @@ class ClinicalImpression(DomainResource):
         description="Patient or group assessed",
     )
 
-    plan: ListType[fhirtypes.ReferenceType] = Field(
+    plan: ListType[Reference] = Field(
         None,
         alias="plan",
         title=(
@@ -152,13 +154,13 @@ class ClinicalImpression(DomainResource):
         title="Type `String` (represented as `dict` in JSON)",
         description="Summary of the assessment",
     )
-    resolved: ListType[fhirtypes.CodeableConceptType] = Field(
+    resolved: ListType[CodeableConcept] = Field(
         None,
         alias="resolved",
         title="Type `CodeableConcept` (represented as `dict` in JSON)",
         description="Summary of the assessment",
     )
-    triggerCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    triggerCodeableConcept: CodeableConcept = Field(
         None,
         alias="triggerCodeableConcept",
         title="Type `CodeableConcept` (represented as `dict` in JSON)",
@@ -166,7 +168,7 @@ class ClinicalImpression(DomainResource):
         one_of_many="trigger",  # Choice of Data Types. i.e value[x]
         one_of_many_required=False,
     )
-    triggerReference: fhirtypes.ReferenceType = Field(
+    triggerReference: Reference = Field(
         None,
         alias="triggerReference",
         title="Type `Reference` (represented as `dict` in JSON)",
@@ -175,7 +177,7 @@ class ClinicalImpression(DomainResource):
         one_of_many_required=False,
     )
 
-    ruledOut: ListType[fhirtypes.ClinicalImpressionRuledOutType] = Field(
+    ruledOut: ListType["ClinicalImpressionRuledOut"] = Field(
         None,
         alias="ruledOut",
         title=(
@@ -229,14 +231,14 @@ class ClinicalImpressionFinding(BackboneElement):
     ongoing treatment.
     """
 
-    resource_type = Field("ClinicalImpressionFinding", const=True)
+    resource_type: str = Field("ClinicalImpressionFinding", const=True)
     cause: fhirtypes.String = Field(
         None,
         alias="cause",
         title="Type `String`",
         description="Which investigations support finding.",
     )
-    item: fhirtypes.CodeableConceptType = Field(
+    item: CodeableConcept = Field(
         ...,
         alias="item",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -254,8 +256,8 @@ class ClinicalImpressionInvestigations(BackboneElement):
     pertinent to the outcomes.
     """
 
-    resource_type = Field("ClinicalImpressionInvestigations", const=True)
-    item: ListType[fhirtypes.ReferenceType] = Field(
+    resource_type: str = Field("ClinicalImpressionInvestigations", const=True)
+    item: ListType[Reference] = Field(
         None,
         alias="item",
         title=(
@@ -265,7 +267,7 @@ class ClinicalImpressionInvestigations(BackboneElement):
         ),
         description="Which investigations support finding.",
     )
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         ...,
         alias="code",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -276,7 +278,7 @@ class ClinicalImpressionInvestigations(BackboneElement):
 class ClinicalImpressionRuledOut(BackboneElement):
     """Diagnosis considered not possible."""
 
-    resource_type = Field("ClinicalImpressionRuledOut", const=True)
+    resource_type: str = Field("ClinicalImpressionRuledOut", const=True)
 
     reason: fhirtypes.String = Field(
         None,
@@ -284,9 +286,12 @@ class ClinicalImpressionRuledOut(BackboneElement):
         title="Type `String`.",
         description="Grounds for elimination.",
     )
-    item: fhirtypes.CodeableConceptType = Field(
+    item: CodeableConcept = Field(
         ...,
         alias="item",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="Specific text of code for diagnosis.",
     )
+
+
+ClinicalImpression.update_forward_refs()

@@ -9,6 +9,7 @@ from pydantic.v1 import Field
 
 from . import fhirtypes
 from .element import Element
+from .period import Period
 
 
 class ContactPoint(Element):
@@ -18,9 +19,9 @@ class ContactPoint(Element):
     organization, including telephone, email, etc.
     """
 
-    resource_type = Field("ContactPoint", const=True)
+    resource_type: str = Field("ContactPoint", const=True)
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Type `Period` (represented as `dict` in JSON)",

@@ -13,6 +13,13 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .annotation import Annotation
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .quantity import Quantity
+from .ratio import Ratio
+from .reference import Reference
 
 
 class SubstanceDefinition(domainresource.DomainResource):
@@ -24,11 +31,9 @@ class SubstanceDefinition(domainresource.DomainResource):
     is used for prescribing.
     """
 
-    resource_type = Field("SubstanceDefinition", const=True)
+    resource_type: str = Field("SubstanceDefinition", const=True)
 
-    characterization: typing.List[
-        fhirtypes.SubstanceDefinitionCharacterizationType
-    ] = Field(
+    characterization: typing.List["SubstanceDefinitionCharacterization"] = Field(
         None,
         alias="characterization",
         title="General specifications for this substance",
@@ -37,7 +42,7 @@ class SubstanceDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    classification: typing.List[fhirtypes.CodeableConceptType] = Field(
+    classification: typing.List[CodeableConcept] = Field(
         None,
         alias="classification",
         title=(
@@ -55,7 +60,7 @@ class SubstanceDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    code: typing.List[fhirtypes.SubstanceDefinitionCodeType] = Field(
+    code: typing.List["SubstanceDefinitionCode"] = Field(
         None,
         alias="code",
         title="Codes associated with the substance",
@@ -76,7 +81,7 @@ class SubstanceDefinition(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    domain: fhirtypes.CodeableConceptType = Field(
+    domain: CodeableConcept = Field(
         None,
         alias="domain",
         title="If the substance applies to human or veterinary use",
@@ -85,7 +90,7 @@ class SubstanceDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    grade: typing.List[fhirtypes.CodeableConceptType] = Field(
+    grade: typing.List[CodeableConcept] = Field(
         None,
         alias="grade",
         title=(
@@ -100,7 +105,7 @@ class SubstanceDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Identifier by which this substance is known",
@@ -109,7 +114,7 @@ class SubstanceDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    informationSource: typing.List[fhirtypes.ReferenceType] = Field(
+    informationSource: typing.List[Reference] = Field(
         None,
         alias="informationSource",
         title="Supporting literature",
@@ -120,7 +125,7 @@ class SubstanceDefinition(domainresource.DomainResource):
         enum_reference_types=["Citation"],
     )
 
-    manufacturer: typing.List[fhirtypes.ReferenceType] = Field(
+    manufacturer: typing.List[Reference] = Field(
         None,
         alias="manufacturer",
         title="The entity that creates, makes, produces or fabricates the substance",
@@ -135,7 +140,7 @@ class SubstanceDefinition(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    moiety: typing.List[fhirtypes.SubstanceDefinitionMoietyType] = Field(
+    moiety: typing.List["SubstanceDefinitionMoiety"] = Field(
         None,
         alias="moiety",
         title="Moiety, for structural modifications",
@@ -144,9 +149,7 @@ class SubstanceDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    molecularWeight: typing.List[
-        fhirtypes.SubstanceDefinitionMolecularWeightType
-    ] = Field(
+    molecularWeight: typing.List["SubstanceDefinitionMolecularWeight"] = Field(
         None,
         alias="molecularWeight",
         title="The average mass of a molecule of a compound",
@@ -159,7 +162,7 @@ class SubstanceDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    name: typing.List[fhirtypes.SubstanceDefinitionNameType] = Field(
+    name: typing.List["SubstanceDefinitionName"] = Field(
         None,
         alias="name",
         title="Names applicable to this substance",
@@ -168,7 +171,7 @@ class SubstanceDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Textual comment about the substance's catalogue or registry record",
@@ -177,7 +180,7 @@ class SubstanceDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    nucleicAcid: fhirtypes.ReferenceType = Field(
+    nucleicAcid: Reference = Field(
         None,
         alias="nucleicAcid",
         title="Data items specific to nucleic acids",
@@ -188,7 +191,7 @@ class SubstanceDefinition(domainresource.DomainResource):
         enum_reference_types=["SubstanceNucleicAcid"],
     )
 
-    polymer: fhirtypes.ReferenceType = Field(
+    polymer: Reference = Field(
         None,
         alias="polymer",
         title="Data items specific to polymers",
@@ -199,7 +202,7 @@ class SubstanceDefinition(domainresource.DomainResource):
         enum_reference_types=["SubstancePolymer"],
     )
 
-    property: typing.List[fhirtypes.SubstanceDefinitionPropertyType] = Field(
+    property: typing.List["SubstanceDefinitionProperty"] = Field(
         None,
         alias="property",
         title="General specifications for this substance",
@@ -208,7 +211,7 @@ class SubstanceDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    protein: fhirtypes.ReferenceType = Field(
+    protein: Reference = Field(
         None,
         alias="protein",
         title="Data items specific to proteins",
@@ -219,7 +222,7 @@ class SubstanceDefinition(domainresource.DomainResource):
         enum_reference_types=["SubstanceProtein"],
     )
 
-    referenceInformation: fhirtypes.ReferenceType = Field(
+    referenceInformation: Reference = Field(
         None,
         alias="referenceInformation",
         title="General information detailing this substance",
@@ -230,7 +233,7 @@ class SubstanceDefinition(domainresource.DomainResource):
         enum_reference_types=["SubstanceReferenceInformation"],
     )
 
-    relationship: typing.List[fhirtypes.SubstanceDefinitionRelationshipType] = Field(
+    relationship: typing.List["SubstanceDefinitionRelationship"] = Field(
         None,
         alias="relationship",
         title="A link between this substance and another",
@@ -242,7 +245,7 @@ class SubstanceDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    sourceMaterial: fhirtypes.SubstanceDefinitionSourceMaterialType = Field(
+    sourceMaterial: "SubstanceDefinitionSourceMaterial" = Field(
         None,
         alias="sourceMaterial",
         title="Material or taxonomic/anatomical source",
@@ -251,7 +254,7 @@ class SubstanceDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    status: fhirtypes.CodeableConceptType = Field(
+    status: CodeableConcept = Field(
         None,
         alias="status",
         title="Status of substance within the catalogue e.g. active, retired",
@@ -260,7 +263,7 @@ class SubstanceDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    structure: fhirtypes.SubstanceDefinitionStructureType = Field(
+    structure: "SubstanceDefinitionStructure" = Field(
         None,
         alias="structure",
         title="Structural information",
@@ -269,7 +272,7 @@ class SubstanceDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    supplier: typing.List[fhirtypes.ReferenceType] = Field(
+    supplier: typing.List[Reference] = Field(
         None,
         alias="supplier",
         title=(
@@ -348,7 +351,7 @@ class SubstanceDefinitionCharacterization(backboneelement.BackboneElement):
     General specifications for this substance.
     """
 
-    resource_type = Field("SubstanceDefinitionCharacterization", const=True)
+    resource_type: str = Field("SubstanceDefinitionCharacterization", const=True)
 
     description: fhirtypes.Markdown = Field(
         None,
@@ -365,7 +368,7 @@ class SubstanceDefinitionCharacterization(backboneelement.BackboneElement):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    file: typing.List[fhirtypes.AttachmentType] = Field(
+    file: typing.List[Attachment] = Field(
         None,
         alias="file",
         title=(
@@ -378,7 +381,7 @@ class SubstanceDefinitionCharacterization(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    form: fhirtypes.CodeableConceptType = Field(
+    form: CodeableConcept = Field(
         None,
         alias="form",
         title=(
@@ -390,7 +393,7 @@ class SubstanceDefinitionCharacterization(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    technique: fhirtypes.CodeableConceptType = Field(
+    technique: CodeableConcept = Field(
         None,
         alias="technique",
         title="The method used to find the characterization e.g. HPLC",
@@ -427,9 +430,9 @@ class SubstanceDefinitionCode(backboneelement.BackboneElement):
     Codes associated with the substance.
     """
 
-    resource_type = Field("SubstanceDefinitionCode", const=True)
+    resource_type: str = Field("SubstanceDefinitionCode", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="The specific code",
@@ -438,7 +441,7 @@ class SubstanceDefinitionCode(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Any comment can be provided in this field",
@@ -447,7 +450,7 @@ class SubstanceDefinitionCode(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    source: typing.List[fhirtypes.ReferenceType] = Field(
+    source: typing.List[Reference] = Field(
         None,
         alias="source",
         title="Supporting literature",
@@ -458,7 +461,7 @@ class SubstanceDefinitionCode(backboneelement.BackboneElement):
         enum_reference_types=["DocumentReference"],
     )
 
-    status: fhirtypes.CodeableConceptType = Field(
+    status: CodeableConcept = Field(
         None,
         alias="status",
         title="Status of the code assignment, for example 'provisional', 'approved'",
@@ -508,9 +511,9 @@ class SubstanceDefinitionMoiety(backboneelement.BackboneElement):
     Moiety, for structural modifications.
     """
 
-    resource_type = Field("SubstanceDefinitionMoiety", const=True)
+    resource_type: str = Field("SubstanceDefinitionMoiety", const=True)
 
-    amountQuantity: fhirtypes.QuantityType = Field(
+    amountQuantity: Quantity = Field(
         None,
         alias="amountQuantity",
         title="Quantitative value for this moiety",
@@ -537,7 +540,7 @@ class SubstanceDefinitionMoiety(backboneelement.BackboneElement):
         None, alias="_amountString", title="Extension field for ``amountString``."
     )
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="Identifier by which this moiety substance is known",
@@ -546,7 +549,7 @@ class SubstanceDefinitionMoiety(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    measurementType: fhirtypes.CodeableConceptType = Field(
+    measurementType: CodeableConcept = Field(
         None,
         alias="measurementType",
         title="The measurement type of the quantitative value",
@@ -589,7 +592,7 @@ class SubstanceDefinitionMoiety(backboneelement.BackboneElement):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    opticalActivity: fhirtypes.CodeableConceptType = Field(
+    opticalActivity: CodeableConcept = Field(
         None,
         alias="opticalActivity",
         title="Optical activity type",
@@ -598,7 +601,7 @@ class SubstanceDefinitionMoiety(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    role: fhirtypes.CodeableConceptType = Field(
+    role: CodeableConcept = Field(
         None,
         alias="role",
         title="Role that the moiety is playing",
@@ -607,7 +610,7 @@ class SubstanceDefinitionMoiety(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    stereochemistry: fhirtypes.CodeableConceptType = Field(
+    stereochemistry: CodeableConcept = Field(
         None,
         alias="stereochemistry",
         title="Stereochemistry type",
@@ -687,9 +690,9 @@ class SubstanceDefinitionMolecularWeight(backboneelement.BackboneElement):
     constituent atoms.
     """
 
-    resource_type = Field("SubstanceDefinitionMolecularWeight", const=True)
+    resource_type: str = Field("SubstanceDefinitionMolecularWeight", const=True)
 
-    amount: fhirtypes.QuantityType = Field(
+    amount: Quantity = Field(
         ...,
         alias="amount",
         title="Used to capture quantitative values for a variety of elements",
@@ -703,7 +706,7 @@ class SubstanceDefinitionMolecularWeight(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    method: fhirtypes.CodeableConceptType = Field(
+    method: CodeableConcept = Field(
         None,
         alias="method",
         title="The method by which the weight was determined",
@@ -712,7 +715,7 @@ class SubstanceDefinitionMolecularWeight(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Type of molecular weight e.g. exact, average, weight average",
@@ -741,9 +744,9 @@ class SubstanceDefinitionName(backboneelement.BackboneElement):
     Names applicable to this substance.
     """
 
-    resource_type = Field("SubstanceDefinitionName", const=True)
+    resource_type: str = Field("SubstanceDefinitionName", const=True)
 
-    domain: typing.List[fhirtypes.CodeableConceptType] = Field(
+    domain: typing.List[CodeableConcept] = Field(
         None,
         alias="domain",
         title=(
@@ -758,7 +761,7 @@ class SubstanceDefinitionName(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="The jurisdiction where this name applies",
@@ -767,7 +770,7 @@ class SubstanceDefinitionName(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    language: typing.List[fhirtypes.CodeableConceptType] = Field(
+    language: typing.List[CodeableConcept] = Field(
         None,
         alias="language",
         title="Human language that the name is written in",
@@ -789,7 +792,7 @@ class SubstanceDefinitionName(backboneelement.BackboneElement):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    official: typing.List[fhirtypes.SubstanceDefinitionNameOfficialType] = Field(
+    official: typing.List["SubstanceDefinitionNameOfficial"] = Field(
         None,
         alias="official",
         title="Details of the official nature of this name",
@@ -810,7 +813,7 @@ class SubstanceDefinitionName(backboneelement.BackboneElement):
         None, alias="_preferred", title="Extension field for ``preferred``."
     )
 
-    source: typing.List[fhirtypes.ReferenceType] = Field(
+    source: typing.List[Reference] = Field(
         None,
         alias="source",
         title="Supporting literature",
@@ -821,7 +824,7 @@ class SubstanceDefinitionName(backboneelement.BackboneElement):
         enum_reference_types=["DocumentReference"],
     )
 
-    status: fhirtypes.CodeableConceptType = Field(
+    status: CodeableConcept = Field(
         None,
         alias="status",
         title="The status of the name e.g. 'current', 'proposed'",
@@ -830,7 +833,7 @@ class SubstanceDefinitionName(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    synonym: typing.List[fhirtypes.SubstanceDefinitionNameType] = Field(
+    synonym: typing.List["SubstanceDefinitionName"] = Field(
         None,
         alias="synonym",
         title=(
@@ -841,7 +844,7 @@ class SubstanceDefinitionName(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    translation: typing.List[fhirtypes.SubstanceDefinitionNameType] = Field(
+    translation: typing.List["SubstanceDefinitionName"] = Field(
         None,
         alias="translation",
         title="A translation for this name into another human language",
@@ -850,7 +853,7 @@ class SubstanceDefinitionName(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Name type e.g. 'systematic',  'scientific, 'brand'",
@@ -950,9 +953,9 @@ class SubstanceDefinitionNameOfficial(backboneelement.BackboneElement):
     Details of the official nature of this name.
     """
 
-    resource_type = Field("SubstanceDefinitionNameOfficial", const=True)
+    resource_type: str = Field("SubstanceDefinitionNameOfficial", const=True)
 
-    authority: fhirtypes.CodeableConceptType = Field(
+    authority: CodeableConcept = Field(
         None,
         alias="authority",
         title="Which authority uses this official name",
@@ -973,7 +976,7 @@ class SubstanceDefinitionNameOfficial(backboneelement.BackboneElement):
         None, alias="_date", title="Extension field for ``date``."
     )
 
-    status: fhirtypes.CodeableConceptType = Field(
+    status: CodeableConcept = Field(
         None,
         alias="status",
         title="The status of the official name, for example 'draft', 'active'",
@@ -1002,9 +1005,9 @@ class SubstanceDefinitionProperty(backboneelement.BackboneElement):
     General specifications for this substance.
     """
 
-    resource_type = Field("SubstanceDefinitionProperty", const=True)
+    resource_type: str = Field("SubstanceDefinitionProperty", const=True)
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title="A code expressing the type of property",
@@ -1013,7 +1016,7 @@ class SubstanceDefinitionProperty(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    valueAttachment: fhirtypes.AttachmentType = Field(
+    valueAttachment: Attachment = Field(
         None,
         alias="valueAttachment",
         title="A value for the property",
@@ -1040,7 +1043,7 @@ class SubstanceDefinitionProperty(backboneelement.BackboneElement):
         None, alias="_valueBoolean", title="Extension field for ``valueBoolean``."
     )
 
-    valueCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    valueCodeableConcept: CodeableConcept = Field(
         None,
         alias="valueCodeableConcept",
         title="A value for the property",
@@ -1067,7 +1070,7 @@ class SubstanceDefinitionProperty(backboneelement.BackboneElement):
         None, alias="_valueDate", title="Extension field for ``valueDate``."
     )
 
-    valueQuantity: fhirtypes.QuantityType = Field(
+    valueQuantity: Quantity = Field(
         None,
         alias="valueQuantity",
         title="A value for the property",
@@ -1154,9 +1157,9 @@ class SubstanceDefinitionRelationship(backboneelement.BackboneElement):
     relationship.
     """
 
-    resource_type = Field("SubstanceDefinitionRelationship", const=True)
+    resource_type: str = Field("SubstanceDefinitionRelationship", const=True)
 
-    amountQuantity: fhirtypes.QuantityType = Field(
+    amountQuantity: Quantity = Field(
         None,
         alias="amountQuantity",
         title=(
@@ -1175,7 +1178,7 @@ class SubstanceDefinitionRelationship(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    amountRatio: fhirtypes.RatioType = Field(
+    amountRatio: Ratio = Field(
         None,
         alias="amountRatio",
         title=(
@@ -1216,7 +1219,7 @@ class SubstanceDefinitionRelationship(backboneelement.BackboneElement):
         None, alias="_amountString", title="Extension field for ``amountString``."
     )
 
-    comparator: fhirtypes.CodeableConceptType = Field(
+    comparator: CodeableConcept = Field(
         None,
         alias="comparator",
         title=(
@@ -1248,7 +1251,7 @@ class SubstanceDefinitionRelationship(backboneelement.BackboneElement):
         None, alias="_isDefining", title="Extension field for ``isDefining``."
     )
 
-    ratioHighLimitAmount: fhirtypes.RatioType = Field(
+    ratioHighLimitAmount: Ratio = Field(
         None,
         alias="ratioHighLimitAmount",
         title="For use when the numeric has an uncertain range",
@@ -1257,7 +1260,7 @@ class SubstanceDefinitionRelationship(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    source: typing.List[fhirtypes.ReferenceType] = Field(
+    source: typing.List[Reference] = Field(
         None,
         alias="source",
         title="Supporting literature",
@@ -1268,7 +1271,7 @@ class SubstanceDefinitionRelationship(backboneelement.BackboneElement):
         enum_reference_types=["DocumentReference"],
     )
 
-    substanceDefinitionCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    substanceDefinitionCodeableConcept: CodeableConcept = Field(
         None,
         alias="substanceDefinitionCodeableConcept",
         title=(
@@ -1286,7 +1289,7 @@ class SubstanceDefinitionRelationship(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    substanceDefinitionReference: fhirtypes.ReferenceType = Field(
+    substanceDefinitionReference: Reference = Field(
         None,
         alias="substanceDefinitionReference",
         title=(
@@ -1306,7 +1309,7 @@ class SubstanceDefinitionRelationship(backboneelement.BackboneElement):
         enum_reference_types=["SubstanceDefinition"],
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title='For example "salt to parent", "active moiety"',
@@ -1394,9 +1397,9 @@ class SubstanceDefinitionSourceMaterial(backboneelement.BackboneElement):
     Material or taxonomic/anatomical source for the substance.
     """
 
-    resource_type = Field("SubstanceDefinitionSourceMaterial", const=True)
+    resource_type: str = Field("SubstanceDefinitionSourceMaterial", const=True)
 
-    countryOfOrigin: typing.List[fhirtypes.CodeableConceptType] = Field(
+    countryOfOrigin: typing.List[CodeableConcept] = Field(
         None,
         alias="countryOfOrigin",
         title="The country or countries where the material is harvested",
@@ -1405,7 +1408,7 @@ class SubstanceDefinitionSourceMaterial(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    genus: fhirtypes.CodeableConceptType = Field(
+    genus: CodeableConcept = Field(
         None,
         alias="genus",
         title=(
@@ -1420,7 +1423,7 @@ class SubstanceDefinitionSourceMaterial(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    part: fhirtypes.CodeableConceptType = Field(
+    part: CodeableConcept = Field(
         None,
         alias="part",
         title="An anatomical origin of the source material within an organism",
@@ -1429,7 +1432,7 @@ class SubstanceDefinitionSourceMaterial(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    species: fhirtypes.CodeableConceptType = Field(
+    species: CodeableConcept = Field(
         None,
         alias="species",
         title=(
@@ -1444,7 +1447,7 @@ class SubstanceDefinitionSourceMaterial(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title=(
@@ -1485,7 +1488,7 @@ class SubstanceDefinitionStructure(backboneelement.BackboneElement):
     Structural information.
     """
 
-    resource_type = Field("SubstanceDefinitionStructure", const=True)
+    resource_type: str = Field("SubstanceDefinitionStructure", const=True)
 
     molecularFormula: fhirtypes.String = Field(
         None,
@@ -1521,7 +1524,7 @@ class SubstanceDefinitionStructure(backboneelement.BackboneElement):
         title="Extension field for ``molecularFormulaByMoiety``.",
     )
 
-    molecularWeight: fhirtypes.SubstanceDefinitionMolecularWeightType = Field(
+    molecularWeight: "SubstanceDefinitionMolecularWeight" = Field(
         None,
         alias="molecularWeight",
         title="The molecular weight or weight range",
@@ -1533,7 +1536,7 @@ class SubstanceDefinitionStructure(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    opticalActivity: fhirtypes.CodeableConceptType = Field(
+    opticalActivity: CodeableConcept = Field(
         None,
         alias="opticalActivity",
         title="Optical activity type",
@@ -1542,9 +1545,7 @@ class SubstanceDefinitionStructure(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    representation: typing.List[
-        fhirtypes.SubstanceDefinitionStructureRepresentationType
-    ] = Field(
+    representation: typing.List["SubstanceDefinitionStructureRepresentation"] = Field(
         None,
         alias="representation",
         title="A depiction of the structure of the substance",
@@ -1553,7 +1554,7 @@ class SubstanceDefinitionStructure(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    sourceDocument: typing.List[fhirtypes.ReferenceType] = Field(
+    sourceDocument: typing.List[Reference] = Field(
         None,
         alias="sourceDocument",
         title="Source of information for the structure",
@@ -1564,7 +1565,7 @@ class SubstanceDefinitionStructure(backboneelement.BackboneElement):
         enum_reference_types=["DocumentReference"],
     )
 
-    stereochemistry: fhirtypes.CodeableConceptType = Field(
+    stereochemistry: CodeableConcept = Field(
         None,
         alias="stereochemistry",
         title="Stereochemistry type",
@@ -1573,7 +1574,7 @@ class SubstanceDefinitionStructure(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    technique: typing.List[fhirtypes.CodeableConceptType] = Field(
+    technique: typing.List[CodeableConcept] = Field(
         None,
         alias="technique",
         title="The method used to find the structure e.g. X-ray, NMR",
@@ -1614,9 +1615,9 @@ class SubstanceDefinitionStructureRepresentation(backboneelement.BackboneElement
     A depiction of the structure of the substance.
     """
 
-    resource_type = Field("SubstanceDefinitionStructureRepresentation", const=True)
+    resource_type: str = Field("SubstanceDefinitionStructureRepresentation", const=True)
 
-    document: fhirtypes.ReferenceType = Field(
+    document: Reference = Field(
         None,
         alias="document",
         title=(
@@ -1633,7 +1634,7 @@ class SubstanceDefinitionStructureRepresentation(backboneelement.BackboneElement
         enum_reference_types=["DocumentReference"],
     )
 
-    format: fhirtypes.CodeableConceptType = Field(
+    format: CodeableConcept = Field(
         None,
         alias="format",
         title=(
@@ -1661,7 +1662,7 @@ class SubstanceDefinitionStructureRepresentation(backboneelement.BackboneElement
         None, alias="_representation", title="Extension field for ``representation``."
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="The kind of structural representation (e.g. full, partial)",
@@ -1685,3 +1686,8 @@ class SubstanceDefinitionStructureRepresentation(backboneelement.BackboneElement
             "format",
             "document",
         ]
+
+
+SubstanceDefinition.update_forward_refs()
+SubstanceDefinitionName.update_forward_refs()
+SubstanceDefinitionStructure.update_forward_refs()

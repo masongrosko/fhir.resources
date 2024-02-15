@@ -10,7 +10,10 @@ from typing import List as ListType
 from pydantic.v1 import Field
 
 from . import fhirtypes
+from .codeableconcept import CodeableConcept
 from .domainresource import DomainResource
+from .identifier import Identifier
+from .reference import Reference
 
 
 class AppointmentResponse(DomainResource):
@@ -18,9 +21,9 @@ class AppointmentResponse(DomainResource):
     such as a confirmation or rejection.
     """
 
-    resource_type = Field("AppointmentResponse", const=True)
+    resource_type: str = Field("AppointmentResponse", const=True)
 
-    actor: fhirtypes.ReferenceType = Field(
+    actor: Reference = Field(
         None,
         alias="actor",
         title=(
@@ -30,7 +33,7 @@ class AppointmentResponse(DomainResource):
         description="Person, Location/HealthcareService or Device",
     )
 
-    appointment: fhirtypes.ReferenceType = Field(
+    appointment: Reference = Field(
         ...,
         alias="appointment",
         title=(
@@ -54,7 +57,7 @@ class AppointmentResponse(DomainResource):
         description="Time from appointment, or requested new end time",
     )
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="List of `Identifier` items (represented as `dict` in JSON)",
@@ -71,7 +74,7 @@ class AppointmentResponse(DomainResource):
         ),
     )
 
-    participantType: ListType[fhirtypes.CodeableConceptType] = Field(
+    participantType: ListType[CodeableConcept] = Field(
         None,
         alias="participantType",
         title="List of `CodeableConcept` items (represented as `dict` in JSON)",

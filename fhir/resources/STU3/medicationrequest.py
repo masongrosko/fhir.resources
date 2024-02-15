@@ -13,6 +13,14 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .dosage import Dosage
+from .duration import Duration
+from .identifier import Identifier
+from .period import Period
+from .quantity import Quantity
+from .reference import Reference
 
 
 class MedicationRequest(domainresource.DomainResource):
@@ -29,7 +37,7 @@ class MedicationRequest(domainresource.DomainResource):
     patterns.
     """
 
-    resource_type = Field("MedicationRequest", const=True)
+    resource_type: str = Field("MedicationRequest", const=True)
 
     authoredOn: fhirtypes.DateTime = Field(
         None,
@@ -46,7 +54,7 @@ class MedicationRequest(domainresource.DomainResource):
         None, alias="_authoredOn", title="Extension field for ``authoredOn``."
     )
 
-    basedOn: typing.List[fhirtypes.ReferenceType] = Field(
+    basedOn: typing.List[Reference] = Field(
         None,
         alias="basedOn",
         title="What request fulfills",
@@ -65,7 +73,7 @@ class MedicationRequest(domainresource.DomainResource):
         ],
     )
 
-    category: fhirtypes.CodeableConceptType = Field(
+    category: CodeableConcept = Field(
         None,
         alias="category",
         title="Type of medication usage",
@@ -77,7 +85,7 @@ class MedicationRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    context: fhirtypes.ReferenceType = Field(
+    context: Reference = Field(
         None,
         alias="context",
         title="Created during encounter/admission/stay",
@@ -92,7 +100,7 @@ class MedicationRequest(domainresource.DomainResource):
         enum_reference_types=["Encounter", "EpisodeOfCare"],
     )
 
-    definition: typing.List[fhirtypes.ReferenceType] = Field(
+    definition: typing.List[Reference] = Field(
         None,
         alias="definition",
         title="Protocol or definition",
@@ -103,7 +111,7 @@ class MedicationRequest(domainresource.DomainResource):
         enum_reference_types=["ActivityDefinition", "PlanDefinition"],
     )
 
-    detectedIssue: typing.List[fhirtypes.ReferenceType] = Field(
+    detectedIssue: typing.List[Reference] = Field(
         None,
         alias="detectedIssue",
         title="Clinical Issue with action",
@@ -118,7 +126,7 @@ class MedicationRequest(domainresource.DomainResource):
         enum_reference_types=["DetectedIssue"],
     )
 
-    dispenseRequest: fhirtypes.MedicationRequestDispenseRequestType = Field(
+    dispenseRequest: "MedicationRequestDispenseRequest" = Field(
         None,
         alias="dispenseRequest",
         title="Medication supply authorization",
@@ -134,7 +142,7 @@ class MedicationRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    dosageInstruction: typing.List[fhirtypes.DosageType] = Field(
+    dosageInstruction: typing.List[Dosage] = Field(
         None,
         alias="dosageInstruction",
         title="How the medication should be taken",
@@ -143,7 +151,7 @@ class MedicationRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    eventHistory: typing.List[fhirtypes.ReferenceType] = Field(
+    eventHistory: typing.List[Reference] = Field(
         None,
         alias="eventHistory",
         title="A list of events of interest in the lifecycle",
@@ -159,7 +167,7 @@ class MedicationRequest(domainresource.DomainResource):
         enum_reference_types=["Provenance"],
     )
 
-    groupIdentifier: fhirtypes.IdentifierType = Field(
+    groupIdentifier: Identifier = Field(
         None,
         alias="groupIdentifier",
         title="Composite request this is part of",
@@ -172,7 +180,7 @@ class MedicationRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="External ids for this request",
@@ -205,7 +213,7 @@ class MedicationRequest(domainresource.DomainResource):
         None, alias="_intent", title="Extension field for ``intent``."
     )
 
-    medicationCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    medicationCodeableConcept: CodeableConcept = Field(
         None,
         alias="medicationCodeableConcept",
         title="Medication to be taken",
@@ -222,7 +230,7 @@ class MedicationRequest(domainresource.DomainResource):
         one_of_many_required=True,
     )
 
-    medicationReference: fhirtypes.ReferenceType = Field(
+    medicationReference: Reference = Field(
         None,
         alias="medicationReference",
         title="Medication to be taken",
@@ -241,7 +249,7 @@ class MedicationRequest(domainresource.DomainResource):
         enum_reference_types=["Medication"],
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Information about the prescription",
@@ -253,7 +261,7 @@ class MedicationRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    priorPrescription: fhirtypes.ReferenceType = Field(
+    priorPrescription: Reference = Field(
         None,
         alias="priorPrescription",
         title="An order/prescription that is being replaced",
@@ -285,7 +293,7 @@ class MedicationRequest(domainresource.DomainResource):
         None, alias="_priority", title="Extension field for ``priority``."
     )
 
-    reasonCode: typing.List[fhirtypes.CodeableConceptType] = Field(
+    reasonCode: typing.List[CodeableConcept] = Field(
         None,
         alias="reasonCode",
         title="Reason or indication for writing the prescription",
@@ -294,7 +302,7 @@ class MedicationRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    reasonReference: typing.List[fhirtypes.ReferenceType] = Field(
+    reasonReference: typing.List[Reference] = Field(
         None,
         alias="reasonReference",
         title=(
@@ -308,7 +316,7 @@ class MedicationRequest(domainresource.DomainResource):
         enum_reference_types=["Condition", "Observation"],
     )
 
-    recorder: fhirtypes.ReferenceType = Field(
+    recorder: Reference = Field(
         None,
         alias="recorder",
         title="Person who entered the request",
@@ -322,7 +330,7 @@ class MedicationRequest(domainresource.DomainResource):
         enum_reference_types=["Practitioner"],
     )
 
-    requester: fhirtypes.MedicationRequestRequesterType = Field(
+    requester: "MedicationRequestRequester" = Field(
         None,
         alias="requester",
         title="Who/What requested the Request",
@@ -364,7 +372,7 @@ class MedicationRequest(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         ...,
         alias="subject",
         title="Who or group medication request is for",
@@ -378,7 +386,7 @@ class MedicationRequest(domainresource.DomainResource):
         enum_reference_types=["Patient", "Group"],
     )
 
-    substitution: fhirtypes.MedicationRequestSubstitutionType = Field(
+    substitution: "MedicationRequestSubstitution" = Field(
         None,
         alias="substitution",
         title="Any restrictions on medication substitution",
@@ -392,7 +400,7 @@ class MedicationRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    supportingInformation: typing.List[fhirtypes.ReferenceType] = Field(
+    supportingInformation: typing.List[Reference] = Field(
         None,
         alias="supportingInformation",
         title="Information to support ordering of the medication",
@@ -562,9 +570,9 @@ class MedicationRequestDispenseRequest(backboneelement.BackboneElement):
     department.
     """
 
-    resource_type = Field("MedicationRequestDispenseRequest", const=True)
+    resource_type: str = Field("MedicationRequestDispenseRequest", const=True)
 
-    expectedSupplyDuration: fhirtypes.DurationType = Field(
+    expectedSupplyDuration: Duration = Field(
         None,
         alias="expectedSupplyDuration",
         title="Number of days supply per dispense",
@@ -597,7 +605,7 @@ class MedicationRequestDispenseRequest(backboneelement.BackboneElement):
         title="Extension field for ``numberOfRepeatsAllowed``.",
     )
 
-    performer: fhirtypes.ReferenceType = Field(
+    performer: Reference = Field(
         None,
         alias="performer",
         title="Intended dispenser",
@@ -611,7 +619,7 @@ class MedicationRequestDispenseRequest(backboneelement.BackboneElement):
         enum_reference_types=["Organization"],
     )
 
-    quantity: fhirtypes.QuantityType = Field(
+    quantity: Quantity = Field(
         None,
         alias="quantity",
         title="Amount of medication to supply per dispense",
@@ -620,7 +628,7 @@ class MedicationRequestDispenseRequest(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    validityPeriod: fhirtypes.PeriodType = Field(
+    validityPeriod: Period = Field(
         None,
         alias="validityPeriod",
         title="Time period supply is authorized for",
@@ -660,9 +668,9 @@ class MedicationRequestRequester(backboneelement.BackboneElement):
     responsibility for its activation.
     """
 
-    resource_type = Field("MedicationRequestRequester", const=True)
+    resource_type: str = Field("MedicationRequestRequester", const=True)
 
-    agent: fhirtypes.ReferenceType = Field(
+    agent: Reference = Field(
         ...,
         alias="agent",
         title="Who ordered the initial medication(s)",
@@ -682,7 +690,7 @@ class MedicationRequestRequester(backboneelement.BackboneElement):
         ],
     )
 
-    onBehalfOf: fhirtypes.ReferenceType = Field(
+    onBehalfOf: Reference = Field(
         None,
         alias="onBehalfOf",
         title="Organization agent is acting for",
@@ -714,7 +722,7 @@ class MedicationRequestSubstitution(backboneelement.BackboneElement):
     If nothing is specified substitution may be done.
     """
 
-    resource_type = Field("MedicationRequestSubstitution", const=True)
+    resource_type: str = Field("MedicationRequestSubstitution", const=True)
 
     allowed: bool = Field(
         None,
@@ -732,7 +740,7 @@ class MedicationRequestSubstitution(backboneelement.BackboneElement):
         None, alias="_allowed", title="Extension field for ``allowed``."
     )
 
-    reason: fhirtypes.CodeableConceptType = Field(
+    reason: CodeableConcept = Field(
         None,
         alias="reason",
         title="Why should (not) substitution be made",
@@ -810,3 +818,6 @@ class MedicationRequestSubstitution(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+MedicationRequest.update_forward_refs()

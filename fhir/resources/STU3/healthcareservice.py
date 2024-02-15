@@ -13,6 +13,12 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .contactpoint import ContactPoint
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class HealthcareService(domainresource.DomainResource):
@@ -23,7 +29,7 @@ class HealthcareService(domainresource.DomainResource):
     The details of a healthcare service available at a location.
     """
 
-    resource_type = Field("HealthcareService", const=True)
+    resource_type: str = Field("HealthcareService", const=True)
 
     active: bool = Field(
         None,
@@ -75,7 +81,7 @@ class HealthcareService(domainresource.DomainResource):
         title="Extension field for ``availabilityExceptions``.",
     )
 
-    availableTime: typing.List[fhirtypes.HealthcareServiceAvailableTimeType] = Field(
+    availableTime: typing.List["HealthcareServiceAvailableTime"] = Field(
         None,
         alias="availableTime",
         title="Times the Service Site is available",
@@ -84,7 +90,7 @@ class HealthcareService(domainresource.DomainResource):
         element_property=True,
     )
 
-    category: fhirtypes.CodeableConceptType = Field(
+    category: CodeableConcept = Field(
         None,
         alias="category",
         title="Broad category of service being performed or delivered",
@@ -93,7 +99,7 @@ class HealthcareService(domainresource.DomainResource):
         element_property=True,
     )
 
-    characteristic: typing.List[fhirtypes.CodeableConceptType] = Field(
+    characteristic: typing.List[CodeableConcept] = Field(
         None,
         alias="characteristic",
         title="Collection of characteristics (attributes)",
@@ -120,7 +126,7 @@ class HealthcareService(domainresource.DomainResource):
         None, alias="_comment", title="Extension field for ``comment``."
     )
 
-    coverageArea: typing.List[fhirtypes.ReferenceType] = Field(
+    coverageArea: typing.List[Reference] = Field(
         None,
         alias="coverageArea",
         title="Location(s) service is inteded for/available to",
@@ -134,7 +140,7 @@ class HealthcareService(domainresource.DomainResource):
         enum_reference_types=["Location"],
     )
 
-    eligibility: fhirtypes.CodeableConceptType = Field(
+    eligibility: CodeableConcept = Field(
         None,
         alias="eligibility",
         title="Specific eligibility requirements required to use the service",
@@ -158,7 +164,7 @@ class HealthcareService(domainresource.DomainResource):
         None, alias="_eligibilityNote", title="Extension field for ``eligibilityNote``."
     )
 
-    endpoint: typing.List[fhirtypes.ReferenceType] = Field(
+    endpoint: typing.List[Reference] = Field(
         None,
         alias="endpoint",
         title=(
@@ -190,7 +196,7 @@ class HealthcareService(domainresource.DomainResource):
         None, alias="_extraDetails", title="Extension field for ``extraDetails``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="External identifiers for this item",
@@ -199,7 +205,7 @@ class HealthcareService(domainresource.DomainResource):
         element_property=True,
     )
 
-    location: typing.List[fhirtypes.ReferenceType] = Field(
+    location: typing.List[Reference] = Field(
         None,
         alias="location",
         title="Location(s) where service may be provided",
@@ -225,7 +231,7 @@ class HealthcareService(domainresource.DomainResource):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    notAvailable: typing.List[fhirtypes.HealthcareServiceNotAvailableType] = Field(
+    notAvailable: typing.List["HealthcareServiceNotAvailable"] = Field(
         None,
         alias="notAvailable",
         title="Not available during this time due to provided reason",
@@ -237,7 +243,7 @@ class HealthcareService(domainresource.DomainResource):
         element_property=True,
     )
 
-    photo: fhirtypes.AttachmentType = Field(
+    photo: Attachment = Field(
         None,
         alias="photo",
         title="Facilitates quick identification of the service",
@@ -262,7 +268,7 @@ class HealthcareService(domainresource.DomainResource):
         typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
     ] = Field(None, alias="_programName", title="Extension field for ``programName``.")
 
-    providedBy: fhirtypes.ReferenceType = Field(
+    providedBy: Reference = Field(
         None,
         alias="providedBy",
         title="Organization that provides this service",
@@ -273,7 +279,7 @@ class HealthcareService(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    referralMethod: typing.List[fhirtypes.CodeableConceptType] = Field(
+    referralMethod: typing.List[CodeableConcept] = Field(
         None,
         alias="referralMethod",
         title="Ways that the service accepts referrals",
@@ -285,7 +291,7 @@ class HealthcareService(domainresource.DomainResource):
         element_property=True,
     )
 
-    serviceProvisionCode: typing.List[fhirtypes.CodeableConceptType] = Field(
+    serviceProvisionCode: typing.List[CodeableConcept] = Field(
         None,
         alias="serviceProvisionCode",
         title="Conditions under which service is available/offered",
@@ -297,7 +303,7 @@ class HealthcareService(domainresource.DomainResource):
         element_property=True,
     )
 
-    specialty: typing.List[fhirtypes.CodeableConceptType] = Field(
+    specialty: typing.List[CodeableConcept] = Field(
         None,
         alias="specialty",
         title="Specialties handled by the HealthcareService",
@@ -309,7 +315,7 @@ class HealthcareService(domainresource.DomainResource):
         element_property=True,
     )
 
-    telecom: typing.List[fhirtypes.ContactPointType] = Field(
+    telecom: typing.List[ContactPoint] = Field(
         None,
         alias="telecom",
         title="Contacts related to the healthcare service",
@@ -318,7 +324,7 @@ class HealthcareService(domainresource.DomainResource):
         element_property=True,
     )
 
-    type: typing.List[fhirtypes.CodeableConceptType] = Field(
+    type: typing.List[CodeableConcept] = Field(
         None,
         alias="type",
         title="Type of service that may be delivered or performed",
@@ -378,7 +384,7 @@ class HealthcareServiceAvailableTime(backboneelement.BackboneElement):
     A collection of times that the Service Site is available.
     """
 
-    resource_type = Field("HealthcareServiceAvailableTime", const=True)
+    resource_type: str = Field("HealthcareServiceAvailableTime", const=True)
 
     allDay: bool = Field(
         None,
@@ -474,7 +480,7 @@ class HealthcareServiceNotAvailable(backboneelement.BackboneElement):
     the provided reason.
     """
 
-    resource_type = Field("HealthcareServiceNotAvailable", const=True)
+    resource_type: str = Field("HealthcareServiceNotAvailable", const=True)
 
     description: fhirtypes.String = Field(
         None,
@@ -492,7 +498,7 @@ class HealthcareServiceNotAvailable(backboneelement.BackboneElement):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    during: fhirtypes.PeriodType = Field(
+    during: Period = Field(
         None,
         alias="during",
         title="Service not availablefrom this date",
@@ -570,3 +576,6 @@ class HealthcareServiceNotAvailable(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+HealthcareService.update_forward_refs()

@@ -11,6 +11,7 @@ import typing
 from pydantic.v1 import Field
 
 from . import element, fhirtypes
+from .period import Period
 
 
 class HumanName(element.Element):
@@ -22,7 +23,7 @@ class HumanName(element.Element):
     A human's name with the ability to identify parts and usage.
     """
 
-    resource_type = Field("HumanName", const=True)
+    resource_type: str = Field("HumanName", const=True)
 
     family: fhirtypes.String = Field(
         None,
@@ -51,7 +52,7 @@ class HumanName(element.Element):
         typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
     ] = Field(None, alias="_given", title="Extension field for ``given``.")
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Time period when name was/is in use",

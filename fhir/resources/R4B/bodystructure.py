@@ -11,6 +11,10 @@ import typing
 from pydantic.v1 import Field
 
 from . import domainresource, fhirtypes
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .reference import Reference
 
 
 class BodyStructure(domainresource.DomainResource):
@@ -24,7 +28,7 @@ class BodyStructure(domainresource.DomainResource):
     use case.
     """
 
-    resource_type = Field("BodyStructure", const=True)
+    resource_type: str = Field("BodyStructure", const=True)
 
     active: bool = Field(
         None,
@@ -50,7 +54,7 @@ class BodyStructure(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Bodystructure identifier",
@@ -59,7 +63,7 @@ class BodyStructure(domainresource.DomainResource):
         element_property=True,
     )
 
-    image: typing.List[fhirtypes.AttachmentType] = Field(
+    image: typing.List[Attachment] = Field(
         None,
         alias="image",
         title="Attached images",
@@ -68,7 +72,7 @@ class BodyStructure(domainresource.DomainResource):
         element_property=True,
     )
 
-    location: fhirtypes.CodeableConceptType = Field(
+    location: CodeableConcept = Field(
         None,
         alias="location",
         title="Body site",
@@ -80,7 +84,7 @@ class BodyStructure(domainresource.DomainResource):
         element_property=True,
     )
 
-    locationQualifier: typing.List[fhirtypes.CodeableConceptType] = Field(
+    locationQualifier: typing.List[CodeableConcept] = Field(
         None,
         alias="locationQualifier",
         title="Body site modifier",
@@ -92,7 +96,7 @@ class BodyStructure(domainresource.DomainResource):
         element_property=True,
     )
 
-    morphology: fhirtypes.CodeableConceptType = Field(
+    morphology: CodeableConcept = Field(
         None,
         alias="morphology",
         title="Kind of Structure",
@@ -105,7 +109,7 @@ class BodyStructure(domainresource.DomainResource):
         element_property=True,
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         ...,
         alias="patient",
         title="Who this is about",

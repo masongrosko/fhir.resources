@@ -13,6 +13,16 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .contactdetail import ContactDetail
+from .duration import Duration
+from .identifier import Identifier
+from .period import Period
+from .quantity import Quantity
+from .range import Range
+from .reference import Reference
+from .usagecontext import UsageContext
 
 
 class SpecimenDefinition(domainresource.DomainResource):
@@ -24,7 +34,7 @@ class SpecimenDefinition(domainresource.DomainResource):
     A kind of specimen with associated set of requirements.
     """
 
-    resource_type = Field("SpecimenDefinition", const=True)
+    resource_type: str = Field("SpecimenDefinition", const=True)
 
     approvalDate: fhirtypes.Date = Field(
         None,
@@ -42,7 +52,7 @@ class SpecimenDefinition(domainresource.DomainResource):
         None, alias="_approvalDate", title="Extension field for ``approvalDate``."
     )
 
-    collection: typing.List[fhirtypes.CodeableConceptType] = Field(
+    collection: typing.List[CodeableConcept] = Field(
         None,
         alias="collection",
         title="Specimen collection procedure",
@@ -51,7 +61,7 @@ class SpecimenDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -166,7 +176,7 @@ class SpecimenDefinition(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    effectivePeriod: fhirtypes.PeriodType = Field(
+    effectivePeriod: Period = Field(
         None,
         alias="effectivePeriod",
         title="The effective date range for the SpecimenDefinition",
@@ -193,7 +203,7 @@ class SpecimenDefinition(domainresource.DomainResource):
         None, alias="_experimental", title="Extension field for ``experimental``."
     )
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="Business identifier",
@@ -202,7 +212,7 @@ class SpecimenDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction for this SpecimenDefinition (if applicable)",
@@ -243,7 +253,7 @@ class SpecimenDefinition(domainresource.DomainResource):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    patientPreparation: typing.List[fhirtypes.CodeableConceptType] = Field(
+    patientPreparation: typing.List[CodeableConcept] = Field(
         None,
         alias="patientPreparation",
         title="Patient preparation for collection",
@@ -301,7 +311,7 @@ class SpecimenDefinition(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subjectCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    subjectCodeableConcept: CodeableConcept = Field(
         None,
         alias="subjectCodeableConcept",
         title="Type of subject for specimen collection",
@@ -316,7 +326,7 @@ class SpecimenDefinition(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    subjectReference: fhirtypes.ReferenceType = Field(
+    subjectReference: Reference = Field(
         None,
         alias="subjectReference",
         title="Type of subject for specimen collection",
@@ -357,7 +367,7 @@ class SpecimenDefinition(domainresource.DomainResource):
         None, alias="_title", title="Extension field for ``title``."
     )
 
-    typeCollected: fhirtypes.CodeableConceptType = Field(
+    typeCollected: CodeableConcept = Field(
         None,
         alias="typeCollected",
         title="Kind of material to collect",
@@ -366,7 +376,7 @@ class SpecimenDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    typeTested: typing.List[fhirtypes.SpecimenDefinitionTypeTestedType] = Field(
+    typeTested: typing.List["SpecimenDefinitionTypeTested"] = Field(
         None,
         alias="typeTested",
         title="Specimen in container intended for testing by lab",
@@ -400,7 +410,7 @@ class SpecimenDefinition(domainresource.DomainResource):
         None, alias="_url", title="Extension field for ``url``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="Content intends to support these contexts",
@@ -430,7 +440,7 @@ class SpecimenDefinition(domainresource.DomainResource):
         None, alias="_version", title="Extension field for ``version``."
     )
 
-    versionAlgorithmCoding: fhirtypes.CodingType = Field(
+    versionAlgorithmCoding: Coding = Field(
         None,
         alias="versionAlgorithmCoding",
         title="How to compare versions",
@@ -622,9 +632,9 @@ class SpecimenDefinitionTypeTested(backboneelement.BackboneElement):
     Specimen conditioned in a container as expected by the testing laboratory.
     """
 
-    resource_type = Field("SpecimenDefinitionTypeTested", const=True)
+    resource_type: str = Field("SpecimenDefinitionTypeTested", const=True)
 
-    container: fhirtypes.SpecimenDefinitionTypeTestedContainerType = Field(
+    container: "SpecimenDefinitionTypeTestedContainer" = Field(
         None,
         alias="container",
         title="The specimen's container",
@@ -633,7 +643,7 @@ class SpecimenDefinitionTypeTested(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    handling: typing.List[fhirtypes.SpecimenDefinitionTypeTestedHandlingType] = Field(
+    handling: typing.List["SpecimenDefinitionTypeTestedHandling"] = Field(
         None,
         alias="handling",
         title="Specimen handling before testing",
@@ -673,7 +683,7 @@ class SpecimenDefinitionTypeTested(backboneelement.BackboneElement):
         None, alias="_preference", title="Extension field for ``preference``."
     )
 
-    rejectionCriterion: typing.List[fhirtypes.CodeableConceptType] = Field(
+    rejectionCriterion: typing.List[CodeableConcept] = Field(
         None,
         alias="rejectionCriterion",
         title="Criterion specified for specimen rejection",
@@ -700,7 +710,7 @@ class SpecimenDefinitionTypeTested(backboneelement.BackboneElement):
         None, alias="_requirement", title="Extension field for ``requirement``."
     )
 
-    retentionTime: fhirtypes.DurationType = Field(
+    retentionTime: Duration = Field(
         None,
         alias="retentionTime",
         title="The usual time for retaining this kind of specimen",
@@ -724,7 +734,7 @@ class SpecimenDefinitionTypeTested(backboneelement.BackboneElement):
         None, alias="_singleUse", title="Extension field for ``singleUse``."
     )
 
-    testingDestination: typing.List[fhirtypes.CodeableConceptType] = Field(
+    testingDestination: typing.List[CodeableConcept] = Field(
         None,
         alias="testingDestination",
         title="Where the specimen will be tested",
@@ -736,7 +746,7 @@ class SpecimenDefinitionTypeTested(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Type of intended specimen",
@@ -835,11 +845,9 @@ class SpecimenDefinitionTypeTestedContainer(backboneelement.BackboneElement):
     The specimen's container.
     """
 
-    resource_type = Field("SpecimenDefinitionTypeTestedContainer", const=True)
+    resource_type: str = Field("SpecimenDefinitionTypeTestedContainer", const=True)
 
-    additive: typing.List[
-        fhirtypes.SpecimenDefinitionTypeTestedContainerAdditiveType
-    ] = Field(
+    additive: typing.List["SpecimenDefinitionTypeTestedContainerAdditive"] = Field(
         None,
         alias="additive",
         title="Additive associated with container",
@@ -851,7 +859,7 @@ class SpecimenDefinitionTypeTestedContainer(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    cap: fhirtypes.CodeableConceptType = Field(
+    cap: CodeableConcept = Field(
         None,
         alias="cap",
         title="Color of container cap",
@@ -860,7 +868,7 @@ class SpecimenDefinitionTypeTestedContainer(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    capacity: fhirtypes.QuantityType = Field(
+    capacity: Quantity = Field(
         None,
         alias="capacity",
         title="The capacity of this kind of container",
@@ -881,7 +889,7 @@ class SpecimenDefinitionTypeTestedContainer(backboneelement.BackboneElement):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    material: fhirtypes.CodeableConceptType = Field(
+    material: CodeableConcept = Field(
         None,
         alias="material",
         title="The material type used for the container",
@@ -890,7 +898,7 @@ class SpecimenDefinitionTypeTestedContainer(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    minimumVolumeQuantity: fhirtypes.QuantityType = Field(
+    minimumVolumeQuantity: Quantity = Field(
         None,
         alias="minimumVolumeQuantity",
         title="Minimum volume",
@@ -934,7 +942,7 @@ class SpecimenDefinitionTypeTestedContainer(backboneelement.BackboneElement):
         None, alias="_preparation", title="Extension field for ``preparation``."
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Kind of container associated with the kind of specimen",
@@ -1015,9 +1023,11 @@ class SpecimenDefinitionTypeTestedContainerAdditive(backboneelement.BackboneElem
     enhance the specimen. Examples: Formalin, Citrate, EDTA.
     """
 
-    resource_type = Field("SpecimenDefinitionTypeTestedContainerAdditive", const=True)
+    resource_type: str = Field(
+        "SpecimenDefinitionTypeTestedContainerAdditive", const=True
+    )
 
-    additiveCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    additiveCodeableConcept: CodeableConcept = Field(
         None,
         alias="additiveCodeableConcept",
         title="Additive associated with container",
@@ -1032,7 +1042,7 @@ class SpecimenDefinitionTypeTestedContainerAdditive(backboneelement.BackboneElem
         one_of_many_required=True,
     )
 
-    additiveReference: fhirtypes.ReferenceType = Field(
+    additiveReference: Reference = Field(
         None,
         alias="additiveReference",
         title="Additive associated with container",
@@ -1114,7 +1124,7 @@ class SpecimenDefinitionTypeTestedHandling(backboneelement.BackboneElement):
     temperature interval, prior the testing process.
     """
 
-    resource_type = Field("SpecimenDefinitionTypeTestedHandling", const=True)
+    resource_type: str = Field("SpecimenDefinitionTypeTestedHandling", const=True)
 
     instruction: fhirtypes.Markdown = Field(
         None,
@@ -1131,7 +1141,7 @@ class SpecimenDefinitionTypeTestedHandling(backboneelement.BackboneElement):
         None, alias="_instruction", title="Extension field for ``instruction``."
     )
 
-    maxDuration: fhirtypes.DurationType = Field(
+    maxDuration: Duration = Field(
         None,
         alias="maxDuration",
         title="Maximum preservation time",
@@ -1143,7 +1153,7 @@ class SpecimenDefinitionTypeTestedHandling(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    temperatureQualifier: fhirtypes.CodeableConceptType = Field(
+    temperatureQualifier: CodeableConcept = Field(
         None,
         alias="temperatureQualifier",
         title="Qualifies the interval of temperature",
@@ -1156,7 +1166,7 @@ class SpecimenDefinitionTypeTestedHandling(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    temperatureRange: fhirtypes.RangeType = Field(
+    temperatureRange: Range = Field(
         None,
         alias="temperatureRange",
         title="Temperature range for these handling instructions",
@@ -1180,3 +1190,8 @@ class SpecimenDefinitionTypeTestedHandling(backboneelement.BackboneElement):
             "maxDuration",
             "instruction",
         ]
+
+
+SpecimenDefinition.update_forward_refs()
+SpecimenDefinitionTypeTested.update_forward_refs()
+SpecimenDefinitionTypeTestedContainer.update_forward_refs()

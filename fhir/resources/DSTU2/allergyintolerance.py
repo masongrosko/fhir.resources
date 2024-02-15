@@ -10,8 +10,12 @@ from typing import List as ListType
 from pydantic.v1 import Field
 
 from . import fhirtypes
+from .annotation import Annotation
 from .backboneelement import BackboneElement
+from .codeableconcept import CodeableConcept
 from .domainresource import DomainResource
+from .identifier import Identifier
+from .reference import Reference
 
 
 class AllergyIntolerance(DomainResource):
@@ -21,7 +25,7 @@ class AllergyIntolerance(DomainResource):
     an individual and associated with exposure to a substance.
     """
 
-    resource_type = Field("AllergyIntolerance", const=True)
+    resource_type: str = Field("AllergyIntolerance", const=True)
 
     category: fhirtypes.Code = Field(
         None,
@@ -47,7 +51,7 @@ class AllergyIntolerance(DomainResource):
         description="low | high | unable-to-assess",
     )
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="List of `Identifier` items (represented as `dict` in JSON)",
@@ -61,7 +65,7 @@ class AllergyIntolerance(DomainResource):
         description="Date(/time) of last known occurrence of a reaction",
     )
 
-    note: fhirtypes.AnnotationType = Field(
+    note: Annotation = Field(
         None,
         alias="note",
         title="`Annotation` items (represented as `dict` in JSON)",
@@ -75,14 +79,14 @@ class AllergyIntolerance(DomainResource):
         description="Date(/time) when manifestations showed",
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         ...,
         alias="patient",
         title="Type `Reference` referencing `Patient` (represented as `dict` in JSON)",
         description="Who the sensitivity is for",
     )
 
-    reaction: ListType[fhirtypes.AllergyIntoleranceReactionType] = Field(
+    reaction: ListType["AllergyIntoleranceReaction"] = Field(
         None,
         alias="reaction",
         title=(
@@ -91,7 +95,7 @@ class AllergyIntolerance(DomainResource):
         ),
         description="Adverse Reaction Events linked to exposure to substance",
     )
-    reporter: fhirtypes.ReferenceType = Field(
+    reporter: Reference = Field(
         None,
         alias="reporter",
         title=(
@@ -101,7 +105,7 @@ class AllergyIntolerance(DomainResource):
         description="Source of the information about the allergy",
     )
 
-    recorder: fhirtypes.ReferenceType = Field(
+    recorder: Reference = Field(
         None,
         alias="recorder",
         title=(
@@ -124,7 +128,7 @@ class AllergyIntolerance(DomainResource):
         description="allergy | intolerance - Underlying mechanism (if known)",
     )
 
-    substance: fhirtypes.CodeableConceptType = Field(
+    substance: CodeableConcept = Field(
         None,
         alias="substance",
         title="Type `CodeableConcept` (represented as `dict` in JSON)",
@@ -139,7 +143,7 @@ class AllergyIntoleranceReaction(BackboneElement):
     identified Substance.
     """
 
-    resource_type = Field("AllergyIntoleranceReaction", const=True)
+    resource_type: str = Field("AllergyIntoleranceReaction", const=True)
 
     description: fhirtypes.String = Field(
         None,
@@ -148,21 +152,21 @@ class AllergyIntoleranceReaction(BackboneElement):
         description="Description of the event as a whole",
     )
 
-    exposureRoute: fhirtypes.CodeableConceptType = Field(
+    exposureRoute: CodeableConcept = Field(
         None,
         alias="exposureRoute",
         title="Type `CodeableConcept` (represented as `dict` in JSON)",
         description="How the subject was exposed to the substance",
     )
 
-    manifestation: ListType[fhirtypes.CodeableConceptType] = Field(
+    manifestation: ListType[CodeableConcept] = Field(
         ...,
         alias="manifestation",
         title="List of `CodeableConcept` items (represented as `dict` in JSON)",
         description="Clinical symptoms/signs associated with the Event",
     )
 
-    note: fhirtypes.AnnotationType = Field(
+    note: Annotation = Field(
         None,
         alias="note",
         title="`Annotation` (represented as `dict` in JSON)",
@@ -183,7 +187,7 @@ class AllergyIntoleranceReaction(BackboneElement):
         description="mild | moderate | severe (of event as a whole)",
     )
 
-    substance: fhirtypes.CodeableConceptType = Field(
+    substance: CodeableConcept = Field(
         None,
         alias="substance",
         title="Type `CodeableConcept` (represented as `dict` in JSON)",
@@ -201,3 +205,6 @@ class AllergyIntoleranceReaction(BackboneElement):
             "about the specific substance"
         ),
     )
+
+
+AllergyIntolerance.update_forward_refs()

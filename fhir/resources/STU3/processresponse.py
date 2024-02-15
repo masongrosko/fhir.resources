@@ -11,6 +11,9 @@ import typing
 from pydantic.v1 import Field
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .reference import Reference
 
 
 class ProcessResponse(domainresource.DomainResource):
@@ -23,9 +26,9 @@ class ProcessResponse(domainresource.DomainResource):
     processing of a resource.
     """
 
-    resource_type = Field("ProcessResponse", const=True)
+    resource_type: str = Field("ProcessResponse", const=True)
 
-    communicationRequest: typing.List[fhirtypes.ReferenceType] = Field(
+    communicationRequest: typing.List[Reference] = Field(
         None,
         alias="communicationRequest",
         title="Request for additional information",
@@ -66,7 +69,7 @@ class ProcessResponse(domainresource.DomainResource):
         None, alias="_disposition", title="Extension field for ``disposition``."
     )
 
-    error: typing.List[fhirtypes.CodeableConceptType] = Field(
+    error: typing.List[CodeableConcept] = Field(
         None,
         alias="error",
         title="Error code",
@@ -75,7 +78,7 @@ class ProcessResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    form: fhirtypes.CodeableConceptType = Field(
+    form: CodeableConcept = Field(
         None,
         alias="form",
         title="Printed Form Identifier",
@@ -84,7 +87,7 @@ class ProcessResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business Identifier",
@@ -93,7 +96,7 @@ class ProcessResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    organization: fhirtypes.ReferenceType = Field(
+    organization: Reference = Field(
         None,
         alias="organization",
         title="Authoring Organization",
@@ -104,7 +107,7 @@ class ProcessResponse(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    outcome: fhirtypes.CodeableConceptType = Field(
+    outcome: CodeableConcept = Field(
         None,
         alias="outcome",
         title="Processing outcome",
@@ -113,7 +116,7 @@ class ProcessResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    processNote: typing.List[fhirtypes.ProcessResponseProcessNoteType] = Field(
+    processNote: typing.List["ProcessResponseProcessNote"] = Field(
         None,
         alias="processNote",
         title="Processing comments or additional requirements",
@@ -125,7 +128,7 @@ class ProcessResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    request: fhirtypes.ReferenceType = Field(
+    request: Reference = Field(
         None,
         alias="request",
         title="Request reference",
@@ -136,7 +139,7 @@ class ProcessResponse(domainresource.DomainResource):
         enum_reference_types=["Resource"],
     )
 
-    requestOrganization: fhirtypes.ReferenceType = Field(
+    requestOrganization: Reference = Field(
         None,
         alias="requestOrganization",
         title="Responsible organization",
@@ -150,7 +153,7 @@ class ProcessResponse(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    requestProvider: fhirtypes.ReferenceType = Field(
+    requestProvider: Reference = Field(
         None,
         alias="requestProvider",
         title="Responsible Practitioner",
@@ -220,7 +223,7 @@ class ProcessResponseProcessNote(backboneelement.BackboneElement):
     been held.
     """
 
-    resource_type = Field("ProcessResponseProcessNote", const=True)
+    resource_type: str = Field("ProcessResponseProcessNote", const=True)
 
     text: fhirtypes.String = Field(
         None,
@@ -234,7 +237,7 @@ class ProcessResponseProcessNote(backboneelement.BackboneElement):
         None, alias="_text", title="Extension field for ``text``."
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="display | print | printoper",
@@ -250,3 +253,6 @@ class ProcessResponseProcessNote(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "type", "text"]
+
+
+ProcessResponse.update_forward_refs()

@@ -11,6 +11,12 @@ import typing
 from pydantic.v1 import Field, root_validator
 
 from . import backboneelement, domainresource, fhirtypes
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
+from .timing import Timing
 
 
 class DeviceRequest(domainresource.DomainResource):
@@ -24,7 +30,7 @@ class DeviceRequest(domainresource.DomainResource):
     walker.
     """
 
-    resource_type = Field("DeviceRequest", const=True)
+    resource_type: str = Field("DeviceRequest", const=True)
 
     authoredOn: fhirtypes.DateTime = Field(
         None,
@@ -38,7 +44,7 @@ class DeviceRequest(domainresource.DomainResource):
         None, alias="_authoredOn", title="Extension field for ``authoredOn``."
     )
 
-    basedOn: typing.List[fhirtypes.ReferenceType] = Field(
+    basedOn: typing.List[Reference] = Field(
         None,
         alias="basedOn",
         title="What request fulfills",
@@ -49,7 +55,7 @@ class DeviceRequest(domainresource.DomainResource):
         enum_reference_types=["Resource"],
     )
 
-    codeCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    codeCodeableConcept: CodeableConcept = Field(
         None,
         alias="codeCodeableConcept",
         title="Device requested",
@@ -61,7 +67,7 @@ class DeviceRequest(domainresource.DomainResource):
         one_of_many_required=True,
     )
 
-    codeReference: fhirtypes.ReferenceType = Field(
+    codeReference: Reference = Field(
         None,
         alias="codeReference",
         title="Device requested",
@@ -75,7 +81,7 @@ class DeviceRequest(domainresource.DomainResource):
         enum_reference_types=["Device"],
     )
 
-    context: fhirtypes.ReferenceType = Field(
+    context: Reference = Field(
         None,
         alias="context",
         title="Encounter or Episode motivating request",
@@ -89,7 +95,7 @@ class DeviceRequest(domainresource.DomainResource):
         enum_reference_types=["Encounter", "EpisodeOfCare"],
     )
 
-    definition: typing.List[fhirtypes.ReferenceType] = Field(
+    definition: typing.List[Reference] = Field(
         None,
         alias="definition",
         title="Protocol or definition",
@@ -104,7 +110,7 @@ class DeviceRequest(domainresource.DomainResource):
         enum_reference_types=["ActivityDefinition", "PlanDefinition"],
     )
 
-    groupIdentifier: fhirtypes.IdentifierType = Field(
+    groupIdentifier: Identifier = Field(
         None,
         alias="groupIdentifier",
         title="Identifier of composite request",
@@ -113,7 +119,7 @@ class DeviceRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="External Request identifier",
@@ -122,7 +128,7 @@ class DeviceRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    intent: fhirtypes.CodeableConceptType = Field(
+    intent: CodeableConcept = Field(
         ...,
         alias="intent",
         title="proposal | plan | original-order | encoded | reflex-order",
@@ -134,7 +140,7 @@ class DeviceRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Notes or comments",
@@ -170,7 +176,7 @@ class DeviceRequest(domainresource.DomainResource):
         title="Extension field for ``occurrenceDateTime``.",
     )
 
-    occurrencePeriod: fhirtypes.PeriodType = Field(
+    occurrencePeriod: Period = Field(
         None,
         alias="occurrencePeriod",
         title="Desired time or schedule for use",
@@ -187,7 +193,7 @@ class DeviceRequest(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    occurrenceTiming: fhirtypes.TimingType = Field(
+    occurrenceTiming: Timing = Field(
         None,
         alias="occurrenceTiming",
         title="Desired time or schedule for use",
@@ -204,7 +210,7 @@ class DeviceRequest(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    performer: fhirtypes.ReferenceType = Field(
+    performer: Reference = Field(
         None,
         alias="performer",
         title="Requested Filler",
@@ -222,7 +228,7 @@ class DeviceRequest(domainresource.DomainResource):
         ],
     )
 
-    performerType: fhirtypes.CodeableConceptType = Field(
+    performerType: CodeableConcept = Field(
         None,
         alias="performerType",
         title="Fille role",
@@ -231,7 +237,7 @@ class DeviceRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    priorRequest: typing.List[fhirtypes.ReferenceType] = Field(
+    priorRequest: typing.List[Reference] = Field(
         None,
         alias="priorRequest",
         title="What request replaces",
@@ -260,7 +266,7 @@ class DeviceRequest(domainresource.DomainResource):
         None, alias="_priority", title="Extension field for ``priority``."
     )
 
-    reasonCode: typing.List[fhirtypes.CodeableConceptType] = Field(
+    reasonCode: typing.List[CodeableConcept] = Field(
         None,
         alias="reasonCode",
         title="Coded Reason for request",
@@ -269,7 +275,7 @@ class DeviceRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    reasonReference: typing.List[fhirtypes.ReferenceType] = Field(
+    reasonReference: typing.List[Reference] = Field(
         None,
         alias="reasonReference",
         title="Linked Reason for request",
@@ -280,7 +286,7 @@ class DeviceRequest(domainresource.DomainResource):
         enum_reference_types=["Resource"],
     )
 
-    relevantHistory: typing.List[fhirtypes.ReferenceType] = Field(
+    relevantHistory: typing.List[Reference] = Field(
         None,
         alias="relevantHistory",
         title="Request provenance",
@@ -291,7 +297,7 @@ class DeviceRequest(domainresource.DomainResource):
         enum_reference_types=["Provenance"],
     )
 
-    requester: fhirtypes.DeviceRequestRequesterType = Field(
+    requester: "DeviceRequestRequester" = Field(
         None,
         alias="requester",
         title="Who/what is requesting diagnostics",
@@ -325,7 +331,7 @@ class DeviceRequest(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         ...,
         alias="subject",
         title="Focus of request",
@@ -336,7 +342,7 @@ class DeviceRequest(domainresource.DomainResource):
         enum_reference_types=["Patient", "Group", "Location", "Device"],
     )
 
-    supportingInfo: typing.List[fhirtypes.ReferenceType] = Field(
+    supportingInfo: typing.List[Reference] = Field(
         None,
         alias="supportingInfo",
         title="Additional clinical information",
@@ -448,9 +454,9 @@ class DeviceRequestRequester(backboneelement.BackboneElement):
     activation.
     """
 
-    resource_type = Field("DeviceRequestRequester", const=True)
+    resource_type: str = Field("DeviceRequestRequester", const=True)
 
-    agent: fhirtypes.ReferenceType = Field(
+    agent: Reference = Field(
         ...,
         alias="agent",
         title="Individual making the request",
@@ -461,7 +467,7 @@ class DeviceRequestRequester(backboneelement.BackboneElement):
         enum_reference_types=["Device", "Practitioner", "Organization"],
     )
 
-    onBehalfOf: fhirtypes.ReferenceType = Field(
+    onBehalfOf: Reference = Field(
         None,
         alias="onBehalfOf",
         title="Organization agent is acting for",
@@ -479,3 +485,6 @@ class DeviceRequestRequester(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "agent", "onBehalfOf"]
+
+
+DeviceRequest.update_forward_refs()

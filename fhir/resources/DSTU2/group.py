@@ -12,7 +12,13 @@ from pydantic.v1 import Field, root_validator
 
 from . import fhirtypes
 from .backboneelement import BackboneElement
+from .codeableconcept import CodeableConcept
 from .domainresource import DomainResource
+from .identifier import Identifier
+from .period import Period
+from .quantity import Quantity
+from .range import Range
+from .reference import Reference
 
 
 class Group(DomainResource):
@@ -24,7 +30,7 @@ class Group(DomainResource):
     isn't an Organization.
     """
 
-    resource_type = Field("Group", const=True)
+    resource_type: str = Field("Group", const=True)
 
     actual: fhirtypes.Boolean = Field(
         None, alias="actual", title="Type `bool`.", description="Descriptive or actual."
@@ -47,28 +53,28 @@ class Group(DomainResource):
         description="person | animal | practitioner | device | medication | substance.",
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="Kind of Group members.",
     )
 
-    characteristic: ListType[fhirtypes.GroupCharacteristicType] = Field(
+    characteristic: ListType["GroupCharacteristic"] = Field(
         None,
         alias="characteristic",
         title="List of `GroupCharacteristic` items (represented as `dict` in JSON).",
         description="Trait of group members.",
     )
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="List of `Identifier` items (represented as `dict` in JSON).",
         description="Unique id.",
     )
 
-    member: ListType[fhirtypes.GroupMemberType] = Field(
+    member: ListType["GroupMember"] = Field(
         None,
         alias="member",
         title="List of `GroupMember` items (represented as `dict` in JSON).",
@@ -82,16 +88,16 @@ class GroupCharacteristic(BackboneElement):
     Identifies the traits shared by members of the group.
     """
 
-    resource_type = Field("GroupCharacteristic", const=True)
+    resource_type: str = Field("GroupCharacteristic", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="Kind of characteristic.",
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Type `Period` (represented as `dict` in JSON).",
@@ -113,7 +119,7 @@ class GroupCharacteristic(BackboneElement):
         one_of_many_required=False,
     )
 
-    valueCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    valueCodeableConcept: CodeableConcept = Field(
         None,
         alias="valueCodeableConcept",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -122,7 +128,7 @@ class GroupCharacteristic(BackboneElement):
         one_of_many_required=False,
     )
 
-    valueQuantity: fhirtypes.QuantityType = Field(
+    valueQuantity: Quantity = Field(
         None,
         alias="valueQuantity",
         title="Type `Quantity` (represented as `dict` in JSON).",
@@ -131,7 +137,7 @@ class GroupCharacteristic(BackboneElement):
         one_of_many_required=False,
     )
 
-    valueRange: fhirtypes.RangeType = Field(
+    valueRange: Range = Field(
         None,
         alias="valueRange",
         title="Type `Range` (represented as `dict` in JSON).",
@@ -190,9 +196,9 @@ class GroupMember(BackboneElement):
     Identifies the resource instances that are members of the group.
     """
 
-    resource_type = Field("GroupMember", const=True)
+    resource_type: str = Field("GroupMember", const=True)
 
-    entity: fhirtypes.ReferenceType = Field(
+    entity: Reference = Field(
         None,
         alias="entity",
         title=(
@@ -208,9 +214,12 @@ class GroupMember(BackboneElement):
         description="If member is no longer in group.",
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Type `Period` (represented as `dict` in JSON).",
         description="Period member belonged to the group.",
     )
+
+
+Group.update_forward_refs()

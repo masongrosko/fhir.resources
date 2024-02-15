@@ -11,6 +11,7 @@ import typing
 from pydantic.v1 import Field
 
 from . import element, fhirtypes
+from .period import Period
 
 
 class Address(element.Element):
@@ -27,7 +28,7 @@ class Address(element.Element):
     address formats defined around the world.
     """
 
-    resource_type = Field("Address", const=True)
+    resource_type: str = Field("Address", const=True)
 
     city: fhirtypes.String = Field(
         None,
@@ -80,11 +81,11 @@ class Address(element.Element):
         # if property is element of this resource.
         element_property=True,
     )
-    line__ext: typing.List[
-        typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
-    ] = Field(None, alias="_line", title="Extension field for ``line``.")
+    line__ext: typing.List[typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]] = (
+        Field(None, alias="_line", title="Extension field for ``line``.")
+    )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Time period when address was/is in use",

@@ -13,6 +13,11 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class ReferralRequest(domainresource.DomainResource):
@@ -26,7 +31,7 @@ class ReferralRequest(domainresource.DomainResource):
     organization.
     """
 
-    resource_type = Field("ReferralRequest", const=True)
+    resource_type: str = Field("ReferralRequest", const=True)
 
     authoredOn: fhirtypes.DateTime = Field(
         None,
@@ -43,7 +48,7 @@ class ReferralRequest(domainresource.DomainResource):
         None, alias="_authoredOn", title="Extension field for ``authoredOn``."
     )
 
-    basedOn: typing.List[fhirtypes.ReferenceType] = Field(
+    basedOn: typing.List[Reference] = Field(
         None,
         alias="basedOn",
         title="Request fulfilled by this request",
@@ -57,7 +62,7 @@ class ReferralRequest(domainresource.DomainResource):
         enum_reference_types=["ReferralRequest", "CarePlan", "ProcedureRequest"],
     )
 
-    context: fhirtypes.ReferenceType = Field(
+    context: Reference = Field(
         None,
         alias="context",
         title="Originating encounter",
@@ -71,7 +76,7 @@ class ReferralRequest(domainresource.DomainResource):
         enum_reference_types=["Encounter", "EpisodeOfCare"],
     )
 
-    definition: typing.List[fhirtypes.ReferenceType] = Field(
+    definition: typing.List[Reference] = Field(
         None,
         alias="definition",
         title="Instantiates protocol or definition",
@@ -101,7 +106,7 @@ class ReferralRequest(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    groupIdentifier: fhirtypes.IdentifierType = Field(
+    groupIdentifier: Identifier = Field(
         None,
         alias="groupIdentifier",
         title="Composite request this is part of",
@@ -113,7 +118,7 @@ class ReferralRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business identifier",
@@ -144,7 +149,7 @@ class ReferralRequest(domainresource.DomainResource):
         None, alias="_intent", title="Extension field for ``intent``."
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Comments made about referral request",
@@ -173,7 +178,7 @@ class ReferralRequest(domainresource.DomainResource):
         title="Extension field for ``occurrenceDateTime``.",
     )
 
-    occurrencePeriod: fhirtypes.PeriodType = Field(
+    occurrencePeriod: Period = Field(
         None,
         alias="occurrencePeriod",
         title="When the service(s) requested in the referral should occur",
@@ -203,7 +208,7 @@ class ReferralRequest(domainresource.DomainResource):
         None, alias="_priority", title="Extension field for ``priority``."
     )
 
-    reasonCode: typing.List[fhirtypes.CodeableConceptType] = Field(
+    reasonCode: typing.List[CodeableConcept] = Field(
         None,
         alias="reasonCode",
         title="Reason for referral / transfer of care request",
@@ -216,7 +221,7 @@ class ReferralRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    reasonReference: typing.List[fhirtypes.ReferenceType] = Field(
+    reasonReference: typing.List[Reference] = Field(
         None,
         alias="reasonReference",
         title="Why is service needed?",
@@ -227,7 +232,7 @@ class ReferralRequest(domainresource.DomainResource):
         enum_reference_types=["Condition", "Observation"],
     )
 
-    recipient: typing.List[fhirtypes.ReferenceType] = Field(
+    recipient: typing.List[Reference] = Field(
         None,
         alias="recipient",
         title="Receiver of referral / transfer of care request",
@@ -241,7 +246,7 @@ class ReferralRequest(domainresource.DomainResource):
         enum_reference_types=["Practitioner", "Organization", "HealthcareService"],
     )
 
-    relevantHistory: typing.List[fhirtypes.ReferenceType] = Field(
+    relevantHistory: typing.List[Reference] = Field(
         None,
         alias="relevantHistory",
         title="Key events in history of request",
@@ -257,7 +262,7 @@ class ReferralRequest(domainresource.DomainResource):
         enum_reference_types=["Provenance"],
     )
 
-    replaces: typing.List[fhirtypes.ReferenceType] = Field(
+    replaces: typing.List[Reference] = Field(
         None,
         alias="replaces",
         title="Request(s) replaced by this request",
@@ -271,7 +276,7 @@ class ReferralRequest(domainresource.DomainResource):
         enum_reference_types=["ReferralRequest"],
     )
 
-    requester: fhirtypes.ReferralRequestRequesterType = Field(
+    requester: "ReferralRequestRequester" = Field(
         None,
         alias="requester",
         title="Who/what is requesting service",
@@ -283,7 +288,7 @@ class ReferralRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    serviceRequested: typing.List[fhirtypes.CodeableConceptType] = Field(
+    serviceRequested: typing.List[CodeableConcept] = Field(
         None,
         alias="serviceRequested",
         title="Actions requested as part of the referral",
@@ -295,7 +300,7 @@ class ReferralRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    specialty: fhirtypes.CodeableConceptType = Field(
+    specialty: CodeableConcept = Field(
         None,
         alias="specialty",
         title="The clinical specialty (discipline) that the referral is requested for",
@@ -338,7 +343,7 @@ class ReferralRequest(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         ...,
         alias="subject",
         title="Patient referred to care or transfer",
@@ -352,7 +357,7 @@ class ReferralRequest(domainresource.DomainResource):
         enum_reference_types=["Patient", "Group"],
     )
 
-    supportingInfo: typing.List[fhirtypes.ReferenceType] = Field(
+    supportingInfo: typing.List[Reference] = Field(
         None,
         alias="supportingInfo",
         title="Additonal information to support referral or transfer of care request",
@@ -370,7 +375,7 @@ class ReferralRequest(domainresource.DomainResource):
         enum_reference_types=["Resource"],
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Referral/Transition of care request type",
@@ -531,9 +536,9 @@ class ReferralRequestRequester(backboneelement.BackboneElement):
     activation.
     """
 
-    resource_type = Field("ReferralRequestRequester", const=True)
+    resource_type: str = Field("ReferralRequestRequester", const=True)
 
-    agent: fhirtypes.ReferenceType = Field(
+    agent: Reference = Field(
         ...,
         alias="agent",
         title="Individual making the request",
@@ -550,7 +555,7 @@ class ReferralRequestRequester(backboneelement.BackboneElement):
         ],
     )
 
-    onBehalfOf: fhirtypes.ReferenceType = Field(
+    onBehalfOf: Reference = Field(
         None,
         alias="onBehalfOf",
         title="Organization agent is acting for",
@@ -568,3 +573,6 @@ class ReferralRequestRequester(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "agent", "onBehalfOf"]
+
+
+ReferralRequest.update_forward_refs()

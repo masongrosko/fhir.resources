@@ -11,7 +11,9 @@ from typing import List as ListType
 from pydantic.v1 import Field, root_validator
 
 from . import fhirtypes
+from .coding import Coding
 from .element import Element
+from .reference import Reference
 
 
 class Signature(Element):
@@ -23,7 +25,7 @@ class Signature(Element):
     approaches have different utilities.
     """
 
-    resource_type = Field("Signature", const=True)
+    resource_type: str = Field("Signature", const=True)
 
     blob: fhirtypes.Base64Binary = Field(
         ...,
@@ -39,7 +41,7 @@ class Signature(Element):
         description="The technical format of the signature",
     )
 
-    type: ListType[fhirtypes.CodingType] = Field(
+    type: ListType[Coding] = Field(
         ...,
         alias="type",
         title="List of `Coding` items (represented as `dict` in JSON)",
@@ -53,7 +55,7 @@ class Signature(Element):
         description="When the signature was created",
     )
 
-    whoReference: fhirtypes.ReferenceType = Field(
+    whoReference: Reference = Field(
         None,
         alias="whoReference",
         title=(

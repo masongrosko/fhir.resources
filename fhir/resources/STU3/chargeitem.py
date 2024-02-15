@@ -13,6 +13,14 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .money import Money
+from .period import Period
+from .quantity import Quantity
+from .reference import Reference
+from .timing import Timing
 
 
 class ChargeItem(domainresource.DomainResource):
@@ -30,9 +38,9 @@ class ChargeItem(domainresource.DomainResource):
     allocation.
     """
 
-    resource_type = Field("ChargeItem", const=True)
+    resource_type: str = Field("ChargeItem", const=True)
 
-    account: typing.List[fhirtypes.ReferenceType] = Field(
+    account: typing.List[Reference] = Field(
         None,
         alias="account",
         title="Account to place this charge",
@@ -43,7 +51,7 @@ class ChargeItem(domainresource.DomainResource):
         enum_reference_types=["Account"],
     )
 
-    bodysite: typing.List[fhirtypes.CodeableConceptType] = Field(
+    bodysite: typing.List[CodeableConcept] = Field(
         None,
         alias="bodysite",
         title="Anatomical location, if relevant",
@@ -52,7 +60,7 @@ class ChargeItem(domainresource.DomainResource):
         element_property=True,
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         ...,
         alias="code",
         title="A code that identifies the charge, like a billing code",
@@ -61,7 +69,7 @@ class ChargeItem(domainresource.DomainResource):
         element_property=True,
     )
 
-    context: fhirtypes.ReferenceType = Field(
+    context: Reference = Field(
         None,
         alias="context",
         title="Encounter / Episode associated with event",
@@ -102,7 +110,7 @@ class ChargeItem(domainresource.DomainResource):
         None, alias="_enteredDate", title="Extension field for ``enteredDate``."
     )
 
-    enterer: fhirtypes.ReferenceType = Field(
+    enterer: Reference = Field(
         None,
         alias="enterer",
         title="Individual who was entering",
@@ -134,7 +142,7 @@ class ChargeItem(domainresource.DomainResource):
         None, alias="_factorOverride", title="Extension field for ``factorOverride``."
     )
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="Business Identifier for item",
@@ -143,7 +151,7 @@ class ChargeItem(domainresource.DomainResource):
         element_property=True,
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Comments made about the ChargeItem",
@@ -172,7 +180,7 @@ class ChargeItem(domainresource.DomainResource):
         title="Extension field for ``occurrenceDateTime``.",
     )
 
-    occurrencePeriod: fhirtypes.PeriodType = Field(
+    occurrencePeriod: Period = Field(
         None,
         alias="occurrencePeriod",
         title="When the charged service was applied",
@@ -184,7 +192,7 @@ class ChargeItem(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    occurrenceTiming: fhirtypes.TimingType = Field(
+    occurrenceTiming: Timing = Field(
         None,
         alias="occurrenceTiming",
         title="When the charged service was applied",
@@ -212,7 +220,7 @@ class ChargeItem(domainresource.DomainResource):
         None, alias="_overrideReason", title="Extension field for ``overrideReason``."
     )
 
-    partOf: typing.List[fhirtypes.ReferenceType] = Field(
+    partOf: typing.List[Reference] = Field(
         None,
         alias="partOf",
         title="Part of referenced ChargeItem",
@@ -226,7 +234,7 @@ class ChargeItem(domainresource.DomainResource):
         enum_reference_types=["ChargeItem"],
     )
 
-    participant: typing.List[fhirtypes.ChargeItemParticipantType] = Field(
+    participant: typing.List["ChargeItemParticipant"] = Field(
         None,
         alias="participant",
         title="Who performed charged service",
@@ -237,7 +245,7 @@ class ChargeItem(domainresource.DomainResource):
         element_property=True,
     )
 
-    performingOrganization: fhirtypes.ReferenceType = Field(
+    performingOrganization: Reference = Field(
         None,
         alias="performingOrganization",
         title="Organization providing the charged sevice",
@@ -248,7 +256,7 @@ class ChargeItem(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    priceOverride: fhirtypes.MoneyType = Field(
+    priceOverride: Money = Field(
         None,
         alias="priceOverride",
         title="Price overriding the associated rules",
@@ -260,7 +268,7 @@ class ChargeItem(domainresource.DomainResource):
         element_property=True,
     )
 
-    quantity: fhirtypes.QuantityType = Field(
+    quantity: Quantity = Field(
         None,
         alias="quantity",
         title="Quantity of which the charge item has been serviced",
@@ -269,7 +277,7 @@ class ChargeItem(domainresource.DomainResource):
         element_property=True,
     )
 
-    reason: typing.List[fhirtypes.CodeableConceptType] = Field(
+    reason: typing.List[CodeableConcept] = Field(
         None,
         alias="reason",
         title="Why was the charged  service rendered?",
@@ -278,7 +286,7 @@ class ChargeItem(domainresource.DomainResource):
         element_property=True,
     )
 
-    requestingOrganization: fhirtypes.ReferenceType = Field(
+    requestingOrganization: Reference = Field(
         None,
         alias="requestingOrganization",
         title="Organization requesting the charged service",
@@ -289,7 +297,7 @@ class ChargeItem(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    service: typing.List[fhirtypes.ReferenceType] = Field(
+    service: typing.List[Reference] = Field(
         None,
         alias="service",
         title="Which rendered service is being charged?",
@@ -336,7 +344,7 @@ class ChargeItem(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         ...,
         alias="subject",
         title="Individual service was done for/to",
@@ -350,7 +358,7 @@ class ChargeItem(domainresource.DomainResource):
         enum_reference_types=["Patient", "Group"],
     )
 
-    supportingInformation: typing.List[fhirtypes.ReferenceType] = Field(
+    supportingInformation: typing.List[Reference] = Field(
         None,
         alias="supportingInformation",
         title="Further information supporting the this charge",
@@ -512,9 +520,9 @@ class ChargeItemParticipant(backboneelement.BackboneElement):
     Indicates who or what performed or participated in the charged service.
     """
 
-    resource_type = Field("ChargeItemParticipant", const=True)
+    resource_type: str = Field("ChargeItemParticipant", const=True)
 
-    actor: fhirtypes.ReferenceType = Field(
+    actor: Reference = Field(
         ...,
         alias="actor",
         title="Individual who was performing",
@@ -534,7 +542,7 @@ class ChargeItemParticipant(backboneelement.BackboneElement):
         ],
     )
 
-    role: fhirtypes.CodeableConceptType = Field(
+    role: CodeableConcept = Field(
         None,
         alias="role",
         title="What type of performance was done",
@@ -553,3 +561,6 @@ class ChargeItemParticipant(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "role", "actor"]
+
+
+ChargeItem.update_forward_refs()

@@ -13,6 +13,10 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .identifier import Identifier
+from .reference import Reference
 
 
 class ImagingStudy(domainresource.DomainResource):
@@ -29,9 +33,9 @@ class ImagingStudy(domainresource.DomainResource):
     ultrasound), but a study may have multiple series of different modalities.
     """
 
-    resource_type = Field("ImagingStudy", const=True)
+    resource_type: str = Field("ImagingStudy", const=True)
 
-    accession: fhirtypes.IdentifierType = Field(
+    accession: Identifier = Field(
         None,
         alias="accession",
         title='Related workflow identifier ("Accession Number")',
@@ -61,7 +65,7 @@ class ImagingStudy(domainresource.DomainResource):
         None, alias="_availability", title="Extension field for ``availability``."
     )
 
-    basedOn: typing.List[fhirtypes.ReferenceType] = Field(
+    basedOn: typing.List[Reference] = Field(
         None,
         alias="basedOn",
         title="Request fulfilled",
@@ -75,7 +79,7 @@ class ImagingStudy(domainresource.DomainResource):
         enum_reference_types=["ReferralRequest", "CarePlan", "ProcedureRequest"],
     )
 
-    context: fhirtypes.ReferenceType = Field(
+    context: Reference = Field(
         None,
         alias="context",
         title="Originating context",
@@ -101,7 +105,7 @@ class ImagingStudy(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    endpoint: typing.List[fhirtypes.ReferenceType] = Field(
+    endpoint: typing.List[Reference] = Field(
         None,
         alias="endpoint",
         title="Study access endpoint",
@@ -118,7 +122,7 @@ class ImagingStudy(domainresource.DomainResource):
         enum_reference_types=["Endpoint"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Other identifiers for the study",
@@ -127,7 +131,7 @@ class ImagingStudy(domainresource.DomainResource):
         element_property=True,
     )
 
-    interpreter: typing.List[fhirtypes.ReferenceType] = Field(
+    interpreter: typing.List[Reference] = Field(
         None,
         alias="interpreter",
         title="Who interpreted images",
@@ -138,7 +142,7 @@ class ImagingStudy(domainresource.DomainResource):
         enum_reference_types=["Practitioner"],
     )
 
-    modalityList: typing.List[fhirtypes.CodingType] = Field(
+    modalityList: typing.List[Coding] = Field(
         None,
         alias="modalityList",
         title="All series modality if actual acquisition modalities",
@@ -187,7 +191,7 @@ class ImagingStudy(domainresource.DomainResource):
         None, alias="_numberOfSeries", title="Extension field for ``numberOfSeries``."
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         ...,
         alias="patient",
         title="Who the images are of",
@@ -198,7 +202,7 @@ class ImagingStudy(domainresource.DomainResource):
         enum_reference_types=["Patient"],
     )
 
-    procedureCode: typing.List[fhirtypes.CodeableConceptType] = Field(
+    procedureCode: typing.List[CodeableConcept] = Field(
         None,
         alias="procedureCode",
         title="The performed procedure code",
@@ -207,7 +211,7 @@ class ImagingStudy(domainresource.DomainResource):
         element_property=True,
     )
 
-    procedureReference: typing.List[fhirtypes.ReferenceType] = Field(
+    procedureReference: typing.List[Reference] = Field(
         None,
         alias="procedureReference",
         title="The performed Procedure reference",
@@ -218,7 +222,7 @@ class ImagingStudy(domainresource.DomainResource):
         enum_reference_types=["Procedure"],
     )
 
-    reason: fhirtypes.CodeableConceptType = Field(
+    reason: CodeableConcept = Field(
         None,
         alias="reason",
         title="Why the study was requested",
@@ -230,7 +234,7 @@ class ImagingStudy(domainresource.DomainResource):
         element_property=True,
     )
 
-    referrer: fhirtypes.ReferenceType = Field(
+    referrer: Reference = Field(
         None,
         alias="referrer",
         title="Referring physician",
@@ -241,7 +245,7 @@ class ImagingStudy(domainresource.DomainResource):
         enum_reference_types=["Practitioner"],
     )
 
-    series: typing.List[fhirtypes.ImagingStudySeriesType] = Field(
+    series: typing.List["ImagingStudySeries"] = Field(
         None,
         alias="series",
         title="Each study has one or more series of instances",
@@ -380,7 +384,7 @@ class ImagingStudySeries(backboneelement.BackboneElement):
     Each study has one or more series of images or other content.
     """
 
-    resource_type = Field("ImagingStudySeries", const=True)
+    resource_type: str = Field("ImagingStudySeries", const=True)
 
     availability: fhirtypes.Code = Field(
         None,
@@ -397,7 +401,7 @@ class ImagingStudySeries(backboneelement.BackboneElement):
         None, alias="_availability", title="Extension field for ``availability``."
     )
 
-    bodySite: fhirtypes.CodingType = Field(
+    bodySite: Coding = Field(
         None,
         alias="bodySite",
         title="Body part examined",
@@ -424,7 +428,7 @@ class ImagingStudySeries(backboneelement.BackboneElement):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    endpoint: typing.List[fhirtypes.ReferenceType] = Field(
+    endpoint: typing.List[Reference] = Field(
         None,
         alias="endpoint",
         title="Series access endpoint",
@@ -440,7 +444,7 @@ class ImagingStudySeries(backboneelement.BackboneElement):
         enum_reference_types=["Endpoint"],
     )
 
-    instance: typing.List[fhirtypes.ImagingStudySeriesInstanceType] = Field(
+    instance: typing.List["ImagingStudySeriesInstance"] = Field(
         None,
         alias="instance",
         title="A single SOP instance from the series",
@@ -452,7 +456,7 @@ class ImagingStudySeries(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    laterality: fhirtypes.CodingType = Field(
+    laterality: Coding = Field(
         None,
         alias="laterality",
         title="Body part laterality",
@@ -466,7 +470,7 @@ class ImagingStudySeries(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    modality: fhirtypes.CodingType = Field(
+    modality: Coding = Field(
         ...,
         alias="modality",
         title="The modality of the instances in the series",
@@ -506,7 +510,7 @@ class ImagingStudySeries(backboneelement.BackboneElement):
         title="Extension field for ``numberOfInstances``.",
     )
 
-    performer: typing.List[fhirtypes.ReferenceType] = Field(
+    performer: typing.List[Reference] = Field(
         None,
         alias="performer",
         title="Who performed the series",
@@ -642,7 +646,7 @@ class ImagingStudySeriesInstance(backboneelement.BackboneElement):
     state.
     """
 
-    resource_type = Field("ImagingStudySeriesInstance", const=True)
+    resource_type: str = Field("ImagingStudySeriesInstance", const=True)
 
     number: fhirtypes.UnsignedInt = Field(
         None,
@@ -768,3 +772,7 @@ class ImagingStudySeriesInstance(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+ImagingStudy.update_forward_refs()
+ImagingStudySeries.update_forward_refs()

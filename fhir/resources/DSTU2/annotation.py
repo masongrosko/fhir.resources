@@ -11,6 +11,7 @@ from pydantic.v1 import Field, root_validator
 
 from . import fhirtypes
 from .element import Element
+from .reference import Reference
 
 
 class Annotation(Element):
@@ -20,9 +21,9 @@ class Annotation(Element):
     and when.
     """
 
-    resource_type = Field("Annotation", const=True)
+    resource_type: str = Field("Annotation", const=True)
 
-    authorReference: fhirtypes.ReferenceType = Field(
+    authorReference: Reference = Field(
         None,
         alias="authorReference",
         title=(

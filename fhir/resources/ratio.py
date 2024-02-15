@@ -8,7 +8,8 @@ Last updated: 2023-03-26T15:21:02.749+11:00
 """
 from pydantic.v1 import Field
 
-from . import datatype, fhirtypes
+from . import datatype
+from .quantity import Quantity
 
 
 class Ratio(datatype.DataType):
@@ -21,9 +22,9 @@ class Ratio(datatype.DataType):
     denominator.
     """
 
-    resource_type = Field("Ratio", const=True)
+    resource_type: str = Field("Ratio", const=True)
 
-    denominator: fhirtypes.QuantityType = Field(
+    denominator: Quantity = Field(
         None,
         alias="denominator",
         title="Denominator value",
@@ -32,7 +33,7 @@ class Ratio(datatype.DataType):
         element_property=True,
     )
 
-    numerator: fhirtypes.QuantityType = Field(
+    numerator: Quantity = Field(
         None,
         alias="numerator",
         title="Numerator value",

@@ -13,6 +13,10 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .contactdetail import ContactDetail
+from .period import Period
+from .usagecontext import UsageContext
 
 
 class NamingSystem(domainresource.DomainResource):
@@ -26,9 +30,9 @@ class NamingSystem(domainresource.DomainResource):
     "System" used within the Identifier and Coding data types.
     """
 
-    resource_type = Field("NamingSystem", const=True)
+    resource_type: str = Field("NamingSystem", const=True)
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -74,7 +78,7 @@ class NamingSystem(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction for naming system (if applicable)",
@@ -172,7 +176,7 @@ class NamingSystem(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="e.g. driver,  provider,  patient, bank etc.",
@@ -184,7 +188,7 @@ class NamingSystem(domainresource.DomainResource):
         element_property=True,
     )
 
-    uniqueId: typing.List[fhirtypes.NamingSystemUniqueIdType] = Field(
+    uniqueId: typing.List["NamingSystemUniqueId"] = Field(
         ...,
         alias="uniqueId",
         title="Unique identifiers used for system",
@@ -211,7 +215,7 @@ class NamingSystem(domainresource.DomainResource):
         None, alias="_usage", title="Extension field for ``usage``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="The context that the content is intended to support",
@@ -331,7 +335,7 @@ class NamingSystemUniqueId(backboneelement.BackboneElement):
     exchange.
     """
 
-    resource_type = Field("NamingSystemUniqueId", const=True)
+    resource_type: str = Field("NamingSystemUniqueId", const=True)
 
     comment: fhirtypes.String = Field(
         None,
@@ -345,7 +349,7 @@ class NamingSystemUniqueId(backboneelement.BackboneElement):
         None, alias="_comment", title="Extension field for ``comment``."
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="When is identifier valid?",
@@ -483,3 +487,6 @@ class NamingSystemUniqueId(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+NamingSystem.update_forward_refs()

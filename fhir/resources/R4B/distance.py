@@ -19,7 +19,7 @@ class Distance(quantity.Quantity):
     A length - a value with a unit that is a physical distance.
     """
 
-    resource_type = Field("Distance", const=True)
+    resource_type: str = Field("Distance", const=True)
 
     @classmethod
     def elements_sequence(cls):

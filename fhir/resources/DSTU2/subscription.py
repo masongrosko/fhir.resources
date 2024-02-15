@@ -11,6 +11,8 @@ from pydantic.v1 import Field
 
 from . import domainresource, fhirtypes
 from .backboneelement import BackboneElement
+from .coding import Coding
+from .contactpoint import ContactPoint
 
 
 class Subscription(domainresource.DomainResource):
@@ -24,7 +26,7 @@ class Subscription(domainresource.DomainResource):
     another system is able to take an appropriate action.
     """
 
-    resource_type = Field("Subscription", const=True)
+    resource_type: str = Field("Subscription", const=True)
 
     criteria: fhirtypes.String = Field(
         None,
@@ -34,7 +36,7 @@ class Subscription(domainresource.DomainResource):
         element_property=True,
     )
 
-    contact: ListType[fhirtypes.ContactPointType] = Field(
+    contact: ListType[ContactPoint] = Field(
         None,
         alias="contact",
         title="Human contact for problems",
@@ -76,7 +78,7 @@ class Subscription(domainresource.DomainResource):
         element_property=True,
     )
 
-    channel: fhirtypes.SubscriptionChannelType = Field(
+    channel: "SubscriptionChannel" = Field(
         None,
         alias="channel",
         title="Type `SubscriptionChannel` (represented as `dict` in JSON).",
@@ -92,7 +94,7 @@ class Subscription(domainresource.DomainResource):
         element_property=True,
     )
 
-    tag: ListType[fhirtypes.CodingType] = Field(
+    tag: ListType[Coding] = Field(
         None,
         alias="tag",
         title="List of Type `Coding` (represented as `dict` in JSON).",
@@ -108,7 +110,7 @@ class SubscriptionChannel(BackboneElement):
     Details where to send notifications when resources are received that meet the criteria.
     """
 
-    resource_type = Field("SubscriptionChannel", const=True)
+    resource_type: str = Field("SubscriptionChannel", const=True)
 
     type: fhirtypes.Code = Field(
         None,
@@ -144,3 +146,6 @@ class SubscriptionChannel(BackboneElement):
         description="Usage depends on the channel type",
         element_property=True,
     )
+
+
+Subscription.update_forward_refs()

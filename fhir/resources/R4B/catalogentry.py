@@ -13,6 +13,10 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class CatalogEntry(domainresource.DomainResource):
@@ -25,9 +29,9 @@ class CatalogEntry(domainresource.DomainResource):
     catalog.
     """
 
-    resource_type = Field("CatalogEntry", const=True)
+    resource_type: str = Field("CatalogEntry", const=True)
 
-    additionalCharacteristic: typing.List[fhirtypes.CodeableConceptType] = Field(
+    additionalCharacteristic: typing.List[CodeableConcept] = Field(
         None,
         alias="additionalCharacteristic",
         title="Additional characteristics of the catalog entry",
@@ -36,7 +40,7 @@ class CatalogEntry(domainresource.DomainResource):
         element_property=True,
     )
 
-    additionalClassification: typing.List[fhirtypes.CodeableConceptType] = Field(
+    additionalClassification: typing.List[CodeableConcept] = Field(
         None,
         alias="additionalClassification",
         title="Additional classification of the catalog entry",
@@ -45,7 +49,7 @@ class CatalogEntry(domainresource.DomainResource):
         element_property=True,
     )
 
-    additionalIdentifier: typing.List[fhirtypes.IdentifierType] = Field(
+    additionalIdentifier: typing.List[Identifier] = Field(
         None,
         alias="additionalIdentifier",
         title=(
@@ -57,7 +61,7 @@ class CatalogEntry(domainresource.DomainResource):
         element_property=True,
     )
 
-    classification: typing.List[fhirtypes.CodeableConceptType] = Field(
+    classification: typing.List[CodeableConcept] = Field(
         None,
         alias="classification",
         title="Classification (category or class) of the item entry",
@@ -66,7 +70,7 @@ class CatalogEntry(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Unique identifier of the catalog item",
@@ -106,7 +110,7 @@ class CatalogEntry(domainresource.DomainResource):
         None, alias="_orderable", title="Extension field for ``orderable``."
     )
 
-    referencedItem: fhirtypes.ReferenceType = Field(
+    referencedItem: Reference = Field(
         ...,
         alias="referencedItem",
         title="The item that is being defined",
@@ -129,7 +133,7 @@ class CatalogEntry(domainresource.DomainResource):
         ],
     )
 
-    relatedEntry: typing.List[fhirtypes.CatalogEntryRelatedEntryType] = Field(
+    relatedEntry: typing.List["CatalogEntryRelatedEntry"] = Field(
         None,
         alias="relatedEntry",
         title="An item that this catalog entry is related to",
@@ -159,7 +163,7 @@ class CatalogEntry(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="The type of item - medication, device, service, protocol or other",
@@ -180,7 +184,7 @@ class CatalogEntry(domainresource.DomainResource):
         None, alias="_validTo", title="Extension field for ``validTo``."
     )
 
-    validityPeriod: fhirtypes.PeriodType = Field(
+    validityPeriod: Period = Field(
         None,
         alias="validityPeriod",
         title="The time period in which this catalog entry is expected to be active",
@@ -289,9 +293,9 @@ class CatalogEntryRelatedEntry(backboneelement.BackboneElement):
     administer a medication.
     """
 
-    resource_type = Field("CatalogEntryRelatedEntry", const=True)
+    resource_type: str = Field("CatalogEntryRelatedEntry", const=True)
 
-    item: fhirtypes.ReferenceType = Field(
+    item: Reference = Field(
         ...,
         alias="item",
         title="The reference to the related item",
@@ -387,3 +391,6 @@ class CatalogEntryRelatedEntry(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+CatalogEntry.update_forward_refs()

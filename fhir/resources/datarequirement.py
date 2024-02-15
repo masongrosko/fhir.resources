@@ -13,6 +13,11 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import datatype, element, fhirtypes
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .duration import Duration
+from .period import Period
+from .reference import Reference
 
 
 class DataRequirement(datatype.DataType):
@@ -25,9 +30,9 @@ class DataRequirement(datatype.DataType):
     and optional code or date-based filters of the data.
     """
 
-    resource_type = Field("DataRequirement", const=True)
+    resource_type: str = Field("DataRequirement", const=True)
 
-    codeFilter: typing.List[fhirtypes.DataRequirementCodeFilterType] = Field(
+    codeFilter: typing.List["DataRequirementCodeFilter"] = Field(
         None,
         alias="codeFilter",
         title="What codes are expected",
@@ -41,7 +46,7 @@ class DataRequirement(datatype.DataType):
         element_property=True,
     )
 
-    dateFilter: typing.List[fhirtypes.DataRequirementDateFilterType] = Field(
+    dateFilter: typing.List["DataRequirementDateFilter"] = Field(
         None,
         alias="dateFilter",
         title="What dates/date ranges are expected",
@@ -112,7 +117,7 @@ class DataRequirement(datatype.DataType):
         typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
     ] = Field(None, alias="_profile", title="Extension field for ``profile``.")
 
-    sort: typing.List[fhirtypes.DataRequirementSortType] = Field(
+    sort: typing.List["DataRequirementSort"] = Field(
         None,
         alias="sort",
         title="Order of the results",
@@ -121,7 +126,7 @@ class DataRequirement(datatype.DataType):
         element_property=True,
     )
 
-    subjectCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    subjectCodeableConcept: CodeableConcept = Field(
         None,
         alias="subjectCodeableConcept",
         title=(
@@ -139,7 +144,7 @@ class DataRequirement(datatype.DataType):
         one_of_many_required=False,
     )
 
-    subjectReference: fhirtypes.ReferenceType = Field(
+    subjectReference: Reference = Field(
         None,
         alias="subjectReference",
         title=(
@@ -176,7 +181,7 @@ class DataRequirement(datatype.DataType):
         None, alias="_type", title="Extension field for ``type``."
     )
 
-    valueFilter: typing.List[fhirtypes.DataRequirementValueFilterType] = Field(
+    valueFilter: typing.List["DataRequirementValueFilter"] = Field(
         None,
         alias="valueFilter",
         title="What values are expected",
@@ -321,9 +326,9 @@ class DataRequirementCodeFilter(element.Element):
     AND'ed, not OR'ed.
     """
 
-    resource_type = Field("DataRequirementCodeFilter", const=True)
+    resource_type: str = Field("DataRequirementCodeFilter", const=True)
 
-    code: typing.List[fhirtypes.CodingType] = Field(
+    code: typing.List[Coding] = Field(
         None,
         alias="code",
         title="What code is expected",
@@ -415,7 +420,7 @@ class DataRequirementDateFilter(element.Element):
     additional constraint on the data, i.e. date filters are AND'ed, not OR'ed.
     """
 
-    resource_type = Field("DataRequirementDateFilter", const=True)
+    resource_type: str = Field("DataRequirementDateFilter", const=True)
 
     path: fhirtypes.String = Field(
         None,
@@ -478,7 +483,7 @@ class DataRequirementDateFilter(element.Element):
         None, alias="_valueDateTime", title="Extension field for ``valueDateTime``."
     )
 
-    valueDuration: fhirtypes.DurationType = Field(
+    valueDuration: Duration = Field(
         None,
         alias="valueDuration",
         title="The value of the filter, as a Period, DateTime, or Duration value",
@@ -498,7 +503,7 @@ class DataRequirementDateFilter(element.Element):
         one_of_many_required=False,
     )
 
-    valuePeriod: fhirtypes.PeriodType = Field(
+    valuePeriod: Period = Field(
         None,
         alias="valuePeriod",
         title="The value of the filter, as a Period, DateTime, or Duration value",
@@ -584,7 +589,7 @@ class DataRequirementSort(element.Element):
     Specifies the order of the results to be returned.
     """
 
-    resource_type = Field("DataRequirementSort", const=True)
+    resource_type: str = Field("DataRequirementSort", const=True)
 
     direction: fhirtypes.Code = Field(
         None,
@@ -700,7 +705,7 @@ class DataRequirementValueFilter(element.Element):
     constraint on the data (i.e. valueFilters are AND'ed, not OR'ed).
     """
 
-    resource_type = Field("DataRequirementValueFilter", const=True)
+    resource_type: str = Field("DataRequirementValueFilter", const=True)
 
     comparator: fhirtypes.Code = Field(
         None,
@@ -770,7 +775,7 @@ class DataRequirementValueFilter(element.Element):
         None, alias="_valueDateTime", title="Extension field for ``valueDateTime``."
     )
 
-    valueDuration: fhirtypes.DurationType = Field(
+    valueDuration: Duration = Field(
         None,
         alias="valueDuration",
         title="The value of the filter, as a Period, DateTime, or Duration value",
@@ -782,7 +787,7 @@ class DataRequirementValueFilter(element.Element):
         one_of_many_required=False,
     )
 
-    valuePeriod: fhirtypes.PeriodType = Field(
+    valuePeriod: Period = Field(
         None,
         alias="valuePeriod",
         title="The value of the filter, as a Period, DateTime, or Duration value",
@@ -850,3 +855,6 @@ class DataRequirementValueFilter(element.Element):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+DataRequirement.update_forward_refs()

@@ -13,6 +13,11 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .quantity import Quantity
+from .reference import Reference
 
 
 class BiologicallyDerivedProductDispense(domainresource.DomainResource):
@@ -27,9 +32,9 @@ class BiologicallyDerivedProductDispense(domainresource.DomainResource):
     the clinical team responsible for clinical application.
     """
 
-    resource_type = Field("BiologicallyDerivedProductDispense", const=True)
+    resource_type: str = Field("BiologicallyDerivedProductDispense", const=True)
 
-    basedOn: typing.List[fhirtypes.ReferenceType] = Field(
+    basedOn: typing.List[Reference] = Field(
         None,
         alias="basedOn",
         title="The order or request that this dispense is fulfilling",
@@ -43,7 +48,7 @@ class BiologicallyDerivedProductDispense(domainresource.DomainResource):
         enum_reference_types=["ServiceRequest"],
     )
 
-    destination: fhirtypes.ReferenceType = Field(
+    destination: Reference = Field(
         None,
         alias="destination",
         title="Where the product was dispatched to",
@@ -57,7 +62,7 @@ class BiologicallyDerivedProductDispense(domainresource.DomainResource):
         enum_reference_types=["Location"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business identifier for this dispense",
@@ -70,7 +75,7 @@ class BiologicallyDerivedProductDispense(domainresource.DomainResource):
         element_property=True,
     )
 
-    location: fhirtypes.ReferenceType = Field(
+    location: Reference = Field(
         None,
         alias="location",
         title="Where the dispense occurred",
@@ -81,7 +86,7 @@ class BiologicallyDerivedProductDispense(domainresource.DomainResource):
         enum_reference_types=["Location"],
     )
 
-    matchStatus: fhirtypes.CodeableConceptType = Field(
+    matchStatus: CodeableConcept = Field(
         None,
         alias="matchStatus",
         title="Indicates the type of matching associated with the dispense",
@@ -90,7 +95,7 @@ class BiologicallyDerivedProductDispense(domainresource.DomainResource):
         element_property=True,
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Additional notes",
@@ -99,7 +104,7 @@ class BiologicallyDerivedProductDispense(domainresource.DomainResource):
         element_property=True,
     )
 
-    originRelationshipType: fhirtypes.CodeableConceptType = Field(
+    originRelationshipType: CodeableConcept = Field(
         None,
         alias="originRelationshipType",
         title="Relationship between the donor and intended recipient",
@@ -111,7 +116,7 @@ class BiologicallyDerivedProductDispense(domainresource.DomainResource):
         element_property=True,
     )
 
-    partOf: typing.List[fhirtypes.ReferenceType] = Field(
+    partOf: typing.List[Reference] = Field(
         None,
         alias="partOf",
         title="Short description",
@@ -122,7 +127,7 @@ class BiologicallyDerivedProductDispense(domainresource.DomainResource):
         enum_reference_types=["BiologicallyDerivedProductDispense"],
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         ...,
         alias="patient",
         title="The intended recipient of the dispensed product",
@@ -136,9 +141,7 @@ class BiologicallyDerivedProductDispense(domainresource.DomainResource):
         enum_reference_types=["Patient"],
     )
 
-    performer: typing.List[
-        fhirtypes.BiologicallyDerivedProductDispensePerformerType
-    ] = Field(
+    performer: typing.List["BiologicallyDerivedProductDispensePerformer"] = Field(
         None,
         alias="performer",
         title="Indicates who or what performed an action",
@@ -159,7 +162,7 @@ class BiologicallyDerivedProductDispense(domainresource.DomainResource):
         None, alias="_preparedDate", title="Extension field for ``preparedDate``."
     )
 
-    product: fhirtypes.ReferenceType = Field(
+    product: Reference = Field(
         ...,
         alias="product",
         title="The BiologicallyDerivedProduct that is dispensed",
@@ -173,7 +176,7 @@ class BiologicallyDerivedProductDispense(domainresource.DomainResource):
         enum_reference_types=["BiologicallyDerivedProduct"],
     )
 
-    quantity: fhirtypes.QuantityType = Field(
+    quantity: Quantity = Field(
         None,
         alias="quantity",
         title="Amount dispensed",
@@ -341,9 +344,11 @@ class BiologicallyDerivedProductDispensePerformer(backboneelement.BackboneElemen
     Indicates who or what performed an action.
     """
 
-    resource_type = Field("BiologicallyDerivedProductDispensePerformer", const=True)
+    resource_type: str = Field(
+        "BiologicallyDerivedProductDispensePerformer", const=True
+    )
 
-    actor: fhirtypes.ReferenceType = Field(
+    actor: Reference = Field(
         ...,
         alias="actor",
         title="Who performed the action",
@@ -354,7 +359,7 @@ class BiologicallyDerivedProductDispensePerformer(backboneelement.BackboneElemen
         enum_reference_types=["Practitioner"],
     )
 
-    function: fhirtypes.CodeableConceptType = Field(
+    function: CodeableConcept = Field(
         None,
         alias="function",
         title="Identifies the function of the performer during the dispense",
@@ -370,3 +375,6 @@ class BiologicallyDerivedProductDispensePerformer(backboneelement.BackboneElemen
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "function", "actor"]
+
+
+BiologicallyDerivedProductDispense.update_forward_refs()

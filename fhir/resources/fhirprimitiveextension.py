@@ -13,12 +13,13 @@ from pydantic.v1.errors import MissingError
 from fhir.resources.core import fhirabstractmodel
 
 from . import fhirtypes
+from .extension import Extension
 
 
 class FHIRPrimitiveExtension(fhirabstractmodel.FHIRAbstractModel):
     """"""
 
-    resource_type = Field("FHIRPrimitiveExtension", const=True)
+    resource_type: str = Field("FHIRPrimitiveExtension", const=True)
 
     id: fhirtypes.String = Field(
         None,
@@ -29,7 +30,7 @@ class FHIRPrimitiveExtension(fhirabstractmodel.FHIRAbstractModel):
         element_property=False,
     )
 
-    extension: typing.List[fhirtypes.ExtensionType] = Field(
+    extension: typing.List[Extension] = Field(
         None,
         alias="extension",
         title="List of `Extension` items (represented as `dict` in JSON)",

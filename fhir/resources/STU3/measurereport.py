@@ -13,6 +13,10 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class MeasureReport(domainresource.DomainResource):
@@ -24,7 +28,7 @@ class MeasureReport(domainresource.DomainResource):
     The MeasureReport resource contains the results of evaluating a measure.
     """
 
-    resource_type = Field("MeasureReport", const=True)
+    resource_type: str = Field("MeasureReport", const=True)
 
     date: fhirtypes.DateTime = Field(
         None,
@@ -38,7 +42,7 @@ class MeasureReport(domainresource.DomainResource):
         None, alias="_date", title="Extension field for ``date``."
     )
 
-    evaluatedResources: fhirtypes.ReferenceType = Field(
+    evaluatedResources: Reference = Field(
         None,
         alias="evaluatedResources",
         title="What data was evaluated to produce the measure score",
@@ -52,7 +56,7 @@ class MeasureReport(domainresource.DomainResource):
         enum_reference_types=["Bundle"],
     )
 
-    group: typing.List[fhirtypes.MeasureReportGroupType] = Field(
+    group: typing.List["MeasureReportGroup"] = Field(
         None,
         alias="group",
         title="Measure results for each group",
@@ -64,7 +68,7 @@ class MeasureReport(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="Additional identifier for the Report",
@@ -77,7 +81,7 @@ class MeasureReport(domainresource.DomainResource):
         element_property=True,
     )
 
-    measure: fhirtypes.ReferenceType = Field(
+    measure: Reference = Field(
         ...,
         alias="measure",
         title="What measure was evaluated",
@@ -88,7 +92,7 @@ class MeasureReport(domainresource.DomainResource):
         enum_reference_types=["Measure"],
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         None,
         alias="patient",
         title="What patient the report is for",
@@ -99,7 +103,7 @@ class MeasureReport(domainresource.DomainResource):
         enum_reference_types=["Patient"],
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         ...,
         alias="period",
         title="What period the report covers",
@@ -108,7 +112,7 @@ class MeasureReport(domainresource.DomainResource):
         element_property=True,
     )
 
-    reportingOrganization: fhirtypes.ReferenceType = Field(
+    reportingOrganization: Reference = Field(
         None,
         alias="reportingOrganization",
         title="Who is reporting the data",
@@ -257,9 +261,9 @@ class MeasureReportGroup(backboneelement.BackboneElement):
     measure.
     """
 
-    resource_type = Field("MeasureReportGroup", const=True)
+    resource_type: str = Field("MeasureReportGroup", const=True)
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         ...,
         alias="identifier",
         title="What group of the measure",
@@ -287,7 +291,7 @@ class MeasureReportGroup(backboneelement.BackboneElement):
         None, alias="_measureScore", title="Extension field for ``measureScore``."
     )
 
-    population: typing.List[fhirtypes.MeasureReportGroupPopulationType] = Field(
+    population: typing.List["MeasureReportGroupPopulation"] = Field(
         None,
         alias="population",
         title="The populations in the group",
@@ -299,7 +303,7 @@ class MeasureReportGroup(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    stratifier: typing.List[fhirtypes.MeasureReportGroupStratifierType] = Field(
+    stratifier: typing.List["MeasureReportGroupStratifier"] = Field(
         None,
         alias="stratifier",
         title="Stratification results",
@@ -338,9 +342,9 @@ class MeasureReportGroupPopulation(backboneelement.BackboneElement):
     population appropriate for the measure.
     """
 
-    resource_type = Field("MeasureReportGroupPopulation", const=True)
+    resource_type: str = Field("MeasureReportGroupPopulation", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title=(
@@ -365,7 +369,7 @@ class MeasureReportGroupPopulation(backboneelement.BackboneElement):
         None, alias="_count", title="Extension field for ``count``."
     )
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="Population identifier as defined in the measure",
@@ -377,7 +381,7 @@ class MeasureReportGroupPopulation(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    patients: fhirtypes.ReferenceType = Field(
+    patients: Reference = Field(
         None,
         alias="patients",
         title="For patient-list reports, the patients in this population",
@@ -418,9 +422,9 @@ class MeasureReportGroupStratifier(backboneelement.BackboneElement):
     group for each stratifier defined by the measure.
     """
 
-    resource_type = Field("MeasureReportGroupStratifier", const=True)
+    resource_type: str = Field("MeasureReportGroupStratifier", const=True)
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="What stratifier of the group",
@@ -432,7 +436,7 @@ class MeasureReportGroupStratifier(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    stratum: typing.List[fhirtypes.MeasureReportGroupStratifierStratumType] = Field(
+    stratum: typing.List["MeasureReportGroupStratifierStratum"] = Field(
         None,
         alias="stratum",
         title="Stratum results, one for each unique value in the stratifier",
@@ -465,7 +469,7 @@ class MeasureReportGroupStratifierStratum(backboneelement.BackboneElement):
     will be four strata, one for each possible gender value.
     """
 
-    resource_type = Field("MeasureReportGroupStratifierStratum", const=True)
+    resource_type: str = Field("MeasureReportGroupStratifierStratum", const=True)
 
     measureScore: fhirtypes.Decimal = Field(
         None,
@@ -483,9 +487,7 @@ class MeasureReportGroupStratifierStratum(backboneelement.BackboneElement):
         None, alias="_measureScore", title="Extension field for ``measureScore``."
     )
 
-    population: typing.List[
-        fhirtypes.MeasureReportGroupStratifierStratumPopulationType
-    ] = Field(
+    population: typing.List["MeasureReportGroupStratifierStratumPopulation"] = Field(
         None,
         alias="population",
         title="Population results in this stratum",
@@ -599,9 +601,11 @@ class MeasureReportGroupStratifierStratumPopulation(backboneelement.BackboneElem
     appropriate to the measure.
     """
 
-    resource_type = Field("MeasureReportGroupStratifierStratumPopulation", const=True)
+    resource_type: str = Field(
+        "MeasureReportGroupStratifierStratumPopulation", const=True
+    )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title=(
@@ -626,7 +630,7 @@ class MeasureReportGroupStratifierStratumPopulation(backboneelement.BackboneElem
         None, alias="_count", title="Extension field for ``count``."
     )
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="Population identifier as defined in the measure",
@@ -638,7 +642,7 @@ class MeasureReportGroupStratifierStratumPopulation(backboneelement.BackboneElem
         element_property=True,
     )
 
-    patients: fhirtypes.ReferenceType = Field(
+    patients: Reference = Field(
         None,
         alias="patients",
         title="For patient-list reports, the patients in this population",
@@ -667,3 +671,9 @@ class MeasureReportGroupStratifierStratumPopulation(backboneelement.BackboneElem
             "count",
             "patients",
         ]
+
+
+MeasureReport.update_forward_refs()
+MeasureReportGroup.update_forward_refs()
+MeasureReportGroupStratifier.update_forward_refs()
+MeasureReportGroupStratifierStratum.update_forward_refs()

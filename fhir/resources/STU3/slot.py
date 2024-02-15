@@ -13,6 +13,9 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .reference import Reference
 
 
 class Slot(domainresource.DomainResource):
@@ -23,9 +26,9 @@ class Slot(domainresource.DomainResource):
     A slot of time on a schedule that may be available for booking appointments.
     """
 
-    resource_type = Field("Slot", const=True)
+    resource_type: str = Field("Slot", const=True)
 
-    appointmentType: fhirtypes.CodeableConceptType = Field(
+    appointmentType: CodeableConcept = Field(
         None,
         alias="appointmentType",
         title=(
@@ -65,7 +68,7 @@ class Slot(domainresource.DomainResource):
         None, alias="_end", title="Extension field for ``end``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="External Ids for this item",
@@ -89,7 +92,7 @@ class Slot(domainresource.DomainResource):
         None, alias="_overbooked", title="Extension field for ``overbooked``."
     )
 
-    schedule: fhirtypes.ReferenceType = Field(
+    schedule: Reference = Field(
         ...,
         alias="schedule",
         title=(
@@ -103,7 +106,7 @@ class Slot(domainresource.DomainResource):
         enum_reference_types=["Schedule"],
     )
 
-    serviceCategory: fhirtypes.CodeableConceptType = Field(
+    serviceCategory: CodeableConcept = Field(
         None,
         alias="serviceCategory",
         title=(
@@ -115,7 +118,7 @@ class Slot(domainresource.DomainResource):
         element_property=True,
     )
 
-    serviceType: typing.List[fhirtypes.CodeableConceptType] = Field(
+    serviceType: typing.List[CodeableConcept] = Field(
         None,
         alias="serviceType",
         title=(
@@ -129,7 +132,7 @@ class Slot(domainresource.DomainResource):
         element_property=True,
     )
 
-    specialty: typing.List[fhirtypes.CodeableConceptType] = Field(
+    specialty: typing.List[CodeableConcept] = Field(
         None,
         alias="specialty",
         title=(

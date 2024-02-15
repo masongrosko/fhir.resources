@@ -13,6 +13,9 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .contactdetail import ContactDetail
+from .usagecontext import UsageContext
 
 
 class CompartmentDefinition(domainresource.DomainResource):
@@ -25,7 +28,7 @@ class CompartmentDefinition(domainresource.DomainResource):
     server.
     """
 
-    resource_type = Field("CompartmentDefinition", const=True)
+    resource_type: str = Field("CompartmentDefinition", const=True)
 
     code: fhirtypes.Code = Field(
         None,
@@ -43,7 +46,7 @@ class CompartmentDefinition(domainresource.DomainResource):
         None, alias="_code", title="Extension field for ``code``."
     )
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -104,7 +107,7 @@ class CompartmentDefinition(domainresource.DomainResource):
         None, alias="_experimental", title="Extension field for ``experimental``."
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction for compartment definition (if applicable)",
@@ -163,7 +166,7 @@ class CompartmentDefinition(domainresource.DomainResource):
         None, alias="_purpose", title="Extension field for ``purpose``."
     )
 
-    resource: typing.List[fhirtypes.CompartmentDefinitionResourceType] = Field(
+    resource: typing.List["CompartmentDefinitionResource"] = Field(
         None,
         alias="resource",
         title="How a resource is related to the compartment",
@@ -240,7 +243,7 @@ class CompartmentDefinition(domainresource.DomainResource):
         None, alias="_url", title="Extension field for ``url``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="Context the content is intended to support",
@@ -361,7 +364,7 @@ class CompartmentDefinitionResource(backboneelement.BackboneElement):
     Information about how a resource is related to the compartment.
     """
 
-    resource_type = Field("CompartmentDefinitionResource", const=True)
+    resource_type: str = Field("CompartmentDefinitionResource", const=True)
 
     code: fhirtypes.Code = Field(
         None,
@@ -477,3 +480,6 @@ class CompartmentDefinitionResource(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+CompartmentDefinition.update_forward_refs()

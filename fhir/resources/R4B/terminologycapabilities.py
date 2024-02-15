@@ -13,6 +13,9 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .contactdetail import ContactDetail
+from .usagecontext import UsageContext
 
 
 class TerminologyCapabilities(domainresource.DomainResource):
@@ -27,9 +30,9 @@ class TerminologyCapabilities(domainresource.DomainResource):
     implementation.
     """
 
-    resource_type = Field("TerminologyCapabilities", const=True)
+    resource_type: str = Field("TerminologyCapabilities", const=True)
 
-    closure: fhirtypes.TerminologyCapabilitiesClosureType = Field(
+    closure: "TerminologyCapabilitiesClosure" = Field(
         None,
         alias="closure",
         title=(
@@ -59,7 +62,7 @@ class TerminologyCapabilities(domainresource.DomainResource):
         None, alias="_codeSearch", title="Extension field for ``codeSearch``."
     )
 
-    codeSystem: typing.List[fhirtypes.TerminologyCapabilitiesCodeSystemType] = Field(
+    codeSystem: typing.List["TerminologyCapabilitiesCodeSystem"] = Field(
         None,
         alias="codeSystem",
         title="A code system supported by the server",
@@ -72,7 +75,7 @@ class TerminologyCapabilities(domainresource.DomainResource):
         element_property=True,
     )
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -137,7 +140,7 @@ class TerminologyCapabilities(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    expansion: fhirtypes.TerminologyCapabilitiesExpansionType = Field(
+    expansion: "TerminologyCapabilitiesExpansion" = Field(
         None,
         alias="expansion",
         title=(
@@ -165,7 +168,7 @@ class TerminologyCapabilities(domainresource.DomainResource):
         None, alias="_experimental", title="Extension field for ``experimental``."
     )
 
-    implementation: fhirtypes.TerminologyCapabilitiesImplementationType = Field(
+    implementation: "TerminologyCapabilitiesImplementation" = Field(
         None,
         alias="implementation",
         title="If this describes a specific instance",
@@ -178,7 +181,7 @@ class TerminologyCapabilities(domainresource.DomainResource):
         element_property=True,
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction for terminology capabilities (if applicable)",
@@ -269,7 +272,7 @@ class TerminologyCapabilities(domainresource.DomainResource):
         None, alias="_purpose", title="Extension field for ``purpose``."
     )
 
-    software: fhirtypes.TerminologyCapabilitiesSoftwareType = Field(
+    software: "TerminologyCapabilitiesSoftware" = Field(
         None,
         alias="software",
         title="Software that is covered by this terminology capability statement",
@@ -316,7 +319,7 @@ class TerminologyCapabilities(domainresource.DomainResource):
         None, alias="_title", title="Extension field for ``title``."
     )
 
-    translation: fhirtypes.TerminologyCapabilitiesTranslationType = Field(
+    translation: "TerminologyCapabilitiesTranslation" = Field(
         None,
         alias="translation",
         title=(
@@ -352,7 +355,7 @@ class TerminologyCapabilities(domainresource.DomainResource):
         None, alias="_url", title="Extension field for ``url``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="The context that the content is intended to support",
@@ -368,7 +371,7 @@ class TerminologyCapabilities(domainresource.DomainResource):
         element_property=True,
     )
 
-    validateCode: fhirtypes.TerminologyCapabilitiesValidateCodeType = Field(
+    validateCode: "TerminologyCapabilitiesValidateCode" = Field(
         None,
         alias="validateCode",
         title=(
@@ -515,7 +518,7 @@ class TerminologyCapabilitiesClosure(backboneelement.BackboneElement):
     Whether the $closure operation is supported.
     """
 
-    resource_type = Field("TerminologyCapabilitiesClosure", const=True)
+    resource_type: str = Field("TerminologyCapabilitiesClosure", const=True)
 
     translation: bool = Field(
         None,
@@ -549,7 +552,7 @@ class TerminologyCapabilitiesCodeSystem(backboneelement.BackboneElement):
     make about support for any CodeSystem resource.
     """
 
-    resource_type = Field("TerminologyCapabilitiesCodeSystem", const=True)
+    resource_type: str = Field("TerminologyCapabilitiesCodeSystem", const=True)
 
     subsumption: bool = Field(
         None,
@@ -577,9 +580,7 @@ class TerminologyCapabilitiesCodeSystem(backboneelement.BackboneElement):
         None, alias="_uri", title="Extension field for ``uri``."
     )
 
-    version: typing.List[
-        fhirtypes.TerminologyCapabilitiesCodeSystemVersionType
-    ] = Field(
+    version: typing.List["TerminologyCapabilitiesCodeSystemVersion"] = Field(
         None,
         alias="version",
         title="Version of Code System supported",
@@ -609,7 +610,7 @@ class TerminologyCapabilitiesCodeSystemVersion(backboneelement.BackboneElement):
     For the code system, a list of versions that are supported by the server.
     """
 
-    resource_type = Field("TerminologyCapabilitiesCodeSystemVersion", const=True)
+    resource_type: str = Field("TerminologyCapabilitiesCodeSystemVersion", const=True)
 
     code: fhirtypes.String = Field(
         None,
@@ -638,9 +639,7 @@ class TerminologyCapabilitiesCodeSystemVersion(backboneelement.BackboneElement):
         None, alias="_compositional", title="Extension field for ``compositional``."
     )
 
-    filter: typing.List[
-        fhirtypes.TerminologyCapabilitiesCodeSystemVersionFilterType
-    ] = Field(
+    filter: typing.List["TerminologyCapabilitiesCodeSystemVersionFilter"] = Field(
         None,
         alias="filter",
         title="Filter Properties supported",
@@ -712,7 +711,9 @@ class TerminologyCapabilitiesCodeSystemVersionFilter(backboneelement.BackboneEle
     Filter Properties supported.
     """
 
-    resource_type = Field("TerminologyCapabilitiesCodeSystemVersionFilter", const=True)
+    resource_type: str = Field(
+        "TerminologyCapabilitiesCodeSystemVersionFilter", const=True
+    )
 
     code: fhirtypes.Code = Field(
         None,
@@ -736,9 +737,9 @@ class TerminologyCapabilitiesCodeSystemVersionFilter(backboneelement.BackboneEle
         element_property=True,
         element_required=True,
     )
-    op__ext: typing.List[
-        typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
-    ] = Field(None, alias="_op", title="Extension field for ``op``.")
+    op__ext: typing.List[typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]] = (
+        Field(None, alias="_op", title="Extension field for ``op``.")
+    )
 
     @classmethod
     def elements_sequence(cls):
@@ -817,7 +818,7 @@ class TerminologyCapabilitiesExpansion(backboneelement.BackboneElement):
     operation.
     """
 
-    resource_type = Field("TerminologyCapabilitiesExpansion", const=True)
+    resource_type: str = Field("TerminologyCapabilitiesExpansion", const=True)
 
     hierarchical: bool = Field(
         None,
@@ -855,9 +856,7 @@ class TerminologyCapabilitiesExpansion(backboneelement.BackboneElement):
         None, alias="_paging", title="Extension field for ``paging``."
     )
 
-    parameter: typing.List[
-        fhirtypes.TerminologyCapabilitiesExpansionParameterType
-    ] = Field(
+    parameter: typing.List["TerminologyCapabilitiesExpansionParameter"] = Field(
         None,
         alias="parameter",
         title="Supported expansion parameter",
@@ -904,7 +903,7 @@ class TerminologyCapabilitiesExpansionParameter(backboneelement.BackboneElement)
     Supported expansion parameter.
     """
 
-    resource_type = Field("TerminologyCapabilitiesExpansionParameter", const=True)
+    resource_type: str = Field("TerminologyCapabilitiesExpansionParameter", const=True)
 
     documentation: fhirtypes.String = Field(
         None,
@@ -1010,7 +1009,7 @@ class TerminologyCapabilitiesImplementation(backboneelement.BackboneElement):
     than the capabilities of a software program.
     """
 
-    resource_type = Field("TerminologyCapabilitiesImplementation", const=True)
+    resource_type: str = Field("TerminologyCapabilitiesImplementation", const=True)
 
     description: fhirtypes.String = Field(
         None,
@@ -1119,7 +1118,7 @@ class TerminologyCapabilitiesSoftware(backboneelement.BackboneElement):
     version, independent of an installation.
     """
 
-    resource_type = Field("TerminologyCapabilitiesSoftware", const=True)
+    resource_type: str = Field("TerminologyCapabilitiesSoftware", const=True)
 
     name: fhirtypes.String = Field(
         None,
@@ -1223,7 +1222,7 @@ class TerminologyCapabilitiesTranslation(backboneelement.BackboneElement):
     translate.html) operation.
     """
 
-    resource_type = Field("TerminologyCapabilitiesTranslation", const=True)
+    resource_type: str = Field("TerminologyCapabilitiesTranslation", const=True)
 
     needsMap: bool = Field(
         None,
@@ -1315,7 +1314,7 @@ class TerminologyCapabilitiesValidateCode(backboneelement.BackboneElement):
     validate-code.html) operation.
     """
 
-    resource_type = Field("TerminologyCapabilitiesValidateCode", const=True)
+    resource_type: str = Field("TerminologyCapabilitiesValidateCode", const=True)
 
     translations: bool = Field(
         None,
@@ -1396,3 +1395,9 @@ class TerminologyCapabilitiesValidateCode(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+TerminologyCapabilities.update_forward_refs()
+TerminologyCapabilitiesCodeSystem.update_forward_refs()
+TerminologyCapabilitiesCodeSystemVersion.update_forward_refs()
+TerminologyCapabilitiesExpansion.update_forward_refs()

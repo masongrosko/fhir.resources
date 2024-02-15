@@ -18,7 +18,7 @@ class Binary(Resource):
     archive, etc.
     """
 
-    resource_type = Field("Binary", const=True)
+    resource_type: str = Field("Binary", const=True)
 
     content: fhirtypes.Base64Binary = Field(
         ...,

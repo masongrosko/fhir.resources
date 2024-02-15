@@ -13,6 +13,13 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .age import Age
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .period import Period
+from .range import Range
+from .reference import Reference
 
 
 class Procedure(domainresource.DomainResource):
@@ -26,9 +33,9 @@ class Procedure(domainresource.DomainResource):
     services, counseling, or hypnotherapy.
     """
 
-    resource_type = Field("Procedure", const=True)
+    resource_type: str = Field("Procedure", const=True)
 
-    asserter: fhirtypes.ReferenceType = Field(
+    asserter: Reference = Field(
         None,
         alias="asserter",
         title="Person who asserts this procedure",
@@ -44,7 +51,7 @@ class Procedure(domainresource.DomainResource):
         ],
     )
 
-    basedOn: typing.List[fhirtypes.ReferenceType] = Field(
+    basedOn: typing.List[Reference] = Field(
         None,
         alias="basedOn",
         title="A request for this procedure",
@@ -58,7 +65,7 @@ class Procedure(domainresource.DomainResource):
         enum_reference_types=["CarePlan", "ServiceRequest"],
     )
 
-    bodySite: typing.List[fhirtypes.CodeableConceptType] = Field(
+    bodySite: typing.List[CodeableConcept] = Field(
         None,
         alias="bodySite",
         title="Target body sites",
@@ -70,7 +77,7 @@ class Procedure(domainresource.DomainResource):
         element_property=True,
     )
 
-    category: fhirtypes.CodeableConceptType = Field(
+    category: CodeableConcept = Field(
         None,
         alias="category",
         title="Classification of the procedure",
@@ -82,7 +89,7 @@ class Procedure(domainresource.DomainResource):
         element_property=True,
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Identification of the procedure",
@@ -94,7 +101,7 @@ class Procedure(domainresource.DomainResource):
         element_property=True,
     )
 
-    complication: typing.List[fhirtypes.CodeableConceptType] = Field(
+    complication: typing.List[CodeableConcept] = Field(
         None,
         alias="complication",
         title="Complication following the procedure",
@@ -108,7 +115,7 @@ class Procedure(domainresource.DomainResource):
         element_property=True,
     )
 
-    complicationDetail: typing.List[fhirtypes.ReferenceType] = Field(
+    complicationDetail: typing.List[Reference] = Field(
         None,
         alias="complicationDetail",
         title="A condition that is a result of the procedure",
@@ -122,7 +129,7 @@ class Procedure(domainresource.DomainResource):
         enum_reference_types=["Condition"],
     )
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title="Encounter created as part of",
@@ -136,7 +143,7 @@ class Procedure(domainresource.DomainResource):
         enum_reference_types=["Encounter"],
     )
 
-    focalDevice: typing.List[fhirtypes.ProcedureFocalDeviceType] = Field(
+    focalDevice: typing.List["ProcedureFocalDevice"] = Field(
         None,
         alias="focalDevice",
         title="Manipulated, implanted, or removed device",
@@ -149,7 +156,7 @@ class Procedure(domainresource.DomainResource):
         element_property=True,
     )
 
-    followUp: typing.List[fhirtypes.CodeableConceptType] = Field(
+    followUp: typing.List[CodeableConcept] = Field(
         None,
         alias="followUp",
         title="Instructions for follow up",
@@ -163,7 +170,7 @@ class Procedure(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="External Identifiers for this procedure",
@@ -222,7 +229,7 @@ class Procedure(domainresource.DomainResource):
         None, alias="_instantiatesUri", title="Extension field for ``instantiatesUri``."
     )
 
-    location: fhirtypes.ReferenceType = Field(
+    location: Reference = Field(
         None,
         alias="location",
         title="Where the procedure happened",
@@ -236,7 +243,7 @@ class Procedure(domainresource.DomainResource):
         enum_reference_types=["Location"],
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Additional information about the procedure",
@@ -245,7 +252,7 @@ class Procedure(domainresource.DomainResource):
         element_property=True,
     )
 
-    outcome: fhirtypes.CodeableConceptType = Field(
+    outcome: CodeableConcept = Field(
         None,
         alias="outcome",
         title="The result of procedure",
@@ -257,7 +264,7 @@ class Procedure(domainresource.DomainResource):
         element_property=True,
     )
 
-    partOf: typing.List[fhirtypes.ReferenceType] = Field(
+    partOf: typing.List[Reference] = Field(
         None,
         alias="partOf",
         title="Part of referenced event",
@@ -271,7 +278,7 @@ class Procedure(domainresource.DomainResource):
         enum_reference_types=["Procedure", "Observation", "MedicationAdministration"],
     )
 
-    performedAge: fhirtypes.AgeType = Field(
+    performedAge: Age = Field(
         None,
         alias="performedAge",
         title="When the procedure was performed",
@@ -310,7 +317,7 @@ class Procedure(domainresource.DomainResource):
         title="Extension field for ``performedDateTime``.",
     )
 
-    performedPeriod: fhirtypes.PeriodType = Field(
+    performedPeriod: Period = Field(
         None,
         alias="performedPeriod",
         title="When the procedure was performed",
@@ -327,7 +334,7 @@ class Procedure(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    performedRange: fhirtypes.RangeType = Field(
+    performedRange: Range = Field(
         None,
         alias="performedRange",
         title="When the procedure was performed",
@@ -364,7 +371,7 @@ class Procedure(domainresource.DomainResource):
         None, alias="_performedString", title="Extension field for ``performedString``."
     )
 
-    performer: typing.List[fhirtypes.ProcedurePerformerType] = Field(
+    performer: typing.List["ProcedurePerformer"] = Field(
         None,
         alias="performer",
         title="The people who performed the procedure",
@@ -373,7 +380,7 @@ class Procedure(domainresource.DomainResource):
         element_property=True,
     )
 
-    reasonCode: typing.List[fhirtypes.CodeableConceptType] = Field(
+    reasonCode: typing.List[CodeableConcept] = Field(
         None,
         alias="reasonCode",
         title="Coded reason procedure performed",
@@ -385,7 +392,7 @@ class Procedure(domainresource.DomainResource):
         element_property=True,
     )
 
-    reasonReference: typing.List[fhirtypes.ReferenceType] = Field(
+    reasonReference: typing.List[Reference] = Field(
         None,
         alias="reasonReference",
         title="The justification that the procedure was performed",
@@ -402,7 +409,7 @@ class Procedure(domainresource.DomainResource):
         ],
     )
 
-    recorder: fhirtypes.ReferenceType = Field(
+    recorder: Reference = Field(
         None,
         alias="recorder",
         title="Who recorded the procedure",
@@ -421,7 +428,7 @@ class Procedure(domainresource.DomainResource):
         ],
     )
 
-    report: typing.List[fhirtypes.ReferenceType] = Field(
+    report: typing.List[Reference] = Field(
         None,
         alias="report",
         title="Any report resulting from the procedure",
@@ -466,7 +473,7 @@ class Procedure(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    statusReason: fhirtypes.CodeableConceptType = Field(
+    statusReason: CodeableConcept = Field(
         None,
         alias="statusReason",
         title="Reason for current status",
@@ -475,7 +482,7 @@ class Procedure(domainresource.DomainResource):
         element_property=True,
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         ...,
         alias="subject",
         title="Who the procedure was performed on",
@@ -486,7 +493,7 @@ class Procedure(domainresource.DomainResource):
         enum_reference_types=["Patient", "Group"],
     )
 
-    usedCode: typing.List[fhirtypes.CodeableConceptType] = Field(
+    usedCode: typing.List[CodeableConcept] = Field(
         None,
         alias="usedCode",
         title="Coded items used during the procedure",
@@ -495,7 +502,7 @@ class Procedure(domainresource.DomainResource):
         element_property=True,
     )
 
-    usedReference: typing.List[fhirtypes.ReferenceType] = Field(
+    usedReference: typing.List[Reference] = Field(
         None,
         alias="usedReference",
         title="Items used during procedure",
@@ -675,9 +682,9 @@ class ProcedureFocalDevice(backboneelement.BackboneElement):
     a focal portion of the Procedure.
     """
 
-    resource_type = Field("ProcedureFocalDevice", const=True)
+    resource_type: str = Field("ProcedureFocalDevice", const=True)
 
-    action: fhirtypes.CodeableConceptType = Field(
+    action: CodeableConcept = Field(
         None,
         alias="action",
         title="Kind of change to device",
@@ -686,7 +693,7 @@ class ProcedureFocalDevice(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    manipulated: fhirtypes.ReferenceType = Field(
+    manipulated: Reference = Field(
         ...,
         alias="manipulated",
         title="Device that was changed",
@@ -715,9 +722,9 @@ class ProcedurePerformer(backboneelement.BackboneElement):
     Limited to "real" people rather than equipment.
     """
 
-    resource_type = Field("ProcedurePerformer", const=True)
+    resource_type: str = Field("ProcedurePerformer", const=True)
 
-    actor: fhirtypes.ReferenceType = Field(
+    actor: Reference = Field(
         ...,
         alias="actor",
         title="The reference to the practitioner",
@@ -735,7 +742,7 @@ class ProcedurePerformer(backboneelement.BackboneElement):
         ],
     )
 
-    function: fhirtypes.CodeableConceptType = Field(
+    function: CodeableConcept = Field(
         None,
         alias="function",
         title="Type of performance",
@@ -747,7 +754,7 @@ class ProcedurePerformer(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    onBehalfOf: fhirtypes.ReferenceType = Field(
+    onBehalfOf: Reference = Field(
         None,
         alias="onBehalfOf",
         title="Organization the device or practitioner was acting for",
@@ -772,3 +779,6 @@ class ProcedurePerformer(backboneelement.BackboneElement):
             "actor",
             "onBehalfOf",
         ]
+
+
+Procedure.update_forward_refs()

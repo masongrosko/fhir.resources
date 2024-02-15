@@ -13,6 +13,14 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .address import Address
+from .availability import Availability
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .extendedcontactdetail import ExtendedContactDetail
+from .identifier import Identifier
+from .reference import Reference
+from .virtualservicedetail import VirtualServiceDetail
 
 
 class Location(domainresource.DomainResource):
@@ -26,9 +34,9 @@ class Location(domainresource.DomainResource):
     accommodated.
     """
 
-    resource_type = Field("Location", const=True)
+    resource_type: str = Field("Location", const=True)
 
-    address: fhirtypes.AddressType = Field(
+    address: Address = Field(
         None,
         alias="address",
         title="Physical location",
@@ -52,7 +60,7 @@ class Location(domainresource.DomainResource):
         typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
     ] = Field(None, alias="_alias", title="Extension field for ``alias``.")
 
-    characteristic: typing.List[fhirtypes.CodeableConceptType] = Field(
+    characteristic: typing.List[CodeableConcept] = Field(
         None,
         alias="characteristic",
         title="Collection of characteristics (attributes)",
@@ -61,7 +69,7 @@ class Location(domainresource.DomainResource):
         element_property=True,
     )
 
-    contact: typing.List[fhirtypes.ExtendedContactDetailType] = Field(
+    contact: typing.List[ExtendedContactDetail] = Field(
         None,
         alias="contact",
         title="Official contact details for the location",
@@ -92,7 +100,7 @@ class Location(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    endpoint: typing.List[fhirtypes.ReferenceType] = Field(
+    endpoint: typing.List[Reference] = Field(
         None,
         alias="endpoint",
         title=(
@@ -106,7 +114,7 @@ class Location(domainresource.DomainResource):
         enum_reference_types=["Endpoint"],
     )
 
-    form: fhirtypes.CodeableConceptType = Field(
+    form: CodeableConcept = Field(
         None,
         alias="form",
         title="Physical form of the location",
@@ -118,7 +126,7 @@ class Location(domainresource.DomainResource):
         element_property=True,
     )
 
-    hoursOfOperation: typing.List[fhirtypes.AvailabilityType] = Field(
+    hoursOfOperation: typing.List[Availability] = Field(
         None,
         alias="hoursOfOperation",
         title=(
@@ -133,7 +141,7 @@ class Location(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Unique code or number identifying the location to its users",
@@ -142,7 +150,7 @@ class Location(domainresource.DomainResource):
         element_property=True,
     )
 
-    managingOrganization: fhirtypes.ReferenceType = Field(
+    managingOrganization: Reference = Field(
         None,
         alias="managingOrganization",
         title="Organization responsible for provisioning and upkeep",
@@ -186,7 +194,7 @@ class Location(domainresource.DomainResource):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    operationalStatus: fhirtypes.CodingType = Field(
+    operationalStatus: Coding = Field(
         None,
         alias="operationalStatus",
         title="The operational status of the location (typically only for a bed/room)",
@@ -200,7 +208,7 @@ class Location(domainresource.DomainResource):
         element_property=True,
     )
 
-    partOf: fhirtypes.ReferenceType = Field(
+    partOf: Reference = Field(
         None,
         alias="partOf",
         title="Another Location this one is physically a part of",
@@ -211,7 +219,7 @@ class Location(domainresource.DomainResource):
         enum_reference_types=["Location"],
     )
 
-    position: fhirtypes.LocationPositionType = Field(
+    position: "LocationPosition" = Field(
         None,
         alias="position",
         title="The absolute geographic location",
@@ -242,7 +250,7 @@ class Location(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    type: typing.List[fhirtypes.CodeableConceptType] = Field(
+    type: typing.List[CodeableConcept] = Field(
         None,
         alias="type",
         title="Type of function performed",
@@ -251,7 +259,7 @@ class Location(domainresource.DomainResource):
         element_property=True,
     )
 
-    virtualService: typing.List[fhirtypes.VirtualServiceDetailType] = Field(
+    virtualService: typing.List[VirtualServiceDetail] = Field(
         None,
         alias="virtualService",
         title="Connection details of a virtual service (e.g. conference call)",
@@ -309,7 +317,7 @@ class LocationPosition(backboneelement.BackboneElement):
     datum (This is the same co-ordinate system used in KML).
     """
 
-    resource_type = Field("LocationPosition", const=True)
+    resource_type: str = Field("LocationPosition", const=True)
 
     altitude: fhirtypes.Decimal = Field(
         None,
@@ -437,3 +445,6 @@ class LocationPosition(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+Location.update_forward_refs()

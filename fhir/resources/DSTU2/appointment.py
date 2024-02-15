@@ -11,7 +11,10 @@ from pydantic.v1 import Field
 
 from . import fhirtypes
 from .backboneelement import BackboneElement
+from .codeableconcept import CodeableConcept
 from .domainresource import DomainResource
+from .identifier import Identifier
+from .reference import Reference
 
 
 class Appointment(DomainResource):
@@ -20,9 +23,9 @@ class Appointment(DomainResource):
     or more Encounter(s).
     """
 
-    resource_type = Field("Appointment", const=True)
+    resource_type: str = Field("Appointment", const=True)
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Type `CodeableConcept` (represented as `dict` in JSON)",
@@ -53,7 +56,7 @@ class Appointment(DomainResource):
         description="When appointment is to conclude",
     )
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="List of `Identifier` items (represented as `dict` in JSON)",
@@ -67,7 +70,7 @@ class Appointment(DomainResource):
         description="Can be less than start/end (e.g. estimate)",
     )
 
-    participant: ListType[fhirtypes.AppointmentParticipantType] = Field(
+    participant: ListType["AppointmentParticipant"] = Field(
         ...,
         alias="participant",
         title="List of `AppointmentParticipant` items (represented as `dict` in JSON)",
@@ -81,14 +84,14 @@ class Appointment(DomainResource):
         description="Used to make informed decisions if needing to re-prioritize",
     )
 
-    reason: fhirtypes.CodeableConceptType = Field(
+    reason: CodeableConcept = Field(
         None,
         alias="reason",
         title="CodeableConcept` (represented as `dict` in JSON)",
         description="Reason this appointment is scheduled",
     )
 
-    slot: ListType[fhirtypes.ReferenceType] = Field(
+    slot: ListType[Reference] = Field(
         None,
         alias="slot",
         title=(
@@ -122,9 +125,9 @@ class AppointmentParticipant(BackboneElement):
     List of participants involved in the appointment.
     """
 
-    resource_type = Field("AppointmentParticipant", const=True)
+    resource_type: str = Field("AppointmentParticipant", const=True)
 
-    actor: fhirtypes.ReferenceType = Field(
+    actor: Reference = Field(
         None,
         alias="actor",
         title=(
@@ -148,9 +151,12 @@ class AppointmentParticipant(BackboneElement):
         description="accepted | declined | tentative | needs-action",
     )
 
-    type: ListType[fhirtypes.CodeableConceptType] = Field(
+    type: ListType[CodeableConcept] = Field(
         None,
         alias="type",
         title="List of `CodeableConcept` items (represented as `dict` in JSON)",
         description="Role of participant in the appointment",
     )
+
+
+Appointment.update_forward_refs()

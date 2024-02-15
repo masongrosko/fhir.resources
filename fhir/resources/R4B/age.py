@@ -19,7 +19,7 @@ class Age(quantity.Quantity):
     A duration of time during which an organism (or a process) has existed.
     """
 
-    resource_type = Field("Age", const=True)
+    resource_type: str = Field("Age", const=True)
 
     @classmethod
     def elements_sequence(cls):

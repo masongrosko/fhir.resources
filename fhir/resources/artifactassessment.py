@@ -11,6 +11,11 @@ import typing
 from pydantic.v1 import Field, root_validator
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .quantity import Quantity
+from .reference import Reference
+from .relatedartifact import RelatedArtifact
 
 
 class ArtifactAssessment(domainresource.DomainResource):
@@ -25,7 +30,7 @@ class ArtifactAssessment(domainresource.DomainResource):
     added content.
     """
 
-    resource_type = Field("ArtifactAssessment", const=True)
+    resource_type: str = Field("ArtifactAssessment", const=True)
 
     approvalDate: fhirtypes.Date = Field(
         None,
@@ -63,7 +68,7 @@ class ArtifactAssessment(domainresource.DomainResource):
         title="Extension field for ``artifactCanonical``.",
     )
 
-    artifactReference: fhirtypes.ReferenceType = Field(
+    artifactReference: Reference = Field(
         None,
         alias="artifactReference",
         title="The artifact assessed, commented upon or rated",
@@ -116,7 +121,7 @@ class ArtifactAssessment(domainresource.DomainResource):
         None, alias="_citeAsMarkdown", title="Extension field for ``citeAsMarkdown``."
     )
 
-    citeAsReference: fhirtypes.ReferenceType = Field(
+    citeAsReference: Reference = Field(
         None,
         alias="citeAsReference",
         title="How to cite the comment or rating",
@@ -133,7 +138,7 @@ class ArtifactAssessment(domainresource.DomainResource):
         enum_reference_types=["Citation"],
     )
 
-    content: typing.List[fhirtypes.ArtifactAssessmentContentType] = Field(
+    content: typing.List["ArtifactAssessmentContent"] = Field(
         None,
         alias="content",
         title="Comment, classifier, or rating content",
@@ -203,7 +208,7 @@ class ArtifactAssessment(domainresource.DomainResource):
         None, alias="_disposition", title="Extension field for ``disposition``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Additional identifier for the artifact assessment",
@@ -356,9 +361,9 @@ class ArtifactAssessmentContent(backboneelement.BackboneElement):
     A component comment, classifier, or rating of the artifact.
     """
 
-    resource_type = Field("ArtifactAssessmentContent", const=True)
+    resource_type: str = Field("ArtifactAssessmentContent", const=True)
 
-    author: fhirtypes.ReferenceType = Field(
+    author: Reference = Field(
         None,
         alias="author",
         title="Who authored the content",
@@ -375,7 +380,7 @@ class ArtifactAssessmentContent(backboneelement.BackboneElement):
         ],
     )
 
-    classifier: typing.List[fhirtypes.CodeableConceptType] = Field(
+    classifier: typing.List[CodeableConcept] = Field(
         None,
         alias="classifier",
         title="Rating, classifier, or assessment",
@@ -384,7 +389,7 @@ class ArtifactAssessmentContent(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    component: typing.List[fhirtypes.ArtifactAssessmentContentType] = Field(
+    component: typing.List["ArtifactAssessmentContent"] = Field(
         None,
         alias="component",
         title="Contained content",
@@ -438,11 +443,11 @@ class ArtifactAssessmentContent(backboneelement.BackboneElement):
         # if property is element of this resource.
         element_property=True,
     )
-    path__ext: typing.List[
-        typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
-    ] = Field(None, alias="_path", title="Extension field for ``path``.")
+    path__ext: typing.List[typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]] = (
+        Field(None, alias="_path", title="Extension field for ``path``.")
+    )
 
-    quantity: fhirtypes.QuantityType = Field(
+    quantity: Quantity = Field(
         None,
         alias="quantity",
         title="Quantitative rating",
@@ -451,7 +456,7 @@ class ArtifactAssessmentContent(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    relatedArtifact: typing.List[fhirtypes.RelatedArtifactType] = Field(
+    relatedArtifact: typing.List[RelatedArtifact] = Field(
         None,
         alias="relatedArtifact",
         title="Additional information",
@@ -475,7 +480,7 @@ class ArtifactAssessmentContent(backboneelement.BackboneElement):
         None, alias="_summary", title="Extension field for ``summary``."
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="What type of content",
@@ -505,3 +510,7 @@ class ArtifactAssessmentContent(backboneelement.BackboneElement):
             "freeToShare",
             "component",
         ]
+
+
+ArtifactAssessment.update_forward_refs()
+ArtifactAssessmentContent.update_forward_refs()

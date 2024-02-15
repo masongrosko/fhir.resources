@@ -11,6 +11,8 @@ from pydantic.v1 import Field
 
 from . import fhirtypes
 from .domainresource import DomainResource
+from .identifier import Identifier
+from .reference import Reference
 
 
 class OrderResponse(DomainResource):
@@ -23,9 +25,9 @@ class OrderResponse(DomainResource):
     link between the original order and its outcome.
     """
 
-    resource_type = Field("OrderResponse", const=True)
+    resource_type: str = Field("OrderResponse", const=True)
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="List of `Identifier` items (represented as `dict` in JSON).",
@@ -34,7 +36,7 @@ class OrderResponse(DomainResource):
         element_property=True,
     )
 
-    request: fhirtypes.ReferenceType = Field(
+    request: Reference = Field(
         ...,
         alias="request",
         title="request",
@@ -54,7 +56,7 @@ class OrderResponse(DomainResource):
         element_property=True,
     )
 
-    who: fhirtypes.ReferenceType = Field(
+    who: Reference = Field(
         None,
         alias="who",
         title="who",
@@ -86,7 +88,7 @@ class OrderResponse(DomainResource):
         element_property=True,
     )
 
-    fulfillment: ListType[fhirtypes.ReferenceType] = Field(
+    fulfillment: ListType[Reference] = Field(
         None,
         alias="fulfillment",
         title="fulfillment",

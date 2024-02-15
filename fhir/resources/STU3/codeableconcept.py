@@ -11,6 +11,7 @@ import typing
 from pydantic.v1 import Field
 
 from . import element, fhirtypes
+from .coding import Coding
 
 
 class CodeableConcept(element.Element):
@@ -23,9 +24,9 @@ class CodeableConcept(element.Element):
     ontology or may be provided by text.
     """
 
-    resource_type = Field("CodeableConcept", const=True)
+    resource_type: str = Field("CodeableConcept", const=True)
 
-    coding: typing.List[fhirtypes.CodingType] = Field(
+    coding: typing.List[Coding] = Field(
         None,
         alias="coding",
         title="Code defined by a terminology system",

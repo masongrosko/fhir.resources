@@ -13,6 +13,11 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .narrative import Narrative
+from .period import Period
+from .reference import Reference
 
 
 class Composition(domainresource.DomainResource):
@@ -33,9 +38,9 @@ class Composition(domainresource.DomainResource):
     Bundle (for example Patient, Practitioner, Encounter, etc.).
     """
 
-    resource_type = Field("Composition", const=True)
+    resource_type: str = Field("Composition", const=True)
 
-    attester: typing.List[fhirtypes.CompositionAttesterType] = Field(
+    attester: typing.List["CompositionAttester"] = Field(
         None,
         alias="attester",
         title="Attests to accuracy of composition",
@@ -47,7 +52,7 @@ class Composition(domainresource.DomainResource):
         element_property=True,
     )
 
-    author: typing.List[fhirtypes.ReferenceType] = Field(
+    author: typing.List[Reference] = Field(
         ...,
         alias="author",
         title="Who and/or what authored the composition",
@@ -68,7 +73,7 @@ class Composition(domainresource.DomainResource):
         ],
     )
 
-    category: typing.List[fhirtypes.CodeableConceptType] = Field(
+    category: typing.List[CodeableConcept] = Field(
         None,
         alias="category",
         title="Categorization of Composition",
@@ -93,7 +98,7 @@ class Composition(domainresource.DomainResource):
         None, alias="_confidentiality", title="Extension field for ``confidentiality``."
     )
 
-    custodian: fhirtypes.ReferenceType = Field(
+    custodian: Reference = Field(
         None,
         alias="custodian",
         title="Organization which maintains the composition",
@@ -123,7 +128,7 @@ class Composition(domainresource.DomainResource):
         None, alias="_date", title="Extension field for ``date``."
     )
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title="Context of the Composition",
@@ -137,7 +142,7 @@ class Composition(domainresource.DomainResource):
         enum_reference_types=["Encounter"],
     )
 
-    event: typing.List[fhirtypes.CompositionEventType] = Field(
+    event: typing.List["CompositionEvent"] = Field(
         None,
         alias="event",
         title="The clinical service(s) being documented",
@@ -149,7 +154,7 @@ class Composition(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="Version-independent identifier for the Composition",
@@ -161,7 +166,7 @@ class Composition(domainresource.DomainResource):
         element_property=True,
     )
 
-    relatesTo: typing.List[fhirtypes.CompositionRelatesToType] = Field(
+    relatesTo: typing.List["CompositionRelatesTo"] = Field(
         None,
         alias="relatesTo",
         title="Relationships to other compositions/documents",
@@ -173,7 +178,7 @@ class Composition(domainresource.DomainResource):
         element_property=True,
     )
 
-    section: typing.List[fhirtypes.CompositionSectionType] = Field(
+    section: typing.List["CompositionSection"] = Field(
         None,
         alias="section",
         title="Composition is broken into sections",
@@ -201,7 +206,7 @@ class Composition(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title="Who and/or what the composition is about",
@@ -230,7 +235,7 @@ class Composition(domainresource.DomainResource):
         None, alias="_title", title="Extension field for ``title``."
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title="Kind of composition (LOINC if possible)",
@@ -348,7 +353,7 @@ class CompositionAttester(backboneelement.BackboneElement):
     A participant who has attested to the accuracy of the composition/document.
     """
 
-    resource_type = Field("CompositionAttester", const=True)
+    resource_type: str = Field("CompositionAttester", const=True)
 
     mode: fhirtypes.Code = Field(
         None,
@@ -366,7 +371,7 @@ class CompositionAttester(backboneelement.BackboneElement):
         None, alias="_mode", title="Extension field for ``mode``."
     )
 
-    party: fhirtypes.ReferenceType = Field(
+    party: Reference = Field(
         None,
         alias="party",
         title="Who attested the composition",
@@ -473,9 +478,9 @@ class CompositionEvent(backboneelement.BackboneElement):
     documented.
     """
 
-    resource_type = Field("CompositionEvent", const=True)
+    resource_type: str = Field("CompositionEvent", const=True)
 
-    code: typing.List[fhirtypes.CodeableConceptType] = Field(
+    code: typing.List[CodeableConcept] = Field(
         None,
         alias="code",
         title="Code(s) that apply to the event being documented",
@@ -490,7 +495,7 @@ class CompositionEvent(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    detail: typing.List[fhirtypes.ReferenceType] = Field(
+    detail: typing.List[Reference] = Field(
         None,
         alias="detail",
         title="The event(s) being documented",
@@ -505,7 +510,7 @@ class CompositionEvent(backboneelement.BackboneElement):
         enum_reference_types=["Resource"],
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="The period covered by the documentation",
@@ -537,7 +542,7 @@ class CompositionRelatesTo(backboneelement.BackboneElement):
     documents that already exist.
     """
 
-    resource_type = Field("CompositionRelatesTo", const=True)
+    resource_type: str = Field("CompositionRelatesTo", const=True)
 
     code: fhirtypes.Code = Field(
         None,
@@ -558,7 +563,7 @@ class CompositionRelatesTo(backboneelement.BackboneElement):
         None, alias="_code", title="Extension field for ``code``."
     )
 
-    targetIdentifier: fhirtypes.IdentifierType = Field(
+    targetIdentifier: Identifier = Field(
         None,
         alias="targetIdentifier",
         title="Target of the relationship",
@@ -570,7 +575,7 @@ class CompositionRelatesTo(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    targetReference: fhirtypes.ReferenceType = Field(
+    targetReference: Reference = Field(
         None,
         alias="targetReference",
         title="Target of the relationship",
@@ -706,9 +711,9 @@ class CompositionSection(backboneelement.BackboneElement):
     The root of the sections that make up the composition.
     """
 
-    resource_type = Field("CompositionSection", const=True)
+    resource_type: str = Field("CompositionSection", const=True)
 
-    author: typing.List[fhirtypes.ReferenceType] = Field(
+    author: typing.List[Reference] = Field(
         None,
         alias="author",
         title="Who and/or what authored the section",
@@ -729,7 +734,7 @@ class CompositionSection(backboneelement.BackboneElement):
         ],
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Classification of section (recommended)",
@@ -741,7 +746,7 @@ class CompositionSection(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    emptyReason: fhirtypes.CodeableConceptType = Field(
+    emptyReason: CodeableConcept = Field(
         None,
         alias="emptyReason",
         title="Why the section is empty",
@@ -753,7 +758,7 @@ class CompositionSection(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    entry: typing.List[fhirtypes.ReferenceType] = Field(
+    entry: typing.List[Reference] = Field(
         None,
         alias="entry",
         title="A reference to data that supports this section",
@@ -767,7 +772,7 @@ class CompositionSection(backboneelement.BackboneElement):
         enum_reference_types=["Resource"],
     )
 
-    focus: fhirtypes.ReferenceType = Field(
+    focus: Reference = Field(
         None,
         alias="focus",
         title=(
@@ -812,7 +817,7 @@ class CompositionSection(backboneelement.BackboneElement):
         None, alias="_mode", title="Extension field for ``mode``."
     )
 
-    orderedBy: fhirtypes.CodeableConceptType = Field(
+    orderedBy: CodeableConcept = Field(
         None,
         alias="orderedBy",
         title="Order of section entries",
@@ -821,7 +826,7 @@ class CompositionSection(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    section: typing.List[fhirtypes.CompositionSectionType] = Field(
+    section: typing.List["CompositionSection"] = Field(
         None,
         alias="section",
         title="Nested Section",
@@ -830,7 +835,7 @@ class CompositionSection(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    text: fhirtypes.NarrativeType = Field(
+    text: Narrative = Field(
         None,
         alias="text",
         title="Text summary of the section, for human interpretation",
@@ -882,3 +887,7 @@ class CompositionSection(backboneelement.BackboneElement):
             "emptyReason",
             "section",
         ]
+
+
+Composition.update_forward_refs()
+CompositionSection.update_forward_refs()

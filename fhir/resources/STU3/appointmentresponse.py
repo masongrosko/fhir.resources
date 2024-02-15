@@ -13,6 +13,9 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .reference import Reference
 
 
 class AppointmentResponse(domainresource.DomainResource):
@@ -24,9 +27,9 @@ class AppointmentResponse(domainresource.DomainResource):
     such as a confirmation or rejection.
     """
 
-    resource_type = Field("AppointmentResponse", const=True)
+    resource_type: str = Field("AppointmentResponse", const=True)
 
-    actor: fhirtypes.ReferenceType = Field(
+    actor: Reference = Field(
         None,
         alias="actor",
         title="Person, Location/HealthcareService or Device",
@@ -47,7 +50,7 @@ class AppointmentResponse(domainresource.DomainResource):
         ],
     )
 
-    appointment: fhirtypes.ReferenceType = Field(
+    appointment: Reference = Field(
         ...,
         alias="appointment",
         title="Appointment this response relates to",
@@ -86,7 +89,7 @@ class AppointmentResponse(domainresource.DomainResource):
         None, alias="_end", title="Extension field for ``end``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="External Ids for this item",
@@ -135,7 +138,7 @@ class AppointmentResponse(domainresource.DomainResource):
         title="Extension field for ``participantStatus``.",
     )
 
-    participantType: typing.List[fhirtypes.CodeableConceptType] = Field(
+    participantType: typing.List[CodeableConcept] = Field(
         None,
         alias="participantType",
         title="Role of participant in the appointment",

@@ -11,6 +11,9 @@ from pydantic.v1 import Field
 
 from . import domainresource, fhirtypes
 from .backboneelement import BackboneElement
+from .coding import Coding
+from .identifier import Identifier
+from .reference import Reference
 
 
 class ProcessResponse(domainresource.DomainResource):
@@ -20,9 +23,9 @@ class ProcessResponse(domainresource.DomainResource):
     errors and notes from the processing of a resource.
     """
 
-    resource_type = Field("ProcessResponse", const=True)
+    resource_type: str = Field("ProcessResponse", const=True)
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="Business identifier",
@@ -30,7 +33,7 @@ class ProcessResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    request: fhirtypes.ReferenceType = Field(
+    request: Reference = Field(
         None,
         alias="request",
         title="Type 'Reference' referencing 'Any'  (represented as 'dict' in JSON).",
@@ -40,7 +43,7 @@ class ProcessResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    outcome: fhirtypes.CodingType = Field(
+    outcome: Coding = Field(
         None,
         alias="outcome",
         title="Type `Coding` (represented as `dict` in JSON).",
@@ -56,7 +59,7 @@ class ProcessResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    ruleset: fhirtypes.CodingType = Field(
+    ruleset: Coding = Field(
         None,
         alias="ruleset",
         title="Type `Coding` (represented as `dict` in JSON).",
@@ -64,7 +67,7 @@ class ProcessResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    originalRuleset: fhirtypes.CodingType = Field(
+    originalRuleset: Coding = Field(
         None,
         alias="originalRuleset",
         title="Type `Coding` (represented as `dict` in JSON).",
@@ -80,7 +83,7 @@ class ProcessResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    organization: fhirtypes.ReferenceType = Field(
+    organization: Reference = Field(
         None,
         alias="organization",
         title="Type 'Reference' referencing 'Organization'  (represented as 'dict' in JSON).",
@@ -90,7 +93,7 @@ class ProcessResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    requestProvider: fhirtypes.ReferenceType = Field(
+    requestProvider: Reference = Field(
         None,
         alias="requestProvider",
         title="Type 'Reference' referencing 'Practitioner'  (represented as 'dict' in JSON).",
@@ -100,7 +103,7 @@ class ProcessResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    requestOrganization: fhirtypes.ReferenceType = Field(
+    requestOrganization: Reference = Field(
         None,
         alias="requestOrganization",
         title="Type 'Reference' referencing 'Organization'  (represented as 'dict' in JSON).",
@@ -110,7 +113,7 @@ class ProcessResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    form: fhirtypes.CodingType = Field(
+    form: Coding = Field(
         None,
         alias="form",
         title="Type `Coding` (represented as `dict` in JSON).",
@@ -118,7 +121,7 @@ class ProcessResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    notes: ListType[fhirtypes.ProcessResponseNotesType] = Field(
+    notes: ListType["ProcessResponseNotes"] = Field(
         None,
         alias="notes",
         title=(
@@ -130,7 +133,7 @@ class ProcessResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    error: ListType[fhirtypes.CodingType] = Field(
+    error: ListType[Coding] = Field(
         None,
         alias="error",
         title="Type `Coding` (represented as `dict` in JSON).",
@@ -146,9 +149,9 @@ class ProcessResponseNotes(BackboneElement):
     Suite of processing note or additional requirements is the processing has been held.
     """
 
-    resource_type = Field("ProcessResponseNotes", const=True)
+    resource_type: str = Field("ProcessResponseNotes", const=True)
 
-    type: fhirtypes.CodingType = Field(
+    type: Coding = Field(
         None,
         alias="type",
         title="Type `Coding` (represented as `dict` in JSON).",
@@ -163,3 +166,6 @@ class ProcessResponseNotes(BackboneElement):
         description="Notes text",
         element_property=True,
     )
+
+
+ProcessResponse.update_forward_refs()

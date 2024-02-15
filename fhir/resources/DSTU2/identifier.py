@@ -9,7 +9,10 @@ Revision: 7202
 from pydantic.v1 import Field
 
 from . import fhirtypes
+from .codeableconcept import CodeableConcept
 from .element import Element
+from .period import Period
+from .reference import Reference
 
 
 class Identifier(Element):
@@ -18,9 +21,9 @@ class Identifier(Element):
     A technical identifier - identifies some entity uniquely and unambiguously.
     """
 
-    resource_type = Field("Identifier", const=True)
+    resource_type: str = Field("Identifier", const=True)
 
-    assigner: fhirtypes.ReferenceType = Field(
+    assigner: Reference = Field(
         None,
         alias="assigner",
         title=(
@@ -30,7 +33,7 @@ class Identifier(Element):
         description="Organization that issued id (may be just text)",
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Type `Period` (represented as `dict` in JSON)",
@@ -44,7 +47,7 @@ class Identifier(Element):
         description="The namespace for the identifier value",
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Type `CodeableConcept` (represented as `dict` in JSON)",

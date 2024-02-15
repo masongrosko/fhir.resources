@@ -10,14 +10,17 @@ from typing import List as ListType
 from pydantic.v1 import Field
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .reference import Reference
 
 
 class List(domainresource.DomainResource):
     """A list is a curated collection of resources."""
 
-    resource_type = Field("List", const=True)
+    resource_type: str = Field("List", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="What the purpose of this list is",
@@ -31,14 +34,14 @@ class List(domainresource.DomainResource):
         description="The date that the list was prepared.",
     )
 
-    emptyReason: fhirtypes.CodeableConceptType = Field(
+    emptyReason: CodeableConcept = Field(
         None,
         alias="emptyReason",
         title="Why list is empty",
         description="If the list is empty, why the list is empty.",
     )
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title="Context in which list created",
@@ -47,14 +50,14 @@ class List(domainresource.DomainResource):
         enum_reference_types=["Encounter"],
     )
 
-    entry: ListType[fhirtypes.ListEntryType] = Field(
+    entry: ListType["ListEntry"] = Field(
         None,
         alias="entry",
         title="Entries in the list",
         description="Entries in this list.",
     )
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="Business identifier",
@@ -87,14 +90,14 @@ class List(domainresource.DomainResource):
         description="Comments that apply to the overall list.",
     )
 
-    orderedBy: fhirtypes.CodeableConceptType = Field(
+    orderedBy: CodeableConcept = Field(
         None,
         alias="orderedBy",
         title="What order the list has",
         description="What order applies to the items in the list.",
     )
 
-    source: fhirtypes.ReferenceType = Field(
+    source: Reference = Field(
         None,
         alias="source",
         title="Who and/or what defined the list contents (aka Author)",
@@ -117,7 +120,7 @@ class List(domainresource.DomainResource):
         enum_values=["current", "retired", "entered-in-error"],
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title="If all resources have the same subject",
@@ -143,7 +146,7 @@ class ListEntry(backboneelement.BackboneElement):
     Entries in this list.
     """
 
-    resource_type = Field("ListEntry", const=True)
+    resource_type: str = Field("ListEntry", const=True)
 
     date: fhirtypes.DateTime = Field(
         None,
@@ -159,7 +162,7 @@ class ListEntry(backboneelement.BackboneElement):
         description="True if this item is marked as deleted in the list.",
     )
 
-    flag: fhirtypes.CodeableConceptType = Field(
+    flag: CodeableConcept = Field(
         None,
         alias="flag",
         title="Status/Workflow information about this item",
@@ -169,7 +172,7 @@ class ListEntry(backboneelement.BackboneElement):
         ),
     )
 
-    item: fhirtypes.ReferenceType = Field(
+    item: Reference = Field(
         ...,
         alias="item",
         title="Actual entry",
@@ -177,3 +180,6 @@ class ListEntry(backboneelement.BackboneElement):
         # note: Listed Resource Type(s) should be allowed as Reference.
         enum_reference_types=["Resource"],
     )
+
+
+List.update_forward_refs()

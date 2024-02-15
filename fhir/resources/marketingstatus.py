@@ -9,6 +9,8 @@ Last updated: 2023-03-26T15:21:02.749+11:00
 from pydantic.v1 import Field
 
 from . import backbonetype, fhirtypes
+from .codeableconcept import CodeableConcept
+from .period import Period
 
 
 class MarketingStatus(backbonetype.BackboneType):
@@ -21,9 +23,9 @@ class MarketingStatus(backbonetype.BackboneType):
     available.
     """
 
-    resource_type = Field("MarketingStatus", const=True)
+    resource_type: str = Field("MarketingStatus", const=True)
 
-    country: fhirtypes.CodeableConceptType = Field(
+    country: CodeableConcept = Field(
         None,
         alias="country",
         title=(
@@ -36,7 +38,7 @@ class MarketingStatus(backbonetype.BackboneType):
         element_property=True,
     )
 
-    dateRange: fhirtypes.PeriodType = Field(
+    dateRange: Period = Field(
         None,
         alias="dateRange",
         title=(
@@ -53,7 +55,7 @@ class MarketingStatus(backbonetype.BackboneType):
         element_property=True,
     )
 
-    jurisdiction: fhirtypes.CodeableConceptType = Field(
+    jurisdiction: CodeableConcept = Field(
         None,
         alias="jurisdiction",
         title=(
@@ -88,7 +90,7 @@ class MarketingStatus(backbonetype.BackboneType):
         None, alias="_restoreDate", title="Extension field for ``restoreDate``."
     )
 
-    status: fhirtypes.CodeableConceptType = Field(
+    status: CodeableConcept = Field(
         ...,
         alias="status",
         title=(

@@ -11,6 +11,12 @@ import typing
 from pydantic.v1 import Field
 
 from . import backboneelement, domainresource, fhirtypes
+from .address import Address
+from .attachment import Attachment
+from .contactpoint import ContactPoint
+from .humanname import HumanName
+from .identifier import Identifier
+from .reference import Reference
 
 
 class Person(domainresource.DomainResource):
@@ -23,7 +29,7 @@ class Person(domainresource.DomainResource):
     specific health-related context.
     """
 
-    resource_type = Field("Person", const=True)
+    resource_type: str = Field("Person", const=True)
 
     active: bool = Field(
         None,
@@ -37,7 +43,7 @@ class Person(domainresource.DomainResource):
         None, alias="_active", title="Extension field for ``active``."
     )
 
-    address: typing.List[fhirtypes.AddressType] = Field(
+    address: typing.List[Address] = Field(
         None,
         alias="address",
         title="One or more addresses for the person",
@@ -73,7 +79,7 @@ class Person(domainresource.DomainResource):
         None, alias="_gender", title="Extension field for ``gender``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="A human identifier for this person",
@@ -82,7 +88,7 @@ class Person(domainresource.DomainResource):
         element_property=True,
     )
 
-    link: typing.List[fhirtypes.PersonLinkType] = Field(
+    link: typing.List["PersonLink"] = Field(
         None,
         alias="link",
         title="Link to a resource that concerns the same actual person",
@@ -91,7 +97,7 @@ class Person(domainresource.DomainResource):
         element_property=True,
     )
 
-    managingOrganization: fhirtypes.ReferenceType = Field(
+    managingOrganization: Reference = Field(
         None,
         alias="managingOrganization",
         title="The organization that is the custodian of the person record",
@@ -102,7 +108,7 @@ class Person(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    name: typing.List[fhirtypes.HumanNameType] = Field(
+    name: typing.List[HumanName] = Field(
         None,
         alias="name",
         title="A name associated with the person",
@@ -111,7 +117,7 @@ class Person(domainresource.DomainResource):
         element_property=True,
     )
 
-    photo: fhirtypes.AttachmentType = Field(
+    photo: Attachment = Field(
         None,
         alias="photo",
         title="Image of the person",
@@ -123,7 +129,7 @@ class Person(domainresource.DomainResource):
         element_property=True,
     )
 
-    telecom: typing.List[fhirtypes.ContactPointType] = Field(
+    telecom: typing.List[ContactPoint] = Field(
         None,
         alias="telecom",
         title="A contact detail for the person",
@@ -171,7 +177,7 @@ class PersonLink(backboneelement.BackboneElement):
     Link to a resource that concerns the same actual person.
     """
 
-    resource_type = Field("PersonLink", const=True)
+    resource_type: str = Field("PersonLink", const=True)
 
     assurance: fhirtypes.Code = Field(
         None,
@@ -191,7 +197,7 @@ class PersonLink(backboneelement.BackboneElement):
         None, alias="_assurance", title="Extension field for ``assurance``."
     )
 
-    target: fhirtypes.ReferenceType = Field(
+    target: Reference = Field(
         ...,
         alias="target",
         title="The resource to which this actual person is associated",
@@ -209,3 +215,6 @@ class PersonLink(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "target", "assurance"]
+
+
+Person.update_forward_refs()

@@ -12,7 +12,11 @@ from pydantic.v1 import Field, root_validator
 
 from . import fhirtypes
 from .backboneelement import BackboneElement
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .contactpoint import ContactPoint
 from .domainresource import DomainResource
+from .identifier import Identifier
 
 
 class ValueSet(DomainResource):
@@ -21,22 +25,22 @@ class ValueSet(DomainResource):
     A value set specifies a set of codes drawn from one or more code systems.
     """
 
-    resource_type = Field("ValueSet", const=True)
+    resource_type: str = Field("ValueSet", const=True)
 
-    codeSystem: fhirtypes.ValueSetCodeSystemType = Field(
+    codeSystem: "ValueSetCodeSystem" = Field(
         None,
         alias="codeSystem",
         title="Type `ValueSetCodeSystem` (represented as `dict` in JSON).",
         description="An inline code system, which is part of this value set.",
     )
 
-    compose: fhirtypes.ValueSetComposeType = Field(
+    compose: "ValueSetCompose" = Field(
         None,
         alias="compose",
         title="Type `ValueSetCompose` (represented as `dict` in JSON).",
         description="When value set includes codes from elsewhere.",
     )
-    contact: ListType[fhirtypes.ValueSetContactType] = Field(
+    contact: ListType["ValueSetContact"] = Field(
         None,
         alias="contact",
         title="List of `ValueSetContact` items (represented as `dict` in JSON).",
@@ -63,7 +67,7 @@ class ValueSet(DomainResource):
         description="Human language description of the value set.",
     )
 
-    expansion: fhirtypes.ValueSetExpansionType = Field(
+    expansion: "ValueSetExpansion" = Field(
         None,
         alias="expansion",
         title="Type `ValueSetExpansion` (represented as `dict` in JSON).",
@@ -84,7 +88,7 @@ class ValueSet(DomainResource):
         description="Whether this is intended to be used with an extensible binding.",
     )
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="Type `Identifier` (represented as `dict` in JSON).",
@@ -139,7 +143,7 @@ class ValueSet(DomainResource):
         description="Globally unique logical identifier for  value set.",
     )
 
-    useContext: ListType[fhirtypes.CodeableConceptType] = Field(
+    useContext: ListType[CodeableConcept] = Field(
         None,
         alias="useContext",
         title="List of `CodeableConcept` items (represented as `dict` in JSON).",
@@ -162,7 +166,7 @@ class ValueSetCodeSystem(BackboneElement):
     sets by referring to its (codeSystem.system) directly.
     """
 
-    resource_type = Field("ValueSetCodeSystem", const=True)
+    resource_type: str = Field("ValueSetCodeSystem", const=True)
 
     caseSensitive: fhirtypes.Boolean = Field(
         None,
@@ -171,7 +175,7 @@ class ValueSetCodeSystem(BackboneElement):
         description="If code comparison is case sensitive.",
     )
 
-    concept: ListType[fhirtypes.CodeableConceptType] = Field(
+    concept: ListType[CodeableConcept] = Field(
         None,
         alias="concept",
         title="List of `CodeableConcept` items (represented as `dict` in JSON).",
@@ -201,7 +205,7 @@ class ValueSetCodeSystemConcept(BackboneElement):
     what the meaning of the hierarchical relationships are.
     """
 
-    resource_type = Field("ValueSetCodeSystemConcept", const=True)
+    resource_type: str = Field("ValueSetCodeSystemConcept", const=True)
 
     abstract: fhirtypes.Boolean = Field(
         None,
@@ -229,13 +233,13 @@ class ValueSetCodeSystemConcept(BackboneElement):
         description="Text to display to the user.",
     )
 
-    concept: ListType[fhirtypes.CodeableConceptType] = Field(
+    concept: ListType[CodeableConcept] = Field(
         None,
         alias="concept",
         title="List of `CodeableConcept` items (represented as `dict` in JSON).",
         description="Child Concepts (is-a/contains/categorizes).",
     )
-    designation: ListType[fhirtypes.ValueSetCodeSystemConceptDesignationType] = Field(
+    designation: ListType["ValueSetCodeSystemConceptDesignation"] = Field(
         None,
         alias="designation",
         title=(
@@ -253,7 +257,7 @@ class ValueSetCodeSystemConceptDesignation(BackboneElement):
     specialized purposes, used for particular purposes, etc.
     """
 
-    resource_type = Field("ValueSetCodeSystemConceptDesignation", const=True)
+    resource_type: str = Field("ValueSetCodeSystemConceptDesignation", const=True)
 
     language: fhirtypes.Code = Field(
         None,
@@ -268,7 +272,7 @@ class ValueSetCodeSystemConceptDesignation(BackboneElement):
         description="The text value for this designation.",
     )
 
-    use: fhirtypes.CodingType = Field(
+    use: Coding = Field(
         None,
         alias="use",
         title="Type `Coding` (represented as `dict` in JSON).",
@@ -283,9 +287,9 @@ class ValueSetCompose(BackboneElement):
     set by including or excluding codes from outside this value set.
     """
 
-    resource_type = Field("ValueSetCompose", const=True)
+    resource_type: str = Field("ValueSetCompose", const=True)
 
-    exclude: ListType[fhirtypes.ValueSetComposeIncludeType] = Field(
+    exclude: ListType["ValueSetComposeInclude"] = Field(
         None,
         alias="exclude",
         title="List of `ValueSetComposeInclude` items (represented as `dict` in JSON).",
@@ -299,7 +303,7 @@ class ValueSetCompose(BackboneElement):
         description="Import the contents of another value set.",
     )
 
-    include: ListType[fhirtypes.ValueSetComposeIncludeType] = Field(
+    include: ListType["ValueSetComposeInclude"] = Field(
         None,
         alias="include",
         title="List of `ValueSetComposeInclude` items (represented as `dict` in JSON).",
@@ -310,16 +314,16 @@ class ValueSetCompose(BackboneElement):
 class ValueSetComposeInclude(BackboneElement):
     """Include one or more codes from a code system."""
 
-    resource_type = Field("ValueSetComposeInclude", const=True)
+    resource_type: str = Field("ValueSetComposeInclude", const=True)
 
-    concept: ListType[fhirtypes.ValueSetComposeIncludeConceptType] = Field(
+    concept: ListType["ValueSetComposeIncludeConcept"] = Field(
         None,
         alias="concept",
         title="List of `ValueSetComposeIncludeConcept` items (represented as `dict` in JSON).",
         description="A concept defined in the system.",
     )
 
-    filter: ListType[fhirtypes.ValueSetComposeIncludeFilterType] = Field(
+    filter: ListType["ValueSetComposeIncludeFilter"] = Field(
         None,
         alias="filter",
         title="List of `ValueSetComposeIncludeFilter` items (represented as `dict` in JSON).",
@@ -346,7 +350,7 @@ class ValueSetComposeIncludeConcept(BackboneElement):
     Specifies a concept to be included or excluded.
     """
 
-    resource_type = Field("ValueSetComposeIncludeConcept", const=True)
+    resource_type: str = Field("ValueSetComposeIncludeConcept", const=True)
 
     code: fhirtypes.Code = Field(
         None,
@@ -361,7 +365,7 @@ class ValueSetComposeIncludeConcept(BackboneElement):
         description="Test to display for this code for this value set.",
     )
 
-    designation: ListType[fhirtypes.ValueSetCodeSystemConceptDesignationType] = Field(
+    designation: ListType["ValueSetCodeSystemConceptDesignation"] = Field(
         None,
         alias="designation",
         title=(
@@ -380,7 +384,7 @@ class ValueSetComposeIncludeFilter(BackboneElement):
     specified, they SHALL all be true.
     """
 
-    resource_type = Field("ValueSetComposeIncludeFilter", const=True)
+    resource_type: str = Field("ValueSetComposeIncludeFilter", const=True)
 
     op: fhirtypes.Code = Field(
         None,
@@ -410,7 +414,7 @@ class ValueSetContact(BackboneElement):
     Contacts to assist a user in finding and communicating with the publisher.
     """
 
-    resource_type = Field("ValueSetContact", const=True)
+    resource_type: str = Field("ValueSetContact", const=True)
 
     name: fhirtypes.String = Field(
         None,
@@ -419,7 +423,7 @@ class ValueSetContact(BackboneElement):
         description="Name of an individual to contact.",
     )
 
-    telecom: ListType[fhirtypes.ContactPointType] = Field(
+    telecom: ListType[ContactPoint] = Field(
         None,
         alias="telecom",
         title="List of `ContactPoint` items (represented as `dict` in JSON).",
@@ -435,7 +439,7 @@ class ValueSetExpansion(BackboneElement):
     it has been performed.
     """
 
-    resource_type = Field("ValueSetExpansion", const=True)
+    resource_type: str = Field("ValueSetExpansion", const=True)
 
     identifier: fhirtypes.Uri = Field(
         ...,
@@ -444,7 +448,7 @@ class ValueSetExpansion(BackboneElement):
         description="Uniquely identifies this expansion.",
     )
 
-    contains: ListType[fhirtypes.ValueSetExpansionContainsType] = Field(
+    contains: ListType["ValueSetExpansionContains"] = Field(
         None,
         alias="contains",
         title="List of `ValueSetExpansionContains` items (represented as `dict` in JSON).",
@@ -471,7 +475,7 @@ class ValueSetExpansion(BackboneElement):
         description="Total number of codes in the expansion.",
     )
 
-    parameter: ListType[fhirtypes.ValueSetExpansionParameterType] = Field(
+    parameter: ListType["ValueSetExpansionParameter"] = Field(
         None,
         alias="parameter",
         title="List of `ValueSetExpansionParameter` items (represented as `dict` in JSON).",
@@ -485,7 +489,7 @@ class ValueSetExpansionContains(BackboneElement):
     The codes that are contained in the value set expansion.
     """
 
-    resource_type = Field("ValueSetExpansionContains", const=True)
+    resource_type: str = Field("ValueSetExpansionContains", const=True)
 
     abstract: fhirtypes.Boolean = Field(
         None,
@@ -522,7 +526,7 @@ class ValueSetExpansionContains(BackboneElement):
         description=" System value for the code.",
     )
 
-    contains: ListType[fhirtypes.ValueSetExpansionContainsType] = Field(
+    contains: ListType["ValueSetExpansionContains"] = Field(
         None,
         alias="contains",
         title="List of `ValueSetExpansionContains` items (represented as `dict` in JSON).",
@@ -538,7 +542,7 @@ class ValueSetExpansionParameter(BackboneElement):
     suitable for a particular purpose, or to pick the correct expansion.
     """
 
-    resource_type = Field("ValueSetExpansionParameter", const=True)
+    resource_type: str = Field("ValueSetExpansionParameter", const=True)
 
     valueBoolean: bool = Field(
         None,
@@ -644,3 +648,12 @@ class ValueSetExpansionParameter(BackboneElement):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+ValueSet.update_forward_refs()
+ValueSetCodeSystemConcept.update_forward_refs()
+ValueSetCompose.update_forward_refs()
+ValueSetComposeInclude.update_forward_refs()
+ValueSetComposeIncludeConcept.update_forward_refs()
+ValueSetExpansion.update_forward_refs()
+ValueSetExpansionContains.update_forward_refs()

@@ -13,6 +13,13 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .codeablereference import CodeableReference
+from .duration import Duration
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
+from .virtualservicedetail import VirtualServiceDetail
 
 
 class Encounter(domainresource.DomainResource):
@@ -28,9 +35,9 @@ class Encounter(domainresource.DomainResource):
     planned activities.
     """
 
-    resource_type = Field("Encounter", const=True)
+    resource_type: str = Field("Encounter", const=True)
 
-    account: typing.List[fhirtypes.ReferenceType] = Field(
+    account: typing.List[Reference] = Field(
         None,
         alias="account",
         title="The set of accounts that may be used for billing for this Encounter",
@@ -41,7 +48,7 @@ class Encounter(domainresource.DomainResource):
         enum_reference_types=["Account"],
     )
 
-    actualPeriod: fhirtypes.PeriodType = Field(
+    actualPeriod: Period = Field(
         None,
         alias="actualPeriod",
         title="The actual start and end time of the encounter",
@@ -50,7 +57,7 @@ class Encounter(domainresource.DomainResource):
         element_property=True,
     )
 
-    admission: fhirtypes.EncounterAdmissionType = Field(
+    admission: "EncounterAdmission" = Field(
         None,
         alias="admission",
         title="Details about the admission to a healthcare service",
@@ -64,7 +71,7 @@ class Encounter(domainresource.DomainResource):
         element_property=True,
     )
 
-    appointment: typing.List[fhirtypes.ReferenceType] = Field(
+    appointment: typing.List[Reference] = Field(
         None,
         alias="appointment",
         title="The appointment that scheduled this encounter",
@@ -75,7 +82,7 @@ class Encounter(domainresource.DomainResource):
         enum_reference_types=["Appointment"],
     )
 
-    basedOn: typing.List[fhirtypes.ReferenceType] = Field(
+    basedOn: typing.List[Reference] = Field(
         None,
         alias="basedOn",
         title="The request that initiated this encounter",
@@ -94,7 +101,7 @@ class Encounter(domainresource.DomainResource):
         ],
     )
 
-    careTeam: typing.List[fhirtypes.ReferenceType] = Field(
+    careTeam: typing.List[Reference] = Field(
         None,
         alias="careTeam",
         title="The group(s) that are allocated to participate in this encounter",
@@ -110,7 +117,7 @@ class Encounter(domainresource.DomainResource):
         enum_reference_types=["CareTeam"],
     )
 
-    class_fhir: typing.List[fhirtypes.CodeableConceptType] = Field(
+    class_fhir: typing.List[CodeableConcept] = Field(
         None,
         alias="class",
         title=(
@@ -126,7 +133,7 @@ class Encounter(domainresource.DomainResource):
         element_property=True,
     )
 
-    diagnosis: typing.List[fhirtypes.EncounterDiagnosisType] = Field(
+    diagnosis: typing.List["EncounterDiagnosis"] = Field(
         None,
         alias="diagnosis",
         title="The list of diagnosis relevant to this encounter",
@@ -135,7 +142,7 @@ class Encounter(domainresource.DomainResource):
         element_property=True,
     )
 
-    dietPreference: typing.List[fhirtypes.CodeableConceptType] = Field(
+    dietPreference: typing.List[CodeableConcept] = Field(
         None,
         alias="dietPreference",
         title="Diet preferences reported by the patient",
@@ -144,7 +151,7 @@ class Encounter(domainresource.DomainResource):
         element_property=True,
     )
 
-    episodeOfCare: typing.List[fhirtypes.ReferenceType] = Field(
+    episodeOfCare: typing.List[Reference] = Field(
         None,
         alias="episodeOfCare",
         title="Episode(s) of care that this encounter should be recorded against",
@@ -164,7 +171,7 @@ class Encounter(domainresource.DomainResource):
         enum_reference_types=["EpisodeOfCare"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Identifier(s) by which this encounter is known",
@@ -173,7 +180,7 @@ class Encounter(domainresource.DomainResource):
         element_property=True,
     )
 
-    length: fhirtypes.DurationType = Field(
+    length: Duration = Field(
         None,
         alias="length",
         title="Actual quantity of time the encounter lasted (less time absent)",
@@ -186,7 +193,7 @@ class Encounter(domainresource.DomainResource):
         element_property=True,
     )
 
-    location: typing.List[fhirtypes.EncounterLocationType] = Field(
+    location: typing.List["EncounterLocation"] = Field(
         None,
         alias="location",
         title="List of locations where the patient has been",
@@ -195,7 +202,7 @@ class Encounter(domainresource.DomainResource):
         element_property=True,
     )
 
-    partOf: fhirtypes.ReferenceType = Field(
+    partOf: Reference = Field(
         None,
         alias="partOf",
         title="Another Encounter this encounter is part of",
@@ -209,7 +216,7 @@ class Encounter(domainresource.DomainResource):
         enum_reference_types=["Encounter"],
     )
 
-    participant: typing.List[fhirtypes.EncounterParticipantType] = Field(
+    participant: typing.List["EncounterParticipant"] = Field(
         None,
         alias="participant",
         title="List of participants involved in the encounter",
@@ -244,7 +251,7 @@ class Encounter(domainresource.DomainResource):
         title="Extension field for ``plannedStartDate``.",
     )
 
-    priority: fhirtypes.CodeableConceptType = Field(
+    priority: CodeableConcept = Field(
         None,
         alias="priority",
         title="Indicates the urgency of the encounter",
@@ -253,7 +260,7 @@ class Encounter(domainresource.DomainResource):
         element_property=True,
     )
 
-    reason: typing.List[fhirtypes.EncounterReasonType] = Field(
+    reason: typing.List["EncounterReason"] = Field(
         None,
         alias="reason",
         title=(
@@ -265,7 +272,7 @@ class Encounter(domainresource.DomainResource):
         element_property=True,
     )
 
-    serviceProvider: fhirtypes.ReferenceType = Field(
+    serviceProvider: Reference = Field(
         None,
         alias="serviceProvider",
         title="The organization (facility) responsible for this encounter",
@@ -283,7 +290,7 @@ class Encounter(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    serviceType: typing.List[fhirtypes.CodeableReferenceType] = Field(
+    serviceType: typing.List[CodeableReference] = Field(
         None,
         alias="serviceType",
         title="Specific type of service",
@@ -297,7 +304,7 @@ class Encounter(domainresource.DomainResource):
         enum_reference_types=["HealthcareService"],
     )
 
-    specialArrangement: typing.List[fhirtypes.CodeableConceptType] = Field(
+    specialArrangement: typing.List[CodeableConcept] = Field(
         None,
         alias="specialArrangement",
         title="Wheelchair, translator, stretcher, etc",
@@ -309,7 +316,7 @@ class Encounter(domainresource.DomainResource):
         element_property=True,
     )
 
-    specialCourtesy: typing.List[fhirtypes.CodeableConceptType] = Field(
+    specialCourtesy: typing.List[CodeableConcept] = Field(
         None,
         alias="specialCourtesy",
         title="Special courtesies (VIP, board member)",
@@ -353,7 +360,7 @@ class Encounter(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title="The patient or group related to this encounter",
@@ -368,7 +375,7 @@ class Encounter(domainresource.DomainResource):
         enum_reference_types=["Patient", "Group"],
     )
 
-    subjectStatus: fhirtypes.CodeableConceptType = Field(
+    subjectStatus: CodeableConcept = Field(
         None,
         alias="subjectStatus",
         title="The current status of the subject in relation to the Encounter",
@@ -381,7 +388,7 @@ class Encounter(domainresource.DomainResource):
         element_property=True,
     )
 
-    type: typing.List[fhirtypes.CodeableConceptType] = Field(
+    type: typing.List[CodeableConcept] = Field(
         None,
         alias="type",
         title=(
@@ -396,7 +403,7 @@ class Encounter(domainresource.DomainResource):
         element_property=True,
     )
 
-    virtualService: typing.List[fhirtypes.VirtualServiceDetailType] = Field(
+    virtualService: typing.List[VirtualServiceDetail] = Field(
         None,
         alias="virtualService",
         title="Connection details of a virtual service (e.g. conference call)",
@@ -523,9 +530,9 @@ class EncounterAdmission(backboneelement.BackboneElement):
     discharge.
     """
 
-    resource_type = Field("EncounterAdmission", const=True)
+    resource_type: str = Field("EncounterAdmission", const=True)
 
-    admitSource: fhirtypes.CodeableConceptType = Field(
+    admitSource: CodeableConcept = Field(
         None,
         alias="admitSource",
         title="From where patient was admitted (physician referral, transfer)",
@@ -534,7 +541,7 @@ class EncounterAdmission(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    destination: fhirtypes.ReferenceType = Field(
+    destination: Reference = Field(
         None,
         alias="destination",
         title="Location/organization to which the patient is discharged",
@@ -545,7 +552,7 @@ class EncounterAdmission(backboneelement.BackboneElement):
         enum_reference_types=["Location", "Organization"],
     )
 
-    dischargeDisposition: fhirtypes.CodeableConceptType = Field(
+    dischargeDisposition: CodeableConcept = Field(
         None,
         alias="dischargeDisposition",
         title="Category or kind of location after discharge",
@@ -554,7 +561,7 @@ class EncounterAdmission(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    origin: fhirtypes.ReferenceType = Field(
+    origin: Reference = Field(
         None,
         alias="origin",
         title="The location/organization from which the patient came before admission",
@@ -565,7 +572,7 @@ class EncounterAdmission(backboneelement.BackboneElement):
         enum_reference_types=["Location", "Organization"],
     )
 
-    preAdmissionIdentifier: fhirtypes.IdentifierType = Field(
+    preAdmissionIdentifier: Identifier = Field(
         None,
         alias="preAdmissionIdentifier",
         title="Pre-admission identifier",
@@ -574,7 +581,7 @@ class EncounterAdmission(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    reAdmission: fhirtypes.CodeableConceptType = Field(
+    reAdmission: CodeableConcept = Field(
         None,
         alias="reAdmission",
         title="Indicates that the patient is being re-admitted",
@@ -614,9 +621,9 @@ class EncounterDiagnosis(backboneelement.BackboneElement):
     The list of diagnosis relevant to this encounter.
     """
 
-    resource_type = Field("EncounterDiagnosis", const=True)
+    resource_type: str = Field("EncounterDiagnosis", const=True)
 
-    condition: typing.List[fhirtypes.CodeableReferenceType] = Field(
+    condition: typing.List[CodeableReference] = Field(
         None,
         alias="condition",
         title="The diagnosis relevant to the encounter",
@@ -631,7 +638,7 @@ class EncounterDiagnosis(backboneelement.BackboneElement):
         enum_reference_types=["Condition"],
     )
 
-    use: typing.List[fhirtypes.CodeableConceptType] = Field(
+    use: typing.List[CodeableConcept] = Field(
         None,
         alias="use",
         title=(
@@ -661,9 +668,9 @@ class EncounterLocation(backboneelement.BackboneElement):
     List of locations where  the patient has been during this encounter.
     """
 
-    resource_type = Field("EncounterLocation", const=True)
+    resource_type: str = Field("EncounterLocation", const=True)
 
-    form: fhirtypes.CodeableConceptType = Field(
+    form: CodeableConcept = Field(
         None,
         alias="form",
         title=(
@@ -678,7 +685,7 @@ class EncounterLocation(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    location: fhirtypes.ReferenceType = Field(
+    location: Reference = Field(
         ...,
         alias="location",
         title="Location the encounter takes place",
@@ -689,7 +696,7 @@ class EncounterLocation(backboneelement.BackboneElement):
         enum_reference_types=["Location"],
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Time period during which the patient was present at the location",
@@ -743,9 +750,9 @@ class EncounterParticipant(backboneelement.BackboneElement):
     The list of people responsible for providing the service.
     """
 
-    resource_type = Field("EncounterParticipant", const=True)
+    resource_type: str = Field("EncounterParticipant", const=True)
 
-    actor: fhirtypes.ReferenceType = Field(
+    actor: Reference = Field(
         None,
         alias="actor",
         title="The individual, device, or service participating in the encounter",
@@ -770,7 +777,7 @@ class EncounterParticipant(backboneelement.BackboneElement):
         ],
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Period of time during the encounter that the participant participated",
@@ -783,7 +790,7 @@ class EncounterParticipant(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    type: typing.List[fhirtypes.CodeableConceptType] = Field(
+    type: typing.List[CodeableConcept] = Field(
         None,
         alias="type",
         title="Role of participant in encounter",
@@ -810,9 +817,9 @@ class EncounterReason(backboneelement.BackboneElement):
     episode of care.
     """
 
-    resource_type = Field("EncounterReason", const=True)
+    resource_type: str = Field("EncounterReason", const=True)
 
-    use: typing.List[fhirtypes.CodeableConceptType] = Field(
+    use: typing.List[CodeableConcept] = Field(
         None,
         alias="use",
         title="What the reason value should be used for/as",
@@ -824,7 +831,7 @@ class EncounterReason(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    value: typing.List[fhirtypes.CodeableReferenceType] = Field(
+    value: typing.List[CodeableReference] = Field(
         None,
         alias="value",
         title="Reason the encounter takes place (core or reference)",
@@ -852,3 +859,6 @@ class EncounterReason(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "use", "value"]
+
+
+Encounter.update_forward_refs()

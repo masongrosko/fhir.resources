@@ -13,6 +13,12 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .money import Money
+from .period import Period
+from .quantity import Quantity
+from .reference import Reference
 
 
 class Coverage(domainresource.DomainResource):
@@ -25,9 +31,9 @@ class Coverage(domainresource.DomainResource):
     products and services. Includes both insurance and self-payment.
     """
 
-    resource_type = Field("Coverage", const=True)
+    resource_type: str = Field("Coverage", const=True)
 
-    beneficiary: fhirtypes.ReferenceType = Field(
+    beneficiary: Reference = Field(
         ...,
         alias="beneficiary",
         title="Plan beneficiary",
@@ -41,7 +47,7 @@ class Coverage(domainresource.DomainResource):
         enum_reference_types=["Patient"],
     )
 
-    class_fhir: typing.List[fhirtypes.CoverageClassType] = Field(
+    class_fhir: typing.List["CoverageClass"] = Field(
         None,
         alias="class",
         title="Additional coverage classifications",
@@ -50,7 +56,7 @@ class Coverage(domainresource.DomainResource):
         element_property=True,
     )
 
-    contract: typing.List[fhirtypes.ReferenceType] = Field(
+    contract: typing.List[Reference] = Field(
         None,
         alias="contract",
         title="Contract details",
@@ -61,7 +67,7 @@ class Coverage(domainresource.DomainResource):
         enum_reference_types=["Contract"],
     )
 
-    costToBeneficiary: typing.List[fhirtypes.CoverageCostToBeneficiaryType] = Field(
+    costToBeneficiary: typing.List["CoverageCostToBeneficiary"] = Field(
         None,
         alias="costToBeneficiary",
         title="Patient payments for services/products",
@@ -86,7 +92,7 @@ class Coverage(domainresource.DomainResource):
         None, alias="_dependent", title="Extension field for ``dependent``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business identifier(s) for this coverage",
@@ -95,7 +101,7 @@ class Coverage(domainresource.DomainResource):
         element_property=True,
     )
 
-    insurancePlan: fhirtypes.ReferenceType = Field(
+    insurancePlan: Reference = Field(
         None,
         alias="insurancePlan",
         title="Insurance plan details",
@@ -109,7 +115,7 @@ class Coverage(domainresource.DomainResource):
         enum_reference_types=["InsurancePlan"],
     )
 
-    insurer: fhirtypes.ReferenceType = Field(
+    insurer: Reference = Field(
         None,
         alias="insurer",
         title="Issuer of the policy",
@@ -178,7 +184,7 @@ class Coverage(domainresource.DomainResource):
         None, alias="_order", title="Extension field for ``order``."
     )
 
-    paymentBy: typing.List[fhirtypes.CoveragePaymentByType] = Field(
+    paymentBy: typing.List["CoveragePaymentBy"] = Field(
         None,
         alias="paymentBy",
         title="Self-pay parties and responsibility",
@@ -190,7 +196,7 @@ class Coverage(domainresource.DomainResource):
         element_property=True,
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Coverage start and end dates",
@@ -203,7 +209,7 @@ class Coverage(domainresource.DomainResource):
         element_property=True,
     )
 
-    policyHolder: fhirtypes.ReferenceType = Field(
+    policyHolder: Reference = Field(
         None,
         alias="policyHolder",
         title="Owner of the policy",
@@ -214,7 +220,7 @@ class Coverage(domainresource.DomainResource):
         enum_reference_types=["Patient", "RelatedPerson", "Organization"],
     )
 
-    relationship: fhirtypes.CodeableConceptType = Field(
+    relationship: CodeableConcept = Field(
         None,
         alias="relationship",
         title="Beneficiary relationship to the subscriber",
@@ -255,7 +261,7 @@ class Coverage(domainresource.DomainResource):
         None, alias="_subrogation", title="Extension field for ``subrogation``."
     )
 
-    subscriber: fhirtypes.ReferenceType = Field(
+    subscriber: Reference = Field(
         None,
         alias="subscriber",
         title="Subscriber to the policy",
@@ -270,7 +276,7 @@ class Coverage(domainresource.DomainResource):
         enum_reference_types=["Patient", "RelatedPerson"],
     )
 
-    subscriberId: typing.List[fhirtypes.IdentifierType] = Field(
+    subscriberId: typing.List[Identifier] = Field(
         None,
         alias="subscriberId",
         title="ID assigned to the subscriber",
@@ -279,7 +285,7 @@ class Coverage(domainresource.DomainResource):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Coverage category such as medical or accident",
@@ -398,7 +404,7 @@ class CoverageClass(backboneelement.BackboneElement):
     A suite of underwriter specific classifiers.
     """
 
-    resource_type = Field("CoverageClass", const=True)
+    resource_type: str = Field("CoverageClass", const=True)
 
     name: fhirtypes.String = Field(
         None,
@@ -412,7 +418,7 @@ class CoverageClass(backboneelement.BackboneElement):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title="Type of class such as 'group' or 'plan'",
@@ -426,7 +432,7 @@ class CoverageClass(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    value: fhirtypes.IdentifierType = Field(
+    value: Identifier = Field(
         ...,
         alias="value",
         title="Value associated with the type",
@@ -455,9 +461,9 @@ class CoverageCostToBeneficiary(backboneelement.BackboneElement):
     card.
     """
 
-    resource_type = Field("CoverageCostToBeneficiary", const=True)
+    resource_type: str = Field("CoverageCostToBeneficiary", const=True)
 
-    category: fhirtypes.CodeableConceptType = Field(
+    category: CodeableConcept = Field(
         None,
         alias="category",
         title="Benefit classification",
@@ -469,7 +475,7 @@ class CoverageCostToBeneficiary(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    exception: typing.List[fhirtypes.CoverageCostToBeneficiaryExceptionType] = Field(
+    exception: typing.List["CoverageCostToBeneficiaryException"] = Field(
         None,
         alias="exception",
         title="Exceptions for patient payments",
@@ -481,7 +487,7 @@ class CoverageCostToBeneficiary(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    network: fhirtypes.CodeableConceptType = Field(
+    network: CodeableConcept = Field(
         None,
         alias="network",
         title="In or out of network",
@@ -493,7 +499,7 @@ class CoverageCostToBeneficiary(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    term: fhirtypes.CodeableConceptType = Field(
+    term: CodeableConcept = Field(
         None,
         alias="term",
         title="Annual or lifetime",
@@ -505,7 +511,7 @@ class CoverageCostToBeneficiary(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Cost category",
@@ -514,7 +520,7 @@ class CoverageCostToBeneficiary(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    unit: fhirtypes.CodeableConceptType = Field(
+    unit: CodeableConcept = Field(
         None,
         alias="unit",
         title="Individual or family",
@@ -523,7 +529,7 @@ class CoverageCostToBeneficiary(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    valueMoney: fhirtypes.MoneyType = Field(
+    valueMoney: Money = Field(
         None,
         alias="valueMoney",
         title="The amount or percentage due from the beneficiary",
@@ -535,7 +541,7 @@ class CoverageCostToBeneficiary(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    valueQuantity: fhirtypes.QuantityType = Field(
+    valueQuantity: Quantity = Field(
         None,
         alias="valueQuantity",
         title="The amount or percentage due from the beneficiary",
@@ -616,9 +622,9 @@ class CoverageCostToBeneficiaryException(backboneelement.BackboneElement):
     their effective periods.
     """
 
-    resource_type = Field("CoverageCostToBeneficiaryException", const=True)
+    resource_type: str = Field("CoverageCostToBeneficiaryException", const=True)
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="The effective period of the exception",
@@ -627,7 +633,7 @@ class CoverageCostToBeneficiaryException(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title="Exception category",
@@ -655,9 +661,9 @@ class CoveragePaymentBy(backboneelement.BackboneElement):
     responsible to pay.
     """
 
-    resource_type = Field("CoveragePaymentBy", const=True)
+    resource_type: str = Field("CoveragePaymentBy", const=True)
 
-    party: fhirtypes.ReferenceType = Field(
+    party: Reference = Field(
         ...,
         alias="party",
         title="Parties performing self-payment",
@@ -690,3 +696,7 @@ class CoveragePaymentBy(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "party", "responsibility"]
+
+
+Coverage.update_forward_refs()
+CoverageCostToBeneficiary.update_forward_refs()

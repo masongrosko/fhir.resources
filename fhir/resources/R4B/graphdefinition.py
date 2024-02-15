@@ -13,6 +13,9 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .contactdetail import ContactDetail
+from .usagecontext import UsageContext
 
 
 class GraphDefinition(domainresource.DomainResource):
@@ -26,9 +29,9 @@ class GraphDefinition(domainresource.DomainResource):
     Graph Definition resource defines a set and makes rules about the set.
     """
 
-    resource_type = Field("GraphDefinition", const=True)
+    resource_type: str = Field("GraphDefinition", const=True)
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -88,7 +91,7 @@ class GraphDefinition(domainresource.DomainResource):
         None, alias="_experimental", title="Extension field for ``experimental``."
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction for graph definition (if applicable)",
@@ -100,7 +103,7 @@ class GraphDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    link: typing.List[fhirtypes.GraphDefinitionLinkType] = Field(
+    link: typing.List["GraphDefinitionLink"] = Field(
         None,
         alias="link",
         title="Links this graph makes rules about",
@@ -225,7 +228,7 @@ class GraphDefinition(domainresource.DomainResource):
         None, alias="_url", title="Extension field for ``url``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="The context that the content is intended to support",
@@ -364,7 +367,7 @@ class GraphDefinitionLink(backboneelement.BackboneElement):
     Links this graph makes rules about.
     """
 
-    resource_type = Field("GraphDefinitionLink", const=True)
+    resource_type: str = Field("GraphDefinitionLink", const=True)
 
     description: fhirtypes.String = Field(
         None,
@@ -432,7 +435,7 @@ class GraphDefinitionLink(backboneelement.BackboneElement):
         None, alias="_sliceName", title="Extension field for ``sliceName``."
     )
 
-    target: typing.List[fhirtypes.GraphDefinitionLinkTargetType] = Field(
+    target: typing.List["GraphDefinitionLinkTarget"] = Field(
         None,
         alias="target",
         title="Potential target for the link",
@@ -468,11 +471,9 @@ class GraphDefinitionLinkTarget(backboneelement.BackboneElement):
     Potential target for the link.
     """
 
-    resource_type = Field("GraphDefinitionLinkTarget", const=True)
+    resource_type: str = Field("GraphDefinitionLinkTarget", const=True)
 
-    compartment: typing.List[
-        fhirtypes.GraphDefinitionLinkTargetCompartmentType
-    ] = Field(
+    compartment: typing.List["GraphDefinitionLinkTargetCompartment"] = Field(
         None,
         alias="compartment",
         title="Compartment Consistency Rules",
@@ -481,7 +482,7 @@ class GraphDefinitionLinkTarget(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    link: typing.List[fhirtypes.GraphDefinitionLinkType] = Field(
+    link: typing.List["GraphDefinitionLink"] = Field(
         None,
         alias="link",
         title="Additional links from target resource",
@@ -614,7 +615,7 @@ class GraphDefinitionLinkTargetCompartment(backboneelement.BackboneElement):
     Compartment Consistency Rules.
     """
 
-    resource_type = Field("GraphDefinitionLinkTargetCompartment", const=True)
+    resource_type: str = Field("GraphDefinitionLinkTargetCompartment", const=True)
 
     code: fhirtypes.Code = Field(
         None,
@@ -771,3 +772,8 @@ class GraphDefinitionLinkTargetCompartment(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+GraphDefinition.update_forward_refs()
+GraphDefinitionLink.update_forward_refs()
+GraphDefinitionLinkTarget.update_forward_refs()

@@ -11,6 +11,13 @@ import typing
 from pydantic.v1 import Field
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .extendedcontactdetail import ExtendedContactDetail
+from .identifier import Identifier
+from .money import Money
+from .period import Period
+from .quantity import Quantity
+from .reference import Reference
 
 
 class InsurancePlan(domainresource.DomainResource):
@@ -21,9 +28,9 @@ class InsurancePlan(domainresource.DomainResource):
     Details of a Health Insurance product/plan provided by an organization.
     """
 
-    resource_type = Field("InsurancePlan", const=True)
+    resource_type: str = Field("InsurancePlan", const=True)
 
-    administeredBy: fhirtypes.ReferenceType = Field(
+    administeredBy: Reference = Field(
         None,
         alias="administeredBy",
         title="Product administrator",
@@ -53,7 +60,7 @@ class InsurancePlan(domainresource.DomainResource):
         typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
     ] = Field(None, alias="_alias", title="Extension field for ``alias``.")
 
-    contact: typing.List[fhirtypes.ExtendedContactDetailType] = Field(
+    contact: typing.List[ExtendedContactDetail] = Field(
         None,
         alias="contact",
         title="Official contact details relevant to the health insurance plan/product",
@@ -66,7 +73,7 @@ class InsurancePlan(domainresource.DomainResource):
         element_property=True,
     )
 
-    coverage: typing.List[fhirtypes.InsurancePlanCoverageType] = Field(
+    coverage: typing.List["InsurancePlanCoverage"] = Field(
         None,
         alias="coverage",
         title="Coverage details",
@@ -75,7 +82,7 @@ class InsurancePlan(domainresource.DomainResource):
         element_property=True,
     )
 
-    coverageArea: typing.List[fhirtypes.ReferenceType] = Field(
+    coverageArea: typing.List[Reference] = Field(
         None,
         alias="coverageArea",
         title="Where product applies",
@@ -89,7 +96,7 @@ class InsurancePlan(domainresource.DomainResource):
         enum_reference_types=["Location"],
     )
 
-    endpoint: typing.List[fhirtypes.ReferenceType] = Field(
+    endpoint: typing.List[Reference] = Field(
         None,
         alias="endpoint",
         title="Technical endpoint",
@@ -103,7 +110,7 @@ class InsurancePlan(domainresource.DomainResource):
         enum_reference_types=["Endpoint"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business Identifier for Product",
@@ -131,7 +138,7 @@ class InsurancePlan(domainresource.DomainResource):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    network: typing.List[fhirtypes.ReferenceType] = Field(
+    network: typing.List[Reference] = Field(
         None,
         alias="network",
         title="What networks are Included",
@@ -142,7 +149,7 @@ class InsurancePlan(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    ownedBy: fhirtypes.ReferenceType = Field(
+    ownedBy: Reference = Field(
         None,
         alias="ownedBy",
         title="Product issuer",
@@ -158,7 +165,7 @@ class InsurancePlan(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="When the product is available",
@@ -167,7 +174,7 @@ class InsurancePlan(domainresource.DomainResource):
         element_property=True,
     )
 
-    plan: typing.List[fhirtypes.InsurancePlanPlanType] = Field(
+    plan: typing.List["InsurancePlanPlan"] = Field(
         None,
         alias="plan",
         title="Plan details",
@@ -191,7 +198,7 @@ class InsurancePlan(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    type: typing.List[fhirtypes.CodeableConceptType] = Field(
+    type: typing.List[CodeableConcept] = Field(
         None,
         alias="type",
         title="Kind of product",
@@ -241,9 +248,9 @@ class InsurancePlanCoverage(backboneelement.BackboneElement):
     Details about the coverage offered by the insurance product.
     """
 
-    resource_type = Field("InsurancePlanCoverage", const=True)
+    resource_type: str = Field("InsurancePlanCoverage", const=True)
 
-    benefit: typing.List[fhirtypes.InsurancePlanCoverageBenefitType] = Field(
+    benefit: typing.List["InsurancePlanCoverageBenefit"] = Field(
         ...,
         alias="benefit",
         title="List of benefits",
@@ -252,7 +259,7 @@ class InsurancePlanCoverage(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    network: typing.List[fhirtypes.ReferenceType] = Field(
+    network: typing.List[Reference] = Field(
         None,
         alias="network",
         title="What networks provide coverage",
@@ -263,7 +270,7 @@ class InsurancePlanCoverage(backboneelement.BackboneElement):
         enum_reference_types=["Organization"],
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title="Type of coverage",
@@ -293,9 +300,9 @@ class InsurancePlanCoverageBenefit(backboneelement.BackboneElement):
     Specific benefits under this type of coverage.
     """
 
-    resource_type = Field("InsurancePlanCoverageBenefit", const=True)
+    resource_type: str = Field("InsurancePlanCoverageBenefit", const=True)
 
-    limit: typing.List[fhirtypes.InsurancePlanCoverageBenefitLimitType] = Field(
+    limit: typing.List["InsurancePlanCoverageBenefitLimit"] = Field(
         None,
         alias="limit",
         title="Benefit limits",
@@ -316,7 +323,7 @@ class InsurancePlanCoverageBenefit(backboneelement.BackboneElement):
         None, alias="_requirement", title="Extension field for ``requirement``."
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title="Type of benefit",
@@ -345,9 +352,9 @@ class InsurancePlanCoverageBenefitLimit(backboneelement.BackboneElement):
     The specific limits on the benefit.
     """
 
-    resource_type = Field("InsurancePlanCoverageBenefitLimit", const=True)
+    resource_type: str = Field("InsurancePlanCoverageBenefitLimit", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Benefit limit details",
@@ -356,7 +363,7 @@ class InsurancePlanCoverageBenefitLimit(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    value: fhirtypes.QuantityType = Field(
+    value: Quantity = Field(
         None,
         alias="value",
         title="Maximum value allowed",
@@ -386,9 +393,9 @@ class InsurancePlanPlan(backboneelement.BackboneElement):
     Details about an insurance plan.
     """
 
-    resource_type = Field("InsurancePlanPlan", const=True)
+    resource_type: str = Field("InsurancePlanPlan", const=True)
 
-    coverageArea: typing.List[fhirtypes.ReferenceType] = Field(
+    coverageArea: typing.List[Reference] = Field(
         None,
         alias="coverageArea",
         title="Where product applies",
@@ -402,7 +409,7 @@ class InsurancePlanPlan(backboneelement.BackboneElement):
         enum_reference_types=["Location"],
     )
 
-    generalCost: typing.List[fhirtypes.InsurancePlanPlanGeneralCostType] = Field(
+    generalCost: typing.List["InsurancePlanPlanGeneralCost"] = Field(
         None,
         alias="generalCost",
         title="Overall costs",
@@ -411,7 +418,7 @@ class InsurancePlanPlan(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business Identifier for Product",
@@ -424,7 +431,7 @@ class InsurancePlanPlan(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    network: typing.List[fhirtypes.ReferenceType] = Field(
+    network: typing.List[Reference] = Field(
         None,
         alias="network",
         title="What networks provide coverage",
@@ -435,7 +442,7 @@ class InsurancePlanPlan(backboneelement.BackboneElement):
         enum_reference_types=["Organization"],
     )
 
-    specificCost: typing.List[fhirtypes.InsurancePlanPlanSpecificCostType] = Field(
+    specificCost: typing.List["InsurancePlanPlanSpecificCost"] = Field(
         None,
         alias="specificCost",
         title="Specific costs",
@@ -444,7 +451,7 @@ class InsurancePlanPlan(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Type of plan",
@@ -481,7 +488,7 @@ class InsurancePlanPlanGeneralCost(backboneelement.BackboneElement):
     Overall costs associated with the plan.
     """
 
-    resource_type = Field("InsurancePlanPlanGeneralCost", const=True)
+    resource_type: str = Field("InsurancePlanPlanGeneralCost", const=True)
 
     comment: fhirtypes.String = Field(
         None,
@@ -498,7 +505,7 @@ class InsurancePlanPlanGeneralCost(backboneelement.BackboneElement):
         None, alias="_comment", title="Extension field for ``comment``."
     )
 
-    cost: fhirtypes.MoneyType = Field(
+    cost: Money = Field(
         None,
         alias="cost",
         title="Cost value",
@@ -519,7 +526,7 @@ class InsurancePlanPlanGeneralCost(backboneelement.BackboneElement):
         None, alias="_groupSize", title="Extension field for ``groupSize``."
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Type of cost",
@@ -554,9 +561,9 @@ class InsurancePlanPlanSpecificCost(backboneelement.BackboneElement):
     Costs associated with the coverage provided by the product.
     """
 
-    resource_type = Field("InsurancePlanPlanSpecificCost", const=True)
+    resource_type: str = Field("InsurancePlanPlanSpecificCost", const=True)
 
-    benefit: typing.List[fhirtypes.InsurancePlanPlanSpecificCostBenefitType] = Field(
+    benefit: typing.List["InsurancePlanPlanSpecificCostBenefit"] = Field(
         None,
         alias="benefit",
         title="Benefits list",
@@ -565,7 +572,7 @@ class InsurancePlanPlanSpecificCost(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    category: fhirtypes.CodeableConceptType = Field(
+    category: CodeableConcept = Field(
         ...,
         alias="category",
         title="General category of benefit",
@@ -595,9 +602,9 @@ class InsurancePlanPlanSpecificCostBenefit(backboneelement.BackboneElement):
     List of the specific benefits under this category of benefit.
     """
 
-    resource_type = Field("InsurancePlanPlanSpecificCostBenefit", const=True)
+    resource_type: str = Field("InsurancePlanPlanSpecificCostBenefit", const=True)
 
-    cost: typing.List[fhirtypes.InsurancePlanPlanSpecificCostBenefitCostType] = Field(
+    cost: typing.List["InsurancePlanPlanSpecificCostBenefitCost"] = Field(
         None,
         alias="cost",
         title="List of the costs",
@@ -606,7 +613,7 @@ class InsurancePlanPlanSpecificCostBenefit(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title="Type of specific benefit",
@@ -637,9 +644,9 @@ class InsurancePlanPlanSpecificCostBenefitCost(backboneelement.BackboneElement):
     List of the costs associated with a specific benefit.
     """
 
-    resource_type = Field("InsurancePlanPlanSpecificCostBenefitCost", const=True)
+    resource_type: str = Field("InsurancePlanPlanSpecificCostBenefitCost", const=True)
 
-    applicability: fhirtypes.CodeableConceptType = Field(
+    applicability: CodeableConcept = Field(
         None,
         alias="applicability",
         title="in-network | out-of-network | other",
@@ -651,7 +658,7 @@ class InsurancePlanPlanSpecificCostBenefitCost(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    qualifiers: typing.List[fhirtypes.CodeableConceptType] = Field(
+    qualifiers: typing.List[CodeableConcept] = Field(
         None,
         alias="qualifiers",
         title="Additional information about the cost",
@@ -663,7 +670,7 @@ class InsurancePlanPlanSpecificCostBenefitCost(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title="Type of cost",
@@ -675,7 +682,7 @@ class InsurancePlanPlanSpecificCostBenefitCost(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    value: fhirtypes.QuantityType = Field(
+    value: Quantity = Field(
         None,
         alias="value",
         title="The actual cost value",
@@ -702,3 +709,11 @@ class InsurancePlanPlanSpecificCostBenefitCost(backboneelement.BackboneElement):
             "qualifiers",
             "value",
         ]
+
+
+InsurancePlan.update_forward_refs()
+InsurancePlanCoverage.update_forward_refs()
+InsurancePlanCoverageBenefit.update_forward_refs()
+InsurancePlanPlan.update_forward_refs()
+InsurancePlanPlanSpecificCost.update_forward_refs()
+InsurancePlanPlanSpecificCostBenefit.update_forward_refs()

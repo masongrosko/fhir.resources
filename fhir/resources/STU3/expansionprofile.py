@@ -13,6 +13,11 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .contactdetail import ContactDetail
+from .identifier import Identifier
+from .usagecontext import UsageContext
 
 
 class ExpansionProfile(domainresource.DomainResource):
@@ -24,7 +29,7 @@ class ExpansionProfile(domainresource.DomainResource):
     Resource to define constraints on the Expansion of a FHIR ValueSet.
     """
 
-    resource_type = Field("ExpansionProfile", const=True)
+    resource_type: str = Field("ExpansionProfile", const=True)
 
     activeOnly: bool = Field(
         None,
@@ -41,7 +46,7 @@ class ExpansionProfile(domainresource.DomainResource):
         None, alias="_activeOnly", title="Extension field for ``activeOnly``."
     )
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -86,7 +91,7 @@ class ExpansionProfile(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    designation: fhirtypes.ExpansionProfileDesignationType = Field(
+    designation: "ExpansionProfileDesignation" = Field(
         None,
         alias="designation",
         title="When the expansion profile imposes designation contraints",
@@ -169,7 +174,7 @@ class ExpansionProfile(domainresource.DomainResource):
         title="Extension field for ``excludePostCoordinated``.",
     )
 
-    excludedSystem: fhirtypes.ExpansionProfileExcludedSystemType = Field(
+    excludedSystem: "ExpansionProfileExcludedSystem" = Field(
         None,
         alias="excludedSystem",
         title="Systems/Versions to be exclude",
@@ -197,7 +202,7 @@ class ExpansionProfile(domainresource.DomainResource):
         None, alias="_experimental", title="Extension field for ``experimental``."
     )
 
-    fixedVersion: typing.List[fhirtypes.ExpansionProfileFixedVersionType] = Field(
+    fixedVersion: typing.List["ExpansionProfileFixedVersion"] = Field(
         None,
         alias="fixedVersion",
         title="Fix use of a code system to a particular version",
@@ -206,7 +211,7 @@ class ExpansionProfile(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="Additional identifier for the expansion profile",
@@ -253,7 +258,7 @@ class ExpansionProfile(domainresource.DomainResource):
         title="Extension field for ``includeDesignations``.",
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction for expansion profile (if applicable)",
@@ -358,7 +363,7 @@ class ExpansionProfile(domainresource.DomainResource):
         None, alias="_url", title="Extension field for ``url``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="Context the content is intended to support",
@@ -501,9 +506,9 @@ class ExpansionProfileDesignation(backboneelement.BackboneElement):
     expansion by including or excluding designations.
     """
 
-    resource_type = Field("ExpansionProfileDesignation", const=True)
+    resource_type: str = Field("ExpansionProfileDesignation", const=True)
 
-    exclude: fhirtypes.ExpansionProfileDesignationExcludeType = Field(
+    exclude: "ExpansionProfileDesignationExclude" = Field(
         None,
         alias="exclude",
         title="Designations to be excluded",
@@ -512,7 +517,7 @@ class ExpansionProfileDesignation(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    include: fhirtypes.ExpansionProfileDesignationIncludeType = Field(
+    include: "ExpansionProfileDesignationInclude" = Field(
         None,
         alias="include",
         title="Designations to be included",
@@ -538,11 +543,9 @@ class ExpansionProfileDesignationExclude(backboneelement.BackboneElement):
     Designations to be excluded.
     """
 
-    resource_type = Field("ExpansionProfileDesignationExclude", const=True)
+    resource_type: str = Field("ExpansionProfileDesignationExclude", const=True)
 
-    designation: typing.List[
-        fhirtypes.ExpansionProfileDesignationExcludeDesignationType
-    ] = Field(
+    designation: typing.List["ExpansionProfileDesignationExcludeDesignation"] = Field(
         None,
         alias="designation",
         title="The designation to be excluded",
@@ -569,7 +572,9 @@ class ExpansionProfileDesignationExcludeDesignation(backboneelement.BackboneElem
     A data group for each designation to be excluded.
     """
 
-    resource_type = Field("ExpansionProfileDesignationExcludeDesignation", const=True)
+    resource_type: str = Field(
+        "ExpansionProfileDesignationExcludeDesignation", const=True
+    )
 
     language: fhirtypes.Code = Field(
         None,
@@ -583,7 +588,7 @@ class ExpansionProfileDesignationExcludeDesignation(backboneelement.BackboneElem
         None, alias="_language", title="Extension field for ``language``."
     )
 
-    use: fhirtypes.CodingType = Field(
+    use: Coding = Field(
         None,
         alias="use",
         title="What kind of Designation to exclude",
@@ -609,11 +614,9 @@ class ExpansionProfileDesignationInclude(backboneelement.BackboneElement):
     Designations to be included.
     """
 
-    resource_type = Field("ExpansionProfileDesignationInclude", const=True)
+    resource_type: str = Field("ExpansionProfileDesignationInclude", const=True)
 
-    designation: typing.List[
-        fhirtypes.ExpansionProfileDesignationIncludeDesignationType
-    ] = Field(
+    designation: typing.List["ExpansionProfileDesignationIncludeDesignation"] = Field(
         None,
         alias="designation",
         title="The designation to be included",
@@ -640,7 +643,9 @@ class ExpansionProfileDesignationIncludeDesignation(backboneelement.BackboneElem
     A data group for each designation to be included.
     """
 
-    resource_type = Field("ExpansionProfileDesignationIncludeDesignation", const=True)
+    resource_type: str = Field(
+        "ExpansionProfileDesignationIncludeDesignation", const=True
+    )
 
     language: fhirtypes.Code = Field(
         None,
@@ -654,7 +659,7 @@ class ExpansionProfileDesignationIncludeDesignation(backboneelement.BackboneElem
         None, alias="_language", title="Extension field for ``language``."
     )
 
-    use: fhirtypes.CodingType = Field(
+    use: Coding = Field(
         None,
         alias="use",
         title="What kind of Designation to include",
@@ -682,7 +687,7 @@ class ExpansionProfileExcludedSystem(backboneelement.BackboneElement):
     value set expansions.
     """
 
-    resource_type = Field("ExpansionProfileExcludedSystem", const=True)
+    resource_type: str = Field("ExpansionProfileExcludedSystem", const=True)
 
     system: fhirtypes.Uri = Field(
         None,
@@ -789,7 +794,7 @@ class ExpansionProfileFixedVersion(backboneelement.BackboneElement):
     Fix use of a particular code system to a particular version.
     """
 
-    resource_type = Field("ExpansionProfileFixedVersion", const=True)
+    resource_type: str = Field("ExpansionProfileFixedVersion", const=True)
 
     mode: fhirtypes.Code = Field(
         None,
@@ -909,3 +914,9 @@ class ExpansionProfileFixedVersion(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+ExpansionProfile.update_forward_refs()
+ExpansionProfileDesignation.update_forward_refs()
+ExpansionProfileDesignationExclude.update_forward_refs()
+ExpansionProfileDesignationInclude.update_forward_refs()

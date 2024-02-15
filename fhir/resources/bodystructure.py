@@ -11,6 +11,12 @@ import typing
 from pydantic.v1 import Field
 
 from . import backboneelement, domainresource, fhirtypes
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .codeablereference import CodeableReference
+from .identifier import Identifier
+from .quantity import Quantity
+from .reference import Reference
 
 
 class BodyStructure(domainresource.DomainResource):
@@ -24,7 +30,7 @@ class BodyStructure(domainresource.DomainResource):
     use case.
     """
 
-    resource_type = Field("BodyStructure", const=True)
+    resource_type: str = Field("BodyStructure", const=True)
 
     active: bool = Field(
         None,
@@ -50,9 +56,7 @@ class BodyStructure(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    excludedStructure: typing.List[
-        fhirtypes.BodyStructureIncludedStructureType
-    ] = Field(
+    excludedStructure: typing.List["BodyStructureIncludedStructure"] = Field(
         None,
         alias="excludedStructure",
         title="Excluded anatomic locations(s)",
@@ -64,7 +68,7 @@ class BodyStructure(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Bodystructure identifier",
@@ -73,7 +77,7 @@ class BodyStructure(domainresource.DomainResource):
         element_property=True,
     )
 
-    image: typing.List[fhirtypes.AttachmentType] = Field(
+    image: typing.List[Attachment] = Field(
         None,
         alias="image",
         title="Attached images",
@@ -82,9 +86,7 @@ class BodyStructure(domainresource.DomainResource):
         element_property=True,
     )
 
-    includedStructure: typing.List[
-        fhirtypes.BodyStructureIncludedStructureType
-    ] = Field(
+    includedStructure: typing.List["BodyStructureIncludedStructure"] = Field(
         ...,
         alias="includedStructure",
         title="Included anatomic location(s)",
@@ -96,7 +98,7 @@ class BodyStructure(domainresource.DomainResource):
         element_property=True,
     )
 
-    morphology: fhirtypes.CodeableConceptType = Field(
+    morphology: CodeableConcept = Field(
         None,
         alias="morphology",
         title="Kind of Structure",
@@ -109,7 +111,7 @@ class BodyStructure(domainresource.DomainResource):
         element_property=True,
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         ...,
         alias="patient",
         title="Who this is about",
@@ -156,10 +158,10 @@ class BodyStructureIncludedStructure(backboneelement.BackboneElement):
     structure.
     """
 
-    resource_type = Field("BodyStructureIncludedStructure", const=True)
+    resource_type: str = Field("BodyStructureIncludedStructure", const=True)
 
     bodyLandmarkOrientation: typing.List[
-        fhirtypes.BodyStructureIncludedStructureBodyLandmarkOrientationType
+        "BodyStructureIncludedStructureBodyLandmarkOrientation"
     ] = Field(
         None,
         alias="bodyLandmarkOrientation",
@@ -172,7 +174,7 @@ class BodyStructureIncludedStructure(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    laterality: fhirtypes.CodeableConceptType = Field(
+    laterality: CodeableConcept = Field(
         None,
         alias="laterality",
         title="Code that represents the included structure laterality",
@@ -181,7 +183,7 @@ class BodyStructureIncludedStructure(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    qualifier: typing.List[fhirtypes.CodeableConceptType] = Field(
+    qualifier: typing.List[CodeableConcept] = Field(
         None,
         alias="qualifier",
         title="Code that represents the included structure qualifier",
@@ -190,7 +192,7 @@ class BodyStructureIncludedStructure(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    spatialReference: typing.List[fhirtypes.ReferenceType] = Field(
+    spatialReference: typing.List[Reference] = Field(
         None,
         alias="spatialReference",
         title="Cartesian reference for structure",
@@ -201,7 +203,7 @@ class BodyStructureIncludedStructure(backboneelement.BackboneElement):
         enum_reference_types=["ImagingSelection"],
     )
 
-    structure: fhirtypes.CodeableConceptType = Field(
+    structure: CodeableConcept = Field(
         ...,
         alias="structure",
         title="Code that represents the included structure",
@@ -240,11 +242,11 @@ class BodyStructureIncludedStructureBodyLandmarkOrientation(
     body structure).
     """
 
-    resource_type = Field(
+    resource_type: str = Field(
         "BodyStructureIncludedStructureBodyLandmarkOrientation", const=True
     )
 
-    clockFacePosition: typing.List[fhirtypes.CodeableConceptType] = Field(
+    clockFacePosition: typing.List[CodeableConcept] = Field(
         None,
         alias="clockFacePosition",
         title="Clockface orientation",
@@ -257,7 +259,7 @@ class BodyStructureIncludedStructureBodyLandmarkOrientation(
     )
 
     distanceFromLandmark: typing.List[
-        fhirtypes.BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmarkType
+        "BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark"
     ] = Field(
         None,
         alias="distanceFromLandmark",
@@ -270,7 +272,7 @@ class BodyStructureIncludedStructureBodyLandmarkOrientation(
         element_property=True,
     )
 
-    landmarkDescription: typing.List[fhirtypes.CodeableConceptType] = Field(
+    landmarkDescription: typing.List[CodeableConcept] = Field(
         None,
         alias="landmarkDescription",
         title="Body ]andmark description",
@@ -282,7 +284,7 @@ class BodyStructureIncludedStructureBodyLandmarkOrientation(
         element_property=True,
     )
 
-    surfaceOrientation: typing.List[fhirtypes.CodeableConceptType] = Field(
+    surfaceOrientation: typing.List[CodeableConcept] = Field(
         None,
         alias="surfaceOrientation",
         title="Relative landmark surface orientation",
@@ -320,12 +322,12 @@ class BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark(
     landmark.
     """
 
-    resource_type = Field(
+    resource_type: str = Field(
         "BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark",
         const=True,
     )
 
-    device: typing.List[fhirtypes.CodeableReferenceType] = Field(
+    device: typing.List[CodeableReference] = Field(
         None,
         alias="device",
         title="Measurement device",
@@ -336,7 +338,7 @@ class BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark(
         enum_reference_types=["Device"],
     )
 
-    value: typing.List[fhirtypes.QuantityType] = Field(
+    value: typing.List[Quantity] = Field(
         None,
         alias="value",
         title="Measured distance from body landmark",
@@ -354,3 +356,8 @@ class BodyStructureIncludedStructureBodyLandmarkOrientationDistanceFromLandmark(
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "device", "value"]
+
+
+BodyStructure.update_forward_refs()
+BodyStructureIncludedStructure.update_forward_refs()
+BodyStructureIncludedStructureBodyLandmarkOrientation.update_forward_refs()

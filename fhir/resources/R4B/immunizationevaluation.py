@@ -13,6 +13,9 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .reference import Reference
 
 
 class ImmunizationEvaluation(domainresource.DomainResource):
@@ -26,9 +29,9 @@ class ImmunizationEvaluation(domainresource.DomainResource):
     to those  recommendations.
     """
 
-    resource_type = Field("ImmunizationEvaluation", const=True)
+    resource_type: str = Field("ImmunizationEvaluation", const=True)
 
-    authority: fhirtypes.ReferenceType = Field(
+    authority: Reference = Field(
         None,
         alias="authority",
         title="Who is responsible for publishing the recommendations",
@@ -100,7 +103,7 @@ class ImmunizationEvaluation(domainresource.DomainResource):
         title="Extension field for ``doseNumberString``.",
     )
 
-    doseStatus: fhirtypes.CodeableConceptType = Field(
+    doseStatus: CodeableConcept = Field(
         ...,
         alias="doseStatus",
         title="Status of the dose relative to published recommendations",
@@ -112,7 +115,7 @@ class ImmunizationEvaluation(domainresource.DomainResource):
         element_property=True,
     )
 
-    doseStatusReason: typing.List[fhirtypes.CodeableConceptType] = Field(
+    doseStatusReason: typing.List[CodeableConcept] = Field(
         None,
         alias="doseStatusReason",
         title="Reason for the dose status",
@@ -124,7 +127,7 @@ class ImmunizationEvaluation(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business identifier",
@@ -133,7 +136,7 @@ class ImmunizationEvaluation(domainresource.DomainResource):
         element_property=True,
     )
 
-    immunizationEvent: fhirtypes.ReferenceType = Field(
+    immunizationEvent: Reference = Field(
         ...,
         alias="immunizationEvent",
         title="Immunization being evaluated",
@@ -144,7 +147,7 @@ class ImmunizationEvaluation(domainresource.DomainResource):
         enum_reference_types=["Immunization"],
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         ...,
         alias="patient",
         title="Who this evaluation is for",
@@ -223,7 +226,7 @@ class ImmunizationEvaluation(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    targetDisease: fhirtypes.CodeableConceptType = Field(
+    targetDisease: CodeableConcept = Field(
         ...,
         alias="targetDisease",
         title="Evaluation target disease",

@@ -13,6 +13,12 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .period import Period
+from .quantity import Quantity
+from .range import Range
+from .reference import Reference
 
 
 class Group(domainresource.DomainResource):
@@ -27,7 +33,7 @@ class Group(domainresource.DomainResource):
     isn't an Organization.
     """
 
-    resource_type = Field("Group", const=True)
+    resource_type: str = Field("Group", const=True)
 
     active: bool = Field(
         None,
@@ -61,7 +67,7 @@ class Group(domainresource.DomainResource):
         None, alias="_actual", title="Extension field for ``actual``."
     )
 
-    characteristic: typing.List[fhirtypes.GroupCharacteristicType] = Field(
+    characteristic: typing.List["GroupCharacteristic"] = Field(
         None,
         alias="characteristic",
         title="Trait of group members",
@@ -70,7 +76,7 @@ class Group(domainresource.DomainResource):
         element_property=True,
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Kind of Group members",
@@ -82,7 +88,7 @@ class Group(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Unique id",
@@ -91,7 +97,7 @@ class Group(domainresource.DomainResource):
         element_property=True,
     )
 
-    member: typing.List[fhirtypes.GroupMemberType] = Field(
+    member: typing.List["GroupMember"] = Field(
         None,
         alias="member",
         title="Who or what is in group",
@@ -250,9 +256,9 @@ class GroupCharacteristic(backboneelement.BackboneElement):
     Identifies the traits shared by members of the group.
     """
 
-    resource_type = Field("GroupCharacteristic", const=True)
+    resource_type: str = Field("GroupCharacteristic", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         ...,
         alias="code",
         title="Kind of characteristic",
@@ -277,7 +283,7 @@ class GroupCharacteristic(backboneelement.BackboneElement):
         None, alias="_exclude", title="Extension field for ``exclude``."
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Period over which characteristic is tested",
@@ -307,7 +313,7 @@ class GroupCharacteristic(backboneelement.BackboneElement):
         None, alias="_valueBoolean", title="Extension field for ``valueBoolean``."
     )
 
-    valueCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    valueCodeableConcept: CodeableConcept = Field(
         None,
         alias="valueCodeableConcept",
         title="Value held by characteristic",
@@ -322,7 +328,7 @@ class GroupCharacteristic(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueQuantity: fhirtypes.QuantityType = Field(
+    valueQuantity: Quantity = Field(
         None,
         alias="valueQuantity",
         title="Value held by characteristic",
@@ -337,7 +343,7 @@ class GroupCharacteristic(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueRange: fhirtypes.RangeType = Field(
+    valueRange: Range = Field(
         None,
         alias="valueRange",
         title="Value held by characteristic",
@@ -485,9 +491,9 @@ class GroupMember(backboneelement.BackboneElement):
     Identifies the resource instances that are members of the group.
     """
 
-    resource_type = Field("GroupMember", const=True)
+    resource_type: str = Field("GroupMember", const=True)
 
-    entity: fhirtypes.ReferenceType = Field(
+    entity: Reference = Field(
         ...,
         alias="entity",
         title="Reference to the group member",
@@ -522,7 +528,7 @@ class GroupMember(backboneelement.BackboneElement):
         None, alias="_inactive", title="Extension field for ``inactive``."
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Period member belonged to the group",
@@ -538,3 +544,6 @@ class GroupMember(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "entity", "period", "inactive"]
+
+
+Group.update_forward_refs()

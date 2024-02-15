@@ -19,7 +19,7 @@ class Duration(quantity.Quantity):
     A length of time.
     """
 
-    resource_type = Field("Duration", const=True)
+    resource_type: str = Field("Duration", const=True)
 
     @classmethod
     def elements_sequence(cls):

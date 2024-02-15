@@ -10,7 +10,11 @@ from typing import List as ListType
 from pydantic.v1 import Field
 
 from . import fhirtypes
+from .codeableconcept import CodeableConcept
 from .domainresource import DomainResource
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class Schedule(DomainResource):
@@ -18,9 +22,9 @@ class Schedule(DomainResource):
     appointments.
     """
 
-    resource_type = Field("Schedule", const=True)
+    resource_type: str = Field("Schedule", const=True)
 
-    actor: fhirtypes.ReferenceType = Field(
+    actor: Reference = Field(
         ...,
         alias="actor",
         title=(
@@ -46,14 +50,14 @@ class Schedule(DomainResource):
         ),
     )
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="List of `Identifier` items (represented as `dict` in JSON)",
         description="External Ids for this item",
     )
 
-    planningHorizon: fhirtypes.PeriodType = Field(
+    planningHorizon: Period = Field(
         None,
         alias="planningHorizon",
         title="Type `Period` (represented as `dict` in JSON)",
@@ -66,7 +70,7 @@ class Schedule(DomainResource):
         ),
     )
 
-    type: ListType[fhirtypes.CodeableConceptType] = Field(
+    type: ListType[CodeableConcept] = Field(
         None,
         alias="type",
         title="List of `CodeableConcept` items (represented as `dict` in JSON)",

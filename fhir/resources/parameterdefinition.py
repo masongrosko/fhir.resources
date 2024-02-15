@@ -27,7 +27,7 @@ class ParameterDefinition(datatype.DataType):
     GuidanceResponse.
     """
 
-    resource_type = Field("ParameterDefinition", const=True)
+    resource_type: str = Field("ParameterDefinition", const=True)
 
     documentation: fhirtypes.String = Field(
         None,

@@ -11,6 +11,7 @@ import typing
 from pydantic.v1 import Field
 
 from . import element, fhirtypes
+from .coding import Coding
 
 
 class Meta(element.Element):
@@ -24,7 +25,7 @@ class Meta(element.Element):
     associated with version changes to the resource.
     """
 
-    resource_type = Field("Meta", const=True)
+    resource_type: str = Field("Meta", const=True)
 
     lastUpdated: fhirtypes.Instant = Field(
         None,
@@ -55,7 +56,7 @@ class Meta(element.Element):
         typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
     ] = Field(None, alias="_profile", title="Extension field for ``profile``.")
 
-    security: typing.List[fhirtypes.CodingType] = Field(
+    security: typing.List[Coding] = Field(
         None,
         alias="security",
         title="Security Labels applied to this resource",
@@ -67,7 +68,7 @@ class Meta(element.Element):
         element_property=True,
     )
 
-    tag: typing.List[fhirtypes.CodingType] = Field(
+    tag: typing.List[Coding] = Field(
         None,
         alias="tag",
         title="Tags applied to this resource",

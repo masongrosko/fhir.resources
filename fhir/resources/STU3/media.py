@@ -13,6 +13,12 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import domainresource, fhirtypes
+from .annotation import Annotation
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class Media(domainresource.DomainResource):
@@ -24,9 +30,9 @@ class Media(domainresource.DomainResource):
     actual content may be inline or provided by direct reference.
     """
 
-    resource_type = Field("Media", const=True)
+    resource_type: str = Field("Media", const=True)
 
-    basedOn: typing.List[fhirtypes.ReferenceType] = Field(
+    basedOn: typing.List[Reference] = Field(
         None,
         alias="basedOn",
         title="Procedure that caused this media to be created",
@@ -40,7 +46,7 @@ class Media(domainresource.DomainResource):
         enum_reference_types=["ProcedureRequest"],
     )
 
-    bodySite: fhirtypes.CodeableConceptType = Field(
+    bodySite: CodeableConcept = Field(
         None,
         alias="bodySite",
         title="Body part in media",
@@ -52,7 +58,7 @@ class Media(domainresource.DomainResource):
         element_property=True,
     )
 
-    content: fhirtypes.AttachmentType = Field(
+    content: Attachment = Field(
         ...,
         alias="content",
         title="Actual Media - reference or data",
@@ -64,7 +70,7 @@ class Media(domainresource.DomainResource):
         element_property=True,
     )
 
-    context: fhirtypes.ReferenceType = Field(
+    context: Reference = Field(
         None,
         alias="context",
         title="Encounter / Episode associated with media",
@@ -78,7 +84,7 @@ class Media(domainresource.DomainResource):
         enum_reference_types=["Encounter", "EpisodeOfCare"],
     )
 
-    device: fhirtypes.ReferenceType = Field(
+    device: Reference = Field(
         None,
         alias="device",
         title="Observing Device",
@@ -131,7 +137,7 @@ class Media(domainresource.DomainResource):
         None, alias="_height", title="Extension field for ``height``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Identifier(s) for the image",
@@ -145,7 +151,7 @@ class Media(domainresource.DomainResource):
         element_property=True,
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Comments made about the media",
@@ -174,7 +180,7 @@ class Media(domainresource.DomainResource):
         title="Extension field for ``occurrenceDateTime``.",
     )
 
-    occurrencePeriod: fhirtypes.PeriodType = Field(
+    occurrencePeriod: Period = Field(
         None,
         alias="occurrencePeriod",
         title="When Media was collected",
@@ -186,7 +192,7 @@ class Media(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    operator: fhirtypes.ReferenceType = Field(
+    operator: Reference = Field(
         None,
         alias="operator",
         title="The person who generated the image",
@@ -197,7 +203,7 @@ class Media(domainresource.DomainResource):
         enum_reference_types=["Practitioner"],
     )
 
-    reasonCode: typing.List[fhirtypes.CodeableConceptType] = Field(
+    reasonCode: typing.List[CodeableConcept] = Field(
         None,
         alias="reasonCode",
         title="Why was event performed?",
@@ -206,7 +212,7 @@ class Media(domainresource.DomainResource):
         element_property=True,
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title="Who/What this Media is a record of",
@@ -217,7 +223,7 @@ class Media(domainresource.DomainResource):
         enum_reference_types=["Patient", "Practitioner", "Group", "Device", "Specimen"],
     )
 
-    subtype: fhirtypes.CodeableConceptType = Field(
+    subtype: CodeableConcept = Field(
         None,
         alias="subtype",
         title="The type of acquisition equipment/process",
@@ -249,7 +255,7 @@ class Media(domainresource.DomainResource):
         None, alias="_type", title="Extension field for ``type``."
     )
 
-    view: fhirtypes.CodeableConceptType = Field(
+    view: CodeableConcept = Field(
         None,
         alias="view",
         title="Imaging view, e.g. Lateral or Antero-posterior",

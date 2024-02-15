@@ -11,6 +11,7 @@ from pydantic.v1 import Field
 
 from . import domainresource, fhirtypes
 from .backboneelement import BackboneElement
+from .contactpoint import ContactPoint
 
 
 class SearchParameter(domainresource.DomainResource):
@@ -20,7 +21,7 @@ class SearchParameter(domainresource.DomainResource):
     be used to search/filter on a resource.
     """
 
-    resource_type = Field("SearchParameter", const=True)
+    resource_type: str = Field("SearchParameter", const=True)
 
     url: fhirtypes.Uri = Field(
         None,
@@ -65,7 +66,7 @@ class SearchParameter(domainresource.DomainResource):
         element_property=True,
     )
 
-    contact: ListType[fhirtypes.SearchParameterContactType] = Field(
+    contact: ListType["SearchParameterContact"] = Field(
         None,
         alias="contact",
         title="Type `SearchParameterContact` (represented as `dict` in JSON).",
@@ -174,7 +175,7 @@ class SearchParameterContact(BackboneElement):
     Contacts to assist a user in finding and communicating with the publisher.
     """
 
-    resource_type = Field("SearchParameterContact", const=True)
+    resource_type: str = Field("SearchParameterContact", const=True)
 
     name: fhirtypes.String = Field(
         None,
@@ -184,10 +185,13 @@ class SearchParameterContact(BackboneElement):
         element_property=True,
     )
 
-    telecom: ListType[fhirtypes.ContactPointType] = Field(
+    telecom: ListType[ContactPoint] = Field(
         None,
         alias="telecom",
         title="List of `ContactPoint` items (represented as `dict` in JSON).",
         description="Contact details for individual or publisher.",
         element_property=True,
     )
+
+
+SearchParameter.update_forward_refs()

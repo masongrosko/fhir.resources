@@ -12,7 +12,13 @@ from pydantic.v1 import Field, root_validator
 
 from . import fhirtypes
 from .backboneelement import BackboneElement
+from .codeableconcept import CodeableConcept
 from .domainresource import DomainResource
+from .identifier import Identifier
+from .period import Period
+from .quantity import Quantity
+from .range import Range
+from .reference import Reference
 
 
 class Condition(DomainResource):
@@ -24,7 +30,7 @@ class Condition(DomainResource):
     statement, such as a discharge summary.
     """
 
-    resource_type = Field("Condition", const=True)
+    resource_type: str = Field("Condition", const=True)
 
     abatementBoolean: bool = Field(
         None,
@@ -43,7 +49,7 @@ class Condition(DomainResource):
         one_of_many_required=False,
     )
 
-    abatementPeriod: fhirtypes.PeriodType = Field(
+    abatementPeriod: Period = Field(
         None,
         alias="abatementPeriod",
         title="Type `Period` (represented as `dict` in JSON).",
@@ -52,7 +58,7 @@ class Condition(DomainResource):
         one_of_many_required=False,
     )
 
-    abatementQuantity: fhirtypes.QuantityType = Field(
+    abatementQuantity: Quantity = Field(
         None,
         alias="abatementQuantity",
         title="Type `Quantity` referencing `Age` (represented as `dict` in JSON).",
@@ -61,7 +67,7 @@ class Condition(DomainResource):
         one_of_many_required=False,
     )
 
-    abatementRange: fhirtypes.RangeType = Field(
+    abatementRange: Range = Field(
         None,
         alias="abatementRange",
         title="Type `Range` (represented as `dict` in JSON).",
@@ -79,7 +85,7 @@ class Condition(DomainResource):
         one_of_many_required=False,
     )
 
-    asserter: fhirtypes.ReferenceType = Field(
+    asserter: Reference = Field(
         None,
         alias="asserter",
         title=(
@@ -89,13 +95,13 @@ class Condition(DomainResource):
         description="Person who asserts this condition.",
     )
 
-    bodySite: ListType[fhirtypes.CodeableConceptType] = Field(
+    bodySite: ListType[CodeableConcept] = Field(
         None,
         alias="bodySite",
         title="List of `CodeableConcept` items (represented as `dict` in JSON).",
         description="Anatomical location, if relevant.",
     )
-    category: fhirtypes.CodeableConceptType = Field(
+    category: CodeableConcept = Field(
         None,
         alias="category",
         title="`CodeableConcept` (represented as `dict` in JSON).",
@@ -109,7 +115,7 @@ class Condition(DomainResource):
         description="active | relapse | remission | resolved.",
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -122,20 +128,20 @@ class Condition(DomainResource):
         description="When first entered.",
     )
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title="Type `Reference` (represented as `dict` in JSON).",
         description="Encounter when condition first asserted.",
     )
 
-    evidence: ListType[fhirtypes.ConditionEvidenceType] = Field(
+    evidence: ListType["ConditionEvidence"] = Field(
         None,
         alias="evidence",
         title="Type `ConditionEvidence` (represented as `dict` in JSON).",
         description="Supporting evidence.",
     )
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="Type `Identifier` (represented as `dict` in JSON).",
@@ -158,7 +164,7 @@ class Condition(DomainResource):
         one_of_many_required=False,
     )
 
-    onsetPeriod: fhirtypes.PeriodType = Field(
+    onsetPeriod: Period = Field(
         None,
         alias="onsetPeriod",
         title="Type `Period` (represented as `dict` in JSON).",
@@ -167,7 +173,7 @@ class Condition(DomainResource):
         one_of_many_required=False,
     )
 
-    onsetQuantity: fhirtypes.QuantityType = Field(
+    onsetQuantity: Quantity = Field(
         None,
         alias="onsetQuantity",
         title="Type `Quantity` referencing `Age` (represented as `dict` in JSON).",
@@ -176,7 +182,7 @@ class Condition(DomainResource):
         one_of_many_required=False,
     )
 
-    onsetRange: fhirtypes.RangeType = Field(
+    onsetRange: Range = Field(
         None,
         alias="onsetRange",
         title="Type `Range` (represented as `dict` in JSON).",
@@ -194,21 +200,21 @@ class Condition(DomainResource):
         one_of_many_required=False,
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         None,
         alias="patient",
         title="Type `Reference` referencing `Patient` (represented as `dict` in JSON).",
         description="Who has the condition?.",
     )
 
-    severity: fhirtypes.CodeableConceptType = Field(
+    severity: CodeableConcept = Field(
         None,
         alias="severity",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="Subjective severity of condition.",
     )
 
-    stage: fhirtypes.ConditionStageType = Field(
+    stage: "ConditionStage" = Field(
         None,
         alias="stage",
         title="Type `ConditionStage` (represented as `dict` in JSON).",
@@ -285,15 +291,15 @@ class ConditionEvidence(BackboneElement):
     condition is suspected or confirmed.
     """
 
-    resource_type = Field("ConditionEvidence", const=True)
+    resource_type: str = Field("ConditionEvidence", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="Manifestation/symptom.",
     )
-    detail: ListType[fhirtypes.ReferenceType] = Field(
+    detail: ListType[Reference] = Field(
         None,
         alias="detail",
         title=(
@@ -311,14 +317,14 @@ class ConditionStage(BackboneElement):
     assessments.
     """
 
-    resource_type = Field("ConditionStage", const=True)
-    summary: fhirtypes.CodeableConceptType = Field(
+    resource_type: str = Field("ConditionStage", const=True)
+    summary: CodeableConcept = Field(
         None,
         alias="summary",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="Simple summary (disease specific).",
     )
-    assessment: ListType[fhirtypes.ReferenceType] = Field(
+    assessment: ListType[Reference] = Field(
         None,
         alias="assessment",
         title=(
@@ -327,3 +333,6 @@ class ConditionStage(BackboneElement):
         ),
         description="Formal record of assessment.",
     )
+
+
+Condition.update_forward_refs()

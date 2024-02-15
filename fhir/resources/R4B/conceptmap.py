@@ -13,6 +13,10 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .contactdetail import ContactDetail
+from .identifier import Identifier
+from .usagecontext import UsageContext
 
 
 class ConceptMap(domainresource.DomainResource):
@@ -26,9 +30,9 @@ class ConceptMap(domainresource.DomainResource):
     concepts, or classes in class models.
     """
 
-    resource_type = Field("ConceptMap", const=True)
+    resource_type: str = Field("ConceptMap", const=True)
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -104,7 +108,7 @@ class ConceptMap(domainresource.DomainResource):
         None, alias="_experimental", title="Extension field for ``experimental``."
     )
 
-    group: typing.List[fhirtypes.ConceptMapGroupType] = Field(
+    group: typing.List["ConceptMapGroup"] = Field(
         None,
         alias="group",
         title="Same source and target systems",
@@ -113,7 +117,7 @@ class ConceptMap(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="Additional identifier for the concept map",
@@ -126,7 +130,7 @@ class ConceptMap(domainresource.DomainResource):
         element_property=True,
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction for concept map (if applicable)",
@@ -318,7 +322,7 @@ class ConceptMap(domainresource.DomainResource):
         None, alias="_url", title="Extension field for ``url``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="The context that the content is intended to support",
@@ -500,9 +504,9 @@ class ConceptMapGroup(backboneelement.BackboneElement):
     A group of mappings that all have the same source and target system.
     """
 
-    resource_type = Field("ConceptMapGroup", const=True)
+    resource_type: str = Field("ConceptMapGroup", const=True)
 
-    element: typing.List[fhirtypes.ConceptMapGroupElementType] = Field(
+    element: typing.List["ConceptMapGroupElement"] = Field(
         ...,
         alias="element",
         title="Mappings for a concept from the source set",
@@ -574,7 +578,7 @@ class ConceptMapGroup(backboneelement.BackboneElement):
         None, alias="_targetVersion", title="Extension field for ``targetVersion``."
     )
 
-    unmapped: fhirtypes.ConceptMapGroupUnmappedType = Field(
+    unmapped: "ConceptMapGroupUnmapped" = Field(
         None,
         alias="unmapped",
         title="What to do when there is no mapping for the source concept",
@@ -616,7 +620,7 @@ class ConceptMapGroupElement(backboneelement.BackboneElement):
     the target.
     """
 
-    resource_type = Field("ConceptMapGroupElement", const=True)
+    resource_type: str = Field("ConceptMapGroupElement", const=True)
 
     code: fhirtypes.Code = Field(
         None,
@@ -645,7 +649,7 @@ class ConceptMapGroupElement(backboneelement.BackboneElement):
         None, alias="_display", title="Extension field for ``display``."
     )
 
-    target: typing.List[fhirtypes.ConceptMapGroupElementTargetType] = Field(
+    target: typing.List["ConceptMapGroupElementTarget"] = Field(
         None,
         alias="target",
         title="Concept in target system for element",
@@ -672,7 +676,7 @@ class ConceptMapGroupElementTarget(backboneelement.BackboneElement):
     A concept from the target value set that this concept maps to.
     """
 
-    resource_type = Field("ConceptMapGroupElementTarget", const=True)
+    resource_type: str = Field("ConceptMapGroupElementTarget", const=True)
 
     code: fhirtypes.Code = Field(
         None,
@@ -701,7 +705,7 @@ class ConceptMapGroupElementTarget(backboneelement.BackboneElement):
         None, alias="_comment", title="Extension field for ``comment``."
     )
 
-    dependsOn: typing.List[fhirtypes.ConceptMapGroupElementTargetDependsOnType] = Field(
+    dependsOn: typing.List["ConceptMapGroupElementTargetDependsOn"] = Field(
         None,
         alias="dependsOn",
         title="Other elements required for this mapping (from context)",
@@ -763,7 +767,7 @@ class ConceptMapGroupElementTarget(backboneelement.BackboneElement):
         None, alias="_equivalence", title="Extension field for ``equivalence``."
     )
 
-    product: typing.List[fhirtypes.ConceptMapGroupElementTargetDependsOnType] = Field(
+    product: typing.List["ConceptMapGroupElementTargetDependsOn"] = Field(
         None,
         alias="product",
         title="Other concepts that this mapping also produces",
@@ -867,7 +871,7 @@ class ConceptMapGroupElementTargetDependsOn(backboneelement.BackboneElement):
     specified value.
     """
 
-    resource_type = Field("ConceptMapGroupElementTargetDependsOn", const=True)
+    resource_type: str = Field("ConceptMapGroupElementTargetDependsOn", const=True)
 
     display: fhirtypes.String = Field(
         None,
@@ -1022,7 +1026,7 @@ class ConceptMapGroupUnmapped(backboneelement.BackboneElement):
     in a code is specified to have equivalence = unmatched.
     """
 
-    resource_type = Field("ConceptMapGroupUnmapped", const=True)
+    resource_type: str = Field("ConceptMapGroupUnmapped", const=True)
 
     code: fhirtypes.Code = Field(
         None,
@@ -1172,3 +1176,9 @@ class ConceptMapGroupUnmapped(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+ConceptMap.update_forward_refs()
+ConceptMapGroup.update_forward_refs()
+ConceptMapGroupElement.update_forward_refs()
+ConceptMapGroupElementTarget.update_forward_refs()

@@ -13,6 +13,13 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .contactdetail import ContactDetail
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
+from .relatedartifact import RelatedArtifact
+from .usagecontext import UsageContext
 
 
 class ResearchDefinition(domainresource.DomainResource):
@@ -27,7 +34,7 @@ class ResearchDefinition(domainresource.DomainResource):
     about.
     """
 
-    resource_type = Field("ResearchDefinition", const=True)
+    resource_type: str = Field("ResearchDefinition", const=True)
 
     approvalDate: fhirtypes.Date = Field(
         None,
@@ -45,7 +52,7 @@ class ResearchDefinition(domainresource.DomainResource):
         None, alias="_approvalDate", title="Extension field for ``approvalDate``."
     )
 
-    author: typing.List[fhirtypes.ContactDetailType] = Field(
+    author: typing.List[ContactDetail] = Field(
         None,
         alias="author",
         title="Who authored the content",
@@ -72,7 +79,7 @@ class ResearchDefinition(domainresource.DomainResource):
         typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
     ] = Field(None, alias="_comment", title="Extension field for ``comment``.")
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -133,7 +140,7 @@ class ResearchDefinition(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    editor: typing.List[fhirtypes.ContactDetailType] = Field(
+    editor: typing.List[ContactDetail] = Field(
         None,
         alias="editor",
         title="Who edited the content",
@@ -145,7 +152,7 @@ class ResearchDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    effectivePeriod: fhirtypes.PeriodType = Field(
+    effectivePeriod: Period = Field(
         None,
         alias="effectivePeriod",
         title="When the research definition is expected to be used",
@@ -157,7 +164,7 @@ class ResearchDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    endorser: typing.List[fhirtypes.ContactDetailType] = Field(
+    endorser: typing.List[ContactDetail] = Field(
         None,
         alias="endorser",
         title="Who endorsed the content",
@@ -185,7 +192,7 @@ class ResearchDefinition(domainresource.DomainResource):
         None, alias="_experimental", title="Extension field for ``experimental``."
     )
 
-    exposure: fhirtypes.ReferenceType = Field(
+    exposure: Reference = Field(
         None,
         alias="exposure",
         title="What exposure?",
@@ -199,7 +206,7 @@ class ResearchDefinition(domainresource.DomainResource):
         enum_reference_types=["ResearchElementDefinition"],
     )
 
-    exposureAlternative: fhirtypes.ReferenceType = Field(
+    exposureAlternative: Reference = Field(
         None,
         alias="exposureAlternative",
         title="What alternative exposure state?",
@@ -213,7 +220,7 @@ class ResearchDefinition(domainresource.DomainResource):
         enum_reference_types=["ResearchElementDefinition"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Additional identifier for the research definition",
@@ -226,7 +233,7 @@ class ResearchDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction for research definition (if applicable)",
@@ -287,7 +294,7 @@ class ResearchDefinition(domainresource.DomainResource):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    outcome: fhirtypes.ReferenceType = Field(
+    outcome: Reference = Field(
         None,
         alias="outcome",
         title="What outcome?",
@@ -301,7 +308,7 @@ class ResearchDefinition(domainresource.DomainResource):
         enum_reference_types=["ResearchElementDefinition"],
     )
 
-    population: fhirtypes.ReferenceType = Field(
+    population: Reference = Field(
         ...,
         alias="population",
         title="What population?",
@@ -345,7 +352,7 @@ class ResearchDefinition(domainresource.DomainResource):
         None, alias="_purpose", title="Extension field for ``purpose``."
     )
 
-    relatedArtifact: typing.List[fhirtypes.RelatedArtifactType] = Field(
+    relatedArtifact: typing.List[RelatedArtifact] = Field(
         None,
         alias="relatedArtifact",
         title="Additional documentation, citations, etc.",
@@ -357,7 +364,7 @@ class ResearchDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    reviewer: typing.List[fhirtypes.ContactDetailType] = Field(
+    reviewer: typing.List[ContactDetail] = Field(
         None,
         alias="reviewer",
         title="Who reviewed the content",
@@ -403,7 +410,7 @@ class ResearchDefinition(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subjectCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    subjectCodeableConcept: CodeableConcept = Field(
         None,
         alias="subjectCodeableConcept",
         title=(
@@ -422,7 +429,7 @@ class ResearchDefinition(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    subjectReference: fhirtypes.ReferenceType = Field(
+    subjectReference: Reference = Field(
         None,
         alias="subjectReference",
         title=(
@@ -470,7 +477,7 @@ class ResearchDefinition(domainresource.DomainResource):
         None, alias="_title", title="Extension field for ``title``."
     )
 
-    topic: typing.List[fhirtypes.CodeableConceptType] = Field(
+    topic: typing.List[CodeableConcept] = Field(
         None,
         alias="topic",
         title=(
@@ -524,7 +531,7 @@ class ResearchDefinition(domainresource.DomainResource):
         None, alias="_usage", title="Extension field for ``usage``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="The context that the content is intended to support",

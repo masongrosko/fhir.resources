@@ -13,6 +13,10 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class Flag(domainresource.DomainResource):
@@ -25,9 +29,9 @@ class Flag(domainresource.DomainResource):
     patient.
     """
 
-    resource_type = Field("Flag", const=True)
+    resource_type: str = Field("Flag", const=True)
 
-    author: fhirtypes.ReferenceType = Field(
+    author: Reference = Field(
         None,
         alias="author",
         title="Flag creator",
@@ -38,7 +42,7 @@ class Flag(domainresource.DomainResource):
         enum_reference_types=["Device", "Organization", "Patient", "Practitioner"],
     )
 
-    category: fhirtypes.CodeableConceptType = Field(
+    category: CodeableConcept = Field(
         None,
         alias="category",
         title="Clinical, administrative, etc.",
@@ -51,7 +55,7 @@ class Flag(domainresource.DomainResource):
         element_property=True,
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         ...,
         alias="code",
         title="Coded or textual message to display to user",
@@ -63,7 +67,7 @@ class Flag(domainresource.DomainResource):
         element_property=True,
     )
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title="Alert relevant during encounter",
@@ -74,7 +78,7 @@ class Flag(domainresource.DomainResource):
         enum_reference_types=["Encounter"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business identifier",
@@ -86,7 +90,7 @@ class Flag(domainresource.DomainResource):
         element_property=True,
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Time period when flag is active",
@@ -115,7 +119,7 @@ class Flag(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         ...,
         alias="subject",
         title="Who/What is flag about?",

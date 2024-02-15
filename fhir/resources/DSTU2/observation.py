@@ -11,8 +11,17 @@ from typing import List as ListType
 from pydantic.v1 import Field, root_validator
 
 from . import fhirtypes
+from .attachment import Attachment
 from .backboneelement import BackboneElement
+from .codeableconcept import CodeableConcept
 from .domainresource import DomainResource
+from .identifier import Identifier
+from .period import Period
+from .quantity import Quantity
+from .range import Range
+from .ratio import Ratio
+from .reference import Reference
+from .sampleddata import SampledData
 
 
 class Observation(DomainResource):
@@ -22,7 +31,7 @@ class Observation(DomainResource):
     subject.
     """
 
-    resource_type = Field("Observation", const=True)
+    resource_type: str = Field("Observation", const=True)
 
     comments: fhirtypes.String = Field(
         None,
@@ -37,40 +46,40 @@ class Observation(DomainResource):
         description="registered | preliminary | final | amended +.",
     )
 
-    bodySite: fhirtypes.CodeableConceptType = Field(
+    bodySite: CodeableConcept = Field(
         None,
         alias="bodySite",
         title="Type `CodeableConcept`.",
         description="Observed body part.",
     )
 
-    category: fhirtypes.CodeableConceptType = Field(
+    category: CodeableConcept = Field(
         None,
         alias="category",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="Classification of  type of observation.",
     )
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="Type of observation (code / type).",
     )
 
-    component: ListType[fhirtypes.ObservationComponentType] = Field(
+    component: ListType["ObservationComponent"] = Field(
         None,
         alias="component",
         title="List of `ObservationComponent` items (represented as `dict` in JSON).",
         description="Component results.",
     )
 
-    dataAbsentReason: fhirtypes.CodeableConceptType = Field(
+    dataAbsentReason: CodeableConcept = Field(
         None,
         alias="dataAbsentReason",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="Why the result is missing.",
     )
-    device: fhirtypes.ReferenceType = Field(
+    device: Reference = Field(
         None,
         alias="device",
         title=(
@@ -88,7 +97,7 @@ class Observation(DomainResource):
         one_of_many="effective",  # Choice of Data Types. i.e effective[x]
         one_of_many_required=False,
     )
-    effectivePeriod: fhirtypes.PeriodType = Field(
+    effectivePeriod: Period = Field(
         None,
         alias="effectivePeriod",
         title="Type `Period` (represented as `dict` in JSON).",
@@ -97,14 +106,14 @@ class Observation(DomainResource):
         one_of_many_required=False,
     )
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title="Type `Reference` referencing `Encounter` (represented as `dict` in JSON).",
         description="Healthcare event during which this observation is made.",
     )
 
-    interpretation: fhirtypes.CodeableConceptType = Field(
+    interpretation: CodeableConcept = Field(
         None,
         alias="interpretation",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -118,14 +127,14 @@ class Observation(DomainResource):
         description="Date/Time this was made available.",
     )
 
-    method: fhirtypes.CodeableConceptType = Field(
+    method: CodeableConcept = Field(
         None,
         alias="method",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="How it was done.",
     )
 
-    performer: ListType[fhirtypes.ReferenceType] = Field(
+    performer: ListType[Reference] = Field(
         None,
         alias="performer",
         title=(
@@ -135,34 +144,34 @@ class Observation(DomainResource):
         description="Who is responsible for the observation.",
     )
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="List of `Identifier` items (represented as `dict` in JSON).",
         description="Unique Id for this particular observation.",
     )
 
-    referenceRange: ListType[fhirtypes.ObservationReferenceRangeType] = Field(
+    referenceRange: ListType["ObservationReferenceRange"] = Field(
         None,
         alias="referenceRange",
         title="List of `ObservationReferenceRange` items (represented as `dict` in JSON).",
         description="Provides guide for interpretation.",
     )
 
-    related: ListType[fhirtypes.ObservationRelatedType] = Field(
+    related: ListType["ObservationRelated"] = Field(
         None,
         alias="related",
         title="List of `ObservationRelated` items (represented as `dict` in JSON).",
         description="Resource related to this observation.",
     )
-    specimen: fhirtypes.ReferenceType = Field(
+    specimen: Reference = Field(
         None,
         alias="specimen",
         title="Type `Reference` referencing `Specimen` (represented as `dict` in JSON).",
         description="Specimen used for this observation.",
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title=(
@@ -172,7 +181,7 @@ class Observation(DomainResource):
         description="Who and/or what this is about.",
     )
 
-    valueAttachment: fhirtypes.AttachmentType = Field(
+    valueAttachment: Attachment = Field(
         None,
         alias="valueAttachment",
         title="Type `Attachment` (represented as `dict` in JSON).",
@@ -181,7 +190,7 @@ class Observation(DomainResource):
         one_of_many_required=False,
     )
 
-    valueCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    valueCodeableConcept: CodeableConcept = Field(
         None,
         alias="valueCodeableConcept",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -199,7 +208,7 @@ class Observation(DomainResource):
         one_of_many_required=False,
     )
 
-    valuePeriod: fhirtypes.PeriodType = Field(
+    valuePeriod: Period = Field(
         None,
         alias="valuePeriod",
         title="Type `Period` (represented as `dict` in JSON).",
@@ -207,7 +216,7 @@ class Observation(DomainResource):
         one_of_many="value",  # Choice of Data Types. i.e value[x]
         one_of_many_required=False,
     )
-    valueQuantity: fhirtypes.QuantityType = Field(
+    valueQuantity: Quantity = Field(
         None,
         alias="valueQuantity",
         title="Type `Quantity` (represented as `dict` in JSON).",
@@ -216,7 +225,7 @@ class Observation(DomainResource):
         one_of_many_required=False,
     )
 
-    valueRange: fhirtypes.RangeType = Field(
+    valueRange: Range = Field(
         None,
         alias="valueRange",
         title="Type `Range` (represented as `dict` in JSON).",
@@ -225,7 +234,7 @@ class Observation(DomainResource):
         one_of_many_required=False,
     )
 
-    valueRatio: fhirtypes.RatioType = Field(
+    valueRatio: Ratio = Field(
         None,
         alias="valueRatio",
         title="Type `Ratio` (represented as `dict` in JSON).",
@@ -234,7 +243,7 @@ class Observation(DomainResource):
         one_of_many_required=False,
     )
 
-    valueSampledData: fhirtypes.SampledDataType = Field(
+    valueSampledData: SampledData = Field(
         None,
         alias="valueSampledData",
         title="Type `SampledData` (represented as `dict` in JSON).",
@@ -322,30 +331,30 @@ class ObservationComponent(BackboneElement):
     genetics observations.
     """
 
-    resource_type = Field("ObservationComponent", const=True)
+    resource_type: str = Field("ObservationComponent", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="Type of component observation (code / type).",
     )
 
-    dataAbsentReason: fhirtypes.CodeableConceptType = Field(
+    dataAbsentReason: CodeableConcept = Field(
         None,
         alias="dataAbsentReason",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="Why the component result is missing.",
     )
 
-    referenceRange: ListType[fhirtypes.ObservationReferenceRangeType] = Field(
+    referenceRange: ListType["ObservationReferenceRange"] = Field(
         None,
         alias="referenceRange",
         title="List of `ObservationReferenceRange` items (represented as `dict` in JSON).",
         description="Provides guide for interpretation of component result.",
     )
 
-    valueAttachment: fhirtypes.AttachmentType = Field(
+    valueAttachment: Attachment = Field(
         None,
         alias="valueAttachment",
         title="Type `Attachment` (represented as `dict` in JSON).",
@@ -354,7 +363,7 @@ class ObservationComponent(BackboneElement):
         one_of_many_required=False,
     )
 
-    valueCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    valueCodeableConcept: CodeableConcept = Field(
         None,
         alias="valueCodeableConcept",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -372,7 +381,7 @@ class ObservationComponent(BackboneElement):
         one_of_many_required=False,
     )
 
-    valuePeriod: fhirtypes.PeriodType = Field(
+    valuePeriod: Period = Field(
         None,
         alias="valuePeriod",
         title="Type `Period` (represented as `dict` in JSON).",
@@ -380,7 +389,7 @@ class ObservationComponent(BackboneElement):
         one_of_many="value",  # Choice of Data Types. i.e value[x]
         one_of_many_required=False,
     )
-    valueQuantity: fhirtypes.QuantityType = Field(
+    valueQuantity: Quantity = Field(
         None,
         alias="valueQuantity",
         title="Type `Quantity` (represented as `dict` in JSON).",
@@ -389,7 +398,7 @@ class ObservationComponent(BackboneElement):
         one_of_many_required=False,
     )
 
-    valueRange: fhirtypes.RangeType = Field(
+    valueRange: Range = Field(
         None,
         alias="valueRange",
         title="Type `Range` (represented as `dict` in JSON).",
@@ -398,7 +407,7 @@ class ObservationComponent(BackboneElement):
         one_of_many_required=False,
     )
 
-    valueRatio: fhirtypes.RatioType = Field(
+    valueRatio: Ratio = Field(
         None,
         alias="valueRatio",
         title="Type `Ratio` (represented as `dict` in JSON).",
@@ -407,7 +416,7 @@ class ObservationComponent(BackboneElement):
         one_of_many_required=False,
     )
 
-    valueSampledData: fhirtypes.SampledDataType = Field(
+    valueSampledData: SampledData = Field(
         None,
         alias="valueSampledData",
         title="Type `SampledData` (represented as `dict` in JSON).",
@@ -491,29 +500,29 @@ class ObservationReferenceRange(BackboneElement):
     recommended range.
     """
 
-    resource_type = Field("ObservationReferenceRange", const=True)
+    resource_type: str = Field("ObservationReferenceRange", const=True)
 
-    age: fhirtypes.RangeType = Field(
+    age: Range = Field(
         None,
         alias="age",
         title="Type `Range` (represented as `dict` in JSON).",
         description="Applicable age range, if relevant.",
     )
-    high: fhirtypes.QuantityType = Field(
+    high: Quantity = Field(
         None,
         alias="high",
         title="Type `Quantity` (represented as `dict` in JSON).",
         description="High Range, if relevant.",
     )
 
-    low: fhirtypes.QuantityType = Field(
+    low: Quantity = Field(
         None,
         alias="low",
         title="Type `Quantity` (represented as `dict` in JSON).",
         description="Low Range, if relevant.",
     )
 
-    meaning: fhirtypes.CodeableConceptType = Field(
+    meaning: CodeableConcept = Field(
         None,
         alias="meaning",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -536,9 +545,9 @@ class ObservationRelated(BackboneElement):
     relationship type code.
     """
 
-    resource_type = Field("ObservationRelated", const=True)
+    resource_type: str = Field("ObservationRelated", const=True)
 
-    target: fhirtypes.ReferenceType = Field(
+    target: Reference = Field(
         None,
         alias="target",
         title=(
@@ -557,3 +566,7 @@ class ObservationRelated(BackboneElement):
             "replaces | qualified-by | interfered-by."
         ),
     )
+
+
+Observation.update_forward_refs()
+ObservationComponent.update_forward_refs()

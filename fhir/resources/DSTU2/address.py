@@ -11,6 +11,7 @@ from pydantic.v1 import Field
 
 from . import fhirtypes
 from .element import Element
+from .period import Period
 
 
 class Address(Element):
@@ -21,7 +22,7 @@ class Address(Element):
     world.
     """
 
-    resource_type = Field("Address", const=True)
+    resource_type: str = Field("Address", const=True)
 
     city: fhirtypes.String = Field(
         None,
@@ -51,7 +52,7 @@ class Address(Element):
         description="Street name, number, direction \u0026 P.O. Box etc.",
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Type `Period` (represented as `dict` in JSON)",

@@ -11,8 +11,15 @@ from typing import List as ListType
 from pydantic.v1 import Field, root_validator
 
 from . import fhirtypes
+from .annotation import Annotation
 from .backboneelement import BackboneElement
+from .codeableconcept import CodeableConcept
 from .domainresource import DomainResource
+from .identifier import Identifier
+from .period import Period
+from .quantity import Quantity
+from .reference import Reference
+from .timing import Timing
 
 
 class CarePlan(DomainResource):
@@ -23,16 +30,16 @@ class CarePlan(DomainResource):
     possibly limited to care for a specific condition or set of conditions.
     """
 
-    resource_type = Field("CarePlan", const=True)
+    resource_type: str = Field("CarePlan", const=True)
 
-    activity: ListType[fhirtypes.CarePlanActivityType] = Field(
+    activity: ListType["CarePlanActivity"] = Field(
         None,
         alias="activity",
         title="List of `CarePlanActivity` items (represented as `dict` in JSON)",
         description="Action to occur as part of plan",
     )
 
-    addresses: ListType[fhirtypes.ReferenceType] = Field(
+    addresses: ListType[Reference] = Field(
         None,
         alias="addresses",
         title=(
@@ -42,7 +49,7 @@ class CarePlan(DomainResource):
         description="Health issues this plan addresses",
     )
 
-    author: ListType[fhirtypes.ReferenceType] = Field(
+    author: ListType[Reference] = Field(
         None,
         alias="author",
         title=(
@@ -52,14 +59,14 @@ class CarePlan(DomainResource):
         description="Who is responsible for contents of the plan",
     )
 
-    category: ListType[fhirtypes.CodeableConceptType] = Field(
+    category: ListType[CodeableConcept] = Field(
         None,
         alias="category",
         title="List of `CodeableConcept` items (represented as `dict` in JSON)",
         description="Type of plan",
     )
 
-    context: fhirtypes.ReferenceType = Field(
+    context: Reference = Field(
         None,
         alias="context",
         title=(
@@ -76,7 +83,7 @@ class CarePlan(DomainResource):
         description="Summary of nature of plan",
     )
 
-    goal: ListType[fhirtypes.ReferenceType] = Field(
+    goal: ListType[Reference] = Field(
         None,
         alias="goal",
         title=(
@@ -86,21 +93,21 @@ class CarePlan(DomainResource):
         description="Desired outcome of plan",
     )
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="List of `Identifier` items (represented as `dict` in JSON)",
         description="External Ids for this plan",
     )
 
-    note: fhirtypes.AnnotationType = Field(
+    note: Annotation = Field(
         None,
         alias="note",
         title="Type `Annotation` items (represented as `dict` in JSON)",
         description="Comments about the plan",
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Type `Period` (represented as `dict` in JSON)",
@@ -117,7 +124,7 @@ class CarePlan(DomainResource):
         ),
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title=(
@@ -127,7 +134,7 @@ class CarePlan(DomainResource):
         description="Who care plan is for",
     )
 
-    support: ListType[fhirtypes.ReferenceType] = Field(
+    support: ListType[Reference] = Field(
         None,
         alias="support",
         title=(
@@ -143,14 +150,14 @@ class CarePlan(DomainResource):
         title="Type `DateTime` (represented as `dict` in JSON)",
         description="When last updated",
     )
-    participant: ListType[fhirtypes.CarePlanParticipantType] = Field(
+    participant: ListType["CarePlanParticipant"] = Field(
         None,
         alias="participant",
         title="List of `CarePlanParticipant` items (represented as `dict` in JSON).",
         description="Who's involved in plan?.",
     )
 
-    relatedPlan: ListType[fhirtypes.CarePlanRelatedPlanType] = Field(
+    relatedPlan: ListType["CarePlanRelatedPlan"] = Field(
         None,
         alias="relatedPlan",
         title="Plans related to this one.",
@@ -166,9 +173,9 @@ class CarePlanActivity(BackboneElement):
     etc.
     """
 
-    resource_type = Field("CarePlanActivity", const=True)
+    resource_type: str = Field("CarePlanActivity", const=True)
 
-    actionResulting: ListType[fhirtypes.ReferenceType] = Field(
+    actionResulting: ListType[Reference] = Field(
         None,
         alias="actionResulting",
         title=(
@@ -178,21 +185,21 @@ class CarePlanActivity(BackboneElement):
         description="Appointments, orders, etc..",
     )
 
-    detail: fhirtypes.CarePlanActivityDetailType = Field(
+    detail: "CarePlanActivityDetail" = Field(
         None,
         alias="detail",
         title="Type `CarePlanActivityDetail` (represented as `dict` in JSON).",
         description="In-line definition of activity.",
     )
 
-    progress: ListType[fhirtypes.AnnotationType] = Field(
+    progress: ListType[Annotation] = Field(
         None,
         alias="progress",
         title="List of `Annotation` items (represented as `dict` in JSON).",
         description="Comments about the activity status/progress.",
     )
 
-    reference: fhirtypes.ReferenceType = Field(
+    reference: Reference = Field(
         None,
         alias="reference",
         title=(
@@ -214,22 +221,22 @@ class CarePlanActivityDetail(BackboneElement):
     as procedure etc.
     """
 
-    resource_type = Field("CarePlanActivityDetail", const=True)
-    category: fhirtypes.CodeableConceptType = Field(
+    resource_type: str = Field("CarePlanActivityDetail", const=True)
+    category: CodeableConcept = Field(
         None,
         alias="category",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="diet | drug | encounter | observation | procedure | supply | other.",
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="Detail type of activity.",
     )
 
-    dailyAmount: fhirtypes.QuantityType = Field(
+    dailyAmount: Quantity = Field(
         None,
         alias="dailyAmount",
         title="Type `Quantity` referencing `SimpleQuantity` (represented as `dict` in JSON).",
@@ -243,21 +250,21 @@ class CarePlanActivityDetail(BackboneElement):
         description="Extra info describing activity to perform.",
     )
 
-    goal: ListType[fhirtypes.ReferenceType] = Field(
+    goal: ListType[Reference] = Field(
         None,
         alias="goal",
         title="List of `Reference` items referencing `Goal` (represented as `dict` in JSON).",
         description="Goals this activity relates to.",
     )
 
-    location: fhirtypes.ReferenceType = Field(
+    location: Reference = Field(
         None,
         alias="location",
         title="Type `Reference` referencing `Location` (represented as `dict` in JSON).",
         description="Where it should happen.",
     )
 
-    performer: ListType[fhirtypes.ReferenceType] = Field(
+    performer: ListType[Reference] = Field(
         None,
         alias="performer",
         title=(
@@ -268,7 +275,7 @@ class CarePlanActivityDetail(BackboneElement):
         description="Who will be responsible?.",
     )
 
-    productCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    productCodeableConcept: CodeableConcept = Field(
         None,
         alias="productCodeableConcept",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -277,7 +284,7 @@ class CarePlanActivityDetail(BackboneElement):
         one_of_many_required=False,
     )
 
-    productReference: fhirtypes.ReferenceType = Field(
+    productReference: Reference = Field(
         None,
         alias="productReference",
         title=(
@@ -293,7 +300,7 @@ class CarePlanActivityDetail(BackboneElement):
         None, alias="prohibited", title="Type `bool`.", description="Do NOT do."
     )
 
-    quantity: fhirtypes.QuantityType = Field(
+    quantity: Quantity = Field(
         None,
         alias="quantity",
         title=(
@@ -303,14 +310,14 @@ class CarePlanActivityDetail(BackboneElement):
         description="How much to administer/supply/consume.",
     )
 
-    reasonCode: ListType[fhirtypes.CodeableConceptType] = Field(
+    reasonCode: ListType[CodeableConcept] = Field(
         None,
         alias="reasonCode",
         title="List of `CodeableConcept` items (represented as `dict` in JSON).",
         description="Why activity should be done.",
     )
 
-    reasonReference: ListType[fhirtypes.ReferenceType] = Field(
+    reasonReference: ListType[Reference] = Field(
         None,
         alias="reasonReference",
         title=(
@@ -320,7 +327,7 @@ class CarePlanActivityDetail(BackboneElement):
         description="Condition triggering need for activity.",
     )
 
-    scheduledPeriod: fhirtypes.PeriodType = Field(
+    scheduledPeriod: Period = Field(
         None,
         alias="scheduledPeriod",
         title="Type `Period` (represented as `dict` in JSON).",
@@ -338,7 +345,7 @@ class CarePlanActivityDetail(BackboneElement):
         one_of_many_required=False,
     )
 
-    scheduledTiming: fhirtypes.TimingType = Field(
+    scheduledTiming: Timing = Field(
         None,
         alias="scheduledTiming",
         title="Type `Timing` (represented as `dict` in JSON).",
@@ -354,7 +361,7 @@ class CarePlanActivityDetail(BackboneElement):
         description="not-started | scheduled | in-progress | on-hold | completed | cancelled.",
     )
 
-    statusReason: fhirtypes.CodeableConceptType = Field(
+    statusReason: CodeableConcept = Field(
         None,
         alias="statusReason",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -408,8 +415,8 @@ class CarePlanParticipant(BackboneElement):
     the care envisioned by this plan.
     """
 
-    resource_type = Field("CarePlanParticipant", const=True)
-    member: fhirtypes.ReferenceType = Field(
+    resource_type: str = Field("CarePlanParticipant", const=True)
+    member: Reference = Field(
         None,
         alias="member",
         title=(
@@ -419,7 +426,7 @@ class CarePlanParticipant(BackboneElement):
         description="Who is involved.",
     )
 
-    role: fhirtypes.CodeableConceptType = Field(
+    role: CodeableConcept = Field(
         None,
         alias="role",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -434,7 +441,7 @@ class CarePlanRelatedPlan(BackboneElement):
     plan.
     """
 
-    resource_type = Field("CarePlanRelatedPlan", const=True)
+    resource_type: str = Field("CarePlanRelatedPlan", const=True)
 
     code: fhirtypes.Code = Field(
         None,
@@ -443,9 +450,13 @@ class CarePlanRelatedPlan(BackboneElement):
         description="includes | replaces | fulfills.",
     )
 
-    plan: fhirtypes.ReferenceType = Field(
+    plan: Reference = Field(
         ...,
         alias="plan",
         title="Plan relationship exists with.",
         description="Type `Reference` referencing `CarePlan` (represented as `dict` in JSON).",
     )
+
+
+CarePlan.update_forward_refs()
+CarePlanActivity.update_forward_refs()

@@ -11,6 +11,11 @@ import typing
 from pydantic.v1 import Field
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .money import Money
+from .period import Period
+from .reference import Reference
 
 
 class Account(domainresource.DomainResource):
@@ -24,9 +29,9 @@ class Account(domainresource.DomainResource):
     etc.
     """
 
-    resource_type = Field("Account", const=True)
+    resource_type: str = Field("Account", const=True)
 
-    active: fhirtypes.PeriodType = Field(
+    active: Period = Field(
         None,
         alias="active",
         title="Time window that transactions may be posted to this account",
@@ -39,7 +44,7 @@ class Account(domainresource.DomainResource):
         element_property=True,
     )
 
-    balance: fhirtypes.MoneyType = Field(
+    balance: Money = Field(
         None,
         alias="balance",
         title="How much is in account?",
@@ -51,7 +56,7 @@ class Account(domainresource.DomainResource):
         element_property=True,
     )
 
-    coverage: typing.List[fhirtypes.AccountCoverageType] = Field(
+    coverage: typing.List["AccountCoverage"] = Field(
         None,
         alias="coverage",
         title=(
@@ -78,7 +83,7 @@ class Account(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    guarantor: typing.List[fhirtypes.AccountGuarantorType] = Field(
+    guarantor: typing.List["AccountGuarantor"] = Field(
         None,
         alias="guarantor",
         title="Responsible for the account",
@@ -87,7 +92,7 @@ class Account(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Account number",
@@ -113,7 +118,7 @@ class Account(domainresource.DomainResource):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    owner: fhirtypes.ReferenceType = Field(
+    owner: Reference = Field(
         None,
         alias="owner",
         title="Who is responsible?",
@@ -127,7 +132,7 @@ class Account(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Transaction window",
@@ -154,7 +159,7 @@ class Account(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title="What is account tied to?",
@@ -175,7 +180,7 @@ class Account(domainresource.DomainResource):
         ],
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="E.g. patient, expense, depreciation",
@@ -223,9 +228,9 @@ class AccountCoverage(backboneelement.BackboneElement):
     and what order should they be applied to the account.
     """
 
-    resource_type = Field("AccountCoverage", const=True)
+    resource_type: str = Field("AccountCoverage", const=True)
 
-    coverage: fhirtypes.ReferenceType = Field(
+    coverage: Reference = Field(
         ...,
         alias="coverage",
         title=(
@@ -274,7 +279,7 @@ class AccountGuarantor(backboneelement.BackboneElement):
     Parties financially responsible for the account.
     """
 
-    resource_type = Field("AccountGuarantor", const=True)
+    resource_type: str = Field("AccountGuarantor", const=True)
 
     onHold: bool = Field(
         None,
@@ -291,7 +296,7 @@ class AccountGuarantor(backboneelement.BackboneElement):
         None, alias="_onHold", title="Extension field for ``onHold``."
     )
 
-    party: fhirtypes.ReferenceType = Field(
+    party: Reference = Field(
         ...,
         alias="party",
         title="Responsible entity",
@@ -302,7 +307,7 @@ class AccountGuarantor(backboneelement.BackboneElement):
         enum_reference_types=["Patient", "RelatedPerson", "Organization"],
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Guarrantee account during",
@@ -321,3 +326,6 @@ class AccountGuarantor(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "party", "onHold", "period"]
+
+
+Account.update_forward_refs()

@@ -13,6 +13,15 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import domainresource, fhirtypes
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .period import Period
+from .quantity import Quantity
+from .range import Range
+from .ratio import Ratio
+from .reference import Reference
+from .timing import Timing
 
 
 class ServiceRequest(domainresource.DomainResource):
@@ -25,7 +34,7 @@ class ServiceRequest(domainresource.DomainResource):
     treatments, or operations to be performed.
     """
 
-    resource_type = Field("ServiceRequest", const=True)
+    resource_type: str = Field("ServiceRequest", const=True)
 
     asNeededBoolean: bool = Field(
         None,
@@ -45,7 +54,7 @@ class ServiceRequest(domainresource.DomainResource):
         None, alias="_asNeededBoolean", title="Extension field for ``asNeededBoolean``."
     )
 
-    asNeededCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    asNeededCodeableConcept: CodeableConcept = Field(
         None,
         alias="asNeededCodeableConcept",
         title="Preconditions for service",
@@ -72,7 +81,7 @@ class ServiceRequest(domainresource.DomainResource):
         None, alias="_authoredOn", title="Extension field for ``authoredOn``."
     )
 
-    basedOn: typing.List[fhirtypes.ReferenceType] = Field(
+    basedOn: typing.List[Reference] = Field(
         None,
         alias="basedOn",
         title="What request fulfills",
@@ -83,7 +92,7 @@ class ServiceRequest(domainresource.DomainResource):
         enum_reference_types=["CarePlan", "ServiceRequest", "MedicationRequest"],
     )
 
-    bodySite: typing.List[fhirtypes.CodeableConceptType] = Field(
+    bodySite: typing.List[CodeableConcept] = Field(
         None,
         alias="bodySite",
         title="Location on Body",
@@ -95,7 +104,7 @@ class ServiceRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    category: typing.List[fhirtypes.CodeableConceptType] = Field(
+    category: typing.List[CodeableConcept] = Field(
         None,
         alias="category",
         title="Classification of service",
@@ -107,7 +116,7 @@ class ServiceRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="What is being requested/ordered",
@@ -135,7 +144,7 @@ class ServiceRequest(domainresource.DomainResource):
         None, alias="_doNotPerform", title="Extension field for ``doNotPerform``."
     )
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title="Encounter in which the request was created",
@@ -149,7 +158,7 @@ class ServiceRequest(domainresource.DomainResource):
         enum_reference_types=["Encounter"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Identifiers assigned to this order",
@@ -201,7 +210,7 @@ class ServiceRequest(domainresource.DomainResource):
         None, alias="_instantiatesUri", title="Extension field for ``instantiatesUri``."
     )
 
-    insurance: typing.List[fhirtypes.ReferenceType] = Field(
+    insurance: typing.List[Reference] = Field(
         None,
         alias="insurance",
         title="Associated insurance coverage",
@@ -248,7 +257,7 @@ class ServiceRequest(domainresource.DomainResource):
         None, alias="_intent", title="Extension field for ``intent``."
     )
 
-    locationCode: typing.List[fhirtypes.CodeableConceptType] = Field(
+    locationCode: typing.List[CodeableConcept] = Field(
         None,
         alias="locationCode",
         title="Requested location",
@@ -260,7 +269,7 @@ class ServiceRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    locationReference: typing.List[fhirtypes.ReferenceType] = Field(
+    locationReference: typing.List[Reference] = Field(
         None,
         alias="locationReference",
         title="Requested location",
@@ -274,7 +283,7 @@ class ServiceRequest(domainresource.DomainResource):
         enum_reference_types=["Location"],
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Comments",
@@ -303,7 +312,7 @@ class ServiceRequest(domainresource.DomainResource):
         title="Extension field for ``occurrenceDateTime``.",
     )
 
-    occurrencePeriod: fhirtypes.PeriodType = Field(
+    occurrencePeriod: Period = Field(
         None,
         alias="occurrencePeriod",
         title="When service should occur",
@@ -315,7 +324,7 @@ class ServiceRequest(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    occurrenceTiming: fhirtypes.TimingType = Field(
+    occurrenceTiming: Timing = Field(
         None,
         alias="occurrenceTiming",
         title="When service should occur",
@@ -327,7 +336,7 @@ class ServiceRequest(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    orderDetail: typing.List[fhirtypes.CodeableConceptType] = Field(
+    orderDetail: typing.List[CodeableConcept] = Field(
         None,
         alias="orderDetail",
         title="Additional order information",
@@ -356,7 +365,7 @@ class ServiceRequest(domainresource.DomainResource):
         title="Extension field for ``patientInstruction``.",
     )
 
-    performer: typing.List[fhirtypes.ReferenceType] = Field(
+    performer: typing.List[Reference] = Field(
         None,
         alias="performer",
         title="Requested performer",
@@ -379,7 +388,7 @@ class ServiceRequest(domainresource.DomainResource):
         ],
     )
 
-    performerType: fhirtypes.CodeableConceptType = Field(
+    performerType: CodeableConcept = Field(
         None,
         alias="performerType",
         title="Performer role",
@@ -406,7 +415,7 @@ class ServiceRequest(domainresource.DomainResource):
         None, alias="_priority", title="Extension field for ``priority``."
     )
 
-    quantityQuantity: fhirtypes.QuantityType = Field(
+    quantityQuantity: Quantity = Field(
         None,
         alias="quantityQuantity",
         title="Service amount",
@@ -422,7 +431,7 @@ class ServiceRequest(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    quantityRange: fhirtypes.RangeType = Field(
+    quantityRange: Range = Field(
         None,
         alias="quantityRange",
         title="Service amount",
@@ -438,7 +447,7 @@ class ServiceRequest(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    quantityRatio: fhirtypes.RatioType = Field(
+    quantityRatio: Ratio = Field(
         None,
         alias="quantityRatio",
         title="Service amount",
@@ -454,7 +463,7 @@ class ServiceRequest(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    reasonCode: typing.List[fhirtypes.CodeableConceptType] = Field(
+    reasonCode: typing.List[CodeableConcept] = Field(
         None,
         alias="reasonCode",
         title="Explanation/Justification for procedure or service",
@@ -468,7 +477,7 @@ class ServiceRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    reasonReference: typing.List[fhirtypes.ReferenceType] = Field(
+    reasonReference: typing.List[Reference] = Field(
         None,
         alias="reasonReference",
         title="Explanation/Justification for service or service",
@@ -488,7 +497,7 @@ class ServiceRequest(domainresource.DomainResource):
         ],
     )
 
-    relevantHistory: typing.List[fhirtypes.ReferenceType] = Field(
+    relevantHistory: typing.List[Reference] = Field(
         None,
         alias="relevantHistory",
         title="Request provenance",
@@ -499,7 +508,7 @@ class ServiceRequest(domainresource.DomainResource):
         enum_reference_types=["Provenance"],
     )
 
-    replaces: typing.List[fhirtypes.ReferenceType] = Field(
+    replaces: typing.List[Reference] = Field(
         None,
         alias="replaces",
         title="What request replaces",
@@ -513,7 +522,7 @@ class ServiceRequest(domainresource.DomainResource):
         enum_reference_types=["ServiceRequest"],
     )
 
-    requester: fhirtypes.ReferenceType = Field(
+    requester: Reference = Field(
         None,
         alias="requester",
         title="Who/what is requesting service",
@@ -534,7 +543,7 @@ class ServiceRequest(domainresource.DomainResource):
         ],
     )
 
-    requisition: fhirtypes.IdentifierType = Field(
+    requisition: Identifier = Field(
         None,
         alias="requisition",
         title="Composite Request ID",
@@ -547,7 +556,7 @@ class ServiceRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    specimen: typing.List[fhirtypes.ReferenceType] = Field(
+    specimen: typing.List[Reference] = Field(
         None,
         alias="specimen",
         title="Procedure Samples",
@@ -585,7 +594,7 @@ class ServiceRequest(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         ...,
         alias="subject",
         title="Individual or Entity the service is ordered for",
@@ -601,7 +610,7 @@ class ServiceRequest(domainresource.DomainResource):
         enum_reference_types=["Patient", "Group", "Location", "Device"],
     )
 
-    supportingInfo: typing.List[fhirtypes.ReferenceType] = Field(
+    supportingInfo: typing.List[Reference] = Field(
         None,
         alias="supportingInfo",
         title="Additional clinical information",

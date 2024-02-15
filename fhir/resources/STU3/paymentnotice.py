@@ -11,6 +11,9 @@ import typing
 from pydantic.v1 import Field
 
 from . import domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .reference import Reference
 
 
 class PaymentNotice(domainresource.DomainResource):
@@ -23,7 +26,7 @@ class PaymentNotice(domainresource.DomainResource):
     rendered, and the request and response resource references.
     """
 
-    resource_type = Field("PaymentNotice", const=True)
+    resource_type: str = Field("PaymentNotice", const=True)
 
     created: fhirtypes.DateTime = Field(
         None,
@@ -37,7 +40,7 @@ class PaymentNotice(domainresource.DomainResource):
         None, alias="_created", title="Extension field for ``created``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business Identifier",
@@ -46,7 +49,7 @@ class PaymentNotice(domainresource.DomainResource):
         element_property=True,
     )
 
-    organization: fhirtypes.ReferenceType = Field(
+    organization: Reference = Field(
         None,
         alias="organization",
         title="Responsible organization",
@@ -60,7 +63,7 @@ class PaymentNotice(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    paymentStatus: fhirtypes.CodeableConceptType = Field(
+    paymentStatus: CodeableConcept = Field(
         None,
         alias="paymentStatus",
         title="Whether payment has been sent or cleared",
@@ -72,7 +75,7 @@ class PaymentNotice(domainresource.DomainResource):
         element_property=True,
     )
 
-    provider: fhirtypes.ReferenceType = Field(
+    provider: Reference = Field(
         None,
         alias="provider",
         title="Responsible practitioner",
@@ -86,7 +89,7 @@ class PaymentNotice(domainresource.DomainResource):
         enum_reference_types=["Practitioner"],
     )
 
-    request: fhirtypes.ReferenceType = Field(
+    request: Reference = Field(
         None,
         alias="request",
         title="Request reference",
@@ -97,7 +100,7 @@ class PaymentNotice(domainresource.DomainResource):
         enum_reference_types=["Resource"],
     )
 
-    response: fhirtypes.ReferenceType = Field(
+    response: Reference = Field(
         None,
         alias="response",
         title="Response reference",
@@ -135,7 +138,7 @@ class PaymentNotice(domainresource.DomainResource):
         None, alias="_statusDate", title="Extension field for ``statusDate``."
     )
 
-    target: fhirtypes.ReferenceType = Field(
+    target: Reference = Field(
         None,
         alias="target",
         title="Insurer or Regulatory body",

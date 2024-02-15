@@ -13,6 +13,13 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .period import Period
+from .quantity import Quantity
+from .reference import Reference
+from .timing import Timing
 
 
 class CarePlan(domainresource.DomainResource):
@@ -26,9 +33,9 @@ class CarePlan(domainresource.DomainResource):
     possibly limited to care for a specific condition or set of conditions.
     """
 
-    resource_type = Field("CarePlan", const=True)
+    resource_type: str = Field("CarePlan", const=True)
 
-    activity: typing.List[fhirtypes.CarePlanActivityType] = Field(
+    activity: typing.List["CarePlanActivity"] = Field(
         None,
         alias="activity",
         title="Action to occur as part of plan",
@@ -41,7 +48,7 @@ class CarePlan(domainresource.DomainResource):
         element_property=True,
     )
 
-    addresses: typing.List[fhirtypes.ReferenceType] = Field(
+    addresses: typing.List[Reference] = Field(
         None,
         alias="addresses",
         title="Health issues this plan addresses",
@@ -55,7 +62,7 @@ class CarePlan(domainresource.DomainResource):
         enum_reference_types=["Condition"],
     )
 
-    author: typing.List[fhirtypes.ReferenceType] = Field(
+    author: typing.List[Reference] = Field(
         None,
         alias="author",
         title="Who is responsible for contents of the plan",
@@ -75,7 +82,7 @@ class CarePlan(domainresource.DomainResource):
         ],
     )
 
-    basedOn: typing.List[fhirtypes.ReferenceType] = Field(
+    basedOn: typing.List[Reference] = Field(
         None,
         alias="basedOn",
         title="Fulfills care plan",
@@ -86,7 +93,7 @@ class CarePlan(domainresource.DomainResource):
         enum_reference_types=["CarePlan"],
     )
 
-    careTeam: typing.List[fhirtypes.ReferenceType] = Field(
+    careTeam: typing.List[Reference] = Field(
         None,
         alias="careTeam",
         title="Who's involved in plan?",
@@ -100,7 +107,7 @@ class CarePlan(domainresource.DomainResource):
         enum_reference_types=["CareTeam"],
     )
 
-    category: typing.List[fhirtypes.CodeableConceptType] = Field(
+    category: typing.List[CodeableConcept] = Field(
         None,
         alias="category",
         title="Type of plan",
@@ -113,7 +120,7 @@ class CarePlan(domainresource.DomainResource):
         element_property=True,
     )
 
-    context: fhirtypes.ReferenceType = Field(
+    context: Reference = Field(
         None,
         alias="context",
         title="Created in context of",
@@ -127,7 +134,7 @@ class CarePlan(domainresource.DomainResource):
         enum_reference_types=["Encounter", "EpisodeOfCare"],
     )
 
-    definition: typing.List[fhirtypes.ReferenceType] = Field(
+    definition: typing.List[Reference] = Field(
         None,
         alias="definition",
         title="Protocol or definition",
@@ -153,7 +160,7 @@ class CarePlan(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    goal: typing.List[fhirtypes.ReferenceType] = Field(
+    goal: typing.List[Reference] = Field(
         None,
         alias="goal",
         title="Desired outcome of plan",
@@ -164,7 +171,7 @@ class CarePlan(domainresource.DomainResource):
         enum_reference_types=["Goal"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="External Ids for this plan",
@@ -197,7 +204,7 @@ class CarePlan(domainresource.DomainResource):
         None, alias="_intent", title="Extension field for ``intent``."
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Comments about the plan",
@@ -206,7 +213,7 @@ class CarePlan(domainresource.DomainResource):
         element_property=True,
     )
 
-    partOf: typing.List[fhirtypes.ReferenceType] = Field(
+    partOf: typing.List[Reference] = Field(
         None,
         alias="partOf",
         title="Part of referenced CarePlan",
@@ -220,7 +227,7 @@ class CarePlan(domainresource.DomainResource):
         enum_reference_types=["CarePlan"],
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Time period plan covers",
@@ -232,7 +239,7 @@ class CarePlan(domainresource.DomainResource):
         element_property=True,
     )
 
-    replaces: typing.List[fhirtypes.ReferenceType] = Field(
+    replaces: typing.List[Reference] = Field(
         None,
         alias="replaces",
         title="CarePlan replaced by this CarePlan",
@@ -276,7 +283,7 @@ class CarePlan(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         ...,
         alias="subject",
         title="Who care plan is for",
@@ -290,7 +297,7 @@ class CarePlan(domainresource.DomainResource):
         enum_reference_types=["Patient", "Group"],
     )
 
-    supportingInfo: typing.List[fhirtypes.ReferenceType] = Field(
+    supportingInfo: typing.List[Reference] = Field(
         None,
         alias="supportingInfo",
         title="Information considered as part of plan",
@@ -425,9 +432,9 @@ class CarePlanActivity(backboneelement.BackboneElement):
     etc.
     """
 
-    resource_type = Field("CarePlanActivity", const=True)
+    resource_type: str = Field("CarePlanActivity", const=True)
 
-    detail: fhirtypes.CarePlanActivityDetailType = Field(
+    detail: "CarePlanActivityDetail" = Field(
         None,
         alias="detail",
         title="In-line definition of activity",
@@ -440,7 +447,7 @@ class CarePlanActivity(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    outcomeCodeableConcept: typing.List[fhirtypes.CodeableConceptType] = Field(
+    outcomeCodeableConcept: typing.List[CodeableConcept] = Field(
         None,
         alias="outcomeCodeableConcept",
         title="Results of the activity",
@@ -453,7 +460,7 @@ class CarePlanActivity(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    outcomeReference: typing.List[fhirtypes.ReferenceType] = Field(
+    outcomeReference: typing.List[Reference] = Field(
         None,
         alias="outcomeReference",
         title="Appointment, Encounter, Procedure, etc.",
@@ -470,7 +477,7 @@ class CarePlanActivity(backboneelement.BackboneElement):
         enum_reference_types=["Resource"],
     )
 
-    progress: typing.List[fhirtypes.AnnotationType] = Field(
+    progress: typing.List[Annotation] = Field(
         None,
         alias="progress",
         title="Comments about the activity status/progress",
@@ -479,7 +486,7 @@ class CarePlanActivity(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    reference: fhirtypes.ReferenceType = Field(
+    reference: Reference = Field(
         None,
         alias="reference",
         title="Activity details defined in specific resource",
@@ -533,9 +540,9 @@ class CarePlanActivityDetail(backboneelement.BackboneElement):
     as procedure etc.
     """
 
-    resource_type = Field("CarePlanActivityDetail", const=True)
+    resource_type: str = Field("CarePlanActivityDetail", const=True)
 
-    category: fhirtypes.CodeableConceptType = Field(
+    category: CodeableConcept = Field(
         None,
         alias="category",
         title="diet | drug | encounter | observation | procedure | supply | other",
@@ -544,7 +551,7 @@ class CarePlanActivityDetail(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Detail type of activity",
@@ -556,7 +563,7 @@ class CarePlanActivityDetail(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    dailyAmount: fhirtypes.QuantityType = Field(
+    dailyAmount: Quantity = Field(
         None,
         alias="dailyAmount",
         title="How to consume/day?",
@@ -565,7 +572,7 @@ class CarePlanActivityDetail(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    definition: fhirtypes.ReferenceType = Field(
+    definition: Reference = Field(
         None,
         alias="definition",
         title="Protocol or definition",
@@ -598,7 +605,7 @@ class CarePlanActivityDetail(backboneelement.BackboneElement):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    goal: typing.List[fhirtypes.ReferenceType] = Field(
+    goal: typing.List[Reference] = Field(
         None,
         alias="goal",
         title="Goals this activity relates to",
@@ -612,7 +619,7 @@ class CarePlanActivityDetail(backboneelement.BackboneElement):
         enum_reference_types=["Goal"],
     )
 
-    location: fhirtypes.ReferenceType = Field(
+    location: Reference = Field(
         None,
         alias="location",
         title="Where it should happen",
@@ -626,7 +633,7 @@ class CarePlanActivityDetail(backboneelement.BackboneElement):
         enum_reference_types=["Location"],
     )
 
-    performer: typing.List[fhirtypes.ReferenceType] = Field(
+    performer: typing.List[Reference] = Field(
         None,
         alias="performer",
         title="Who will be responsible?",
@@ -643,7 +650,7 @@ class CarePlanActivityDetail(backboneelement.BackboneElement):
         ],
     )
 
-    productCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    productCodeableConcept: CodeableConcept = Field(
         None,
         alias="productCodeableConcept",
         title="What is to be administered/supplied",
@@ -658,7 +665,7 @@ class CarePlanActivityDetail(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    productReference: fhirtypes.ReferenceType = Field(
+    productReference: Reference = Field(
         None,
         alias="productReference",
         title="What is to be administered/supplied",
@@ -692,7 +699,7 @@ class CarePlanActivityDetail(backboneelement.BackboneElement):
         None, alias="_prohibited", title="Extension field for ``prohibited``."
     )
 
-    quantity: fhirtypes.QuantityType = Field(
+    quantity: Quantity = Field(
         None,
         alias="quantity",
         title="How much to administer/supply/consume",
@@ -704,7 +711,7 @@ class CarePlanActivityDetail(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    reasonCode: typing.List[fhirtypes.CodeableConceptType] = Field(
+    reasonCode: typing.List[CodeableConcept] = Field(
         None,
         alias="reasonCode",
         title="Why activity should be done or why activity was prohibited",
@@ -717,7 +724,7 @@ class CarePlanActivityDetail(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    reasonReference: typing.List[fhirtypes.ReferenceType] = Field(
+    reasonReference: typing.List[Reference] = Field(
         None,
         alias="reasonReference",
         title="Condition triggering need for activity",
@@ -731,7 +738,7 @@ class CarePlanActivityDetail(backboneelement.BackboneElement):
         enum_reference_types=["Condition"],
     )
 
-    scheduledPeriod: fhirtypes.PeriodType = Field(
+    scheduledPeriod: Period = Field(
         None,
         alias="scheduledPeriod",
         title="When activity is to occur",
@@ -764,7 +771,7 @@ class CarePlanActivityDetail(backboneelement.BackboneElement):
         None, alias="_scheduledString", title="Extension field for ``scheduledString``."
     )
 
-    scheduledTiming: fhirtypes.TimingType = Field(
+    scheduledTiming: Timing = Field(
         None,
         alias="scheduledTiming",
         title="When activity is to occur",
@@ -952,3 +959,7 @@ class CarePlanActivityDetail(backboneelement.BackboneElement):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+CarePlan.update_forward_refs()
+CarePlanActivity.update_forward_refs()

@@ -13,6 +13,9 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .reference import Reference
 
 
 class DetectedIssue(domainresource.DomainResource):
@@ -27,9 +30,9 @@ class DetectedIssue(domainresource.DomainResource):
     etc.
     """
 
-    resource_type = Field("DetectedIssue", const=True)
+    resource_type: str = Field("DetectedIssue", const=True)
 
-    author: fhirtypes.ReferenceType = Field(
+    author: Reference = Field(
         None,
         alias="author",
         title="The provider or device that identified the issue",
@@ -44,7 +47,7 @@ class DetectedIssue(domainresource.DomainResource):
         enum_reference_types=["Practitioner", "Device"],
     )
 
-    category: fhirtypes.CodeableConceptType = Field(
+    category: CodeableConcept = Field(
         None,
         alias="category",
         title="Issue Category, e.g. drug-drug, duplicate therapy, etc.",
@@ -79,7 +82,7 @@ class DetectedIssue(domainresource.DomainResource):
         None, alias="_detail", title="Extension field for ``detail``."
     )
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="Unique id for the detected issue",
@@ -88,7 +91,7 @@ class DetectedIssue(domainresource.DomainResource):
         element_property=True,
     )
 
-    implicated: typing.List[fhirtypes.ReferenceType] = Field(
+    implicated: typing.List[Reference] = Field(
         None,
         alias="implicated",
         title="Problem resource",
@@ -102,7 +105,7 @@ class DetectedIssue(domainresource.DomainResource):
         enum_reference_types=["Resource"],
     )
 
-    mitigation: typing.List[fhirtypes.DetectedIssueMitigationType] = Field(
+    mitigation: typing.List["DetectedIssueMitigation"] = Field(
         None,
         alias="mitigation",
         title="Step taken to address",
@@ -116,7 +119,7 @@ class DetectedIssue(domainresource.DomainResource):
         element_property=True,
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         None,
         alias="patient",
         title="Associated patient",
@@ -279,9 +282,9 @@ class DetectedIssueMitigation(backboneelement.BackboneElement):
     that may reduce/eliminate the need for any action.
     """
 
-    resource_type = Field("DetectedIssueMitigation", const=True)
+    resource_type: str = Field("DetectedIssueMitigation", const=True)
 
-    action: fhirtypes.CodeableConceptType = Field(
+    action: CodeableConcept = Field(
         ...,
         alias="action",
         title="What mitigation?",
@@ -293,7 +296,7 @@ class DetectedIssueMitigation(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    author: fhirtypes.ReferenceType = Field(
+    author: Reference = Field(
         None,
         alias="author",
         title="Who is committing?",
@@ -326,3 +329,6 @@ class DetectedIssueMitigation(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "action", "date", "author"]
+
+
+DetectedIssue.update_forward_refs()

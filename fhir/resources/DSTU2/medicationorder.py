@@ -11,6 +11,15 @@ from typing import List as ListType
 from pydantic.v1 import Field, root_validator
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .duration import Duration
+from .identifier import Identifier
+from .period import Period
+from .quantity import Quantity
+from .range import Range
+from .ratio import Ratio
+from .reference import Reference
+from .timing import Timing
 
 
 class MedicationOrder(domainresource.DomainResource):
@@ -23,7 +32,7 @@ class MedicationOrder(domainresource.DomainResource):
     etc.
     """
 
-    resource_type = Field("MedicationOrder", const=True)
+    resource_type: str = Field("MedicationOrder", const=True)
 
     dateEnded: fhirtypes.DateTime = Field(
         None,
@@ -39,14 +48,14 @@ class MedicationOrder(domainresource.DomainResource):
         description="When prescription was authorized.",
     )
 
-    dispenseRequest: fhirtypes.MedicationOrderDispenseRequestType = Field(
+    dispenseRequest: "MedicationOrderDispenseRequest" = Field(
         None,
         alias="dispenseRequest",
         title="Type `MedicationOrderDispenseRequest` (represented as `dict` in JSON).",
         description="Medication supply authorization.",
     )
 
-    dosageInstruction: ListType[fhirtypes.MedicationOrderDosageInstructionType] = Field(
+    dosageInstruction: ListType["MedicationOrderDosageInstruction"] = Field(
         None,
         alias="dosageInstruction",
         title=(
@@ -56,7 +65,7 @@ class MedicationOrder(domainresource.DomainResource):
         description="How medication should be taken.",
     )
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title=(
@@ -67,14 +76,14 @@ class MedicationOrder(domainresource.DomainResource):
         enum_reference_types=["Encounter"],
     )
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="List of `Identifier` items (represented as `dict` in JSON).",
         description="External identifier.",
     )
 
-    medicationCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    medicationCodeableConcept: CodeableConcept = Field(
         None,
         alias="medicationCodeableConcept",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -84,7 +93,7 @@ class MedicationOrder(domainresource.DomainResource):
         one_of_many_required=True,
     )
 
-    medicationReference: fhirtypes.ReferenceType = Field(
+    medicationReference: Reference = Field(
         None,
         alias="medicationReference",
         title=(
@@ -105,7 +114,7 @@ class MedicationOrder(domainresource.DomainResource):
         description="Information about the prescription.",
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         None,
         alias="patient",
         title="Type `Reference` referencing `Patient` (represented as `dict` in JSON).",
@@ -114,7 +123,7 @@ class MedicationOrder(domainresource.DomainResource):
         enum_reference_types=["Patient"],
     )
 
-    prescriber: fhirtypes.ReferenceType = Field(
+    prescriber: Reference = Field(
         None,
         alias="prescriber",
         title=(
@@ -126,7 +135,7 @@ class MedicationOrder(domainresource.DomainResource):
         enum_reference_types=["Practitioner"],
     )
 
-    priorPrescription: fhirtypes.ReferenceType = Field(
+    priorPrescription: Reference = Field(
         None,
         alias="priorPrescription",
         title=(
@@ -138,7 +147,7 @@ class MedicationOrder(domainresource.DomainResource):
         enum_reference_types=["MedicationOrder"],
     )
 
-    reasonCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    reasonCodeableConcept: CodeableConcept = Field(
         None,
         alias="reasonCodeableConcept",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -148,14 +157,14 @@ class MedicationOrder(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    reasonEnded: fhirtypes.CodeableConceptType = Field(
+    reasonEnded: CodeableConcept = Field(
         None,
         alias="reasonEnded",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="Why prescription was stopped.",
     )
 
-    reasonReference: fhirtypes.ReferenceType = Field(
+    reasonReference: Reference = Field(
         None,
         alias="reasonReference",
         title=(
@@ -184,7 +193,7 @@ class MedicationOrder(domainresource.DomainResource):
         ],
     )
 
-    substitution: fhirtypes.MedicationOrderSubstitutionType = Field(
+    substitution: "MedicationOrderSubstitution" = Field(
         None,
         alias="substitution",
         title="Type `MedicationOrderSubstitution` (represented as `dict` in JSON).",
@@ -241,16 +250,16 @@ class MedicationOrderDispenseRequest(backboneelement.BackboneElement):
     the dispense details in the pharmacy department.
     """
 
-    resource_type = Field("MedicationOrderDispenseRequest", const=True)
+    resource_type: str = Field("MedicationOrderDispenseRequest", const=True)
 
-    expectedSupplyDuration: fhirtypes.DurationType = Field(
+    expectedSupplyDuration: Duration = Field(
         None,
         alias="expectedSupplyDuration",
         title="Type `Quantity` referencing `Duration` (represented as `dict` in JSON).",
         description="Number of days supply per dispense.",
     )
 
-    medicationCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    medicationCodeableConcept: CodeableConcept = Field(
         None,
         alias="medicationCodeableConcept",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -260,7 +269,7 @@ class MedicationOrderDispenseRequest(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    medicationReference: fhirtypes.ReferenceType = Field(
+    medicationReference: Reference = Field(
         None,
         alias="medicationReference",
         title=(
@@ -281,7 +290,7 @@ class MedicationOrderDispenseRequest(backboneelement.BackboneElement):
         description="Number of refills authorized.",
     )
 
-    quantity: fhirtypes.QuantityType = Field(
+    quantity: Quantity = Field(
         None,
         alias="quantity",
         title=(
@@ -291,7 +300,7 @@ class MedicationOrderDispenseRequest(backboneelement.BackboneElement):
         description="Amount of medication to supply per dispense.",
     )
 
-    validityPeriod: fhirtypes.PeriodType = Field(
+    validityPeriod: Period = Field(
         None,
         alias="validityPeriod",
         title="Type `Period` (represented as `dict` in JSON).",
@@ -343,9 +352,9 @@ class MedicationOrderDosageInstruction(backboneelement.BackboneElement):
     Indicates how the medication is to be used by the patient.
     """
 
-    resource_type = Field("MedicationOrderDosageInstruction", const=True)
+    resource_type: str = Field("MedicationOrderDosageInstruction", const=True)
 
-    additionalInstructions: fhirtypes.CodeableConceptType = Field(
+    additionalInstructions: CodeableConcept = Field(
         None,
         alias="additionalInstructions",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -362,7 +371,7 @@ class MedicationOrderDosageInstruction(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    asNeededCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    asNeededCodeableConcept: CodeableConcept = Field(
         None,
         alias="asNeededCodeableConcept",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -372,7 +381,7 @@ class MedicationOrderDosageInstruction(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    doseQuantity: fhirtypes.QuantityType = Field(
+    doseQuantity: Quantity = Field(
         None,
         alias="doseQuantity",
         title=(
@@ -385,7 +394,7 @@ class MedicationOrderDosageInstruction(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    doseRange: fhirtypes.RangeType = Field(
+    doseRange: Range = Field(
         None,
         alias="doseRange",
         title="Type `Range` (represented as `dict` in JSON).",
@@ -395,21 +404,21 @@ class MedicationOrderDosageInstruction(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    maxDosePerPeriod: fhirtypes.RatioType = Field(
+    maxDosePerPeriod: Ratio = Field(
         None,
         alias="maxDosePerPeriod",
         title="Type `Ratio` (represented as `dict` in JSON).",
         description="Upper limit on medication per unit of time.",
     )
 
-    method: fhirtypes.CodeableConceptType = Field(
+    method: CodeableConcept = Field(
         None,
         alias="method",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="Technique for administering medication.",
     )
 
-    rateRange: fhirtypes.RangeType = Field(
+    rateRange: Range = Field(
         None,
         alias="rateRange",
         title="Type `Range` (represented as `dict` in JSON).",
@@ -419,7 +428,7 @@ class MedicationOrderDosageInstruction(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    rateRatio: fhirtypes.RatioType = Field(
+    rateRatio: Ratio = Field(
         None,
         alias="rateRatio",
         title="Type `Ratio` (represented as `dict` in JSON).",
@@ -429,14 +438,14 @@ class MedicationOrderDosageInstruction(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    route: fhirtypes.CodeableConceptType = Field(
+    route: CodeableConcept = Field(
         None,
         alias="route",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="How drug should enter body.",
     )
 
-    siteCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    siteCodeableConcept: CodeableConcept = Field(
         None,
         alias="siteCodeableConcept",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -446,7 +455,7 @@ class MedicationOrderDosageInstruction(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    siteReference: fhirtypes.ReferenceType = Field(
+    siteReference: Reference = Field(
         None,
         alias="siteReference",
         title=(
@@ -467,7 +476,7 @@ class MedicationOrderDosageInstruction(backboneelement.BackboneElement):
         description="Dosage instructions expressed as text.",
     )
 
-    timing: fhirtypes.TimingType = Field(
+    timing: Timing = Field(
         None,
         alias="timing",
         title="Type `Timing` (represented as `dict` in JSON).",
@@ -526,18 +535,21 @@ class MedicationOrderSubstitution(backboneelement.BackboneElement):
     be done.
     """
 
-    resource_type = Field("MedicationOrderSubstitution", const=True)
+    resource_type: str = Field("MedicationOrderSubstitution", const=True)
 
-    reason: fhirtypes.CodeableConceptType = Field(
+    reason: CodeableConcept = Field(
         None,
         alias="reason",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="Why should (not) substitution be made.",
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="generic | formulary +.",
     )
+
+
+MedicationOrder.update_forward_refs()

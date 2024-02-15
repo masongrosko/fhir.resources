@@ -13,6 +13,12 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
+from .signature import Signature
 
 
 class Provenance(domainresource.DomainResource):
@@ -33,9 +39,9 @@ class Provenance(domainresource.DomainResource):
     impact security, privacy, and trust policies.
     """
 
-    resource_type = Field("Provenance", const=True)
+    resource_type: str = Field("Provenance", const=True)
 
-    activity: fhirtypes.CodingType = Field(
+    activity: Coding = Field(
         None,
         alias="activity",
         title="Activity that occurred",
@@ -48,7 +54,7 @@ class Provenance(domainresource.DomainResource):
         element_property=True,
     )
 
-    agent: typing.List[fhirtypes.ProvenanceAgentType] = Field(
+    agent: typing.List["ProvenanceAgent"] = Field(
         ...,
         alias="agent",
         title="Actor involved",
@@ -60,7 +66,7 @@ class Provenance(domainresource.DomainResource):
         element_property=True,
     )
 
-    entity: typing.List[fhirtypes.ProvenanceEntityType] = Field(
+    entity: typing.List["ProvenanceEntity"] = Field(
         None,
         alias="entity",
         title="An entity used in this activity",
@@ -69,7 +75,7 @@ class Provenance(domainresource.DomainResource):
         element_property=True,
     )
 
-    location: fhirtypes.ReferenceType = Field(
+    location: Reference = Field(
         None,
         alias="location",
         title="Where the activity occurred, if relevant",
@@ -80,7 +86,7 @@ class Provenance(domainresource.DomainResource):
         enum_reference_types=["Location"],
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="When the activity occurred",
@@ -105,7 +111,7 @@ class Provenance(domainresource.DomainResource):
         typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
     ] = Field(None, alias="_policy", title="Extension field for ``policy``.")
 
-    reason: typing.List[fhirtypes.CodingType] = Field(
+    reason: typing.List[Coding] = Field(
         None,
         alias="reason",
         title="Reason the activity is occurring",
@@ -127,7 +133,7 @@ class Provenance(domainresource.DomainResource):
         None, alias="_recorded", title="Extension field for ``recorded``."
     )
 
-    signature: typing.List[fhirtypes.SignatureType] = Field(
+    signature: typing.List[Signature] = Field(
         None,
         alias="signature",
         title="Signature on target",
@@ -139,7 +145,7 @@ class Provenance(domainresource.DomainResource):
         element_property=True,
     )
 
-    target: typing.List[fhirtypes.ReferenceType] = Field(
+    target: typing.List[Reference] = Field(
         ...,
         alias="target",
         title="Target Reference(s) (usually version specific)",
@@ -252,9 +258,9 @@ class ProvenanceAgent(backboneelement.BackboneElement):
     degree of responsibility for the activity taking place.
     """
 
-    resource_type = Field("ProvenanceAgent", const=True)
+    resource_type: str = Field("ProvenanceAgent", const=True)
 
-    onBehalfOfReference: fhirtypes.ReferenceType = Field(
+    onBehalfOfReference: Reference = Field(
         None,
         alias="onBehalfOfReference",
         title="Who the agent is representing",
@@ -289,7 +295,7 @@ class ProvenanceAgent(backboneelement.BackboneElement):
         None, alias="_onBehalfOfUri", title="Extension field for ``onBehalfOfUri``."
     )
 
-    relatedAgentType: fhirtypes.CodeableConceptType = Field(
+    relatedAgentType: CodeableConcept = Field(
         None,
         alias="relatedAgentType",
         title="Type of relationship between agents",
@@ -298,7 +304,7 @@ class ProvenanceAgent(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    role: typing.List[fhirtypes.CodeableConceptType] = Field(
+    role: typing.List[CodeableConcept] = Field(
         None,
         alias="role",
         title="What the agents role was",
@@ -310,7 +316,7 @@ class ProvenanceAgent(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    whoReference: fhirtypes.ReferenceType = Field(
+    whoReference: Reference = Field(
         None,
         alias="whoReference",
         title="Who participated",
@@ -421,9 +427,9 @@ class ProvenanceEntity(backboneelement.BackboneElement):
     An entity used in this activity.
     """
 
-    resource_type = Field("ProvenanceEntity", const=True)
+    resource_type: str = Field("ProvenanceEntity", const=True)
 
-    agent: typing.List[fhirtypes.ProvenanceAgentType] = Field(
+    agent: typing.List["ProvenanceAgent"] = Field(
         None,
         alias="agent",
         title="Entity is attributed to this agent",
@@ -453,7 +459,7 @@ class ProvenanceEntity(backboneelement.BackboneElement):
         None, alias="_role", title="Extension field for ``role``."
     )
 
-    whatIdentifier: fhirtypes.IdentifierType = Field(
+    whatIdentifier: Identifier = Field(
         None,
         alias="whatIdentifier",
         title="Identity of entity",
@@ -468,7 +474,7 @@ class ProvenanceEntity(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    whatReference: fhirtypes.ReferenceType = Field(
+    whatReference: Reference = Field(
         None,
         alias="whatReference",
         title="Identity of entity",
@@ -616,3 +622,7 @@ class ProvenanceEntity(backboneelement.BackboneElement):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+Provenance.update_forward_refs()
+ProvenanceEntity.update_forward_refs()

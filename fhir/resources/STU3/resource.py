@@ -6,9 +6,27 @@ Version: 3.0.2
 Revision: 11917
 Last updated: 2019-10-24T11:53:00+11:00
 """
+from typing import TYPE_CHECKING
+
 from pydantic.v1 import Field
+from pydantic.v1.parse import load_str_bytes
+
+from fhir.resources.core import fhirabstractmodel
 
 from . import fhirresourcemodel, fhirtypes
+from .fhirtypesvalidators import fhir_model_validator
+from .meta import Meta
+
+if TYPE_CHECKING:
+    from pydantic.v1.typing import CallableGenerator
+
+
+class classproperty:
+    def __init__(self, func):
+        self.fget = func
+
+    def __get__(self, instance, owner):
+        return self.fget(owner)
 
 
 class Resource(fhirresourcemodel.FHIRResourceModel):
@@ -20,7 +38,7 @@ class Resource(fhirresourcemodel.FHIRResourceModel):
     This is the base resource type for everything.
     """
 
-    resource_type = Field("Resource", const=True)
+    resource_type: str = Field("Resource", const=True)
 
     id: fhirtypes.Id = Field(
         None,
@@ -62,7 +80,7 @@ class Resource(fhirresourcemodel.FHIRResourceModel):
         None, alias="_language", title="Extension field for ``language``."
     )
 
-    meta: fhirtypes.MetaType = Field(
+    meta: Meta = Field(
         None,
         alias="meta",
         title="Metadata about the resource",
@@ -82,3 +100,42 @@ class Resource(fhirresourcemodel.FHIRResourceModel):
         with preserving original sequence order.
         """
         return ["id", "meta", "implicitRules", "language"]
+
+    __fhir_release__: str = "STU3"
+
+    @classproperty
+    def __resource_type__(cls) -> str:
+        """Resource type."""
+        return cls.__name__
+
+    @classmethod
+    def __get_validators__(cls) -> "CallableGenerator":
+        yield cls.validate
+
+    @classmethod
+    def validate(cls, v, values, config, field):
+        """ """
+        if isinstance(v, fhirabstractmodel.FHIRAbstractModel):
+            resource_type = v.resource_type
+        elif "resourceType" not in cls.__fields__:
+            if isinstance(v, (bytes, str)):
+                input_data = load_str_bytes(v)
+                resource_type = input_data.get("resourceType", None)
+            else:
+                resource_type = v.get("resourceType", None)
+        else:
+            resource_type = None
+        if resource_type is None:
+            resource_type = cls.__resource_type__
+        v = fhir_model_validator(resource_type, v)
+        return v
+
+    @classmethod
+    def is_primitive(cls) -> bool:
+        """ """
+        return False
+
+    @classmethod
+    def fhir_type_name(cls) -> str:
+        """ """
+        return cls.__resource_type__

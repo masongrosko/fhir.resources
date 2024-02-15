@@ -9,7 +9,8 @@ from typing import List as ListType
 
 from pydantic.v1 import Field
 
-from . import fhirtypes
+from .extension import Extension
+from .narrative import Narrative
 from .resource import Resource
 
 
@@ -19,30 +20,30 @@ class DomainResource(Resource):
     A resource that includes narrative, extensions, and contained resources.
     """
 
-    resource_type = Field("DomainResource", const=True)
+    resource_type: str = Field("DomainResource", const=True)
 
-    contained: ListType[fhirtypes.ResourceType] = Field(
+    contained: ListType[Resource] = Field(
         None,
         alias="contained",
         title="List of `Resource` items (represented as `dict` in JSON)",
         description="Contained, inline Resources",
     )
 
-    extension: ListType[fhirtypes.ExtensionType] = Field(
+    extension: ListType[Extension] = Field(
         None,
         alias="extension",
         title="List of `Extension` items (represented as `dict` in JSON)",
         description="Additional Content defined by implementations",
     )
 
-    modifierExtension: ListType[fhirtypes.ExtensionType] = Field(
+    modifierExtension: ListType[Extension] = Field(
         None,
         alias="modifierExtension",
         title="List of `Extension` items (represented as `dict` in JSON)",
         description="Extensions that cannot be ignored",
     )
 
-    text: fhirtypes.NarrativeType = Field(
+    text: Narrative = Field(
         None,
         alias="text",
         title="Type `Narrative` (represented as `dict` in JSON)",

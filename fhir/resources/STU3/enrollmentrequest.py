@@ -11,6 +11,8 @@ import typing
 from pydantic.v1 import Field
 
 from . import domainresource, fhirtypes
+from .identifier import Identifier
+from .reference import Reference
 
 
 class EnrollmentRequest(domainresource.DomainResource):
@@ -23,9 +25,9 @@ class EnrollmentRequest(domainresource.DomainResource):
     regarding a specified coverage.
     """
 
-    resource_type = Field("EnrollmentRequest", const=True)
+    resource_type: str = Field("EnrollmentRequest", const=True)
 
-    coverage: fhirtypes.ReferenceType = Field(
+    coverage: Reference = Field(
         None,
         alias="coverage",
         title="Insurance information",
@@ -48,7 +50,7 @@ class EnrollmentRequest(domainresource.DomainResource):
         None, alias="_created", title="Extension field for ``created``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business Identifier",
@@ -57,7 +59,7 @@ class EnrollmentRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    insurer: fhirtypes.ReferenceType = Field(
+    insurer: Reference = Field(
         None,
         alias="insurer",
         title="Target",
@@ -68,7 +70,7 @@ class EnrollmentRequest(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    organization: fhirtypes.ReferenceType = Field(
+    organization: Reference = Field(
         None,
         alias="organization",
         title="Responsible organization",
@@ -82,7 +84,7 @@ class EnrollmentRequest(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    provider: fhirtypes.ReferenceType = Field(
+    provider: Reference = Field(
         None,
         alias="provider",
         title="Responsible practitioner",
@@ -111,7 +113,7 @@ class EnrollmentRequest(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title="The subject of the Products and Services",

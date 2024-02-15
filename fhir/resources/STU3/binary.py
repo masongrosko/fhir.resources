@@ -13,6 +13,7 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import fhirtypes, resource
+from .reference import Reference
 
 
 class Binary(resource.Resource):
@@ -25,7 +26,7 @@ class Binary(resource.Resource):
     archive, etc.
     """
 
-    resource_type = Field("Binary", const=True)
+    resource_type: str = Field("Binary", const=True)
 
     content: fhirtypes.Base64Binary = Field(
         None,
@@ -56,7 +57,7 @@ class Binary(resource.Resource):
         None, alias="_contentType", title="Extension field for ``contentType``."
     )
 
-    securityContext: fhirtypes.ReferenceType = Field(
+    securityContext: Reference = Field(
         None,
         alias="securityContext",
         title="Access Control Management",

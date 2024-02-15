@@ -13,6 +13,12 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .contactdetail import ContactDetail
+from .identifier import Identifier
+from .reference import Reference
+from .usagecontext import UsageContext
 
 
 class CapabilityStatement(domainresource.DomainResource):
@@ -27,7 +33,7 @@ class CapabilityStatement(domainresource.DomainResource):
     desired server implementation.
     """
 
-    resource_type = Field("CapabilityStatement", const=True)
+    resource_type: str = Field("CapabilityStatement", const=True)
 
     acceptLanguage: typing.List[typing.Optional[fhirtypes.Code]] = Field(
         None,
@@ -46,7 +52,7 @@ class CapabilityStatement(domainresource.DomainResource):
         None, alias="_acceptLanguage", title="Extension field for ``acceptLanguage``."
     )
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -128,7 +134,7 @@ class CapabilityStatement(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    document: typing.List[fhirtypes.CapabilityStatementDocumentType] = Field(
+    document: typing.List["CapabilityStatementDocument"] = Field(
         None,
         alias="document",
         title="Document definition",
@@ -189,7 +195,7 @@ class CapabilityStatement(domainresource.DomainResource):
         typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
     ] = Field(None, alias="_format", title="Extension field for ``format``.")
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title=(
@@ -204,7 +210,7 @@ class CapabilityStatement(domainresource.DomainResource):
         element_property=True,
     )
 
-    implementation: fhirtypes.CapabilityStatementImplementationType = Field(
+    implementation: "CapabilityStatementImplementation" = Field(
         None,
         alias="implementation",
         title="If this describes a specific instance",
@@ -281,7 +287,7 @@ class CapabilityStatement(domainresource.DomainResource):
         None, alias="_instantiates", title="Extension field for ``instantiates``."
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction for capability statement (if applicable)",
@@ -314,7 +320,7 @@ class CapabilityStatement(domainresource.DomainResource):
         None, alias="_kind", title="Extension field for ``kind``."
     )
 
-    messaging: typing.List[fhirtypes.CapabilityStatementMessagingType] = Field(
+    messaging: typing.List["CapabilityStatementMessaging"] = Field(
         None,
         alias="messaging",
         title="If messaging is supported",
@@ -384,7 +390,7 @@ class CapabilityStatement(domainresource.DomainResource):
         None, alias="_purpose", title="Extension field for ``purpose``."
     )
 
-    rest: typing.List[fhirtypes.CapabilityStatementRestType] = Field(
+    rest: typing.List["CapabilityStatementRest"] = Field(
         None,
         alias="rest",
         title="If the endpoint is a RESTful one",
@@ -393,7 +399,7 @@ class CapabilityStatement(domainresource.DomainResource):
         element_property=True,
     )
 
-    software: fhirtypes.CapabilityStatementSoftwareType = Field(
+    software: "CapabilityStatementSoftware" = Field(
         None,
         alias="software",
         title="Software that is covered by this capability statement",
@@ -463,7 +469,7 @@ class CapabilityStatement(domainresource.DomainResource):
         None, alias="_url", title="Extension field for ``url``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="The context that the content is intended to support",
@@ -498,7 +504,7 @@ class CapabilityStatement(domainresource.DomainResource):
         None, alias="_version", title="Extension field for ``version``."
     )
 
-    versionAlgorithmCoding: fhirtypes.CodingType = Field(
+    versionAlgorithmCoding: Coding = Field(
         None,
         alias="versionAlgorithmCoding",
         title="How to compare versions",
@@ -696,7 +702,7 @@ class CapabilityStatementDocument(backboneelement.BackboneElement):
     A document definition.
     """
 
-    resource_type = Field("CapabilityStatementDocument", const=True)
+    resource_type: str = Field("CapabilityStatementDocument", const=True)
 
     documentation: fhirtypes.Markdown = Field(
         None,
@@ -837,9 +843,9 @@ class CapabilityStatementImplementation(backboneelement.BackboneElement):
     capabilities of a software program.
     """
 
-    resource_type = Field("CapabilityStatementImplementation", const=True)
+    resource_type: str = Field("CapabilityStatementImplementation", const=True)
 
-    custodian: fhirtypes.ReferenceType = Field(
+    custodian: Reference = Field(
         None,
         alias="custodian",
         title="Organization that manages the data",
@@ -968,7 +974,7 @@ class CapabilityStatementMessaging(backboneelement.BackboneElement):
     A description of the messaging capabilities of the solution.
     """
 
-    resource_type = Field("CapabilityStatementMessaging", const=True)
+    resource_type: str = Field("CapabilityStatementMessaging", const=True)
 
     documentation: fhirtypes.Markdown = Field(
         None,
@@ -987,7 +993,7 @@ class CapabilityStatementMessaging(backboneelement.BackboneElement):
         None, alias="_documentation", title="Extension field for ``documentation``."
     )
 
-    endpoint: typing.List[fhirtypes.CapabilityStatementMessagingEndpointType] = Field(
+    endpoint: typing.List["CapabilityStatementMessagingEndpoint"] = Field(
         None,
         alias="endpoint",
         title="Where messages should be sent",
@@ -1015,18 +1021,18 @@ class CapabilityStatementMessaging(backboneelement.BackboneElement):
         None, alias="_reliableCache", title="Extension field for ``reliableCache``."
     )
 
-    supportedMessage: typing.List[
-        fhirtypes.CapabilityStatementMessagingSupportedMessageType
-    ] = Field(
-        None,
-        alias="supportedMessage",
-        title="Messages supported by this system",
-        description=(
-            "References to message definitions for messages this system can send or"
-            " receive."
-        ),
-        # if property is element of this resource.
-        element_property=True,
+    supportedMessage: typing.List["CapabilityStatementMessagingSupportedMessage"] = (
+        Field(
+            None,
+            alias="supportedMessage",
+            title="Messages supported by this system",
+            description=(
+                "References to message definitions for messages this system can send or"
+                " receive."
+            ),
+            # if property is element of this resource.
+            element_property=True,
+        )
     )
 
     @classmethod
@@ -1056,7 +1062,7 @@ class CapabilityStatementMessagingEndpoint(backboneelement.BackboneElement):
     are to be sent.
     """
 
-    resource_type = Field("CapabilityStatementMessagingEndpoint", const=True)
+    resource_type: str = Field("CapabilityStatementMessagingEndpoint", const=True)
 
     address: fhirtypes.Url = Field(
         None,
@@ -1074,7 +1080,7 @@ class CapabilityStatementMessagingEndpoint(backboneelement.BackboneElement):
         None, alias="_address", title="Extension field for ``address``."
     )
 
-    protocol: fhirtypes.CodingType = Field(
+    protocol: Coding = Field(
         ...,
         alias="protocol",
         title="http | ftp | mllp +",
@@ -1164,7 +1170,9 @@ class CapabilityStatementMessagingSupportedMessage(backboneelement.BackboneEleme
     receive.
     """
 
-    resource_type = Field("CapabilityStatementMessagingSupportedMessage", const=True)
+    resource_type: str = Field(
+        "CapabilityStatementMessagingSupportedMessage", const=True
+    )
 
     definition: fhirtypes.Canonical = Field(
         None,
@@ -1280,7 +1288,7 @@ class CapabilityStatementRest(backboneelement.BackboneElement):
     A definition of the restful capabilities of the solution, if any.
     """
 
-    resource_type = Field("CapabilityStatementRest", const=True)
+    resource_type: str = Field("CapabilityStatementRest", const=True)
 
     compartment: typing.List[typing.Optional[fhirtypes.Canonical]] = Field(
         None,
@@ -1315,7 +1323,7 @@ class CapabilityStatementRest(backboneelement.BackboneElement):
         None, alias="_documentation", title="Extension field for ``documentation``."
     )
 
-    interaction: typing.List[fhirtypes.CapabilityStatementRestInteractionType] = Field(
+    interaction: typing.List["CapabilityStatementRestInteraction"] = Field(
         None,
         alias="interaction",
         title="What operations are supported?",
@@ -1343,9 +1351,7 @@ class CapabilityStatementRest(backboneelement.BackboneElement):
         None, alias="_mode", title="Extension field for ``mode``."
     )
 
-    operation: typing.List[
-        fhirtypes.CapabilityStatementRestResourceOperationType
-    ] = Field(
+    operation: typing.List["CapabilityStatementRestResourceOperation"] = Field(
         None,
         alias="operation",
         title="Definition of a system level operation",
@@ -1357,7 +1363,7 @@ class CapabilityStatementRest(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    resource: typing.List[fhirtypes.CapabilityStatementRestResourceType] = Field(
+    resource: typing.List["CapabilityStatementRestResource"] = Field(
         None,
         alias="resource",
         title="Resource served on the REST interface",
@@ -1369,9 +1375,7 @@ class CapabilityStatementRest(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    searchParam: typing.List[
-        fhirtypes.CapabilityStatementRestResourceSearchParamType
-    ] = Field(
+    searchParam: typing.List["CapabilityStatementRestResourceSearchParam"] = Field(
         None,
         alias="searchParam",
         title="Search parameters for searching all resources",
@@ -1386,7 +1390,7 @@ class CapabilityStatementRest(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    security: fhirtypes.CapabilityStatementRestSecurityType = Field(
+    security: "CapabilityStatementRestSecurity" = Field(
         None,
         alias="security",
         title="Information about security of implementation",
@@ -1487,7 +1491,7 @@ class CapabilityStatementRestInteraction(backboneelement.BackboneElement):
     A specification of restful operations supported by the system.
     """
 
-    resource_type = Field("CapabilityStatementRestInteraction", const=True)
+    resource_type: str = Field("CapabilityStatementRestInteraction", const=True)
 
     code: fhirtypes.Code = Field(
         None,
@@ -1599,7 +1603,7 @@ class CapabilityStatementRestResource(backboneelement.BackboneElement):
     resource type.
     """
 
-    resource_type = Field("CapabilityStatementRestResource", const=True)
+    resource_type: str = Field("CapabilityStatementRestResource", const=True)
 
     conditionalCreate: bool = Field(
         None,
@@ -1689,9 +1693,7 @@ class CapabilityStatementRestResource(backboneelement.BackboneElement):
         None, alias="_documentation", title="Extension field for ``documentation``."
     )
 
-    interaction: typing.List[
-        fhirtypes.CapabilityStatementRestResourceInteractionType
-    ] = Field(
+    interaction: typing.List["CapabilityStatementRestResourceInteraction"] = Field(
         None,
         alias="interaction",
         title="What operations are supported?",
@@ -1700,9 +1702,7 @@ class CapabilityStatementRestResource(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    operation: typing.List[
-        fhirtypes.CapabilityStatementRestResourceOperationType
-    ] = Field(
+    operation: typing.List["CapabilityStatementRestResourceOperation"] = Field(
         None,
         alias="operation",
         title="Definition of a resource operation",
@@ -1782,9 +1782,7 @@ class CapabilityStatementRestResource(backboneelement.BackboneElement):
         None, alias="_searchInclude", title="Extension field for ``searchInclude``."
     )
 
-    searchParam: typing.List[
-        fhirtypes.CapabilityStatementRestResourceSearchParamType
-    ] = Field(
+    searchParam: typing.List["CapabilityStatementRestResourceSearchParam"] = Field(
         None,
         alias="searchParam",
         title="Search parameters supported by implementation",
@@ -1995,7 +1993,7 @@ class CapabilityStatementRestResourceInteraction(backboneelement.BackboneElement
     Identifies a restful operation supported by the solution.
     """
 
-    resource_type = Field("CapabilityStatementRestResourceInteraction", const=True)
+    resource_type: str = Field("CapabilityStatementRestResourceInteraction", const=True)
 
     code: fhirtypes.Code = Field(
         None,
@@ -2121,7 +2119,7 @@ class CapabilityStatementRestResourceOperation(backboneelement.BackboneElement):
     details about how to invoke the operation, and the parameters.
     """
 
-    resource_type = Field("CapabilityStatementRestResourceOperation", const=True)
+    resource_type: str = Field("CapabilityStatementRestResourceOperation", const=True)
 
     definition: fhirtypes.Canonical = Field(
         None,
@@ -2271,7 +2269,7 @@ class CapabilityStatementRestResourceSearchParam(backboneelement.BackboneElement
     defined for/by the implementation.
     """
 
-    resource_type = Field("CapabilityStatementRestResourceSearchParam", const=True)
+    resource_type: str = Field("CapabilityStatementRestResourceSearchParam", const=True)
 
     definition: fhirtypes.Canonical = Field(
         None,
@@ -2448,7 +2446,7 @@ class CapabilityStatementRestSecurity(backboneelement.BackboneElement):
     what a client needs to know.
     """
 
-    resource_type = Field("CapabilityStatementRestSecurity", const=True)
+    resource_type: str = Field("CapabilityStatementRestSecurity", const=True)
 
     cors: bool = Field(
         None,
@@ -2477,7 +2475,7 @@ class CapabilityStatementRestSecurity(backboneelement.BackboneElement):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    service: typing.List[fhirtypes.CodeableConceptType] = Field(
+    service: typing.List[CodeableConcept] = Field(
         None,
         alias="service",
         title="OAuth | SMART-on-FHIR | NTLM | Basic | Kerberos | Certificates",
@@ -2513,7 +2511,7 @@ class CapabilityStatementSoftware(backboneelement.BackboneElement):
     version, independent of an installation.
     """
 
-    resource_type = Field("CapabilityStatementSoftware", const=True)
+    resource_type: str = Field("CapabilityStatementSoftware", const=True)
 
     name: fhirtypes.String = Field(
         None,
@@ -2625,3 +2623,9 @@ class CapabilityStatementSoftware(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+CapabilityStatement.update_forward_refs()
+CapabilityStatementMessaging.update_forward_refs()
+CapabilityStatementRest.update_forward_refs()
+CapabilityStatementRestResource.update_forward_refs()

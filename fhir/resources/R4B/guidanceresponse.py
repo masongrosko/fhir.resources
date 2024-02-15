@@ -13,6 +13,11 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import domainresource, fhirtypes
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .datarequirement import DataRequirement
+from .identifier import Identifier
+from .reference import Reference
 
 
 class GuidanceResponse(domainresource.DomainResource):
@@ -26,9 +31,9 @@ class GuidanceResponse(domainresource.DomainResource):
     description of any proposed actions to be taken.
     """
 
-    resource_type = Field("GuidanceResponse", const=True)
+    resource_type: str = Field("GuidanceResponse", const=True)
 
-    dataRequirement: typing.List[fhirtypes.DataRequirementType] = Field(
+    dataRequirement: typing.List[DataRequirement] = Field(
         None,
         alias="dataRequirement",
         title="Additional required data",
@@ -43,7 +48,7 @@ class GuidanceResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title="Encounter during which the response was returned",
@@ -57,7 +62,7 @@ class GuidanceResponse(domainresource.DomainResource):
         enum_reference_types=["Encounter"],
     )
 
-    evaluationMessage: typing.List[fhirtypes.ReferenceType] = Field(
+    evaluationMessage: typing.List[Reference] = Field(
         None,
         alias="evaluationMessage",
         title="Messages resulting from the evaluation of the artifact or artifacts",
@@ -73,7 +78,7 @@ class GuidanceResponse(domainresource.DomainResource):
         enum_reference_types=["OperationOutcome"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business identifier",
@@ -103,7 +108,7 @@ class GuidanceResponse(domainresource.DomainResource):
         None, alias="_moduleCanonical", title="Extension field for ``moduleCanonical``."
     )
 
-    moduleCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    moduleCodeableConcept: CodeableConcept = Field(
         None,
         alias="moduleCodeableConcept",
         title="What guidance was requested",
@@ -136,7 +141,7 @@ class GuidanceResponse(domainresource.DomainResource):
         None, alias="_moduleUri", title="Extension field for ``moduleUri``."
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Additional notes about the response",
@@ -162,7 +167,7 @@ class GuidanceResponse(domainresource.DomainResource):
         title="Extension field for ``occurrenceDateTime``.",
     )
 
-    outputParameters: fhirtypes.ReferenceType = Field(
+    outputParameters: Reference = Field(
         None,
         alias="outputParameters",
         title="The output parameters of the evaluation, if any",
@@ -180,7 +185,7 @@ class GuidanceResponse(domainresource.DomainResource):
         enum_reference_types=["Parameters"],
     )
 
-    performer: fhirtypes.ReferenceType = Field(
+    performer: Reference = Field(
         None,
         alias="performer",
         title="Device returning the guidance",
@@ -191,7 +196,7 @@ class GuidanceResponse(domainresource.DomainResource):
         enum_reference_types=["Device"],
     )
 
-    reasonCode: typing.List[fhirtypes.CodeableConceptType] = Field(
+    reasonCode: typing.List[CodeableConcept] = Field(
         None,
         alias="reasonCode",
         title="Why guidance is needed",
@@ -203,7 +208,7 @@ class GuidanceResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    reasonReference: typing.List[fhirtypes.ReferenceType] = Field(
+    reasonReference: typing.List[Reference] = Field(
         None,
         alias="reasonReference",
         title="Why guidance is needed",
@@ -224,7 +229,7 @@ class GuidanceResponse(domainresource.DomainResource):
         ],
     )
 
-    requestIdentifier: fhirtypes.IdentifierType = Field(
+    requestIdentifier: Identifier = Field(
         None,
         alias="requestIdentifier",
         title="The identifier of the request associated with this response, if any",
@@ -238,7 +243,7 @@ class GuidanceResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    result: fhirtypes.ReferenceType = Field(
+    result: Reference = Field(
         None,
         alias="result",
         title="Proposed actions, if any",
@@ -285,7 +290,7 @@ class GuidanceResponse(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title="Patient the request was performed for",

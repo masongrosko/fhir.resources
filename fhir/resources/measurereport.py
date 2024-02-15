@@ -13,6 +13,13 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .duration import Duration
+from .identifier import Identifier
+from .period import Period
+from .quantity import Quantity
+from .range import Range
+from .reference import Reference
 
 
 class MeasureReport(domainresource.DomainResource):
@@ -26,7 +33,7 @@ class MeasureReport(domainresource.DomainResource):
     calculation.
     """
 
-    resource_type = Field("MeasureReport", const=True)
+    resource_type: str = Field("MeasureReport", const=True)
 
     dataUpdateType: fhirtypes.Code = Field(
         None,
@@ -62,7 +69,7 @@ class MeasureReport(domainresource.DomainResource):
         None, alias="_date", title="Extension field for ``date``."
     )
 
-    evaluatedResource: typing.List[fhirtypes.ReferenceType] = Field(
+    evaluatedResource: typing.List[Reference] = Field(
         None,
         alias="evaluatedResource",
         title="What data was used to calculate the measure score",
@@ -78,7 +85,7 @@ class MeasureReport(domainresource.DomainResource):
         enum_reference_types=["Resource"],
     )
 
-    group: typing.List[fhirtypes.MeasureReportGroupType] = Field(
+    group: typing.List["MeasureReportGroup"] = Field(
         None,
         alias="group",
         title="Measure results for each group",
@@ -90,7 +97,7 @@ class MeasureReport(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Additional identifier for the MeasureReport",
@@ -103,7 +110,7 @@ class MeasureReport(domainresource.DomainResource):
         element_property=True,
     )
 
-    improvementNotation: fhirtypes.CodeableConceptType = Field(
+    improvementNotation: CodeableConcept = Field(
         None,
         alias="improvementNotation",
         title="increase | decrease",
@@ -115,7 +122,7 @@ class MeasureReport(domainresource.DomainResource):
         element_property=True,
     )
 
-    inputParameters: fhirtypes.ReferenceType = Field(
+    inputParameters: Reference = Field(
         None,
         alias="inputParameters",
         title="What parameters were provided to the report",
@@ -130,7 +137,7 @@ class MeasureReport(domainresource.DomainResource):
         enum_reference_types=["Parameters"],
     )
 
-    location: fhirtypes.ReferenceType = Field(
+    location: Reference = Field(
         None,
         alias="location",
         title="Where the reported data is from",
@@ -155,7 +162,7 @@ class MeasureReport(domainresource.DomainResource):
         None, alias="_measure", title="Extension field for ``measure``."
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         ...,
         alias="period",
         title="What period the report covers",
@@ -164,7 +171,7 @@ class MeasureReport(domainresource.DomainResource):
         element_property=True,
     )
 
-    reporter: fhirtypes.ReferenceType = Field(
+    reporter: Reference = Field(
         None,
         alias="reporter",
         title="Who is reporting the data",
@@ -180,7 +187,7 @@ class MeasureReport(domainresource.DomainResource):
         ],
     )
 
-    reportingVendor: fhirtypes.ReferenceType = Field(
+    reportingVendor: Reference = Field(
         None,
         alias="reportingVendor",
         title="What vendor prepared the data",
@@ -197,7 +204,7 @@ class MeasureReport(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    scoring: fhirtypes.CodeableConceptType = Field(
+    scoring: CodeableConcept = Field(
         None,
         alias="scoring",
         title="What scoring method (e.g. proportion, ratio, continuous-variable)",
@@ -231,7 +238,7 @@ class MeasureReport(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title="What individual(s) the report is for",
@@ -256,7 +263,7 @@ class MeasureReport(domainresource.DomainResource):
         ],
     )
 
-    supplementalData: typing.List[fhirtypes.ReferenceType] = Field(
+    supplementalData: typing.List[Reference] = Field(
         None,
         alias="supplementalData",
         title="Additional information collected for the report",
@@ -401,9 +408,9 @@ class MeasureReportGroup(backboneelement.BackboneElement):
     measure.
     """
 
-    resource_type = Field("MeasureReportGroup", const=True)
+    resource_type: str = Field("MeasureReportGroup", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Meaning of the group",
@@ -430,7 +437,7 @@ class MeasureReportGroup(backboneelement.BackboneElement):
         None, alias="_linkId", title="Extension field for ``linkId``."
     )
 
-    measureScoreCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    measureScoreCodeableConcept: CodeableConcept = Field(
         None,
         alias="measureScoreCodeableConcept",
         title="What score this group achieved",
@@ -467,7 +474,7 @@ class MeasureReportGroup(backboneelement.BackboneElement):
         title="Extension field for ``measureScoreDateTime``.",
     )
 
-    measureScoreDuration: fhirtypes.DurationType = Field(
+    measureScoreDuration: Duration = Field(
         None,
         alias="measureScoreDuration",
         title="What score this group achieved",
@@ -483,7 +490,7 @@ class MeasureReportGroup(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    measureScorePeriod: fhirtypes.PeriodType = Field(
+    measureScorePeriod: Period = Field(
         None,
         alias="measureScorePeriod",
         title="What score this group achieved",
@@ -499,7 +506,7 @@ class MeasureReportGroup(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    measureScoreQuantity: fhirtypes.QuantityType = Field(
+    measureScoreQuantity: Quantity = Field(
         None,
         alias="measureScoreQuantity",
         title="What score this group achieved",
@@ -515,7 +522,7 @@ class MeasureReportGroup(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    measureScoreRange: fhirtypes.RangeType = Field(
+    measureScoreRange: Range = Field(
         None,
         alias="measureScoreRange",
         title="What score this group achieved",
@@ -531,7 +538,7 @@ class MeasureReportGroup(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    population: typing.List[fhirtypes.MeasureReportGroupPopulationType] = Field(
+    population: typing.List["MeasureReportGroupPopulation"] = Field(
         None,
         alias="population",
         title="The populations in the group",
@@ -543,7 +550,7 @@ class MeasureReportGroup(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    stratifier: typing.List[fhirtypes.MeasureReportGroupStratifierType] = Field(
+    stratifier: typing.List["MeasureReportGroupStratifier"] = Field(
         None,
         alias="stratifier",
         title="Stratification results",
@@ -555,7 +562,7 @@ class MeasureReportGroup(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title="What individual(s) the report is for",
@@ -661,9 +668,9 @@ class MeasureReportGroupPopulation(backboneelement.BackboneElement):
     population appropriate for the measure.
     """
 
-    resource_type = Field("MeasureReportGroupPopulation", const=True)
+    resource_type: str = Field("MeasureReportGroupPopulation", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title=(
@@ -703,7 +710,7 @@ class MeasureReportGroupPopulation(backboneelement.BackboneElement):
         None, alias="_linkId", title="Extension field for ``linkId``."
     )
 
-    subjectReport: typing.List[fhirtypes.ReferenceType] = Field(
+    subjectReport: typing.List[Reference] = Field(
         None,
         alias="subjectReport",
         title="For subject-list reports, a subject result in this population",
@@ -717,7 +724,7 @@ class MeasureReportGroupPopulation(backboneelement.BackboneElement):
         enum_reference_types=["MeasureReport"],
     )
 
-    subjectResults: fhirtypes.ReferenceType = Field(
+    subjectResults: Reference = Field(
         None,
         alias="subjectResults",
         title="For subject-list reports, the subject results in this population",
@@ -731,7 +738,7 @@ class MeasureReportGroupPopulation(backboneelement.BackboneElement):
         enum_reference_types=["List"],
     )
 
-    subjects: fhirtypes.ReferenceType = Field(
+    subjects: Reference = Field(
         None,
         alias="subjects",
         title="What individual(s) in the population",
@@ -773,9 +780,9 @@ class MeasureReportGroupStratifier(backboneelement.BackboneElement):
     group for each stratifier defined by the measure.
     """
 
-    resource_type = Field("MeasureReportGroupStratifier", const=True)
+    resource_type: str = Field("MeasureReportGroupStratifier", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="What stratifier of the group",
@@ -799,7 +806,7 @@ class MeasureReportGroupStratifier(backboneelement.BackboneElement):
         None, alias="_linkId", title="Extension field for ``linkId``."
     )
 
-    stratum: typing.List[fhirtypes.MeasureReportGroupStratifierStratumType] = Field(
+    stratum: typing.List["MeasureReportGroupStratifierStratum"] = Field(
         None,
         alias="stratum",
         title=(
@@ -836,11 +843,9 @@ class MeasureReportGroupStratifierStratum(backboneelement.BackboneElement):
     will be four strata, one for each possible gender value.
     """
 
-    resource_type = Field("MeasureReportGroupStratifierStratum", const=True)
+    resource_type: str = Field("MeasureReportGroupStratifierStratum", const=True)
 
-    component: typing.List[
-        fhirtypes.MeasureReportGroupStratifierStratumComponentType
-    ] = Field(
+    component: typing.List["MeasureReportGroupStratifierStratumComponent"] = Field(
         None,
         alias="component",
         title="Stratifier component values",
@@ -849,7 +854,7 @@ class MeasureReportGroupStratifierStratum(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    measureScoreCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    measureScoreCodeableConcept: CodeableConcept = Field(
         None,
         alias="measureScoreCodeableConcept",
         title="What score this stratum achieved",
@@ -886,7 +891,7 @@ class MeasureReportGroupStratifierStratum(backboneelement.BackboneElement):
         title="Extension field for ``measureScoreDateTime``.",
     )
 
-    measureScoreDuration: fhirtypes.DurationType = Field(
+    measureScoreDuration: Duration = Field(
         None,
         alias="measureScoreDuration",
         title="What score this stratum achieved",
@@ -902,7 +907,7 @@ class MeasureReportGroupStratifierStratum(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    measureScorePeriod: fhirtypes.PeriodType = Field(
+    measureScorePeriod: Period = Field(
         None,
         alias="measureScorePeriod",
         title="What score this stratum achieved",
@@ -918,7 +923,7 @@ class MeasureReportGroupStratifierStratum(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    measureScoreQuantity: fhirtypes.QuantityType = Field(
+    measureScoreQuantity: Quantity = Field(
         None,
         alias="measureScoreQuantity",
         title="What score this stratum achieved",
@@ -934,7 +939,7 @@ class MeasureReportGroupStratifierStratum(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    measureScoreRange: fhirtypes.RangeType = Field(
+    measureScoreRange: Range = Field(
         None,
         alias="measureScoreRange",
         title="What score this stratum achieved",
@@ -950,9 +955,7 @@ class MeasureReportGroupStratifierStratum(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    population: typing.List[
-        fhirtypes.MeasureReportGroupStratifierStratumPopulationType
-    ] = Field(
+    population: typing.List["MeasureReportGroupStratifierStratumPopulation"] = Field(
         None,
         alias="population",
         title="Population results in this stratum",
@@ -983,7 +986,7 @@ class MeasureReportGroupStratifierStratum(backboneelement.BackboneElement):
         None, alias="_valueBoolean", title="Extension field for ``valueBoolean``."
     )
 
-    valueCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    valueCodeableConcept: CodeableConcept = Field(
         None,
         alias="valueCodeableConcept",
         title="The stratum value, e.g. male",
@@ -999,7 +1002,7 @@ class MeasureReportGroupStratifierStratum(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    valueQuantity: fhirtypes.QuantityType = Field(
+    valueQuantity: Quantity = Field(
         None,
         alias="valueQuantity",
         title="The stratum value, e.g. male",
@@ -1015,7 +1018,7 @@ class MeasureReportGroupStratifierStratum(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    valueRange: fhirtypes.RangeType = Field(
+    valueRange: Range = Field(
         None,
         alias="valueRange",
         title="The stratum value, e.g. male",
@@ -1031,7 +1034,7 @@ class MeasureReportGroupStratifierStratum(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    valueReference: fhirtypes.ReferenceType = Field(
+    valueReference: Reference = Field(
         None,
         alias="valueReference",
         title="The stratum value, e.g. male",
@@ -1136,9 +1139,11 @@ class MeasureReportGroupStratifierStratumComponent(backboneelement.BackboneEleme
     A stratifier component value.
     """
 
-    resource_type = Field("MeasureReportGroupStratifierStratumComponent", const=True)
+    resource_type: str = Field(
+        "MeasureReportGroupStratifierStratumComponent", const=True
+    )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         ...,
         alias="code",
         title="What stratifier component of the group",
@@ -1177,7 +1182,7 @@ class MeasureReportGroupStratifierStratumComponent(backboneelement.BackboneEleme
         None, alias="_valueBoolean", title="Extension field for ``valueBoolean``."
     )
 
-    valueCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    valueCodeableConcept: CodeableConcept = Field(
         None,
         alias="valueCodeableConcept",
         title="The stratum component value, e.g. male",
@@ -1189,7 +1194,7 @@ class MeasureReportGroupStratifierStratumComponent(backboneelement.BackboneEleme
         one_of_many_required=True,
     )
 
-    valueQuantity: fhirtypes.QuantityType = Field(
+    valueQuantity: Quantity = Field(
         None,
         alias="valueQuantity",
         title="The stratum component value, e.g. male",
@@ -1201,7 +1206,7 @@ class MeasureReportGroupStratifierStratumComponent(backboneelement.BackboneEleme
         one_of_many_required=True,
     )
 
-    valueRange: fhirtypes.RangeType = Field(
+    valueRange: Range = Field(
         None,
         alias="valueRange",
         title="The stratum component value, e.g. male",
@@ -1213,7 +1218,7 @@ class MeasureReportGroupStratifierStratumComponent(backboneelement.BackboneEleme
         one_of_many_required=True,
     )
 
-    valueReference: fhirtypes.ReferenceType = Field(
+    valueReference: Reference = Field(
         None,
         alias="valueReference",
         title="The stratum component value, e.g. male",
@@ -1301,9 +1306,11 @@ class MeasureReportGroupStratifierStratumPopulation(backboneelement.BackboneElem
     appropriate to the measure.
     """
 
-    resource_type = Field("MeasureReportGroupStratifierStratumPopulation", const=True)
+    resource_type: str = Field(
+        "MeasureReportGroupStratifierStratumPopulation", const=True
+    )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title=(
@@ -1343,7 +1350,7 @@ class MeasureReportGroupStratifierStratumPopulation(backboneelement.BackboneElem
         None, alias="_linkId", title="Extension field for ``linkId``."
     )
 
-    subjectReport: typing.List[fhirtypes.ReferenceType] = Field(
+    subjectReport: typing.List[Reference] = Field(
         None,
         alias="subjectReport",
         title="For subject-list reports, a subject result in this population",
@@ -1357,7 +1364,7 @@ class MeasureReportGroupStratifierStratumPopulation(backboneelement.BackboneElem
         enum_reference_types=["MeasureReport"],
     )
 
-    subjectResults: fhirtypes.ReferenceType = Field(
+    subjectResults: Reference = Field(
         None,
         alias="subjectResults",
         title="For subject-list reports, the subject results in this population",
@@ -1371,7 +1378,7 @@ class MeasureReportGroupStratifierStratumPopulation(backboneelement.BackboneElem
         enum_reference_types=["List"],
     )
 
-    subjects: fhirtypes.ReferenceType = Field(
+    subjects: Reference = Field(
         None,
         alias="subjects",
         title="What individual(s) in the population",
@@ -1401,3 +1408,9 @@ class MeasureReportGroupStratifierStratumPopulation(backboneelement.BackboneElem
             "subjectReport",
             "subjects",
         ]
+
+
+MeasureReport.update_forward_refs()
+MeasureReportGroup.update_forward_refs()
+MeasureReportGroupStratifier.update_forward_refs()
+MeasureReportGroupStratifierStratum.update_forward_refs()

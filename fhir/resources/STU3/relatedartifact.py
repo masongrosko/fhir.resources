@@ -13,6 +13,8 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import element, fhirtypes
+from .attachment import Attachment
+from .reference import Reference
 
 
 class RelatedArtifact(element.Element):
@@ -25,7 +27,7 @@ class RelatedArtifact(element.Element):
     bibliographic references.
     """
 
-    resource_type = Field("RelatedArtifact", const=True)
+    resource_type: str = Field("RelatedArtifact", const=True)
 
     citation: fhirtypes.String = Field(
         None,
@@ -57,7 +59,7 @@ class RelatedArtifact(element.Element):
         None, alias="_display", title="Extension field for ``display``."
     )
 
-    document: fhirtypes.AttachmentType = Field(
+    document: Attachment = Field(
         None,
         alias="document",
         title="What document is being referenced",
@@ -69,7 +71,7 @@ class RelatedArtifact(element.Element):
         element_property=True,
     )
 
-    resource: fhirtypes.ReferenceType = Field(
+    resource: Reference = Field(
         None,
         alias="resource",
         title="What resource is being referenced",

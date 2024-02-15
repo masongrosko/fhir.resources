@@ -11,6 +11,12 @@ import typing
 from pydantic.v1 import Field
 
 from . import backboneelement, domainresource, fhirtypes
+from .attachment import Attachment
+from .availability import Availability
+from .codeableconcept import CodeableConcept
+from .extendedcontactdetail import ExtendedContactDetail
+from .identifier import Identifier
+from .reference import Reference
 
 
 class HealthcareService(domainresource.DomainResource):
@@ -21,7 +27,7 @@ class HealthcareService(domainresource.DomainResource):
     The details of a healthcare service available at a location.
     """
 
-    resource_type = Field("HealthcareService", const=True)
+    resource_type: str = Field("HealthcareService", const=True)
 
     active: bool = Field(
         None,
@@ -58,7 +64,7 @@ class HealthcareService(domainresource.DomainResource):
         title="Extension field for ``appointmentRequired``.",
     )
 
-    availability: typing.List[fhirtypes.AvailabilityType] = Field(
+    availability: typing.List[Availability] = Field(
         None,
         alias="availability",
         title="Times the healthcare service is available (including exceptions)",
@@ -67,7 +73,7 @@ class HealthcareService(domainresource.DomainResource):
         element_property=True,
     )
 
-    category: typing.List[fhirtypes.CodeableConceptType] = Field(
+    category: typing.List[CodeableConcept] = Field(
         None,
         alias="category",
         title="Broad category of service being performed or delivered",
@@ -76,7 +82,7 @@ class HealthcareService(domainresource.DomainResource):
         element_property=True,
     )
 
-    characteristic: typing.List[fhirtypes.CodeableConceptType] = Field(
+    characteristic: typing.List[CodeableConcept] = Field(
         None,
         alias="characteristic",
         title="Collection of characteristics (attributes)",
@@ -103,7 +109,7 @@ class HealthcareService(domainresource.DomainResource):
         None, alias="_comment", title="Extension field for ``comment``."
     )
 
-    communication: typing.List[fhirtypes.CodeableConceptType] = Field(
+    communication: typing.List[CodeableConcept] = Field(
         None,
         alias="communication",
         title="The language that this service is offered in",
@@ -117,7 +123,7 @@ class HealthcareService(domainresource.DomainResource):
         element_property=True,
     )
 
-    contact: typing.List[fhirtypes.ExtendedContactDetailType] = Field(
+    contact: typing.List[ExtendedContactDetail] = Field(
         None,
         alias="contact",
         title="Official contact details for the HealthcareService",
@@ -130,7 +136,7 @@ class HealthcareService(domainresource.DomainResource):
         element_property=True,
     )
 
-    coverageArea: typing.List[fhirtypes.ReferenceType] = Field(
+    coverageArea: typing.List[Reference] = Field(
         None,
         alias="coverageArea",
         title="Location(s) service is intended for/available to",
@@ -144,7 +150,7 @@ class HealthcareService(domainresource.DomainResource):
         enum_reference_types=["Location"],
     )
 
-    eligibility: typing.List[fhirtypes.HealthcareServiceEligibilityType] = Field(
+    eligibility: typing.List["HealthcareServiceEligibility"] = Field(
         None,
         alias="eligibility",
         title="Specific eligibility requirements required to use the service",
@@ -156,7 +162,7 @@ class HealthcareService(domainresource.DomainResource):
         element_property=True,
     )
 
-    endpoint: typing.List[fhirtypes.ReferenceType] = Field(
+    endpoint: typing.List[Reference] = Field(
         None,
         alias="endpoint",
         title=(
@@ -188,7 +194,7 @@ class HealthcareService(domainresource.DomainResource):
         None, alias="_extraDetails", title="Extension field for ``extraDetails``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="External identifiers for this item",
@@ -197,7 +203,7 @@ class HealthcareService(domainresource.DomainResource):
         element_property=True,
     )
 
-    location: typing.List[fhirtypes.ReferenceType] = Field(
+    location: typing.List[Reference] = Field(
         None,
         alias="location",
         title="Location(s) where service may be provided",
@@ -223,7 +229,7 @@ class HealthcareService(domainresource.DomainResource):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    offeredIn: typing.List[fhirtypes.ReferenceType] = Field(
+    offeredIn: typing.List[Reference] = Field(
         None,
         alias="offeredIn",
         title="The service within which this service is offered",
@@ -237,7 +243,7 @@ class HealthcareService(domainresource.DomainResource):
         enum_reference_types=["HealthcareService"],
     )
 
-    photo: fhirtypes.AttachmentType = Field(
+    photo: Attachment = Field(
         None,
         alias="photo",
         title="Facilitates quick identification of the service",
@@ -250,7 +256,7 @@ class HealthcareService(domainresource.DomainResource):
         element_property=True,
     )
 
-    program: typing.List[fhirtypes.CodeableConceptType] = Field(
+    program: typing.List[CodeableConcept] = Field(
         None,
         alias="program",
         title="Programs that this service is applicable to",
@@ -259,7 +265,7 @@ class HealthcareService(domainresource.DomainResource):
         element_property=True,
     )
 
-    providedBy: fhirtypes.ReferenceType = Field(
+    providedBy: Reference = Field(
         None,
         alias="providedBy",
         title="Organization that provides this service",
@@ -270,7 +276,7 @@ class HealthcareService(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    referralMethod: typing.List[fhirtypes.CodeableConceptType] = Field(
+    referralMethod: typing.List[CodeableConcept] = Field(
         None,
         alias="referralMethod",
         title="Ways that the service accepts referrals",
@@ -282,7 +288,7 @@ class HealthcareService(domainresource.DomainResource):
         element_property=True,
     )
 
-    serviceProvisionCode: typing.List[fhirtypes.CodeableConceptType] = Field(
+    serviceProvisionCode: typing.List[CodeableConcept] = Field(
         None,
         alias="serviceProvisionCode",
         title="Conditions under which service is available/offered",
@@ -294,7 +300,7 @@ class HealthcareService(domainresource.DomainResource):
         element_property=True,
     )
 
-    specialty: typing.List[fhirtypes.CodeableConceptType] = Field(
+    specialty: typing.List[CodeableConcept] = Field(
         None,
         alias="specialty",
         title="Specialties handled by the HealthcareService",
@@ -306,7 +312,7 @@ class HealthcareService(domainresource.DomainResource):
         element_property=True,
     )
 
-    type: typing.List[fhirtypes.CodeableConceptType] = Field(
+    type: typing.List[CodeableConcept] = Field(
         None,
         alias="type",
         title="Type of service that may be delivered or performed",
@@ -366,9 +372,9 @@ class HealthcareServiceEligibility(backboneelement.BackboneElement):
     met in order to use the service?
     """
 
-    resource_type = Field("HealthcareServiceEligibility", const=True)
+    resource_type: str = Field("HealthcareServiceEligibility", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Coded value for the eligibility",
@@ -396,3 +402,6 @@ class HealthcareServiceEligibility(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "code", "comment"]
+
+
+HealthcareService.update_forward_refs()

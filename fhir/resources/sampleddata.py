@@ -13,6 +13,7 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import datatype, fhirtypes
+from .quantity import Quantity
 
 
 class SampledData(datatype.DataType):
@@ -25,7 +26,7 @@ class SampledData(datatype.DataType):
     There may be more than one dimension in the data.
     """
 
-    resource_type = Field("SampledData", const=True)
+    resource_type: str = Field("SampledData", const=True)
 
     codeMap: fhirtypes.Canonical = Field(
         None,
@@ -152,7 +153,7 @@ class SampledData(datatype.DataType):
         None, alias="_offsets", title="Extension field for ``offsets``."
     )
 
-    origin: fhirtypes.QuantityType = Field(
+    origin: Quantity = Field(
         ...,
         alias="origin",
         title="Zero value and units",

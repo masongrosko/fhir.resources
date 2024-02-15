@@ -11,6 +11,10 @@ import typing
 from pydantic.v1 import Field
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class Coverage(domainresource.DomainResource):
@@ -23,9 +27,9 @@ class Coverage(domainresource.DomainResource):
     products and services.
     """
 
-    resource_type = Field("Coverage", const=True)
+    resource_type: str = Field("Coverage", const=True)
 
-    beneficiary: fhirtypes.ReferenceType = Field(
+    beneficiary: Reference = Field(
         None,
         alias="beneficiary",
         title="Plan Beneficiary",
@@ -39,7 +43,7 @@ class Coverage(domainresource.DomainResource):
         enum_reference_types=["Patient"],
     )
 
-    contract: typing.List[fhirtypes.ReferenceType] = Field(
+    contract: typing.List[Reference] = Field(
         None,
         alias="contract",
         title="Contract details",
@@ -62,7 +66,7 @@ class Coverage(domainresource.DomainResource):
         None, alias="_dependent", title="Extension field for ``dependent``."
     )
 
-    grouping: fhirtypes.CoverageGroupingType = Field(
+    grouping: "CoverageGrouping" = Field(
         None,
         alias="grouping",
         title="Additional coverage classifications",
@@ -74,7 +78,7 @@ class Coverage(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="The primary coverage ID",
@@ -122,7 +126,7 @@ class Coverage(domainresource.DomainResource):
         None, alias="_order", title="Extension field for ``order``."
     )
 
-    payor: typing.List[fhirtypes.ReferenceType] = Field(
+    payor: typing.List[Reference] = Field(
         None,
         alias="payor",
         title="Identifier for the plan or agreement issuer",
@@ -138,7 +142,7 @@ class Coverage(domainresource.DomainResource):
         enum_reference_types=["Organization", "Patient", "RelatedPerson"],
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Coverage start and end dates",
@@ -151,7 +155,7 @@ class Coverage(domainresource.DomainResource):
         element_property=True,
     )
 
-    policyHolder: fhirtypes.ReferenceType = Field(
+    policyHolder: Reference = Field(
         None,
         alias="policyHolder",
         title="Owner of the policy",
@@ -165,7 +169,7 @@ class Coverage(domainresource.DomainResource):
         enum_reference_types=["Patient", "RelatedPerson", "Organization"],
     )
 
-    relationship: fhirtypes.CodeableConceptType = Field(
+    relationship: CodeableConcept = Field(
         None,
         alias="relationship",
         title="Beneficiary relationship to the Subscriber",
@@ -204,7 +208,7 @@ class Coverage(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subscriber: fhirtypes.ReferenceType = Field(
+    subscriber: Reference = Field(
         None,
         alias="subscriber",
         title="Subscriber to the policy",
@@ -231,7 +235,7 @@ class Coverage(domainresource.DomainResource):
         None, alias="_subscriberId", title="Extension field for ``subscriberId``."
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Type of coverage such as medical or accident",
@@ -288,7 +292,7 @@ class CoverageGrouping(backboneelement.BackboneElement):
     identify a class of coverage or employer group, Policy, Plan.
     """
 
-    resource_type = Field("CoverageGrouping", const=True)
+    resource_type: str = Field("CoverageGrouping", const=True)
 
     classDisplay: fhirtypes.String = Field(
         None,
@@ -482,3 +486,6 @@ class CoverageGrouping(backboneelement.BackboneElement):
             "subClass",
             "subClassDisplay",
         ]
+
+
+Coverage.update_forward_refs()

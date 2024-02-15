@@ -13,6 +13,14 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .codeablereference import CodeableReference
+from .duration import Duration
+from .identifier import Identifier
+from .period import Period
+from .quantity import Quantity
+from .reference import Reference
 
 
 class Specimen(domainresource.DomainResource):
@@ -24,9 +32,9 @@ class Specimen(domainresource.DomainResource):
     A sample to be used for analysis.
     """
 
-    resource_type = Field("Specimen", const=True)
+    resource_type: str = Field("Specimen", const=True)
 
-    accessionIdentifier: fhirtypes.IdentifierType = Field(
+    accessionIdentifier: Identifier = Field(
         None,
         alias="accessionIdentifier",
         title="Identifier assigned by the lab",
@@ -39,7 +47,7 @@ class Specimen(domainresource.DomainResource):
         element_property=True,
     )
 
-    collection: fhirtypes.SpecimenCollectionType = Field(
+    collection: "SpecimenCollection" = Field(
         None,
         alias="collection",
         title="Collection details",
@@ -63,7 +71,7 @@ class Specimen(domainresource.DomainResource):
         None, alias="_combined", title="Extension field for ``combined``."
     )
 
-    condition: typing.List[fhirtypes.CodeableConceptType] = Field(
+    condition: typing.List[CodeableConcept] = Field(
         None,
         alias="condition",
         title="State of the specimen",
@@ -72,7 +80,7 @@ class Specimen(domainresource.DomainResource):
         element_property=True,
     )
 
-    container: typing.List[fhirtypes.SpecimenContainerType] = Field(
+    container: typing.List["SpecimenContainer"] = Field(
         None,
         alias="container",
         title="Direct container of specimen (tube/slide, etc.)",
@@ -84,7 +92,7 @@ class Specimen(domainresource.DomainResource):
         element_property=True,
     )
 
-    feature: typing.List[fhirtypes.SpecimenFeatureType] = Field(
+    feature: typing.List["SpecimenFeature"] = Field(
         None,
         alias="feature",
         title="The physical feature of a specimen",
@@ -99,7 +107,7 @@ class Specimen(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="External Identifier",
@@ -108,7 +116,7 @@ class Specimen(domainresource.DomainResource):
         element_property=True,
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Comments",
@@ -121,7 +129,7 @@ class Specimen(domainresource.DomainResource):
         element_property=True,
     )
 
-    parent: typing.List[fhirtypes.ReferenceType] = Field(
+    parent: typing.List[Reference] = Field(
         None,
         alias="parent",
         title="Specimen from which this specimen originated",
@@ -135,7 +143,7 @@ class Specimen(domainresource.DomainResource):
         enum_reference_types=["Specimen"],
     )
 
-    processing: typing.List[fhirtypes.SpecimenProcessingType] = Field(
+    processing: typing.List["SpecimenProcessing"] = Field(
         None,
         alias="processing",
         title="Processing and processing step details",
@@ -159,7 +167,7 @@ class Specimen(domainresource.DomainResource):
         None, alias="_receivedTime", title="Extension field for ``receivedTime``."
     )
 
-    request: typing.List[fhirtypes.ReferenceType] = Field(
+    request: typing.List[Reference] = Field(
         None,
         alias="request",
         title="Why the specimen was collected",
@@ -173,7 +181,7 @@ class Specimen(domainresource.DomainResource):
         enum_reference_types=["ServiceRequest"],
     )
 
-    role: typing.List[fhirtypes.CodeableConceptType] = Field(
+    role: typing.List[CodeableConcept] = Field(
         None,
         alias="role",
         title="The role the specimen serves",
@@ -197,7 +205,7 @@ class Specimen(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title=(
@@ -219,7 +227,7 @@ class Specimen(domainresource.DomainResource):
         ],
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Kind of material that forms the specimen",
@@ -271,9 +279,9 @@ class SpecimenCollection(backboneelement.BackboneElement):
     Details concerning the specimen collection.
     """
 
-    resource_type = Field("SpecimenCollection", const=True)
+    resource_type: str = Field("SpecimenCollection", const=True)
 
-    bodySite: fhirtypes.CodeableReferenceType = Field(
+    bodySite: CodeableReference = Field(
         None,
         alias="bodySite",
         title="Anatomical collection site",
@@ -308,7 +316,7 @@ class SpecimenCollection(backboneelement.BackboneElement):
         title="Extension field for ``collectedDateTime``.",
     )
 
-    collectedPeriod: fhirtypes.PeriodType = Field(
+    collectedPeriod: Period = Field(
         None,
         alias="collectedPeriod",
         title="Collection time",
@@ -323,7 +331,7 @@ class SpecimenCollection(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    collector: fhirtypes.ReferenceType = Field(
+    collector: Reference = Field(
         None,
         alias="collector",
         title="Who collected the specimen",
@@ -339,7 +347,7 @@ class SpecimenCollection(backboneelement.BackboneElement):
         ],
     )
 
-    device: fhirtypes.CodeableReferenceType = Field(
+    device: CodeableReference = Field(
         None,
         alias="device",
         title="Device used to perform collection",
@@ -353,7 +361,7 @@ class SpecimenCollection(backboneelement.BackboneElement):
         enum_reference_types=["Device"],
     )
 
-    duration: fhirtypes.DurationType = Field(
+    duration: Duration = Field(
         None,
         alias="duration",
         title="How long it took to collect specimen",
@@ -362,7 +370,7 @@ class SpecimenCollection(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    fastingStatusCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    fastingStatusCodeableConcept: CodeableConcept = Field(
         None,
         alias="fastingStatusCodeableConcept",
         title="Whether or how long patient abstained from food and/or drink",
@@ -377,7 +385,7 @@ class SpecimenCollection(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    fastingStatusDuration: fhirtypes.DurationType = Field(
+    fastingStatusDuration: Duration = Field(
         None,
         alias="fastingStatusDuration",
         title="Whether or how long patient abstained from food and/or drink",
@@ -392,7 +400,7 @@ class SpecimenCollection(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    method: fhirtypes.CodeableConceptType = Field(
+    method: CodeableConcept = Field(
         None,
         alias="method",
         title="Technique used to perform collection",
@@ -404,7 +412,7 @@ class SpecimenCollection(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    procedure: fhirtypes.ReferenceType = Field(
+    procedure: Reference = Field(
         None,
         alias="procedure",
         title="The procedure that collects the specimen",
@@ -418,7 +426,7 @@ class SpecimenCollection(backboneelement.BackboneElement):
         enum_reference_types=["Procedure"],
     )
 
-    quantity: fhirtypes.QuantityType = Field(
+    quantity: Quantity = Field(
         None,
         alias="quantity",
         title="The quantity of specimen collected",
@@ -505,9 +513,9 @@ class SpecimenContainer(backboneelement.BackboneElement):
     i.e. blood in tube in tray in rack is not addressed here.
     """
 
-    resource_type = Field("SpecimenContainer", const=True)
+    resource_type: str = Field("SpecimenContainer", const=True)
 
-    device: fhirtypes.ReferenceType = Field(
+    device: Reference = Field(
         ...,
         alias="device",
         title="Device resource for the container",
@@ -522,7 +530,7 @@ class SpecimenContainer(backboneelement.BackboneElement):
         enum_reference_types=["Device"],
     )
 
-    location: fhirtypes.ReferenceType = Field(
+    location: Reference = Field(
         None,
         alias="location",
         title="Where the container is",
@@ -533,7 +541,7 @@ class SpecimenContainer(backboneelement.BackboneElement):
         enum_reference_types=["Location"],
     )
 
-    specimenQuantity: fhirtypes.QuantityType = Field(
+    specimenQuantity: Quantity = Field(
         None,
         alias="specimenQuantity",
         title="Quantity of specimen within container",
@@ -574,7 +582,7 @@ class SpecimenFeature(backboneelement.BackboneElement):
     radiologically suspected tumor location).
     """
 
-    resource_type = Field("SpecimenFeature", const=True)
+    resource_type: str = Field("SpecimenFeature", const=True)
 
     description: fhirtypes.String = Field(
         None,
@@ -589,7 +597,7 @@ class SpecimenFeature(backboneelement.BackboneElement):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title="Highlighted feature",
@@ -675,9 +683,9 @@ class SpecimenProcessing(backboneelement.BackboneElement):
     Details concerning processing and processing steps for the specimen.
     """
 
-    resource_type = Field("SpecimenProcessing", const=True)
+    resource_type: str = Field("SpecimenProcessing", const=True)
 
-    additive: typing.List[fhirtypes.ReferenceType] = Field(
+    additive: typing.List[Reference] = Field(
         None,
         alias="additive",
         title="Material used in the processing step",
@@ -700,7 +708,7 @@ class SpecimenProcessing(backboneelement.BackboneElement):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    method: fhirtypes.CodeableConceptType = Field(
+    method: CodeableConcept = Field(
         None,
         alias="method",
         title="Indicates the treatment step  applied to the specimen",
@@ -728,7 +736,7 @@ class SpecimenProcessing(backboneelement.BackboneElement):
         None, alias="_timeDateTime", title="Extension field for ``timeDateTime``."
     )
 
-    timePeriod: fhirtypes.PeriodType = Field(
+    timePeriod: Period = Field(
         None,
         alias="timePeriod",
         title="Date and time of specimen processing",
@@ -798,3 +806,6 @@ class SpecimenProcessing(backboneelement.BackboneElement):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+Specimen.update_forward_refs()

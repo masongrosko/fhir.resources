@@ -11,6 +11,14 @@ import typing
 from pydantic.v1 import Field, root_validator
 
 from . import backboneelement, domainresource, fhirtypes
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .codeablereference import CodeableReference
+from .identifier import Identifier
+from .marketingstatus import MarketingStatus
+from .productshelflife import ProductShelfLife
+from .quantity import Quantity
+from .reference import Reference
 
 
 class PackagedProductDefinition(domainresource.DomainResource):
@@ -21,9 +29,9 @@ class PackagedProductDefinition(domainresource.DomainResource):
     A medically related item or items, in a container or package.
     """
 
-    resource_type = Field("PackagedProductDefinition", const=True)
+    resource_type: str = Field("PackagedProductDefinition", const=True)
 
-    attachedDocument: typing.List[fhirtypes.ReferenceType] = Field(
+    attachedDocument: typing.List[Reference] = Field(
         None,
         alias="attachedDocument",
         title=(
@@ -37,9 +45,7 @@ class PackagedProductDefinition(domainresource.DomainResource):
         enum_reference_types=["DocumentReference"],
     )
 
-    characteristic: typing.List[
-        fhirtypes.PackagedProductDefinitionPackagingPropertyType
-    ] = Field(
+    characteristic: typing.List["PackagedProductDefinitionPackagingProperty"] = Field(
         None,
         alias="characteristic",
         title=(
@@ -54,7 +60,7 @@ class PackagedProductDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    containedItemQuantity: typing.List[fhirtypes.QuantityType] = Field(
+    containedItemQuantity: typing.List[Quantity] = Field(
         None,
         alias="containedItemQuantity",
         title=(
@@ -118,7 +124,7 @@ class PackagedProductDefinition(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title=(
@@ -135,21 +141,21 @@ class PackagedProductDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    legalStatusOfSupply: typing.List[
-        fhirtypes.PackagedProductDefinitionLegalStatusOfSupplyType
-    ] = Field(
-        None,
-        alias="legalStatusOfSupply",
-        title=(
-            "The legal status of supply of the packaged item as classified by the "
-            "regulator"
-        ),
-        description=None,
-        # if property is element of this resource.
-        element_property=True,
+    legalStatusOfSupply: typing.List["PackagedProductDefinitionLegalStatusOfSupply"] = (
+        Field(
+            None,
+            alias="legalStatusOfSupply",
+            title=(
+                "The legal status of supply of the packaged item as classified by the "
+                "regulator"
+            ),
+            description=None,
+            # if property is element of this resource.
+            element_property=True,
+        )
     )
 
-    manufacturer: typing.List[fhirtypes.ReferenceType] = Field(
+    manufacturer: typing.List[Reference] = Field(
         None,
         alias="manufacturer",
         title=(
@@ -166,7 +172,7 @@ class PackagedProductDefinition(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    marketingStatus: typing.List[fhirtypes.MarketingStatusType] = Field(
+    marketingStatus: typing.List[MarketingStatus] = Field(
         None,
         alias="marketingStatus",
         title=(
@@ -196,7 +202,7 @@ class PackagedProductDefinition(domainresource.DomainResource):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    packageFor: typing.List[fhirtypes.ReferenceType] = Field(
+    packageFor: typing.List[Reference] = Field(
         None,
         alias="packageFor",
         title="The product that this is a pack for",
@@ -210,7 +216,7 @@ class PackagedProductDefinition(domainresource.DomainResource):
         enum_reference_types=["MedicinalProductDefinition"],
     )
 
-    packaging: fhirtypes.PackagedProductDefinitionPackagingType = Field(
+    packaging: "PackagedProductDefinitionPackaging" = Field(
         None,
         alias="packaging",
         title=(
@@ -227,7 +233,7 @@ class PackagedProductDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    status: fhirtypes.CodeableConceptType = Field(
+    status: CodeableConcept = Field(
         None,
         alias="status",
         title=(
@@ -256,7 +262,7 @@ class PackagedProductDefinition(domainresource.DomainResource):
         None, alias="_statusDate", title="Extension field for ``statusDate``."
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title=(
@@ -313,9 +319,11 @@ class PackagedProductDefinitionLegalStatusOfSupply(backboneelement.BackboneEleme
     regulator.
     """
 
-    resource_type = Field("PackagedProductDefinitionLegalStatusOfSupply", const=True)
+    resource_type: str = Field(
+        "PackagedProductDefinitionLegalStatusOfSupply", const=True
+    )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title=(
@@ -330,7 +338,7 @@ class PackagedProductDefinitionLegalStatusOfSupply(backboneelement.BackboneEleme
         element_property=True,
     )
 
-    jurisdiction: fhirtypes.CodeableConceptType = Field(
+    jurisdiction: CodeableConcept = Field(
         None,
         alias="jurisdiction",
         title="The place where the legal status of supply applies",
@@ -363,9 +371,9 @@ class PackagedProductDefinitionPackaging(backboneelement.BackboneElement):
     (which is not a device or a medication manufactured item).
     """
 
-    resource_type = Field("PackagedProductDefinitionPackaging", const=True)
+    resource_type: str = Field("PackagedProductDefinitionPackaging", const=True)
 
-    alternateMaterial: typing.List[fhirtypes.CodeableConceptType] = Field(
+    alternateMaterial: typing.List[CodeableConcept] = Field(
         None,
         alias="alternateMaterial",
         title=(
@@ -400,18 +408,18 @@ class PackagedProductDefinitionPackaging(backboneelement.BackboneElement):
         None, alias="_componentPart", title="Extension field for ``componentPart``."
     )
 
-    containedItem: typing.List[
-        fhirtypes.PackagedProductDefinitionPackagingContainedItemType
-    ] = Field(
-        None,
-        alias="containedItem",
-        title="The item(s) within the packaging",
-        description=None,
-        # if property is element of this resource.
-        element_property=True,
+    containedItem: typing.List["PackagedProductDefinitionPackagingContainedItem"] = (
+        Field(
+            None,
+            alias="containedItem",
+            title="The item(s) within the packaging",
+            description=None,
+            # if property is element of this resource.
+            element_property=True,
+        )
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title=(
@@ -427,7 +435,7 @@ class PackagedProductDefinitionPackaging(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    manufacturer: typing.List[fhirtypes.ReferenceType] = Field(
+    manufacturer: typing.List[Reference] = Field(
         None,
         alias="manufacturer",
         title=(
@@ -444,7 +452,7 @@ class PackagedProductDefinitionPackaging(backboneelement.BackboneElement):
         enum_reference_types=["Organization"],
     )
 
-    material: typing.List[fhirtypes.CodeableConceptType] = Field(
+    material: typing.List[CodeableConcept] = Field(
         None,
         alias="material",
         title="Material type of the package item",
@@ -453,7 +461,7 @@ class PackagedProductDefinitionPackaging(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    packaging: typing.List[fhirtypes.PackagedProductDefinitionPackagingType] = Field(
+    packaging: typing.List["PackagedProductDefinitionPackaging"] = Field(
         None,
         alias="packaging",
         title=(
@@ -469,9 +477,7 @@ class PackagedProductDefinitionPackaging(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    property: typing.List[
-        fhirtypes.PackagedProductDefinitionPackagingPropertyType
-    ] = Field(
+    property: typing.List["PackagedProductDefinitionPackagingProperty"] = Field(
         None,
         alias="property",
         title="General characteristics of this item",
@@ -501,7 +507,7 @@ class PackagedProductDefinitionPackaging(backboneelement.BackboneElement):
         None, alias="_quantity", title="Extension field for ``quantity``."
     )
 
-    shelfLifeStorage: typing.List[fhirtypes.ProductShelfLifeType] = Field(
+    shelfLifeStorage: typing.List[ProductShelfLife] = Field(
         None,
         alias="shelfLifeStorage",
         title="Shelf Life and storage information",
@@ -510,7 +516,7 @@ class PackagedProductDefinitionPackaging(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="The physical type of the container of the items",
@@ -551,9 +557,11 @@ class PackagedProductDefinitionPackagingContainedItem(backboneelement.BackboneEl
     The item(s) within the packaging.
     """
 
-    resource_type = Field("PackagedProductDefinitionPackagingContainedItem", const=True)
+    resource_type: str = Field(
+        "PackagedProductDefinitionPackagingContainedItem", const=True
+    )
 
-    amount: fhirtypes.QuantityType = Field(
+    amount: Quantity = Field(
         None,
         alias="amount",
         title=(
@@ -567,7 +575,7 @@ class PackagedProductDefinitionPackagingContainedItem(backboneelement.BackboneEl
         element_property=True,
     )
 
-    item: fhirtypes.CodeableReferenceType = Field(
+    item: CodeableReference = Field(
         ...,
         alias="item",
         title=(
@@ -614,9 +622,9 @@ class PackagedProductDefinitionPackagingProperty(backboneelement.BackboneElement
     General characteristics of this item.
     """
 
-    resource_type = Field("PackagedProductDefinitionPackagingProperty", const=True)
+    resource_type: str = Field("PackagedProductDefinitionPackagingProperty", const=True)
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title="A code expressing the type of characteristic",
@@ -625,7 +633,7 @@ class PackagedProductDefinitionPackagingProperty(backboneelement.BackboneElement
         element_property=True,
     )
 
-    valueAttachment: fhirtypes.AttachmentType = Field(
+    valueAttachment: Attachment = Field(
         None,
         alias="valueAttachment",
         title="A value for the characteristic",
@@ -652,7 +660,7 @@ class PackagedProductDefinitionPackagingProperty(backboneelement.BackboneElement
         None, alias="_valueBoolean", title="Extension field for ``valueBoolean``."
     )
 
-    valueCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    valueCodeableConcept: CodeableConcept = Field(
         None,
         alias="valueCodeableConcept",
         title="A value for the characteristic",
@@ -679,7 +687,7 @@ class PackagedProductDefinitionPackagingProperty(backboneelement.BackboneElement
         None, alias="_valueDate", title="Extension field for ``valueDate``."
     )
 
-    valueQuantity: fhirtypes.QuantityType = Field(
+    valueQuantity: Quantity = Field(
         None,
         alias="valueQuantity",
         title="A value for the characteristic",
@@ -754,3 +762,7 @@ class PackagedProductDefinitionPackagingProperty(backboneelement.BackboneElement
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+PackagedProductDefinition.update_forward_refs()
+PackagedProductDefinitionPackaging.update_forward_refs()

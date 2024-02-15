@@ -13,6 +13,11 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .attachment import Attachment
+from .coding import Coding
+from .identifier import Identifier
+from .quantity import Quantity
+from .reference import Reference
 
 
 class QuestionnaireResponse(domainresource.DomainResource):
@@ -26,9 +31,9 @@ class QuestionnaireResponse(domainresource.DomainResource):
     grouping of the questionnaire being responded to.
     """
 
-    resource_type = Field("QuestionnaireResponse", const=True)
+    resource_type: str = Field("QuestionnaireResponse", const=True)
 
-    author: fhirtypes.ReferenceType = Field(
+    author: Reference = Field(
         None,
         alias="author",
         title="Person who received and recorded the answers",
@@ -54,7 +59,7 @@ class QuestionnaireResponse(domainresource.DomainResource):
         None, alias="_authored", title="Extension field for ``authored``."
     )
 
-    basedOn: typing.List[fhirtypes.ReferenceType] = Field(
+    basedOn: typing.List[Reference] = Field(
         None,
         alias="basedOn",
         title="Request fulfilled by this QuestionnaireResponse",
@@ -70,7 +75,7 @@ class QuestionnaireResponse(domainresource.DomainResource):
         enum_reference_types=["ReferralRequest", "CarePlan", "ProcedureRequest"],
     )
 
-    context: fhirtypes.ReferenceType = Field(
+    context: Reference = Field(
         None,
         alias="context",
         title="Encounter or Episode during which questionnaire was completed",
@@ -84,7 +89,7 @@ class QuestionnaireResponse(domainresource.DomainResource):
         enum_reference_types=["Encounter", "EpisodeOfCare"],
     )
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="Unique id for this set of answers",
@@ -96,7 +101,7 @@ class QuestionnaireResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    item: typing.List[fhirtypes.QuestionnaireResponseItemType] = Field(
+    item: typing.List["QuestionnaireResponseItem"] = Field(
         None,
         alias="item",
         title="Groups and questions",
@@ -108,7 +113,7 @@ class QuestionnaireResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    parent: typing.List[fhirtypes.ReferenceType] = Field(
+    parent: typing.List[Reference] = Field(
         None,
         alias="parent",
         title="Part of this action",
@@ -123,7 +128,7 @@ class QuestionnaireResponse(domainresource.DomainResource):
         enum_reference_types=["Observation", "Procedure"],
     )
 
-    questionnaire: fhirtypes.ReferenceType = Field(
+    questionnaire: Reference = Field(
         None,
         alias="questionnaire",
         title="Form being answered",
@@ -137,7 +142,7 @@ class QuestionnaireResponse(domainresource.DomainResource):
         enum_reference_types=["Questionnaire"],
     )
 
-    source: fhirtypes.ReferenceType = Field(
+    source: Reference = Field(
         None,
         alias="source",
         title="The person who answered the questions",
@@ -173,7 +178,7 @@ class QuestionnaireResponse(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title="The subject of the questions",
@@ -286,9 +291,9 @@ class QuestionnaireResponseItem(backboneelement.BackboneElement):
     are provided.
     """
 
-    resource_type = Field("QuestionnaireResponseItem", const=True)
+    resource_type: str = Field("QuestionnaireResponseItem", const=True)
 
-    answer: typing.List[fhirtypes.QuestionnaireResponseItemAnswerType] = Field(
+    answer: typing.List["QuestionnaireResponseItemAnswer"] = Field(
         None,
         alias="answer",
         title="The response(s) to the question",
@@ -312,7 +317,7 @@ class QuestionnaireResponseItem(backboneelement.BackboneElement):
         None, alias="_definition", title="Extension field for ``definition``."
     )
 
-    item: typing.List[fhirtypes.QuestionnaireResponseItemType] = Field(
+    item: typing.List["QuestionnaireResponseItem"] = Field(
         None,
         alias="item",
         title="Nested questionnaire response items",
@@ -337,7 +342,7 @@ class QuestionnaireResponseItem(backboneelement.BackboneElement):
         None, alias="_linkId", title="Extension field for ``linkId``."
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title="The subject this group's answers are about",
@@ -453,9 +458,9 @@ class QuestionnaireResponseItemAnswer(backboneelement.BackboneElement):
     The respondent's answer(s) to the question.
     """
 
-    resource_type = Field("QuestionnaireResponseItemAnswer", const=True)
+    resource_type: str = Field("QuestionnaireResponseItemAnswer", const=True)
 
-    item: typing.List[fhirtypes.QuestionnaireResponseItemType] = Field(
+    item: typing.List["QuestionnaireResponseItem"] = Field(
         None,
         alias="item",
         title="Nested groups and questions",
@@ -464,7 +469,7 @@ class QuestionnaireResponseItemAnswer(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    valueAttachment: fhirtypes.AttachmentType = Field(
+    valueAttachment: Attachment = Field(
         None,
         alias="valueAttachment",
         title="Single-valued answer to the question",
@@ -497,7 +502,7 @@ class QuestionnaireResponseItemAnswer(backboneelement.BackboneElement):
         None, alias="_valueBoolean", title="Extension field for ``valueBoolean``."
     )
 
-    valueCoding: fhirtypes.CodingType = Field(
+    valueCoding: Coding = Field(
         None,
         alias="valueCoding",
         title="Single-valued answer to the question",
@@ -584,7 +589,7 @@ class QuestionnaireResponseItemAnswer(backboneelement.BackboneElement):
         None, alias="_valueInteger", title="Extension field for ``valueInteger``."
     )
 
-    valueQuantity: fhirtypes.QuantityType = Field(
+    valueQuantity: Quantity = Field(
         None,
         alias="valueQuantity",
         title="Single-valued answer to the question",
@@ -599,7 +604,7 @@ class QuestionnaireResponseItemAnswer(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    valueReference: fhirtypes.ReferenceType = Field(
+    valueReference: Reference = Field(
         None,
         alias="valueReference",
         title="Single-valued answer to the question",
@@ -747,3 +752,8 @@ class QuestionnaireResponseItemAnswer(backboneelement.BackboneElement):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+QuestionnaireResponse.update_forward_refs()
+QuestionnaireResponseItem.update_forward_refs()
+QuestionnaireResponseItemAnswer.update_forward_refs()

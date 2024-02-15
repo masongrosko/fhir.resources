@@ -13,6 +13,9 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .reference import Reference
 
 
 class AdverseEvent(domainresource.DomainResource):
@@ -28,7 +31,7 @@ class AdverseEvent(domainresource.DomainResource):
     or hospitalization, or that results in death.
     """
 
-    resource_type = Field("AdverseEvent", const=True)
+    resource_type: str = Field("AdverseEvent", const=True)
 
     actuality: fhirtypes.Code = Field(
         None,
@@ -50,7 +53,7 @@ class AdverseEvent(domainresource.DomainResource):
         None, alias="_actuality", title="Extension field for ``actuality``."
     )
 
-    category: typing.List[fhirtypes.CodeableConceptType] = Field(
+    category: typing.List[CodeableConcept] = Field(
         None,
         alias="category",
         title=(
@@ -65,7 +68,7 @@ class AdverseEvent(domainresource.DomainResource):
         element_property=True,
     )
 
-    contributor: typing.List[fhirtypes.ReferenceType] = Field(
+    contributor: typing.List[Reference] = Field(
         None,
         alias="contributor",
         title="Who  was involved in the adverse event or the potential adverse event",
@@ -111,7 +114,7 @@ class AdverseEvent(domainresource.DomainResource):
         None, alias="_detected", title="Extension field for ``detected``."
     )
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title="Encounter created as part of",
@@ -125,7 +128,7 @@ class AdverseEvent(domainresource.DomainResource):
         enum_reference_types=["Encounter"],
     )
 
-    event: fhirtypes.CodeableConceptType = Field(
+    event: CodeableConcept = Field(
         None,
         alias="event",
         title="Type of the event itself in relation to the subject",
@@ -137,7 +140,7 @@ class AdverseEvent(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="Business identifier for the event",
@@ -150,7 +153,7 @@ class AdverseEvent(domainresource.DomainResource):
         element_property=True,
     )
 
-    location: fhirtypes.ReferenceType = Field(
+    location: Reference = Field(
         None,
         alias="location",
         title="Location where adverse event occurred",
@@ -161,7 +164,7 @@ class AdverseEvent(domainresource.DomainResource):
         enum_reference_types=["Location"],
     )
 
-    outcome: fhirtypes.CodeableConceptType = Field(
+    outcome: CodeableConcept = Field(
         None,
         alias="outcome",
         title=(
@@ -187,7 +190,7 @@ class AdverseEvent(domainresource.DomainResource):
         None, alias="_recordedDate", title="Extension field for ``recordedDate``."
     )
 
-    recorder: fhirtypes.ReferenceType = Field(
+    recorder: Reference = Field(
         None,
         alias="recorder",
         title="Who recorded the adverse event",
@@ -206,7 +209,7 @@ class AdverseEvent(domainresource.DomainResource):
         ],
     )
 
-    referenceDocument: typing.List[fhirtypes.ReferenceType] = Field(
+    referenceDocument: typing.List[Reference] = Field(
         None,
         alias="referenceDocument",
         title="AdverseEvent.referenceDocument",
@@ -217,7 +220,7 @@ class AdverseEvent(domainresource.DomainResource):
         enum_reference_types=["DocumentReference"],
     )
 
-    resultingCondition: typing.List[fhirtypes.ReferenceType] = Field(
+    resultingCondition: typing.List[Reference] = Field(
         None,
         alias="resultingCondition",
         title="Effect on the subject due to this event",
@@ -231,7 +234,7 @@ class AdverseEvent(domainresource.DomainResource):
         enum_reference_types=["Condition"],
     )
 
-    seriousness: fhirtypes.CodeableConceptType = Field(
+    seriousness: CodeableConcept = Field(
         None,
         alias="seriousness",
         title="Seriousness of the event",
@@ -240,7 +243,7 @@ class AdverseEvent(domainresource.DomainResource):
         element_property=True,
     )
 
-    severity: fhirtypes.CodeableConceptType = Field(
+    severity: CodeableConcept = Field(
         None,
         alias="severity",
         title="mild | moderate | severe",
@@ -253,7 +256,7 @@ class AdverseEvent(domainresource.DomainResource):
         element_property=True,
     )
 
-    study: typing.List[fhirtypes.ReferenceType] = Field(
+    study: typing.List[Reference] = Field(
         None,
         alias="study",
         title="AdverseEvent.study",
@@ -264,7 +267,7 @@ class AdverseEvent(domainresource.DomainResource):
         enum_reference_types=["ResearchStudy"],
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         ...,
         alias="subject",
         title="Subject impacted by event",
@@ -275,7 +278,7 @@ class AdverseEvent(domainresource.DomainResource):
         enum_reference_types=["Patient", "Group", "Practitioner", "RelatedPerson"],
     )
 
-    subjectMedicalHistory: typing.List[fhirtypes.ReferenceType] = Field(
+    subjectMedicalHistory: typing.List[Reference] = Field(
         None,
         alias="subjectMedicalHistory",
         title="AdverseEvent.subjectMedicalHistory",
@@ -295,7 +298,7 @@ class AdverseEvent(domainresource.DomainResource):
         ],
     )
 
-    suspectEntity: typing.List[fhirtypes.AdverseEventSuspectEntityType] = Field(
+    suspectEntity: typing.List["AdverseEventSuspectEntity"] = Field(
         None,
         alias="suspectEntity",
         title="The suspected agent causing the adverse event",
@@ -413,9 +416,9 @@ class AdverseEventSuspectEntity(backboneelement.BackboneElement):
     Describes the entity that is suspected to have caused the adverse event.
     """
 
-    resource_type = Field("AdverseEventSuspectEntity", const=True)
+    resource_type: str = Field("AdverseEventSuspectEntity", const=True)
 
-    causality: typing.List[fhirtypes.AdverseEventSuspectEntityCausalityType] = Field(
+    causality: typing.List["AdverseEventSuspectEntityCausality"] = Field(
         None,
         alias="causality",
         title="Information on the possible cause of the event",
@@ -424,7 +427,7 @@ class AdverseEventSuspectEntity(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    instance: fhirtypes.ReferenceType = Field(
+    instance: Reference = Field(
         ...,
         alias="instance",
         title="Refers to the specific entity that caused the adverse event",
@@ -464,9 +467,9 @@ class AdverseEventSuspectEntityCausality(backboneelement.BackboneElement):
     Information on the possible cause of the event.
     """
 
-    resource_type = Field("AdverseEventSuspectEntityCausality", const=True)
+    resource_type: str = Field("AdverseEventSuspectEntityCausality", const=True)
 
-    assessment: fhirtypes.CodeableConceptType = Field(
+    assessment: CodeableConcept = Field(
         None,
         alias="assessment",
         title="Assessment of if the entity caused the event",
@@ -475,7 +478,7 @@ class AdverseEventSuspectEntityCausality(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    author: fhirtypes.ReferenceType = Field(
+    author: Reference = Field(
         None,
         alias="author",
         title="AdverseEvent.suspectEntity.causalityAuthor",
@@ -486,7 +489,7 @@ class AdverseEventSuspectEntityCausality(backboneelement.BackboneElement):
         enum_reference_types=["Practitioner", "PractitionerRole"],
     )
 
-    method: fhirtypes.CodeableConceptType = Field(
+    method: CodeableConcept = Field(
         None,
         alias="method",
         title="ProbabilityScale | Bayesian | Checklist",
@@ -524,3 +527,7 @@ class AdverseEventSuspectEntityCausality(backboneelement.BackboneElement):
             "author",
             "method",
         ]
+
+
+AdverseEvent.update_forward_refs()
+AdverseEventSuspectEntity.update_forward_refs()

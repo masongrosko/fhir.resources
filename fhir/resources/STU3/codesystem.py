@@ -13,6 +13,11 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .contactdetail import ContactDetail
+from .identifier import Identifier
+from .usagecontext import UsageContext
 
 
 class CodeSystem(domainresource.DomainResource):
@@ -25,7 +30,7 @@ class CodeSystem(domainresource.DomainResource):
     systems.
     """
 
-    resource_type = Field("CodeSystem", const=True)
+    resource_type: str = Field("CodeSystem", const=True)
 
     caseSensitive: bool = Field(
         None,
@@ -54,7 +59,7 @@ class CodeSystem(domainresource.DomainResource):
         None, alias="_compositional", title="Extension field for ``compositional``."
     )
 
-    concept: typing.List[fhirtypes.CodeSystemConceptType] = Field(
+    concept: typing.List["CodeSystemConcept"] = Field(
         None,
         alias="concept",
         title="Concepts in the code system",
@@ -67,7 +72,7 @@ class CodeSystem(domainresource.DomainResource):
         element_property=True,
     )
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -178,7 +183,7 @@ class CodeSystem(domainresource.DomainResource):
         None, alias="_experimental", title="Extension field for ``experimental``."
     )
 
-    filter: typing.List[fhirtypes.CodeSystemFilterType] = Field(
+    filter: typing.List["CodeSystemFilter"] = Field(
         None,
         alias="filter",
         title="Filter that can be used in a value set",
@@ -207,7 +212,7 @@ class CodeSystem(domainresource.DomainResource):
         title="Extension field for ``hierarchyMeaning``.",
     )
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="Additional identifier for the code system",
@@ -220,7 +225,7 @@ class CodeSystem(domainresource.DomainResource):
         element_property=True,
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction for code system (if applicable)",
@@ -248,7 +253,7 @@ class CodeSystem(domainresource.DomainResource):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    property: typing.List[fhirtypes.CodeSystemPropertyType] = Field(
+    property: typing.List["CodeSystemProperty"] = Field(
         None,
         alias="property",
         title="Additional information supplied about each concept",
@@ -344,7 +349,7 @@ class CodeSystem(domainresource.DomainResource):
         None, alias="_url", title="Extension field for ``url``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="Context the content is intended to support",
@@ -519,7 +524,7 @@ class CodeSystemConcept(backboneelement.BackboneElement):
     what the meaning of the hierarchical relationships are.
     """
 
-    resource_type = Field("CodeSystemConcept", const=True)
+    resource_type: str = Field("CodeSystemConcept", const=True)
 
     code: fhirtypes.Code = Field(
         None,
@@ -537,7 +542,7 @@ class CodeSystemConcept(backboneelement.BackboneElement):
         None, alias="_code", title="Extension field for ``code``."
     )
 
-    concept: typing.List[fhirtypes.CodeSystemConceptType] = Field(
+    concept: typing.List["CodeSystemConcept"] = Field(
         None,
         alias="concept",
         title="Child Concepts (is-a/contains/categorizes)",
@@ -567,7 +572,7 @@ class CodeSystemConcept(backboneelement.BackboneElement):
         None, alias="_definition", title="Extension field for ``definition``."
     )
 
-    designation: typing.List[fhirtypes.CodeSystemConceptDesignationType] = Field(
+    designation: typing.List["CodeSystemConceptDesignation"] = Field(
         None,
         alias="designation",
         title="Additional representations for the concept",
@@ -594,7 +599,7 @@ class CodeSystemConcept(backboneelement.BackboneElement):
         None, alias="_display", title="Extension field for ``display``."
     )
 
-    property: typing.List[fhirtypes.CodeSystemConceptPropertyType] = Field(
+    property: typing.List["CodeSystemConceptProperty"] = Field(
         None,
         alias="property",
         title="Property value for the concept",
@@ -691,7 +696,7 @@ class CodeSystemConceptDesignation(backboneelement.BackboneElement):
     specialized purposes, used for particular purposes, etc.
     """
 
-    resource_type = Field("CodeSystemConceptDesignation", const=True)
+    resource_type: str = Field("CodeSystemConceptDesignation", const=True)
 
     language: fhirtypes.Code = Field(
         None,
@@ -705,7 +710,7 @@ class CodeSystemConceptDesignation(backboneelement.BackboneElement):
         None, alias="_language", title="Extension field for ``language``."
     )
 
-    use: fhirtypes.CodingType = Field(
+    use: Coding = Field(
         None,
         alias="use",
         title="Details how this designation would be used",
@@ -804,7 +809,7 @@ class CodeSystemConceptProperty(backboneelement.BackboneElement):
     A property value for this concept.
     """
 
-    resource_type = Field("CodeSystemConceptProperty", const=True)
+    resource_type: str = Field("CodeSystemConceptProperty", const=True)
 
     code: fhirtypes.Code = Field(
         None,
@@ -849,7 +854,7 @@ class CodeSystemConceptProperty(backboneelement.BackboneElement):
         None, alias="_valueCode", title="Extension field for ``valueCode``."
     )
 
-    valueCoding: fhirtypes.CodingType = Field(
+    valueCoding: Coding = Field(
         None,
         alias="valueCoding",
         title="Value of the property for this concept",
@@ -1042,7 +1047,7 @@ class CodeSystemFilter(backboneelement.BackboneElement):
     concepts using a filter.
     """
 
-    resource_type = Field("CodeSystemFilter", const=True)
+    resource_type: str = Field("CodeSystemFilter", const=True)
 
     code: fhirtypes.Code = Field(
         None,
@@ -1185,7 +1190,7 @@ class CodeSystemProperty(backboneelement.BackboneElement):
     can be provided about a concept.
     """
 
-    resource_type = Field("CodeSystemProperty", const=True)
+    resource_type: str = Field("CodeSystemProperty", const=True)
 
     code: fhirtypes.Code = Field(
         None,
@@ -1332,3 +1337,7 @@ class CodeSystemProperty(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+CodeSystem.update_forward_refs()
+CodeSystemConcept.update_forward_refs()

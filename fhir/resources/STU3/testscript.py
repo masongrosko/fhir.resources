@@ -13,6 +13,12 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .contactdetail import ContactDetail
+from .identifier import Identifier
+from .reference import Reference
+from .usagecontext import UsageContext
 
 
 class TestScript(domainresource.DomainResource):
@@ -25,9 +31,9 @@ class TestScript(domainresource.DomainResource):
     compliance against the FHIR specification.
     """
 
-    resource_type = Field("TestScript", const=True)
+    resource_type: str = Field("TestScript", const=True)
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -87,7 +93,7 @@ class TestScript(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    destination: typing.List[fhirtypes.TestScriptDestinationType] = Field(
+    destination: typing.List["TestScriptDestination"] = Field(
         None,
         alias="destination",
         title=(
@@ -118,7 +124,7 @@ class TestScript(domainresource.DomainResource):
         None, alias="_experimental", title="Extension field for ``experimental``."
     )
 
-    fixture: typing.List[fhirtypes.TestScriptFixtureType] = Field(
+    fixture: typing.List["TestScriptFixture"] = Field(
         None,
         alias="fixture",
         title="Fixture in the test script - by reference (uri)",
@@ -130,7 +136,7 @@ class TestScript(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="Additional identifier for the test script",
@@ -143,7 +149,7 @@ class TestScript(domainresource.DomainResource):
         element_property=True,
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction for test script (if applicable)",
@@ -155,7 +161,7 @@ class TestScript(domainresource.DomainResource):
         element_property=True,
     )
 
-    metadata: fhirtypes.TestScriptMetadataType = Field(
+    metadata: "TestScriptMetadata" = Field(
         None,
         alias="metadata",
         title=(
@@ -187,7 +193,7 @@ class TestScript(domainresource.DomainResource):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    origin: typing.List[fhirtypes.TestScriptOriginType] = Field(
+    origin: typing.List["TestScriptOrigin"] = Field(
         None,
         alias="origin",
         title=(
@@ -202,7 +208,7 @@ class TestScript(domainresource.DomainResource):
         element_property=True,
     )
 
-    profile: typing.List[fhirtypes.ReferenceType] = Field(
+    profile: typing.List[Reference] = Field(
         None,
         alias="profile",
         title="Reference of the validation profile",
@@ -243,7 +249,7 @@ class TestScript(domainresource.DomainResource):
         None, alias="_purpose", title="Extension field for ``purpose``."
     )
 
-    rule: typing.List[fhirtypes.TestScriptRuleType] = Field(
+    rule: typing.List["TestScriptRule"] = Field(
         None,
         alias="rule",
         title="Assert rule used within the test script",
@@ -252,7 +258,7 @@ class TestScript(domainresource.DomainResource):
         element_property=True,
     )
 
-    ruleset: typing.List[fhirtypes.TestScriptRulesetType] = Field(
+    ruleset: typing.List["TestScriptRuleset"] = Field(
         None,
         alias="ruleset",
         title="Assert ruleset used within the test script",
@@ -264,7 +270,7 @@ class TestScript(domainresource.DomainResource):
         element_property=True,
     )
 
-    setup: fhirtypes.TestScriptSetupType = Field(
+    setup: "TestScriptSetup" = Field(
         None,
         alias="setup",
         title="A series of required setup operations before tests are executed",
@@ -292,7 +298,7 @@ class TestScript(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    teardown: fhirtypes.TestScriptTeardownType = Field(
+    teardown: "TestScriptTeardown" = Field(
         None,
         alias="teardown",
         title="A series of required clean up steps",
@@ -304,7 +310,7 @@ class TestScript(domainresource.DomainResource):
         element_property=True,
     )
 
-    test: typing.List[fhirtypes.TestScriptTestType] = Field(
+    test: typing.List["TestScriptTest"] = Field(
         None,
         alias="test",
         title="A test in this script",
@@ -345,7 +351,7 @@ class TestScript(domainresource.DomainResource):
         None, alias="_url", title="Extension field for ``url``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="Context the content is intended to support",
@@ -358,7 +364,7 @@ class TestScript(domainresource.DomainResource):
         element_property=True,
     )
 
-    variable: typing.List[fhirtypes.TestScriptVariableType] = Field(
+    variable: typing.List["TestScriptVariable"] = Field(
         None,
         alias="variable",
         title="Placeholder for evaluated elements",
@@ -508,7 +514,7 @@ class TestScriptDestination(backboneelement.BackboneElement):
     destination element.
     """
 
-    resource_type = Field("TestScriptDestination", const=True)
+    resource_type: str = Field("TestScriptDestination", const=True)
 
     index: fhirtypes.Integer = Field(
         None,
@@ -526,7 +532,7 @@ class TestScriptDestination(backboneelement.BackboneElement):
         None, alias="_index", title="Extension field for ``index``."
     )
 
-    profile: fhirtypes.CodingType = Field(
+    profile: Coding = Field(
         ...,
         alias="profile",
         title=(
@@ -616,7 +622,7 @@ class TestScriptFixture(backboneelement.BackboneElement):
     for the test script to execute.
     """
 
-    resource_type = Field("TestScriptFixture", const=True)
+    resource_type: str = Field("TestScriptFixture", const=True)
 
     autocreate: bool = Field(
         None,
@@ -652,7 +658,7 @@ class TestScriptFixture(backboneelement.BackboneElement):
         None, alias="_autodelete", title="Extension field for ``autodelete``."
     )
 
-    resource: fhirtypes.ReferenceType = Field(
+    resource: Reference = Field(
         None,
         alias="resource",
         title="Reference of the resource",
@@ -693,9 +699,9 @@ class TestScriptMetadata(backboneelement.BackboneElement):
     the FHIR server being tested.
     """
 
-    resource_type = Field("TestScriptMetadata", const=True)
+    resource_type: str = Field("TestScriptMetadata", const=True)
 
-    capability: typing.List[fhirtypes.TestScriptMetadataCapabilityType] = Field(
+    capability: typing.List["TestScriptMetadataCapability"] = Field(
         ...,
         alias="capability",
         title=(
@@ -710,7 +716,7 @@ class TestScriptMetadata(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    link: typing.List[fhirtypes.TestScriptMetadataLinkType] = Field(
+    link: typing.List["TestScriptMetadataLink"] = Field(
         None,
         alias="link",
         title="Links to the FHIR specification",
@@ -739,9 +745,9 @@ class TestScriptMetadataCapability(backboneelement.BackboneElement):
     FHIR server being tested.
     """
 
-    resource_type = Field("TestScriptMetadataCapability", const=True)
+    resource_type: str = Field("TestScriptMetadataCapability", const=True)
 
-    capabilities: fhirtypes.ReferenceType = Field(
+    capabilities: Reference = Field(
         ...,
         alias="capabilities",
         title="Required Capability Statement",
@@ -794,9 +800,9 @@ class TestScriptMetadataCapability(backboneelement.BackboneElement):
         # if property is element of this resource.
         element_property=True,
     )
-    link__ext: typing.List[
-        typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
-    ] = Field(None, alias="_link", title="Extension field for ``link``.")
+    link__ext: typing.List[typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]] = (
+        Field(None, alias="_link", title="Extension field for ``link``.")
+    )
 
     origin: typing.List[fhirtypes.Integer] = Field(
         None,
@@ -869,7 +875,7 @@ class TestScriptMetadataLink(backboneelement.BackboneElement):
     A link to the FHIR specification that this test is covering.
     """
 
-    resource_type = Field("TestScriptMetadataLink", const=True)
+    resource_type: str = Field("TestScriptMetadataLink", const=True)
 
     description: fhirtypes.String = Field(
         None,
@@ -977,7 +983,7 @@ class TestScriptOrigin(backboneelement.BackboneElement):
     element.
     """
 
-    resource_type = Field("TestScriptOrigin", const=True)
+    resource_type: str = Field("TestScriptOrigin", const=True)
 
     index: fhirtypes.Integer = Field(
         None,
@@ -995,7 +1001,7 @@ class TestScriptOrigin(backboneelement.BackboneElement):
         None, alias="_index", title="Extension field for ``index``."
     )
 
-    profile: fhirtypes.CodingType = Field(
+    profile: Coding = Field(
         ...,
         alias="profile",
         title="FHIR-Client | FHIR-SDC-FormFiller",
@@ -1081,9 +1087,9 @@ class TestScriptRule(backboneelement.BackboneElement):
     Assert rule to be used in one or more asserts within the test script.
     """
 
-    resource_type = Field("TestScriptRule", const=True)
+    resource_type: str = Field("TestScriptRule", const=True)
 
-    param: typing.List[fhirtypes.TestScriptRuleParamType] = Field(
+    param: typing.List["TestScriptRuleParam"] = Field(
         None,
         alias="param",
         title="Rule parameter template",
@@ -1094,7 +1100,7 @@ class TestScriptRule(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    resource: fhirtypes.ReferenceType = Field(
+    resource: Reference = Field(
         ...,
         alias="resource",
         title="Assert rule resource reference",
@@ -1126,7 +1132,7 @@ class TestScriptRuleParam(backboneelement.BackboneElement):
     Each rule template can take one or more parameters for rule evaluation.
     """
 
-    resource_type = Field("TestScriptRuleParam", const=True)
+    resource_type: str = Field("TestScriptRuleParam", const=True)
 
     name: fhirtypes.String = Field(
         None,
@@ -1237,9 +1243,9 @@ class TestScriptRuleset(backboneelement.BackboneElement):
     could reference the group of rules and have them all applied.
     """
 
-    resource_type = Field("TestScriptRuleset", const=True)
+    resource_type: str = Field("TestScriptRuleset", const=True)
 
-    resource: fhirtypes.ReferenceType = Field(
+    resource: Reference = Field(
         ...,
         alias="resource",
         title="Assert ruleset resource reference",
@@ -1253,7 +1259,7 @@ class TestScriptRuleset(backboneelement.BackboneElement):
         enum_reference_types=["Resource"],
     )
 
-    rule: typing.List[fhirtypes.TestScriptRulesetRuleType] = Field(
+    rule: typing.List["TestScriptRulesetRule"] = Field(
         ...,
         alias="rule",
         title="The referenced rule within the ruleset",
@@ -1280,9 +1286,9 @@ class TestScriptRulesetRule(backboneelement.BackboneElement):
     The referenced rule within the external ruleset template.
     """
 
-    resource_type = Field("TestScriptRulesetRule", const=True)
+    resource_type: str = Field("TestScriptRulesetRule", const=True)
 
-    param: typing.List[fhirtypes.TestScriptRulesetRuleParamType] = Field(
+    param: typing.List["TestScriptRulesetRuleParam"] = Field(
         None,
         alias="param",
         title="Ruleset rule parameter template",
@@ -1383,7 +1389,7 @@ class TestScriptRulesetRuleParam(backboneelement.BackboneElement):
     Each rule template can take one or more parameters for rule evaluation.
     """
 
-    resource_type = Field("TestScriptRulesetRuleParam", const=True)
+    resource_type: str = Field("TestScriptRulesetRuleParam", const=True)
 
     name: fhirtypes.String = Field(
         None,
@@ -1492,9 +1498,9 @@ class TestScriptSetup(backboneelement.BackboneElement):
     A series of required setup operations before tests are executed.
     """
 
-    resource_type = Field("TestScriptSetup", const=True)
+    resource_type: str = Field("TestScriptSetup", const=True)
 
-    action: typing.List[fhirtypes.TestScriptSetupActionType] = Field(
+    action: typing.List["TestScriptSetupAction"] = Field(
         ...,
         alias="action",
         title="A setup operation or assert to perform",
@@ -1521,9 +1527,9 @@ class TestScriptSetupAction(backboneelement.BackboneElement):
     Action would contain either an operation or an assertion.
     """
 
-    resource_type = Field("TestScriptSetupAction", const=True)
+    resource_type: str = Field("TestScriptSetupAction", const=True)
 
-    assert_fhir: fhirtypes.TestScriptSetupActionAssertType = Field(
+    assert_fhir: "TestScriptSetupActionAssert" = Field(
         None,
         alias="assert",
         title="The assertion to perform",
@@ -1535,7 +1541,7 @@ class TestScriptSetupAction(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    operation: fhirtypes.TestScriptSetupActionOperationType = Field(
+    operation: "TestScriptSetupActionOperation" = Field(
         None,
         alias="operation",
         title="The setup operation to perform",
@@ -1563,7 +1569,7 @@ class TestScriptSetupActionAssert(backboneelement.BackboneElement):
     under test behaves appropriately.
     """
 
-    resource_type = Field("TestScriptSetupActionAssert", const=True)
+    resource_type: str = Field("TestScriptSetupActionAssert", const=True)
 
     compareToSourceExpression: fhirtypes.String = Field(
         None,
@@ -1872,7 +1878,7 @@ class TestScriptSetupActionAssert(backboneelement.BackboneElement):
         None, alias="_responseCode", title="Extension field for ``responseCode``."
     )
 
-    rule: fhirtypes.TestScriptSetupActionAssertRuleType = Field(
+    rule: "TestScriptSetupActionAssertRule" = Field(
         None,
         alias="rule",
         title="The reference to a TestScript.rule",
@@ -1881,7 +1887,7 @@ class TestScriptSetupActionAssert(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    ruleset: fhirtypes.TestScriptSetupActionAssertRulesetType = Field(
+    ruleset: "TestScriptSetupActionAssertRuleset" = Field(
         None,
         alias="ruleset",
         title="The reference to a TestScript.ruleset",
@@ -1992,9 +1998,9 @@ class TestScriptSetupActionAssertRule(backboneelement.BackboneElement):
     The TestScript.rule this assert will evaluate.
     """
 
-    resource_type = Field("TestScriptSetupActionAssertRule", const=True)
+    resource_type: str = Field("TestScriptSetupActionAssertRule", const=True)
 
-    param: typing.List[fhirtypes.TestScriptSetupActionAssertRuleParamType] = Field(
+    param: typing.List["TestScriptSetupActionAssertRuleParam"] = Field(
         None,
         alias="param",
         title="Rule parameter template",
@@ -2095,7 +2101,7 @@ class TestScriptSetupActionAssertRuleParam(backboneelement.BackboneElement):
     Each rule template can take one or more parameters for rule evaluation.
     """
 
-    resource_type = Field("TestScriptSetupActionAssertRuleParam", const=True)
+    resource_type: str = Field("TestScriptSetupActionAssertRuleParam", const=True)
 
     name: fhirtypes.String = Field(
         None,
@@ -2206,9 +2212,9 @@ class TestScriptSetupActionAssertRuleset(backboneelement.BackboneElement):
     The TestScript.ruleset this assert will evaluate.
     """
 
-    resource_type = Field("TestScriptSetupActionAssertRuleset", const=True)
+    resource_type: str = Field("TestScriptSetupActionAssertRuleset", const=True)
 
-    rule: typing.List[fhirtypes.TestScriptSetupActionAssertRulesetRuleType] = Field(
+    rule: typing.List["TestScriptSetupActionAssertRulesetRule"] = Field(
         None,
         alias="rule",
         title="The referenced rule within the ruleset",
@@ -2307,11 +2313,9 @@ class TestScriptSetupActionAssertRulesetRule(backboneelement.BackboneElement):
     The referenced rule within the external ruleset template.
     """
 
-    resource_type = Field("TestScriptSetupActionAssertRulesetRule", const=True)
+    resource_type: str = Field("TestScriptSetupActionAssertRulesetRule", const=True)
 
-    param: typing.List[
-        fhirtypes.TestScriptSetupActionAssertRulesetRuleParamType
-    ] = Field(
+    param: typing.List["TestScriptSetupActionAssertRulesetRuleParam"] = Field(
         None,
         alias="param",
         title="Rule parameter template",
@@ -2412,7 +2416,9 @@ class TestScriptSetupActionAssertRulesetRuleParam(backboneelement.BackboneElemen
     Each rule template can take one or more parameters for rule evaluation.
     """
 
-    resource_type = Field("TestScriptSetupActionAssertRulesetRuleParam", const=True)
+    resource_type: str = Field(
+        "TestScriptSetupActionAssertRulesetRuleParam", const=True
+    )
 
     name: fhirtypes.String = Field(
         None,
@@ -2523,7 +2529,7 @@ class TestScriptSetupActionOperation(backboneelement.BackboneElement):
     The operation to perform.
     """
 
-    resource_type = Field("TestScriptSetupActionOperation", const=True)
+    resource_type: str = Field("TestScriptSetupActionOperation", const=True)
 
     accept: fhirtypes.Code = Field(
         None,
@@ -2652,9 +2658,7 @@ class TestScriptSetupActionOperation(backboneelement.BackboneElement):
         None, alias="_params", title="Extension field for ``params``."
     )
 
-    requestHeader: typing.List[
-        fhirtypes.TestScriptSetupActionOperationRequestHeaderType
-    ] = Field(
+    requestHeader: typing.List["TestScriptSetupActionOperationRequestHeader"] = Field(
         None,
         alias="requestHeader",
         title="Each operation can have one or more header elements",
@@ -2729,7 +2733,7 @@ class TestScriptSetupActionOperation(backboneelement.BackboneElement):
         None, alias="_targetId", title="Extension field for ``targetId``."
     )
 
-    type: fhirtypes.CodingType = Field(
+    type: Coding = Field(
         None,
         alias="type",
         title="The operation code type that will be executed",
@@ -2788,7 +2792,9 @@ class TestScriptSetupActionOperationRequestHeader(backboneelement.BackboneElemen
     Header elements would be used to set HTTP headers.
     """
 
-    resource_type = Field("TestScriptSetupActionOperationRequestHeader", const=True)
+    resource_type: str = Field(
+        "TestScriptSetupActionOperationRequestHeader", const=True
+    )
 
     field: fhirtypes.String = Field(
         None,
@@ -2894,9 +2900,9 @@ class TestScriptTeardown(backboneelement.BackboneElement):
     executed (successfully or otherwise).
     """
 
-    resource_type = Field("TestScriptTeardown", const=True)
+    resource_type: str = Field("TestScriptTeardown", const=True)
 
-    action: typing.List[fhirtypes.TestScriptTeardownActionType] = Field(
+    action: typing.List["TestScriptTeardownAction"] = Field(
         ...,
         alias="action",
         title="One or more teardown operations to perform",
@@ -2923,9 +2929,9 @@ class TestScriptTeardownAction(backboneelement.BackboneElement):
     The teardown action will only contain an operation.
     """
 
-    resource_type = Field("TestScriptTeardownAction", const=True)
+    resource_type: str = Field("TestScriptTeardownAction", const=True)
 
-    operation: fhirtypes.TestScriptSetupActionOperationType = Field(
+    operation: "TestScriptSetupActionOperation" = Field(
         ...,
         alias="operation",
         title="The teardown operation to perform",
@@ -2951,9 +2957,9 @@ class TestScriptTest(backboneelement.BackboneElement):
     A test in this script.
     """
 
-    resource_type = Field("TestScriptTest", const=True)
+    resource_type: str = Field("TestScriptTest", const=True)
 
-    action: typing.List[fhirtypes.TestScriptTestActionType] = Field(
+    action: typing.List["TestScriptTestAction"] = Field(
         ...,
         alias="action",
         title="A test operation or assert to perform",
@@ -3010,9 +3016,9 @@ class TestScriptTestAction(backboneelement.BackboneElement):
     Action would contain either an operation or an assertion.
     """
 
-    resource_type = Field("TestScriptTestAction", const=True)
+    resource_type: str = Field("TestScriptTestAction", const=True)
 
-    assert_fhir: fhirtypes.TestScriptSetupActionAssertType = Field(
+    assert_fhir: "TestScriptSetupActionAssert" = Field(
         None,
         alias="assert",
         title="The setup assertion to perform",
@@ -3024,7 +3030,7 @@ class TestScriptTestAction(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    operation: fhirtypes.TestScriptSetupActionOperationType = Field(
+    operation: "TestScriptSetupActionOperation" = Field(
         None,
         alias="operation",
         title="The setup operation to perform",
@@ -3052,7 +3058,7 @@ class TestScriptVariable(backboneelement.BackboneElement):
     field value in the response headers.
     """
 
-    resource_type = Field("TestScriptVariable", const=True)
+    resource_type: str = Field("TestScriptVariable", const=True)
 
     defaultValue: fhirtypes.String = Field(
         None,
@@ -3249,3 +3255,21 @@ class TestScriptVariable(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+TestScript.update_forward_refs()
+TestScriptMetadata.update_forward_refs()
+TestScriptRule.update_forward_refs()
+TestScriptRuleset.update_forward_refs()
+TestScriptRulesetRule.update_forward_refs()
+TestScriptSetup.update_forward_refs()
+TestScriptSetupAction.update_forward_refs()
+TestScriptSetupActionAssert.update_forward_refs()
+TestScriptSetupActionAssertRule.update_forward_refs()
+TestScriptSetupActionAssertRuleset.update_forward_refs()
+TestScriptSetupActionAssertRulesetRule.update_forward_refs()
+TestScriptSetupActionOperation.update_forward_refs()
+TestScriptTeardown.update_forward_refs()
+TestScriptTeardownAction.update_forward_refs()
+TestScriptTest.update_forward_refs()
+TestScriptTestAction.update_forward_refs()

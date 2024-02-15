@@ -13,6 +13,9 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import datatype, fhirtypes
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .reference import Reference
 
 
 class RelatedArtifact(datatype.DataType):
@@ -25,7 +28,7 @@ class RelatedArtifact(datatype.DataType):
     bibliographic references.
     """
 
-    resource_type = Field("RelatedArtifact", const=True)
+    resource_type: str = Field("RelatedArtifact", const=True)
 
     citation: fhirtypes.Markdown = Field(
         None,
@@ -42,7 +45,7 @@ class RelatedArtifact(datatype.DataType):
         None, alias="_citation", title="Extension field for ``citation``."
     )
 
-    classifier: typing.List[fhirtypes.CodeableConceptType] = Field(
+    classifier: typing.List[CodeableConcept] = Field(
         None,
         alias="classifier",
         title="Additional classifiers",
@@ -66,7 +69,7 @@ class RelatedArtifact(datatype.DataType):
         None, alias="_display", title="Extension field for ``display``."
     )
 
-    document: fhirtypes.AttachmentType = Field(
+    document: Attachment = Field(
         None,
         alias="document",
         title="What document is being referenced",
@@ -139,7 +142,7 @@ class RelatedArtifact(datatype.DataType):
         None, alias="_resource", title="Extension field for ``resource``."
     )
 
-    resourceReference: fhirtypes.ReferenceType = Field(
+    resourceReference: Reference = Field(
         None,
         alias="resourceReference",
         title="What artifact, if not a conformance resource",

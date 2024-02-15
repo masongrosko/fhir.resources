@@ -11,7 +11,11 @@ from pydantic.v1 import Field
 
 from . import fhirtypes
 from .backboneelement import BackboneElement
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .contactpoint import ContactPoint
 from .domainresource import DomainResource
+from .reference import Reference
 
 
 class Conformance(DomainResource):
@@ -22,7 +26,7 @@ class Conformance(DomainResource):
     required or desired server implementation.
     """
 
-    resource_type = Field("Conformance", const=True)
+    resource_type: str = Field("Conformance", const=True)
 
     acceptUnknown: fhirtypes.Code = Field(
         ...,
@@ -31,7 +35,7 @@ class Conformance(DomainResource):
         description="no | extensions | elements | both.",
     )
 
-    contact: ListType[fhirtypes.ConformanceContactType] = Field(
+    contact: ListType["ConformanceContact"] = Field(
         None,
         alias="contact",
         title="List of `ConformanceContact` items (represented as `dict` in JSON).",
@@ -56,7 +60,7 @@ class Conformance(DomainResource):
         description="Human description of the conformance statement.",
     )
 
-    document: ListType[fhirtypes.ConformanceDocumentType] = Field(
+    document: ListType["ConformanceDocument"] = Field(
         None,
         alias="document",
         title="List of `ConformanceDocument` items (represented as `dict` in JSON).",
@@ -83,7 +87,7 @@ class Conformance(DomainResource):
         description="formats supported (xml | json | mime type).",
     )
 
-    implementation: fhirtypes.ConformanceImplementationType = Field(
+    implementation: "ConformanceImplementation" = Field(
         None,
         alias="implementation",
         title="Type `ConformanceImplementation` (represented as `dict` in JSON).",
@@ -97,7 +101,7 @@ class Conformance(DomainResource):
         description="instance | capability | requirements.",
     )
 
-    messaging: ListType[fhirtypes.ConformanceMessagingType] = Field(
+    messaging: ListType["ConformanceMessaging"] = Field(
         None,
         alias="messaging",
         title="List of `ConformanceMessaging` items (represented as `dict` in JSON).",
@@ -110,7 +114,7 @@ class Conformance(DomainResource):
         title="Type `String`.",
         description="informal name for this conformance statement.",
     )
-    profile: ListType[fhirtypes.ReferenceType] = Field(
+    profile: ListType[Reference] = Field(
         None,
         alias="profile",
         title=(
@@ -133,13 +137,13 @@ class Conformance(DomainResource):
         description="Why is this needed?.",
     )
 
-    rest: ListType[fhirtypes.ConformanceRestType] = Field(
+    rest: ListType["ConformanceRest"] = Field(
         None,
         alias="rest",
         title="List of `ConformanceRest` (represented as `dict` in JSON).",
         description="If the endpoint is a RESTful one.",
     )
-    software: fhirtypes.ConformanceSoftwareType = Field(
+    software: "ConformanceSoftware" = Field(
         None,
         alias="software",
         title="List of `ConformanceSoftware` (represented as `dict` in JSON).",
@@ -174,7 +178,7 @@ class ConformanceContact(BackboneElement):
     Contacts to assist a user in finding and communicating with the publisher.
     """
 
-    resource_type = Field("ConformanceContact", const=True)
+    resource_type: str = Field("ConformanceContact", const=True)
 
     name: fhirtypes.String = Field(
         None,
@@ -183,7 +187,7 @@ class ConformanceContact(BackboneElement):
         description="Name of a individual to contact.",
     )
 
-    telecom: ListType[fhirtypes.ContactPointType] = Field(
+    telecom: ListType[ContactPoint] = Field(
         None,
         alias="telecom",
         title="List of `ContactPoint` items (represented as `dict` in JSON).",
@@ -197,7 +201,7 @@ class ConformanceDocument(BackboneElement):
     A document definition.
     """
 
-    resource_type = Field("ConformanceDocument", const=True)
+    resource_type: str = Field("ConformanceDocument", const=True)
 
     documentation: fhirtypes.String = Field(
         None,
@@ -209,7 +213,7 @@ class ConformanceDocument(BackboneElement):
     mode: fhirtypes.Code = Field(
         None, alias="mode", title="Type `Code`.", description="producer | consumer."
     )
-    profile: fhirtypes.ReferenceType = Field(
+    profile: Reference = Field(
         None,
         alias="profile",
         title=(
@@ -228,7 +232,7 @@ class ConformanceImplementation(BackboneElement):
     capabilities of a software program.
     """
 
-    resource_type = Field("ConformanceImplementation", const=True)
+    resource_type: str = Field("ConformanceImplementation", const=True)
 
     description: fhirtypes.String = Field(
         None,
@@ -251,7 +255,7 @@ class ConformanceMessaging(BackboneElement):
     A description of the messaging capabilities of the solution.
     """
 
-    resource_type = Field("ConformanceMessaging", const=True)
+    resource_type: str = Field("ConformanceMessaging", const=True)
 
     documentation: fhirtypes.String = Field(
         None,
@@ -260,13 +264,13 @@ class ConformanceMessaging(BackboneElement):
         description="Messaging interface behavior details.",
     )
 
-    endpoint: ListType[fhirtypes.ConformanceMessagingEndpointType] = Field(
+    endpoint: ListType["ConformanceMessagingEndpoint"] = Field(
         None,
         alias="endpoint",
         title="List of `ConformanceMessagingEndpoint` items (represented as `dict` in JSON).",
         description="A messaging service end-point.",
     )
-    event: ListType[fhirtypes.ConformanceMessagingEventType] = Field(
+    event: ListType["ConformanceMessagingEvent"] = Field(
         None,
         alias="event",
         title="List of `ConformanceMessagingEvent` items (represented as `dict` in JSON).",
@@ -288,13 +292,13 @@ class ConformanceMessagingEndpoint(BackboneElement):
     are to be sent.
     """
 
-    resource_type = Field("ConformanceMessagingEndpoint", const=True)
+    resource_type: str = Field("ConformanceMessagingEndpoint", const=True)
 
     address: fhirtypes.Uri = Field(
         None, alias="address", title="Type `Uri`.", description="Address of end-point."
     )
 
-    protocol: fhirtypes.CodingType = Field(
+    protocol: Coding = Field(
         ..., alias="protocol", title="Type `Code`.", description="http | ftp | mllp +."
     )
 
@@ -305,7 +309,7 @@ class ConformanceMessagingEvent(BackboneElement):
     A description of the solution's support for an event at this end-point.
     """
 
-    resource_type = Field("ConformanceMessagingEvent", const=True)
+    resource_type: str = Field("ConformanceMessagingEvent", const=True)
 
     category: fhirtypes.Code = Field(
         None,
@@ -314,7 +318,7 @@ class ConformanceMessagingEvent(BackboneElement):
         description="Consequence | Currency | Notification.",
     )
 
-    code: fhirtypes.CodingType = Field(
+    code: Coding = Field(
         None, alias="code", title="Type `Coding`.", description="Event type."
     )
 
@@ -336,7 +340,7 @@ class ConformanceMessagingEvent(BackboneElement):
         None, alias="mode", title="Type `Code`.", description="sender | receiver."
     )
 
-    request: fhirtypes.ReferenceType = Field(
+    request: Reference = Field(
         None,
         alias="request",
         title=(
@@ -345,7 +349,7 @@ class ConformanceMessagingEvent(BackboneElement):
         ),
         description="Profile that describes the request.",
     )
-    response: fhirtypes.ReferenceType = Field(
+    response: Reference = Field(
         None,
         alias="response",
         title=(
@@ -362,7 +366,7 @@ class ConformanceRest(BackboneElement):
     A definition of the restful capabilities of the solution, if any.
     """
 
-    resource_type = Field("ConformanceRest", const=True)
+    resource_type: str = Field("ConformanceRest", const=True)
 
     compartment: ListType[fhirtypes.Uri] = Field(
         None,
@@ -377,7 +381,7 @@ class ConformanceRest(BackboneElement):
         title="`Uri` item.",
         description="General description of implementation.",
     )
-    interaction: ListType[fhirtypes.ConformanceRestInteractionType] = Field(
+    interaction: ListType["ConformanceRestInteraction"] = Field(
         None,
         alias="interaction",
         title="List of `ConformanceRestInteraction` items (represented as `dict` in JSON).",
@@ -388,20 +392,20 @@ class ConformanceRest(BackboneElement):
         ..., alias="mode", title="Type `Code`", description="client | server."
     )
 
-    operation: ListType[fhirtypes.ConformanceRestOperationType] = Field(
+    operation: ListType["ConformanceRestOperation"] = Field(
         None,
         alias="operation",
         title="List of `ConformanceRestOperation` items (represented as `dict` in JSON).",
         description="Definition of an operation or a custom query.",
     )
 
-    resource: ListType[fhirtypes.ConformanceRestResourceType] = Field(
+    resource: ListType["ConformanceRestResource"] = Field(
         None,
         alias="resource",
         title="List of `ConformanceRestResource` items (represented as `dict` in JSON).",
         description="Resource served on the REST interface.",
     )
-    searchParam: ListType[fhirtypes.ConformanceRestResourceSearchParamType] = Field(
+    searchParam: ListType["ConformanceRestResourceSearchParam"] = Field(
         None,
         alias="searchParam",
         title=(
@@ -411,7 +415,7 @@ class ConformanceRest(BackboneElement):
         description="Search params for searching all resources.",
     )
 
-    security: fhirtypes.ConformanceRestSecurityType = Field(
+    security: "ConformanceRestSecurity" = Field(
         None,
         alias="security",
         title="List of `ConformanceRestSecurity` items (represented as `dict` in JSON).",
@@ -432,7 +436,7 @@ class ConformanceRestInteraction(BackboneElement):
     A specification of restful operations supported by the system.
     """
 
-    resource_type = Field("ConformanceRestInteraction", const=True)
+    resource_type: str = Field("ConformanceRestInteraction", const=True)
 
     code: fhirtypes.Code = Field(
         ...,
@@ -455,7 +459,7 @@ class ConformanceRestOperation(BackboneElement):
     their meaning and type.
     """
 
-    resource_type = Field("ConformanceRestOperation", const=True)
+    resource_type: str = Field("ConformanceRestOperation", const=True)
 
     name: fhirtypes.String = Field(
         ...,
@@ -463,7 +467,7 @@ class ConformanceRestOperation(BackboneElement):
         title="Type `String`",
         description="Name by which the operation/query is invoked.",
     )
-    definition: fhirtypes.ReferenceType = Field(
+    definition: Reference = Field(
         ...,
         alias="definition",
         title=(
@@ -481,7 +485,7 @@ class ConformanceRestResource(BackboneElement):
     resource type.
     """
 
-    resource_type = Field("ConformanceRestResource", const=True)
+    resource_type: str = Field("ConformanceRestResource", const=True)
 
     conditionalCreate: fhirtypes.Boolean = Field(
         None,
@@ -504,7 +508,7 @@ class ConformanceRestResource(BackboneElement):
         description="If allows/uses conditional update.",
     )
 
-    interaction: ListType[fhirtypes.ConformanceRestResourceInteractionType] = Field(
+    interaction: ListType["ConformanceRestResourceInteraction"] = Field(
         None,
         alias="interaction",
         title=(
@@ -514,7 +518,7 @@ class ConformanceRestResource(BackboneElement):
         description="What operations are supported?.",
     )
 
-    profile: fhirtypes.ReferenceType = Field(
+    profile: Reference = Field(
         None,
         alias="profile",
         title=(
@@ -537,7 +541,7 @@ class ConformanceRestResource(BackboneElement):
         title="List of `str` items.",
         description="_include values supported by the server.",
     )
-    searchParam: ListType[fhirtypes.ConformanceRestResourceSearchParamType] = Field(
+    searchParam: ListType["ConformanceRestResourceSearchParam"] = Field(
         None,
         alias="searchParam",
         title=(
@@ -580,7 +584,7 @@ class ConformanceRestResourceInteraction(BackboneElement):
     Identifies a restful operation supported by the solution.
     """
 
-    resource_type = Field("ConformanceRestResourceInteraction", const=True)
+    resource_type: str = Field("ConformanceRestResourceInteraction", const=True)
 
     code: fhirtypes.Code = Field(
         None,
@@ -608,7 +612,7 @@ class ConformanceRestResourceSearchParam(BackboneElement):
     defined for/by the implementation.
     """
 
-    resource_type = Field("ConformanceRestResourceSearchParam", const=True)
+    resource_type: str = Field("ConformanceRestResourceSearchParam", const=True)
 
     chain: ListType[fhirtypes.String] = Field(
         None,
@@ -666,9 +670,9 @@ class ConformanceRestSecurity(BackboneElement):
     what a client needs to know.
     """
 
-    resource_type = Field("ConformanceRestSecurity", const=True)
+    resource_type: str = Field("ConformanceRestSecurity", const=True)
 
-    certificate: ListType[fhirtypes.ConformanceRestSecurityCertificateType] = Field(
+    certificate: ListType["ConformanceRestSecurityCertificate"] = Field(
         None,
         alias="certificate",
         title=(
@@ -691,7 +695,7 @@ class ConformanceRestSecurity(BackboneElement):
         description="General description of how security works.",
     )
 
-    service: ListType[fhirtypes.CodeableConceptType] = Field(
+    service: ListType[CodeableConcept] = Field(
         None,
         alias="service",
         title="List of `CodeableConcept` items (represented as `dict` in JSON).",
@@ -702,7 +706,7 @@ class ConformanceRestSecurity(BackboneElement):
 class ConformanceRestSecurityCertificate(BackboneElement):
     """Certificates associated with security profiles."""
 
-    resource_type = Field("ConformanceRestSecurityCertificate", const=True)
+    resource_type: str = Field("ConformanceRestSecurityCertificate", const=True)
     blob: fhirtypes.Base64Binary = Field(
         None,
         alias="blob",
@@ -725,7 +729,7 @@ class ConformanceSoftware(BackboneElement):
     software version, independent of an installation.
     """
 
-    resource_type = Field("ConformanceSoftware", const=True)
+    resource_type: str = Field("ConformanceSoftware", const=True)
 
     name: fhirtypes.String = Field(
         None,
@@ -746,3 +750,10 @@ class ConformanceSoftware(BackboneElement):
         title="Type `String`.",
         description="Version covered by this statement.",
     )
+
+
+Conformance.update_forward_refs()
+ConformanceMessaging.update_forward_refs()
+ConformanceRest.update_forward_refs()
+ConformanceRestResource.update_forward_refs()
+ConformanceRestSecurity.update_forward_refs()

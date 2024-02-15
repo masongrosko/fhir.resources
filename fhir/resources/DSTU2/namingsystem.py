@@ -10,6 +10,10 @@ from typing import List as ListType
 from pydantic.v1 import Field
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .contactpoint import ContactPoint
+from .period import Period
+from .reference import Reference
 
 
 class NamingSystem(domainresource.DomainResource):
@@ -20,9 +24,9 @@ class NamingSystem(domainresource.DomainResource):
     "System" used within the Identifier and Coding data types.
     """
 
-    resource_type = Field("NamingSystem", const=True)
+    resource_type: str = Field("NamingSystem", const=True)
 
-    contact: ListType[fhirtypes.NamingSystemContactType] = Field(
+    contact: ListType["NamingSystemContact"] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -89,7 +93,7 @@ class NamingSystem(domainresource.DomainResource):
         ),
     )
 
-    replacedBy: fhirtypes.ReferenceType = Field(
+    replacedBy: Reference = Field(
         None,
         alias="replacedBy",
         title=(
@@ -125,7 +129,7 @@ class NamingSystem(domainresource.DomainResource):
         enum_values=["draft", "active", "retired"],
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="e.g. driver,  provider,  patient, bank etc.",
@@ -135,7 +139,7 @@ class NamingSystem(domainresource.DomainResource):
         ),
     )
 
-    uniqueId: ListType[fhirtypes.NamingSystemUniqueIdType] = Field(
+    uniqueId: ListType["NamingSystemUniqueId"] = Field(
         ...,
         alias="uniqueId",
         title="Unique identifiers used for system",
@@ -155,7 +159,7 @@ class NamingSystem(domainresource.DomainResource):
         ),
     )
 
-    useContext: ListType[fhirtypes.CodeableConceptType] = Field(
+    useContext: ListType[CodeableConcept] = Field(
         None,
         alias="useContext",
         title="The context that the content is intended to support",
@@ -175,7 +179,7 @@ class NamingSystemContact(backboneelement.BackboneElement):
     Contacts to assist a user in finding and communicating with the publisher.
     """
 
-    resource_type = Field("NamingSystemContact", const=True)
+    resource_type: str = Field("NamingSystemContact", const=True)
 
     name: fhirtypes.String = Field(
         None,
@@ -184,7 +188,7 @@ class NamingSystemContact(backboneelement.BackboneElement):
         description="Name of a individual to contact.",
     )
 
-    telecom: ListType[fhirtypes.ContactPointType] = Field(
+    telecom: ListType[ContactPoint] = Field(
         None,
         alias="telecom",
         title="List of `ContactPoint` items (represented as `dict` in JSON).",
@@ -199,9 +203,9 @@ class NamingSystemUniqueId(backboneelement.BackboneElement):
     exchange.
     """
 
-    resource_type = Field("NamingSystemUniqueId", const=True)
+    resource_type: str = Field("NamingSystemUniqueId", const=True)
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="When is identifier valid?",
@@ -244,3 +248,6 @@ class NamingSystemUniqueId(backboneelement.BackboneElement):
             "system or identifier system."
         ),
     )
+
+
+NamingSystem.update_forward_refs()

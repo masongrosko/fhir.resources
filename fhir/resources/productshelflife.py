@@ -11,6 +11,8 @@ import typing
 from pydantic.v1 import Field, root_validator
 
 from . import backbonetype, fhirtypes
+from .codeableconcept import CodeableConcept
+from .duration import Duration
 
 
 class ProductShelfLife(backbonetype.BackboneType):
@@ -22,9 +24,9 @@ class ProductShelfLife(backbonetype.BackboneType):
     container can be described using this class.
     """
 
-    resource_type = Field("ProductShelfLife", const=True)
+    resource_type: str = Field("ProductShelfLife", const=True)
 
-    periodDuration: fhirtypes.DurationType = Field(
+    periodDuration: Duration = Field(
         None,
         alias="periodDuration",
         title=(
@@ -63,7 +65,7 @@ class ProductShelfLife(backbonetype.BackboneType):
         None, alias="_periodString", title="Extension field for ``periodString``."
     )
 
-    specialPrecautionsForStorage: typing.List[fhirtypes.CodeableConceptType] = Field(
+    specialPrecautionsForStorage: typing.List[CodeableConcept] = Field(
         None,
         alias="specialPrecautionsForStorage",
         title=(
@@ -76,7 +78,7 @@ class ProductShelfLife(backbonetype.BackboneType):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title=(

@@ -13,6 +13,12 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .dosage import Dosage
+from .identifier import Identifier
+from .quantity import Quantity
+from .reference import Reference
 
 
 class MedicationDispense(domainresource.DomainResource):
@@ -28,9 +34,9 @@ class MedicationDispense(domainresource.DomainResource):
     responding to a medication order.
     """
 
-    resource_type = Field("MedicationDispense", const=True)
+    resource_type: str = Field("MedicationDispense", const=True)
 
-    authorizingPrescription: typing.List[fhirtypes.ReferenceType] = Field(
+    authorizingPrescription: typing.List[Reference] = Field(
         None,
         alias="authorizingPrescription",
         title="Medication order that authorizes the dispense",
@@ -41,7 +47,7 @@ class MedicationDispense(domainresource.DomainResource):
         enum_reference_types=["MedicationRequest"],
     )
 
-    category: fhirtypes.CodeableConceptType = Field(
+    category: CodeableConcept = Field(
         None,
         alias="category",
         title="Type of medication dispense",
@@ -53,7 +59,7 @@ class MedicationDispense(domainresource.DomainResource):
         element_property=True,
     )
 
-    context: fhirtypes.ReferenceType = Field(
+    context: Reference = Field(
         None,
         alias="context",
         title="Encounter / Episode associated with event",
@@ -67,7 +73,7 @@ class MedicationDispense(domainresource.DomainResource):
         enum_reference_types=["Encounter", "EpisodeOfCare"],
     )
 
-    daysSupply: fhirtypes.QuantityType = Field(
+    daysSupply: Quantity = Field(
         None,
         alias="daysSupply",
         title="Amount of medication expressed as a timing amount",
@@ -76,7 +82,7 @@ class MedicationDispense(domainresource.DomainResource):
         element_property=True,
     )
 
-    destination: fhirtypes.ReferenceType = Field(
+    destination: Reference = Field(
         None,
         alias="destination",
         title="Where the medication was sent",
@@ -90,7 +96,7 @@ class MedicationDispense(domainresource.DomainResource):
         enum_reference_types=["Location"],
     )
 
-    detectedIssue: typing.List[fhirtypes.ReferenceType] = Field(
+    detectedIssue: typing.List[Reference] = Field(
         None,
         alias="detectedIssue",
         title="Clinical issue with action",
@@ -105,7 +111,7 @@ class MedicationDispense(domainresource.DomainResource):
         enum_reference_types=["DetectedIssue"],
     )
 
-    dosageInstruction: typing.List[fhirtypes.DosageType] = Field(
+    dosageInstruction: typing.List[Dosage] = Field(
         None,
         alias="dosageInstruction",
         title=(
@@ -117,7 +123,7 @@ class MedicationDispense(domainresource.DomainResource):
         element_property=True,
     )
 
-    eventHistory: typing.List[fhirtypes.ReferenceType] = Field(
+    eventHistory: typing.List[Reference] = Field(
         None,
         alias="eventHistory",
         title="A list of releveant lifecycle events",
@@ -131,7 +137,7 @@ class MedicationDispense(domainresource.DomainResource):
         enum_reference_types=["Provenance"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="External identifier",
@@ -143,7 +149,7 @@ class MedicationDispense(domainresource.DomainResource):
         element_property=True,
     )
 
-    medicationCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    medicationCodeableConcept: CodeableConcept = Field(
         None,
         alias="medicationCodeableConcept",
         title="What medication was supplied",
@@ -160,7 +166,7 @@ class MedicationDispense(domainresource.DomainResource):
         one_of_many_required=True,
     )
 
-    medicationReference: fhirtypes.ReferenceType = Field(
+    medicationReference: Reference = Field(
         None,
         alias="medicationReference",
         title="What medication was supplied",
@@ -191,7 +197,7 @@ class MedicationDispense(domainresource.DomainResource):
         None, alias="_notDone", title="Extension field for ``notDone``."
     )
 
-    notDoneReasonCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    notDoneReasonCodeableConcept: CodeableConcept = Field(
         None,
         alias="notDoneReasonCodeableConcept",
         title="Why a dispense was not performed",
@@ -203,7 +209,7 @@ class MedicationDispense(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    notDoneReasonReference: fhirtypes.ReferenceType = Field(
+    notDoneReasonReference: Reference = Field(
         None,
         alias="notDoneReasonReference",
         title="Why a dispense was not performed",
@@ -217,7 +223,7 @@ class MedicationDispense(domainresource.DomainResource):
         enum_reference_types=["DetectedIssue"],
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Information about the dispense",
@@ -229,7 +235,7 @@ class MedicationDispense(domainresource.DomainResource):
         element_property=True,
     )
 
-    partOf: typing.List[fhirtypes.ReferenceType] = Field(
+    partOf: typing.List[Reference] = Field(
         None,
         alias="partOf",
         title="Event that dispense is part of",
@@ -240,7 +246,7 @@ class MedicationDispense(domainresource.DomainResource):
         enum_reference_types=["Procedure"],
     )
 
-    performer: typing.List[fhirtypes.MedicationDispensePerformerType] = Field(
+    performer: typing.List["MedicationDispensePerformer"] = Field(
         None,
         alias="performer",
         title="Who performed event",
@@ -252,7 +258,7 @@ class MedicationDispense(domainresource.DomainResource):
         element_property=True,
     )
 
-    quantity: fhirtypes.QuantityType = Field(
+    quantity: Quantity = Field(
         None,
         alias="quantity",
         title="Amount dispensed",
@@ -264,7 +270,7 @@ class MedicationDispense(domainresource.DomainResource):
         element_property=True,
     )
 
-    receiver: typing.List[fhirtypes.ReferenceType] = Field(
+    receiver: typing.List[Reference] = Field(
         None,
         alias="receiver",
         title="Who collected the medication",
@@ -304,7 +310,7 @@ class MedicationDispense(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title="Who the dispense is for",
@@ -318,7 +324,7 @@ class MedicationDispense(domainresource.DomainResource):
         enum_reference_types=["Patient", "Group"],
     )
 
-    substitution: fhirtypes.MedicationDispenseSubstitutionType = Field(
+    substitution: "MedicationDispenseSubstitution" = Field(
         None,
         alias="substitution",
         title="Whether a substitution was performed on the dispense",
@@ -333,7 +339,7 @@ class MedicationDispense(domainresource.DomainResource):
         element_property=True,
     )
 
-    supportingInformation: typing.List[fhirtypes.ReferenceType] = Field(
+    supportingInformation: typing.List[Reference] = Field(
         None,
         alias="supportingInformation",
         title="Information that supports the dispensing of the medication",
@@ -344,7 +350,7 @@ class MedicationDispense(domainresource.DomainResource):
         enum_reference_types=["Resource"],
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Trial fill, partial fill, emergency fill, etc.",
@@ -479,9 +485,9 @@ class MedicationDispensePerformer(backboneelement.BackboneElement):
     performer is the dispenser of the medication.
     """
 
-    resource_type = Field("MedicationDispensePerformer", const=True)
+    resource_type: str = Field("MedicationDispensePerformer", const=True)
 
-    actor: fhirtypes.ReferenceType = Field(
+    actor: Reference = Field(
         ...,
         alias="actor",
         title="Individual who was performing",
@@ -501,7 +507,7 @@ class MedicationDispensePerformer(backboneelement.BackboneElement):
         ],
     )
 
-    onBehalfOf: fhirtypes.ReferenceType = Field(
+    onBehalfOf: Reference = Field(
         None,
         alias="onBehalfOf",
         title="Organization organization was acting for",
@@ -534,9 +540,9 @@ class MedicationDispenseSubstitution(backboneelement.BackboneElement):
     substitution was not done.
     """
 
-    resource_type = Field("MedicationDispenseSubstitution", const=True)
+    resource_type: str = Field("MedicationDispenseSubstitution", const=True)
 
-    reason: typing.List[fhirtypes.CodeableConceptType] = Field(
+    reason: typing.List[CodeableConcept] = Field(
         None,
         alias="reason",
         title="Why was substitution made",
@@ -548,7 +554,7 @@ class MedicationDispenseSubstitution(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    responsibleParty: typing.List[fhirtypes.ReferenceType] = Field(
+    responsibleParty: typing.List[Reference] = Field(
         None,
         alias="responsibleParty",
         title="Who is responsible for the substitution",
@@ -562,7 +568,7 @@ class MedicationDispenseSubstitution(backboneelement.BackboneElement):
         enum_reference_types=["Practitioner"],
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title=(
@@ -667,3 +673,6 @@ class MedicationDispenseSubstitution(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+MedicationDispense.update_forward_refs()

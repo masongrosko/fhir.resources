@@ -13,6 +13,13 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .duration import Duration
+from .identifier import Identifier
+from .quantity import Quantity
+from .ratio import Ratio
+from .reference import Reference
 
 
 class AdministrableProductDefinition(domainresource.DomainResource):
@@ -27,9 +34,9 @@ class AdministrableProductDefinition(domainresource.DomainResource):
     been performed).
     """
 
-    resource_type = Field("AdministrableProductDefinition", const=True)
+    resource_type: str = Field("AdministrableProductDefinition", const=True)
 
-    administrableDoseForm: fhirtypes.CodeableConceptType = Field(
+    administrableDoseForm: CodeableConcept = Field(
         None,
         alias="administrableDoseForm",
         title=(
@@ -48,7 +55,7 @@ class AdministrableProductDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    device: fhirtypes.ReferenceType = Field(
+    device: Reference = Field(
         None,
         alias="device",
         title=(
@@ -66,7 +73,7 @@ class AdministrableProductDefinition(domainresource.DomainResource):
         enum_reference_types=["DeviceDefinition"],
     )
 
-    formOf: typing.List[fhirtypes.ReferenceType] = Field(
+    formOf: typing.List[Reference] = Field(
         None,
         alias="formOf",
         title=(
@@ -90,7 +97,7 @@ class AdministrableProductDefinition(domainresource.DomainResource):
         enum_reference_types=["MedicinalProductDefinition"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="An identifier for the administrable product",
@@ -99,7 +106,7 @@ class AdministrableProductDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    ingredient: typing.List[fhirtypes.CodeableConceptType] = Field(
+    ingredient: typing.List[CodeableConcept] = Field(
         None,
         alias="ingredient",
         title=(
@@ -121,7 +128,7 @@ class AdministrableProductDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    producedFrom: typing.List[fhirtypes.ReferenceType] = Field(
+    producedFrom: typing.List[Reference] = Field(
         None,
         alias="producedFrom",
         title=(
@@ -146,7 +153,7 @@ class AdministrableProductDefinition(domainresource.DomainResource):
         enum_reference_types=["ManufacturedItemDefinition"],
     )
 
-    property: typing.List[fhirtypes.AdministrableProductDefinitionPropertyType] = Field(
+    property: typing.List["AdministrableProductDefinitionProperty"] = Field(
         None,
         alias="property",
         title="Characteristics e.g. a product's onset of action",
@@ -156,7 +163,7 @@ class AdministrableProductDefinition(domainresource.DomainResource):
     )
 
     routeOfAdministration: typing.List[
-        fhirtypes.AdministrableProductDefinitionRouteOfAdministrationType
+        "AdministrableProductDefinitionRouteOfAdministration"
     ] = Field(
         ...,
         alias="routeOfAdministration",
@@ -193,7 +200,7 @@ class AdministrableProductDefinition(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    unitOfPresentation: fhirtypes.CodeableConceptType = Field(
+    unitOfPresentation: CodeableConcept = Field(
         None,
         alias="unitOfPresentation",
         title=(
@@ -304,9 +311,9 @@ class AdministrableProductDefinitionProperty(backboneelement.BackboneElement):
     Characteristics e.g. a product's onset of action.
     """
 
-    resource_type = Field("AdministrableProductDefinitionProperty", const=True)
+    resource_type: str = Field("AdministrableProductDefinitionProperty", const=True)
 
-    status: fhirtypes.CodeableConceptType = Field(
+    status: CodeableConcept = Field(
         None,
         alias="status",
         title="The status of characteristic e.g. assigned or pending",
@@ -315,7 +322,7 @@ class AdministrableProductDefinitionProperty(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title="A code expressing the type of characteristic",
@@ -324,7 +331,7 @@ class AdministrableProductDefinitionProperty(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    valueAttachment: fhirtypes.AttachmentType = Field(
+    valueAttachment: Attachment = Field(
         None,
         alias="valueAttachment",
         title="A value for the characteristic",
@@ -351,7 +358,7 @@ class AdministrableProductDefinitionProperty(backboneelement.BackboneElement):
         None, alias="_valueBoolean", title="Extension field for ``valueBoolean``."
     )
 
-    valueCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    valueCodeableConcept: CodeableConcept = Field(
         None,
         alias="valueCodeableConcept",
         title="A value for the characteristic",
@@ -378,7 +385,7 @@ class AdministrableProductDefinitionProperty(backboneelement.BackboneElement):
         None, alias="_valueDate", title="Extension field for ``valueDate``."
     )
 
-    valueQuantity: fhirtypes.QuantityType = Field(
+    valueQuantity: Quantity = Field(
         None,
         alias="valueQuantity",
         title="A value for the characteristic",
@@ -470,11 +477,11 @@ class AdministrableProductDefinitionRouteOfAdministration(
     MedicinalProductDefinition.route (and vice versa).
     """
 
-    resource_type = Field(
+    resource_type: str = Field(
         "AdministrableProductDefinitionRouteOfAdministration", const=True
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         ...,
         alias="code",
         title="Coded expression for the route",
@@ -483,7 +490,7 @@ class AdministrableProductDefinitionRouteOfAdministration(
         element_property=True,
     )
 
-    firstDose: fhirtypes.QuantityType = Field(
+    firstDose: Quantity = Field(
         None,
         alias="firstDose",
         title=(
@@ -498,7 +505,7 @@ class AdministrableProductDefinitionRouteOfAdministration(
         element_property=True,
     )
 
-    maxDosePerDay: fhirtypes.QuantityType = Field(
+    maxDosePerDay: Quantity = Field(
         None,
         alias="maxDosePerDay",
         title="The maximum dose quantity to be administered in any one 24-h period",
@@ -510,7 +517,7 @@ class AdministrableProductDefinitionRouteOfAdministration(
         element_property=True,
     )
 
-    maxDosePerTreatmentPeriod: fhirtypes.RatioType = Field(
+    maxDosePerTreatmentPeriod: Ratio = Field(
         None,
         alias="maxDosePerTreatmentPeriod",
         title="The maximum dose per treatment period that can be administered",
@@ -519,7 +526,7 @@ class AdministrableProductDefinitionRouteOfAdministration(
         element_property=True,
     )
 
-    maxSingleDose: fhirtypes.QuantityType = Field(
+    maxSingleDose: Quantity = Field(
         None,
         alias="maxSingleDose",
         title="The maximum single dose that can be administered",
@@ -531,7 +538,7 @@ class AdministrableProductDefinitionRouteOfAdministration(
         element_property=True,
     )
 
-    maxTreatmentPeriod: fhirtypes.DurationType = Field(
+    maxTreatmentPeriod: Duration = Field(
         None,
         alias="maxTreatmentPeriod",
         title=(
@@ -544,7 +551,7 @@ class AdministrableProductDefinitionRouteOfAdministration(
     )
 
     targetSpecies: typing.List[
-        fhirtypes.AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesType
+        "AdministrableProductDefinitionRouteOfAdministrationTargetSpecies"
     ] = Field(
         None,
         alias="targetSpecies",
@@ -584,11 +591,11 @@ class AdministrableProductDefinitionRouteOfAdministrationTargetSpecies(
     A species for which this route applies.
     """
 
-    resource_type = Field(
+    resource_type: str = Field(
         "AdministrableProductDefinitionRouteOfAdministrationTargetSpecies", const=True
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         ...,
         alias="code",
         title="Coded expression for the species",
@@ -598,7 +605,7 @@ class AdministrableProductDefinitionRouteOfAdministrationTargetSpecies(
     )
 
     withdrawalPeriod: typing.List[
-        fhirtypes.AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriodType  # noqa: B950
+        "AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod"  # noqa: B950
     ] = Field(
         None,
         alias="withdrawalPeriod",
@@ -632,7 +639,7 @@ class AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawal
     appropriate.
     """
 
-    resource_type = Field(
+    resource_type: str = Field(
         "AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawalPeriod",
         const=True,
     )
@@ -651,7 +658,7 @@ class AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawal
         title="Extension field for ``supportingInformation``.",
     )
 
-    tissue: fhirtypes.CodeableConceptType = Field(
+    tissue: CodeableConcept = Field(
         ...,
         alias="tissue",
         title=(
@@ -666,7 +673,7 @@ class AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawal
         element_property=True,
     )
 
-    value: fhirtypes.QuantityType = Field(
+    value: Quantity = Field(
         ...,
         alias="value",
         title="A value for the time",
@@ -690,3 +697,8 @@ class AdministrableProductDefinitionRouteOfAdministrationTargetSpeciesWithdrawal
             "value",
             "supportingInformation",
         ]
+
+
+AdministrableProductDefinition.update_forward_refs()
+AdministrableProductDefinitionRouteOfAdministration.update_forward_refs()
+AdministrableProductDefinitionRouteOfAdministrationTargetSpecies.update_forward_refs()

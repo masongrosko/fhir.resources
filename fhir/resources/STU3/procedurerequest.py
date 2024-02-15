@@ -13,6 +13,12 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
+from .timing import Timing
 
 
 class ProcedureRequest(domainresource.DomainResource):
@@ -25,7 +31,7 @@ class ProcedureRequest(domainresource.DomainResource):
     operations to be performed.
     """
 
-    resource_type = Field("ProcedureRequest", const=True)
+    resource_type: str = Field("ProcedureRequest", const=True)
 
     asNeededBoolean: bool = Field(
         None,
@@ -45,7 +51,7 @@ class ProcedureRequest(domainresource.DomainResource):
         None, alias="_asNeededBoolean", title="Extension field for ``asNeededBoolean``."
     )
 
-    asNeededCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    asNeededCodeableConcept: CodeableConcept = Field(
         None,
         alias="asNeededCodeableConcept",
         title="Preconditions for procedure or diagnostic",
@@ -72,7 +78,7 @@ class ProcedureRequest(domainresource.DomainResource):
         None, alias="_authoredOn", title="Extension field for ``authoredOn``."
     )
 
-    basedOn: typing.List[fhirtypes.ReferenceType] = Field(
+    basedOn: typing.List[Reference] = Field(
         None,
         alias="basedOn",
         title="What request fulfills",
@@ -83,7 +89,7 @@ class ProcedureRequest(domainresource.DomainResource):
         enum_reference_types=["Resource"],
     )
 
-    bodySite: typing.List[fhirtypes.CodeableConceptType] = Field(
+    bodySite: typing.List[CodeableConcept] = Field(
         None,
         alias="bodySite",
         title="Location on Body",
@@ -95,7 +101,7 @@ class ProcedureRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    category: typing.List[fhirtypes.CodeableConceptType] = Field(
+    category: typing.List[CodeableConcept] = Field(
         None,
         alias="category",
         title="Classification of procedure",
@@ -107,7 +113,7 @@ class ProcedureRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         ...,
         alias="code",
         title="What is being requested/ordered",
@@ -119,7 +125,7 @@ class ProcedureRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    context: fhirtypes.ReferenceType = Field(
+    context: Reference = Field(
         None,
         alias="context",
         title="Encounter or Episode during which request was created",
@@ -133,7 +139,7 @@ class ProcedureRequest(domainresource.DomainResource):
         enum_reference_types=["Encounter", "EpisodeOfCare"],
     )
 
-    definition: typing.List[fhirtypes.ReferenceType] = Field(
+    definition: typing.List[Reference] = Field(
         None,
         alias="definition",
         title="Protocol or definition",
@@ -159,7 +165,7 @@ class ProcedureRequest(domainresource.DomainResource):
         None, alias="_doNotPerform", title="Extension field for ``doNotPerform``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Identifiers assigned to this order",
@@ -190,7 +196,7 @@ class ProcedureRequest(domainresource.DomainResource):
         None, alias="_intent", title="Extension field for ``intent``."
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Comments",
@@ -220,7 +226,7 @@ class ProcedureRequest(domainresource.DomainResource):
         title="Extension field for ``occurrenceDateTime``.",
     )
 
-    occurrencePeriod: fhirtypes.PeriodType = Field(
+    occurrencePeriod: Period = Field(
         None,
         alias="occurrencePeriod",
         title="When procedure should occur",
@@ -232,7 +238,7 @@ class ProcedureRequest(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    occurrenceTiming: fhirtypes.TimingType = Field(
+    occurrenceTiming: Timing = Field(
         None,
         alias="occurrenceTiming",
         title="When procedure should occur",
@@ -244,7 +250,7 @@ class ProcedureRequest(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    performer: fhirtypes.ReferenceType = Field(
+    performer: Reference = Field(
         None,
         alias="performer",
         title="Requested perfomer",
@@ -265,7 +271,7 @@ class ProcedureRequest(domainresource.DomainResource):
         ],
     )
 
-    performerType: fhirtypes.CodeableConceptType = Field(
+    performerType: CodeableConcept = Field(
         None,
         alias="performerType",
         title="Performer role",
@@ -292,7 +298,7 @@ class ProcedureRequest(domainresource.DomainResource):
         None, alias="_priority", title="Extension field for ``priority``."
     )
 
-    reasonCode: typing.List[fhirtypes.CodeableConceptType] = Field(
+    reasonCode: typing.List[CodeableConcept] = Field(
         None,
         alias="reasonCode",
         title="Explanation/Justification for test",
@@ -306,7 +312,7 @@ class ProcedureRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    reasonReference: typing.List[fhirtypes.ReferenceType] = Field(
+    reasonReference: typing.List[Reference] = Field(
         None,
         alias="reasonReference",
         title="Explanation/Justification for test",
@@ -321,7 +327,7 @@ class ProcedureRequest(domainresource.DomainResource):
         enum_reference_types=["Condition", "Observation"],
     )
 
-    relevantHistory: typing.List[fhirtypes.ReferenceType] = Field(
+    relevantHistory: typing.List[Reference] = Field(
         None,
         alias="relevantHistory",
         title="Request provenance",
@@ -332,7 +338,7 @@ class ProcedureRequest(domainresource.DomainResource):
         enum_reference_types=["Provenance"],
     )
 
-    replaces: typing.List[fhirtypes.ReferenceType] = Field(
+    replaces: typing.List[Reference] = Field(
         None,
         alias="replaces",
         title="What request replaces",
@@ -346,7 +352,7 @@ class ProcedureRequest(domainresource.DomainResource):
         enum_reference_types=["Resource"],
     )
 
-    requester: fhirtypes.ProcedureRequestRequesterType = Field(
+    requester: "ProcedureRequestRequester" = Field(
         None,
         alias="requester",
         title="Who/what is requesting procedure or diagnostic",
@@ -358,7 +364,7 @@ class ProcedureRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    requisition: fhirtypes.IdentifierType = Field(
+    requisition: Identifier = Field(
         None,
         alias="requisition",
         title="Composite Request ID",
@@ -371,7 +377,7 @@ class ProcedureRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    specimen: typing.List[fhirtypes.ReferenceType] = Field(
+    specimen: typing.List[Reference] = Field(
         None,
         alias="specimen",
         title="Procedure Samples",
@@ -405,7 +411,7 @@ class ProcedureRequest(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         ...,
         alias="subject",
         title="Individual the service is ordered for",
@@ -421,7 +427,7 @@ class ProcedureRequest(domainresource.DomainResource):
         enum_reference_types=["Patient", "Group", "Location", "Device"],
     )
 
-    supportingInfo: typing.List[fhirtypes.ReferenceType] = Field(
+    supportingInfo: typing.List[Reference] = Field(
         None,
         alias="supportingInfo",
         title="Additional clinical information",
@@ -602,9 +608,9 @@ class ProcedureRequestRequester(backboneelement.BackboneElement):
     activation.
     """
 
-    resource_type = Field("ProcedureRequestRequester", const=True)
+    resource_type: str = Field("ProcedureRequestRequester", const=True)
 
-    agent: fhirtypes.ReferenceType = Field(
+    agent: Reference = Field(
         ...,
         alias="agent",
         title="Individual making the request",
@@ -615,7 +621,7 @@ class ProcedureRequestRequester(backboneelement.BackboneElement):
         enum_reference_types=["Device", "Practitioner", "Organization"],
     )
 
-    onBehalfOf: fhirtypes.ReferenceType = Field(
+    onBehalfOf: Reference = Field(
         None,
         alias="onBehalfOf",
         title="Organization agent is acting for",
@@ -633,3 +639,6 @@ class ProcedureRequestRequester(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "agent", "onBehalfOf"]
+
+
+ProcedureRequest.update_forward_refs()

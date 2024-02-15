@@ -22,7 +22,7 @@ class Count(quantity.Quantity):
     including amounts involving arbitrary units and floating currencies.
     """
 
-    resource_type = Field("Count", const=True)
+    resource_type: str = Field("Count", const=True)
 
     @classmethod
     def elements_sequence(cls):

@@ -11,6 +11,14 @@ import typing
 from pydantic.v1 import Field
 
 from . import domainresource, fhirtypes
+from .address import Address
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .contactpoint import ContactPoint
+from .humanname import HumanName
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class RelatedPerson(domainresource.DomainResource):
@@ -25,7 +33,7 @@ class RelatedPerson(domainresource.DomainResource):
     care process.
     """
 
-    resource_type = Field("RelatedPerson", const=True)
+    resource_type: str = Field("RelatedPerson", const=True)
 
     active: bool = Field(
         None,
@@ -39,7 +47,7 @@ class RelatedPerson(domainresource.DomainResource):
         None, alias="_active", title="Extension field for ``active``."
     )
 
-    address: typing.List[fhirtypes.AddressType] = Field(
+    address: typing.List[Address] = Field(
         None,
         alias="address",
         title="Address where the related person can be contacted or visited",
@@ -78,7 +86,7 @@ class RelatedPerson(domainresource.DomainResource):
         None, alias="_gender", title="Extension field for ``gender``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="A human identifier for this person",
@@ -87,7 +95,7 @@ class RelatedPerson(domainresource.DomainResource):
         element_property=True,
     )
 
-    name: typing.List[fhirtypes.HumanNameType] = Field(
+    name: typing.List[HumanName] = Field(
         None,
         alias="name",
         title="A name associated with the person",
@@ -96,7 +104,7 @@ class RelatedPerson(domainresource.DomainResource):
         element_property=True,
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         ...,
         alias="patient",
         title="The patient this person is related to",
@@ -107,7 +115,7 @@ class RelatedPerson(domainresource.DomainResource):
         enum_reference_types=["Patient"],
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Period of time that this relationship is considered valid",
@@ -119,7 +127,7 @@ class RelatedPerson(domainresource.DomainResource):
         element_property=True,
     )
 
-    photo: typing.List[fhirtypes.AttachmentType] = Field(
+    photo: typing.List[Attachment] = Field(
         None,
         alias="photo",
         title="Image of the person",
@@ -128,7 +136,7 @@ class RelatedPerson(domainresource.DomainResource):
         element_property=True,
     )
 
-    relationship: fhirtypes.CodeableConceptType = Field(
+    relationship: CodeableConcept = Field(
         None,
         alias="relationship",
         title="The nature of the relationship",
@@ -140,7 +148,7 @@ class RelatedPerson(domainresource.DomainResource):
         element_property=True,
     )
 
-    telecom: typing.List[fhirtypes.ContactPointType] = Field(
+    telecom: typing.List[ContactPoint] = Field(
         None,
         alias="telecom",
         title="A contact detail for the person",

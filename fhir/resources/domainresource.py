@@ -10,7 +10,10 @@ import typing
 
 from pydantic.v1 import Field
 
-from . import fhirtypes, resource
+from . import resource
+from .extension import Extension
+from .narrative import Narrative
+from .resource import Resource
 
 
 class DomainResource(resource.Resource):
@@ -22,9 +25,9 @@ class DomainResource(resource.Resource):
     A resource that includes narrative, extensions, and contained resources.
     """
 
-    resource_type = Field("DomainResource", const=True)
+    resource_type: str = Field("DomainResource", const=True)
 
-    contained: typing.List[fhirtypes.ResourceType] = Field(
+    contained: typing.List[Resource] = Field(
         None,
         alias="contained",
         title="Contained, inline Resources",
@@ -39,7 +42,7 @@ class DomainResource(resource.Resource):
         element_property=True,
     )
 
-    extension: typing.List[fhirtypes.ExtensionType] = Field(
+    extension: typing.List[Extension] = Field(
         None,
         alias="extension",
         title="Additional content defined by implementations",
@@ -55,7 +58,7 @@ class DomainResource(resource.Resource):
         element_property=True,
     )
 
-    modifierExtension: typing.List[fhirtypes.ExtensionType] = Field(
+    modifierExtension: typing.List[Extension] = Field(
         None,
         alias="modifierExtension",
         title="Extensions that cannot be ignored",
@@ -78,7 +81,7 @@ class DomainResource(resource.Resource):
         element_property=True,
     )
 
-    text: fhirtypes.NarrativeType = Field(
+    text: Narrative = Field(
         None,
         alias="text",
         title="Text summary of the resource, for human interpretation",

@@ -20,7 +20,7 @@ class PrimitiveType(datatype.DataType):
     The base type for all re-useable types defined that have a simple property.
     """
 
-    resource_type = Field("PrimitiveType", const=True)
+    resource_type: str = Field("PrimitiveType", const=True)
 
     @classmethod
     def elements_sequence(cls):

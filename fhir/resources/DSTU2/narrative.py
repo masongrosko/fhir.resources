@@ -15,7 +15,7 @@ from .element import Element
 class Narrative(Element):
     """A human-readable formatted text, including images."""
 
-    resource_type = Field("Narrative", const=True)
+    resource_type: str = Field("Narrative", const=True)
 
     div: fhirtypes.Xhtml = Field(
         ...,

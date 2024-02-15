@@ -10,12 +10,18 @@ from typing import List as ListType
 from pydantic.v1 import Field
 
 from . import backboneelement, domainresource, fhirtypes
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .contactpoint import ContactPoint
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class HealthcareService(domainresource.DomainResource):
     """The details of a healthcare service available at a location."""
 
-    resource_type = Field("HealthcareService", const=True)
+    resource_type: str = Field("HealthcareService", const=True)
 
     appointmentRequired: fhirtypes.Boolean = Field(
         None,
@@ -41,14 +47,14 @@ class HealthcareService(domainresource.DomainResource):
         ),
     )
 
-    availableTime: ListType[fhirtypes.HealthcareServiceAvailableTimeType] = Field(
+    availableTime: ListType["HealthcareServiceAvailableTime"] = Field(
         None,
         alias="availableTime",
         title="Times the Service Site is available",
         description="A collection of times that the Service Site is available.",
     )
 
-    characteristic: ListType[fhirtypes.CodeableConceptType] = Field(
+    characteristic: ListType[CodeableConcept] = Field(
         None,
         alias="characteristic",
         title="Collection of characteristics (attributes)",
@@ -68,7 +74,7 @@ class HealthcareService(domainresource.DomainResource):
         ),
     )
 
-    coverageArea: ListType[fhirtypes.ReferenceType] = Field(
+    coverageArea: ListType[Reference] = Field(
         None,
         alias="coverageArea",
         title="Location(s) service is intended for/available to",
@@ -80,7 +86,7 @@ class HealthcareService(domainresource.DomainResource):
         enum_reference_types=["Location"],
     )
 
-    eligibility: fhirtypes.CodeableConceptType = Field(
+    eligibility: CodeableConcept = Field(
         None,
         alias="eligibility",
         title="Specific eligibility requirements required to use the service",
@@ -107,14 +113,14 @@ class HealthcareService(domainresource.DomainResource):
         description=None,
     )
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="External identifiers for this item",
         description=None,
     )
 
-    location: fhirtypes.ReferenceType = Field(
+    location: Reference = Field(
         ...,
         alias="location",
         title="Location(s) where service may be provided",
@@ -123,7 +129,7 @@ class HealthcareService(domainresource.DomainResource):
         enum_reference_types=["Location"],
     )
 
-    notAvailable: ListType[fhirtypes.HealthcareServiceNotAvailableType] = Field(
+    notAvailable: ListType["HealthcareServiceNotAvailable"] = Field(
         None,
         alias="notAvailable",
         title="Not available during this time due to provided reason",
@@ -133,7 +139,7 @@ class HealthcareService(domainresource.DomainResource):
         ),
     )
 
-    photo: fhirtypes.AttachmentType = Field(
+    photo: Attachment = Field(
         None,
         alias="photo",
         title="Facilitates quick identification of the service",
@@ -151,7 +157,7 @@ class HealthcareService(domainresource.DomainResource):
         description=None,
     )
 
-    providedBy: fhirtypes.ReferenceType = Field(
+    providedBy: Reference = Field(
         None,
         alias="providedBy",
         title="Organization that provides this service",
@@ -167,7 +173,7 @@ class HealthcareService(domainresource.DomainResource):
         description=None,
     )
 
-    referralMethod: ListType[fhirtypes.CodeableConceptType] = Field(
+    referralMethod: ListType[CodeableConcept] = Field(
         None,
         alias="referralMethod",
         title="Ways that the service accepts referrals",
@@ -177,14 +183,14 @@ class HealthcareService(domainresource.DomainResource):
         ),
     )
 
-    serviceCategory: fhirtypes.CodeableConceptType = Field(
+    serviceCategory: CodeableConcept = Field(
         None,
         alias="serviceCategory",
         title="Broad category of service being performed or delivered",
         description="Identifies the broad category of service being performed or delivered.",
     )
 
-    serviceProvisionCode: ListType[fhirtypes.CodeableConceptType] = Field(
+    serviceProvisionCode: ListType[CodeableConcept] = Field(
         None,
         alias="serviceProvisionCode",
         title="Conditions under which service is available/offered",
@@ -204,14 +210,14 @@ class HealthcareService(domainresource.DomainResource):
         ),
     )
 
-    serviceType: ListType[fhirtypes.HealthcareServiceServiceTypeType] = Field(
+    serviceType: ListType["HealthcareServiceServiceType"] = Field(
         None,
         alias="serviceType",
         title="Specific service delivered or performed",
         description=None,
     )
 
-    telecom: ListType[fhirtypes.ContactPointType] = Field(
+    telecom: ListType[ContactPoint] = Field(
         None,
         alias="telecom",
         title="Contacts related to the healthcare service",
@@ -225,7 +231,7 @@ class HealthcareServiceAvailableTime(backboneelement.BackboneElement):
     A collection of times that the Service Site is available.
     """
 
-    resource_type = Field("HealthcareServiceAvailableTime", const=True)
+    resource_type: str = Field("HealthcareServiceAvailableTime", const=True)
 
     allDay: fhirtypes.Boolean = Field(
         None,
@@ -278,7 +284,7 @@ class HealthcareServiceNotAvailable(backboneelement.BackboneElement):
     the provided reason.
     """
 
-    resource_type = Field("HealthcareServiceNotAvailable", const=True)
+    resource_type: str = Field("HealthcareServiceNotAvailable", const=True)
 
     description: fhirtypes.String = Field(
         ...,
@@ -290,7 +296,7 @@ class HealthcareServiceNotAvailable(backboneelement.BackboneElement):
         ),
     )
 
-    during: fhirtypes.PeriodType = Field(
+    during: Period = Field(
         None,
         alias="during",
         title="Service not available from this date",
@@ -307,18 +313,21 @@ class HealthcareServiceServiceType(backboneelement.BackboneElement):
     A specific type of service that may be delivered or performed.
     """
 
-    resource_type = Field("HealthcareServiceEligibility", const=True)
+    resource_type: str = Field("HealthcareServiceEligibility", const=True)
 
-    specialty: ListType[fhirtypes.CodeableConceptType] = Field(
+    specialty: ListType[CodeableConcept] = Field(
         None,
         alias="specialty",
         title="List of `CodeableConcept` items (represented as `dict` in JSON).",
         description="Specialties handled by the Service Site.",
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="Type of service delivered or performed.",
     )
+
+
+HealthcareService.update_forward_refs()

@@ -11,7 +11,11 @@ from pydantic.v1 import Field
 
 from . import fhirtypes
 from .backboneelement import BackboneElement
+from .codeableconcept import CodeableConcept
+from .coding import Coding
 from .domainresource import DomainResource
+from .identifier import Identifier
+from .reference import Reference
 
 
 class AuditEvent(DomainResource):
@@ -22,29 +26,29 @@ class AuditEvent(DomainResource):
     inappropriate usage.
     """
 
-    resource_type = Field("AuditEvent", const=True)
+    resource_type: str = Field("AuditEvent", const=True)
 
-    event: fhirtypes.AuditEventEventType = Field(
+    event: "AuditEventEvent" = Field(
         ...,
         alias="event",
         title="Type `AuditEventEvent` (represented as `dict` in JSON). ",
         description="A What was done.",
     )
-    source: fhirtypes.AuditEventSourceType = Field(
+    source: "AuditEventSource" = Field(
         ...,
         alias="source",
         title="Type `AuditEventSource` (represented as `dict` in JSON)",
         description="Audit Event Reporter",
     )
 
-    object: ListType[fhirtypes.AuditEventObjectType] = Field(
+    object: ListType["AuditEventObject"] = Field(
         None,
         alias="entity",
         title="List of `AuditEventObject` items (represented as `dict` in JSON).",
         description="Specific instances of data or objects that have been accessed.",
     )
 
-    participant: ListType[fhirtypes.AuditEventParticipantType] = Field(
+    participant: ListType["AuditEventParticipant"] = Field(
         None,
         alias="entity",
         title="List of `AuditEventParticipant` items (represented as `dict` in JSON).",
@@ -59,7 +63,7 @@ class AuditEventEvent(BackboneElement):
     event.
     """
 
-    resource_type = Field("AuditEventEvent", const=True)
+    resource_type: str = Field("AuditEventEvent", const=True)
 
     action: fhirtypes.Code = Field(
         None,
@@ -88,21 +92,21 @@ class AuditEventEvent(BackboneElement):
         description="Description of the event outcome.",
     )
 
-    purposeOfEvent: ListType[fhirtypes.CodingType] = Field(
+    purposeOfEvent: ListType[Coding] = Field(
         None,
         alias="purposeOfEvent",
         title="List of `Coding` items (represented as `dict` in JSON).",
         description="The purposeOfUse of the event.",
     )
 
-    subtype: ListType[fhirtypes.CodingType] = Field(
+    subtype: ListType[Coding] = Field(
         None,
         alias="subtype",
         title="List of `Coding` items (represented as `dict` in JSON).",
         description="More specific type/id for the event.",
     )
 
-    type: fhirtypes.CodingType = Field(
+    type: Coding = Field(
         ...,
         alias="type",
         title="Type `Coding` (represented as `dict` in JSON).",
@@ -113,13 +117,13 @@ class AuditEventEvent(BackboneElement):
 class AuditEventObject(BackboneElement):
     """Specific instances of data or objects that have been accessed."""
 
-    resource_type = Field("AuditEventObject", const=True)
+    resource_type: str = Field("AuditEventObject", const=True)
 
     description: fhirtypes.String = Field(
         None, alias="description", title="Type `str`.", description="Descriptive text."
     )
 
-    detail: ListType[fhirtypes.AuditEventObjectDetailType] = Field(
+    detail: ListType["AuditEventObjectDetail"] = Field(
         None,
         alias="detail",
         title=(
@@ -128,14 +132,14 @@ class AuditEventObject(BackboneElement):
         description="Additional Information about the Object.",
     )
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="Type `Identifier` (represented as `dict` in JSON).",
         description="Specific instance of object (e.g. versioned).",
     )
 
-    lifecycle: fhirtypes.CodingType = Field(
+    lifecycle: Coding = Field(
         None,
         alias="lifecycle",
         title="Type `Coding` (represented as `dict` in JSON).",
@@ -153,28 +157,28 @@ class AuditEventObject(BackboneElement):
         None, alias="query", title="Type `str`.", description="Actual query for object."
     )
 
-    reference: fhirtypes.ReferenceType = Field(
+    reference: Reference = Field(
         None,
         alias="reference",
         title="Type `Reference` referencing `Resource` (represented as `dict` in JSON).",
         description="Specific instance of resource (e.g. versioned).",
     )
 
-    role: fhirtypes.CodingType = Field(
+    role: Coding = Field(
         None,
         alias="role",
         title="Type `Coding` (represented as `dict` in JSON).",
         description="What role the Object played.",
     )
 
-    securityLabel: ListType[fhirtypes.CodingType] = Field(
+    securityLabel: ListType[Coding] = Field(
         None,
         alias="securityLabel",
         title="List of `Coding` items (represented as `dict` in JSON).",
         description="Security labels applied to the object.",
     )
 
-    type: fhirtypes.CodingType = Field(
+    type: Coding = Field(
         None,
         alias="type",
         title="Type of object involved.",
@@ -185,7 +189,7 @@ class AuditEventObject(BackboneElement):
 class AuditEventObjectDetail(BackboneElement):
     """Additional Information about the Object."""
 
-    resource_type = Field("AuditEventObjectDetail", const=True)
+    resource_type: str = Field("AuditEventObjectDetail", const=True)
 
     type: fhirtypes.String = Field(
         ..., alias="type", title="Type `str`.", description="Name of the property."
@@ -198,7 +202,7 @@ class AuditEventObjectDetail(BackboneElement):
 class AuditEventParticipant(BackboneElement):
     """A person, a hardware device or software process."""
 
-    resource_type = Field("AuditEventParticipant", const=True)
+    resource_type: str = Field("AuditEventParticipant", const=True)
 
     altId: fhirtypes.String = Field(
         None,
@@ -207,13 +211,13 @@ class AuditEventParticipant(BackboneElement):
         description="Alternative User id e.g. authentication.",
     )
 
-    location: fhirtypes.ReferenceType = Field(
+    location: Reference = Field(
         None,
         alias="location",
         title="Type `Reference` referencing `Location` (represented as `dict` in JSON).",
         description="Where.",
     )
-    media: fhirtypes.CodingType = Field(
+    media: Coding = Field(
         None,
         alias="media",
         title="Type `Coding` (represented as `dict` in JSON).",
@@ -227,7 +231,7 @@ class AuditEventParticipant(BackboneElement):
         description="Human-meaningful name for the user.",
     )
 
-    network: fhirtypes.AuditEventParticipantNetworkType = Field(
+    network: "AuditEventParticipantNetwork" = Field(
         None,
         alias="network",
         title="Type `AuditEventParticipantNetwork` (represented as `dict` in JSON).",
@@ -241,14 +245,14 @@ class AuditEventParticipant(BackboneElement):
         description="Policy that authorized event.",
     )
 
-    purposeOfUse: ListType[fhirtypes.CodingType] = Field(
+    purposeOfUse: ListType[Coding] = Field(
         None,
         alias="purposeOfUse",
         title="List of `Coding` items (represented as `dict` in JSON).",
         description="Reason given for this user.",
     )
 
-    reference: fhirtypes.ReferenceType = Field(
+    reference: Reference = Field(
         None,
         alias="reference",
         title=(
@@ -266,14 +270,14 @@ class AuditEventParticipant(BackboneElement):
         description="Whether user is initiator.",
     )
 
-    role: ListType[fhirtypes.CodeableConceptType] = Field(
+    role: ListType[CodeableConcept] = Field(
         None,
         alias="role",
         title="List of `CodeableConcept` items (represented as `dict` in JSON).",
         description="User roles (e.g. local RBAC codes).",
     )
 
-    userId: fhirtypes.IdentifierType = Field(
+    userId: Identifier = Field(
         None,
         alias="userId",
         title="Type `Identifier` (represented as `dict` in JSON).",
@@ -288,7 +292,7 @@ class AuditEventParticipantNetwork(BackboneElement):
     network location.
     """
 
-    resource_type = Field("AuditEventParticipantNetwork", const=True)
+    resource_type: str = Field("AuditEventParticipantNetwork", const=True)
 
     address: fhirtypes.String = Field(
         None,
@@ -308,9 +312,9 @@ class AuditEventParticipantNetwork(BackboneElement):
 class AuditEventSource(BackboneElement):
     """Application systems and processes."""
 
-    resource_type = Field("AuditEventSource", const=True)
+    resource_type: str = Field("AuditEventSource", const=True)
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         ...,
         alias="identifier",
         title="Type `Identifier` (represented as `dict` in JSON).",
@@ -324,9 +328,14 @@ class AuditEventSource(BackboneElement):
         description="Logical source location within the enterprise.",
     )
 
-    type: ListType[fhirtypes.CodingType] = Field(
+    type: ListType[Coding] = Field(
         None,
         alias="type",
         title="List of `Coding` items (represented as `dict` in JSON).",
         description="The type of source where event originated.",
     )
+
+
+AuditEvent.update_forward_refs()
+AuditEventObject.update_forward_refs()
+AuditEventParticipant.update_forward_refs()

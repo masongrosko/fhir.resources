@@ -11,6 +11,9 @@ import typing
 from pydantic.v1 import Field, root_validator
 
 from . import datatype, fhirtypes
+from .coding import Coding
+from .contactpoint import ContactPoint
+from .extendedcontactdetail import ExtendedContactDetail
 
 
 class VirtualServiceDetail(datatype.DataType):
@@ -21,7 +24,7 @@ class VirtualServiceDetail(datatype.DataType):
     Virtual Service Contact Details.
     """
 
-    resource_type = Field("VirtualServiceDetail", const=True)
+    resource_type: str = Field("VirtualServiceDetail", const=True)
 
     additionalInfo: typing.List[typing.Optional[fhirtypes.Url]] = Field(
         None,
@@ -37,7 +40,7 @@ class VirtualServiceDetail(datatype.DataType):
         None, alias="_additionalInfo", title="Extension field for ``additionalInfo``."
     )
 
-    addressContactPoint: fhirtypes.ContactPointType = Field(
+    addressContactPoint: ContactPoint = Field(
         None,
         alias="addressContactPoint",
         title="Contact address/number",
@@ -53,7 +56,7 @@ class VirtualServiceDetail(datatype.DataType):
         one_of_many_required=False,
     )
 
-    addressExtendedContactDetail: fhirtypes.ExtendedContactDetailType = Field(
+    addressExtendedContactDetail: ExtendedContactDetail = Field(
         None,
         alias="addressExtendedContactDetail",
         title="Contact address/number",
@@ -107,7 +110,7 @@ class VirtualServiceDetail(datatype.DataType):
         None, alias="_addressUrl", title="Extension field for ``addressUrl``."
     )
 
-    channelType: fhirtypes.CodingType = Field(
+    channelType: Coding = Field(
         None,
         alias="channelType",
         title="Channel Type",

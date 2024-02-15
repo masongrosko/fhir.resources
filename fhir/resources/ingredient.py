@@ -13,6 +13,13 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .codeablereference import CodeableReference
+from .identifier import Identifier
+from .quantity import Quantity
+from .ratio import Ratio
+from .ratiorange import RatioRange
+from .reference import Reference
 
 
 class Ingredient(domainresource.DomainResource):
@@ -23,7 +30,7 @@ class Ingredient(domainresource.DomainResource):
     An ingredient of a manufactured item or pharmaceutical product.
     """
 
-    resource_type = Field("Ingredient", const=True)
+    resource_type: str = Field("Ingredient", const=True)
 
     allergenicIndicator: bool = Field(
         None,
@@ -59,7 +66,7 @@ class Ingredient(domainresource.DomainResource):
         None, alias="_comment", title="Extension field for ``comment``."
     )
 
-    for_fhir: typing.List[fhirtypes.ReferenceType] = Field(
+    for_fhir: typing.List[Reference] = Field(
         None,
         alias="for",
         title="The product which this ingredient is a constituent part of",
@@ -74,7 +81,7 @@ class Ingredient(domainresource.DomainResource):
         ],
     )
 
-    function: typing.List[fhirtypes.CodeableConceptType] = Field(
+    function: typing.List[CodeableConcept] = Field(
         None,
         alias="function",
         title=(
@@ -90,7 +97,7 @@ class Ingredient(domainresource.DomainResource):
         element_property=True,
     )
 
-    group: fhirtypes.CodeableConceptType = Field(
+    group: CodeableConcept = Field(
         None,
         alias="group",
         title=(
@@ -103,7 +110,7 @@ class Ingredient(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="An identifier or code by which the ingredient can be referenced",
@@ -116,7 +123,7 @@ class Ingredient(domainresource.DomainResource):
         element_property=True,
     )
 
-    manufacturer: typing.List[fhirtypes.IngredientManufacturerType] = Field(
+    manufacturer: typing.List["IngredientManufacturer"] = Field(
         None,
         alias="manufacturer",
         title="An organization that manufactures this ingredient",
@@ -132,7 +139,7 @@ class Ingredient(domainresource.DomainResource):
         element_property=True,
     )
 
-    role: fhirtypes.CodeableConceptType = Field(
+    role: CodeableConcept = Field(
         ...,
         alias="role",
         title="Purpose of the ingredient within the product, e.g. active, inactive",
@@ -163,7 +170,7 @@ class Ingredient(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    substance: fhirtypes.IngredientSubstanceType = Field(
+    substance: "IngredientSubstance" = Field(
         ...,
         alias="substance",
         title="The substance that comprises this ingredient",
@@ -273,9 +280,9 @@ class IngredientManufacturer(backboneelement.BackboneElement):
     to their use case.
     """
 
-    resource_type = Field("IngredientManufacturer", const=True)
+    resource_type: str = Field("IngredientManufacturer", const=True)
 
-    manufacturer: fhirtypes.ReferenceType = Field(
+    manufacturer: Reference = Field(
         ...,
         alias="manufacturer",
         title="An organization that manufactures this ingredient",
@@ -323,9 +330,9 @@ class IngredientSubstance(backboneelement.BackboneElement):
     The substance that comprises this ingredient.
     """
 
-    resource_type = Field("IngredientSubstance", const=True)
+    resource_type: str = Field("IngredientSubstance", const=True)
 
-    code: fhirtypes.CodeableReferenceType = Field(
+    code: CodeableReference = Field(
         ...,
         alias="code",
         title="A code or full resource that represents the ingredient substance",
@@ -336,7 +343,7 @@ class IngredientSubstance(backboneelement.BackboneElement):
         enum_reference_types=["SubstanceDefinition"],
     )
 
-    strength: typing.List[fhirtypes.IngredientSubstanceStrengthType] = Field(
+    strength: typing.List["IngredientSubstanceStrength"] = Field(
         None,
         alias="strength",
         title=(
@@ -376,9 +383,9 @@ class IngredientSubstanceStrength(backboneelement.BackboneElement):
     representations - mathematically equivalent - of a single strength.
     """
 
-    resource_type = Field("IngredientSubstanceStrength", const=True)
+    resource_type: str = Field("IngredientSubstanceStrength", const=True)
 
-    basis: fhirtypes.CodeableConceptType = Field(
+    basis: CodeableConcept = Field(
         None,
         alias="basis",
         title=(
@@ -391,7 +398,7 @@ class IngredientSubstanceStrength(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    concentrationCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    concentrationCodeableConcept: CodeableConcept = Field(
         None,
         alias="concentrationCodeableConcept",
         title="The strength per unitary volume (or mass)",
@@ -403,7 +410,7 @@ class IngredientSubstanceStrength(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    concentrationQuantity: fhirtypes.QuantityType = Field(
+    concentrationQuantity: Quantity = Field(
         None,
         alias="concentrationQuantity",
         title="The strength per unitary volume (or mass)",
@@ -415,7 +422,7 @@ class IngredientSubstanceStrength(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    concentrationRatio: fhirtypes.RatioType = Field(
+    concentrationRatio: Ratio = Field(
         None,
         alias="concentrationRatio",
         title="The strength per unitary volume (or mass)",
@@ -427,7 +434,7 @@ class IngredientSubstanceStrength(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    concentrationRatioRange: fhirtypes.RatioRangeType = Field(
+    concentrationRatioRange: RatioRange = Field(
         None,
         alias="concentrationRatioRange",
         title="The strength per unitary volume (or mass)",
@@ -439,7 +446,7 @@ class IngredientSubstanceStrength(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    country: typing.List[fhirtypes.CodeableConceptType] = Field(
+    country: typing.List[CodeableConcept] = Field(
         None,
         alias="country",
         title="Where the strength range applies",
@@ -467,7 +474,7 @@ class IngredientSubstanceStrength(backboneelement.BackboneElement):
         title="Extension field for ``measurementPoint``.",
     )
 
-    presentationCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    presentationCodeableConcept: CodeableConcept = Field(
         None,
         alias="presentationCodeableConcept",
         title="The quantity of substance in the unit of presentation",
@@ -486,7 +493,7 @@ class IngredientSubstanceStrength(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    presentationQuantity: fhirtypes.QuantityType = Field(
+    presentationQuantity: Quantity = Field(
         None,
         alias="presentationQuantity",
         title="The quantity of substance in the unit of presentation",
@@ -505,7 +512,7 @@ class IngredientSubstanceStrength(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    presentationRatio: fhirtypes.RatioType = Field(
+    presentationRatio: Ratio = Field(
         None,
         alias="presentationRatio",
         title="The quantity of substance in the unit of presentation",
@@ -524,7 +531,7 @@ class IngredientSubstanceStrength(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    presentationRatioRange: fhirtypes.RatioRangeType = Field(
+    presentationRatioRange: RatioRange = Field(
         None,
         alias="presentationRatioRange",
         title="The quantity of substance in the unit of presentation",
@@ -543,23 +550,23 @@ class IngredientSubstanceStrength(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    referenceStrength: typing.List[
-        fhirtypes.IngredientSubstanceStrengthReferenceStrengthType
-    ] = Field(
-        None,
-        alias="referenceStrength",
-        title="Strength expressed in terms of a reference substance",
-        description=(
-            "Strength expressed in terms of a reference substance. For when the "
-            "ingredient strength is additionally expressed as equivalent to the "
-            "strength of some other closely related substance (e.g. salt vs. base)."
-            " Reference strength represents the strength (quantitative composition)"
-            " of the active moiety of the active substance. There are situations "
-            "when the active substance and active moiety are different, therefore "
-            "both a strength and a reference strength are needed."
-        ),
-        # if property is element of this resource.
-        element_property=True,
+    referenceStrength: typing.List["IngredientSubstanceStrengthReferenceStrength"] = (
+        Field(
+            None,
+            alias="referenceStrength",
+            title="Strength expressed in terms of a reference substance",
+            description=(
+                "Strength expressed in terms of a reference substance. For when the "
+                "ingredient strength is additionally expressed as equivalent to the "
+                "strength of some other closely related substance (e.g. salt vs. base)."
+                " Reference strength represents the strength (quantitative composition)"
+                " of the active moiety of the active substance. There are situations "
+                "when the active substance and active moiety are different, therefore "
+                "both a strength and a reference strength are needed."
+            ),
+            # if property is element of this resource.
+            element_property=True,
+        )
     )
 
     textConcentration: fhirtypes.String = Field(
@@ -697,9 +704,11 @@ class IngredientSubstanceStrengthReferenceStrength(backboneelement.BackboneEleme
     reference strength are needed.
     """
 
-    resource_type = Field("IngredientSubstanceStrengthReferenceStrength", const=True)
+    resource_type: str = Field(
+        "IngredientSubstanceStrengthReferenceStrength", const=True
+    )
 
-    country: typing.List[fhirtypes.CodeableConceptType] = Field(
+    country: typing.List[CodeableConcept] = Field(
         None,
         alias="country",
         title="Where the strength range applies",
@@ -722,7 +731,7 @@ class IngredientSubstanceStrengthReferenceStrength(backboneelement.BackboneEleme
         title="Extension field for ``measurementPoint``.",
     )
 
-    strengthQuantity: fhirtypes.QuantityType = Field(
+    strengthQuantity: Quantity = Field(
         None,
         alias="strengthQuantity",
         title="Strength expressed in terms of a reference substance",
@@ -734,7 +743,7 @@ class IngredientSubstanceStrengthReferenceStrength(backboneelement.BackboneEleme
         one_of_many_required=True,
     )
 
-    strengthRatio: fhirtypes.RatioType = Field(
+    strengthRatio: Ratio = Field(
         None,
         alias="strengthRatio",
         title="Strength expressed in terms of a reference substance",
@@ -746,7 +755,7 @@ class IngredientSubstanceStrengthReferenceStrength(backboneelement.BackboneEleme
         one_of_many_required=True,
     )
 
-    strengthRatioRange: fhirtypes.RatioRangeType = Field(
+    strengthRatioRange: RatioRange = Field(
         None,
         alias="strengthRatioRange",
         title="Strength expressed in terms of a reference substance",
@@ -758,7 +767,7 @@ class IngredientSubstanceStrengthReferenceStrength(backboneelement.BackboneEleme
         one_of_many_required=True,
     )
 
-    substance: fhirtypes.CodeableReferenceType = Field(
+    substance: CodeableReference = Field(
         ...,
         alias="substance",
         title="Relevant reference substance",
@@ -826,3 +835,8 @@ class IngredientSubstanceStrengthReferenceStrength(backboneelement.BackboneEleme
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+Ingredient.update_forward_refs()
+IngredientSubstance.update_forward_refs()
+IngredientSubstanceStrength.update_forward_refs()

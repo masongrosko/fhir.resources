@@ -13,6 +13,10 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class Appointment(domainresource.DomainResource):
@@ -25,9 +29,9 @@ class Appointment(domainresource.DomainResource):
     or more Encounter(s).
     """
 
-    resource_type = Field("Appointment", const=True)
+    resource_type: str = Field("Appointment", const=True)
 
-    appointmentType: fhirtypes.CodeableConceptType = Field(
+    appointmentType: CodeableConcept = Field(
         None,
         alias="appointmentType",
         title=(
@@ -96,7 +100,7 @@ class Appointment(domainresource.DomainResource):
         None, alias="_end", title="Extension field for ``end``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="External Ids for this item",
@@ -110,7 +114,7 @@ class Appointment(domainresource.DomainResource):
         element_property=True,
     )
 
-    incomingReferral: typing.List[fhirtypes.ReferenceType] = Field(
+    incomingReferral: typing.List[Reference] = Field(
         None,
         alias="incomingReferral",
         title=(
@@ -127,7 +131,7 @@ class Appointment(domainresource.DomainResource):
         enum_reference_types=["ReferralRequest"],
     )
 
-    indication: typing.List[fhirtypes.ReferenceType] = Field(
+    indication: typing.List[Reference] = Field(
         None,
         alias="indication",
         title="Reason the appointment is to takes place (resource)",
@@ -161,7 +165,7 @@ class Appointment(domainresource.DomainResource):
         None, alias="_minutesDuration", title="Extension field for ``minutesDuration``."
     )
 
-    participant: typing.List[fhirtypes.AppointmentParticipantType] = Field(
+    participant: typing.List["AppointmentParticipant"] = Field(
         ...,
         alias="participant",
         title="Participants involved in appointment",
@@ -186,7 +190,7 @@ class Appointment(domainresource.DomainResource):
         None, alias="_priority", title="Extension field for ``priority``."
     )
 
-    reason: typing.List[fhirtypes.CodeableConceptType] = Field(
+    reason: typing.List[CodeableConcept] = Field(
         None,
         alias="reason",
         title="Reason this appointment is scheduled",
@@ -198,7 +202,7 @@ class Appointment(domainresource.DomainResource):
         element_property=True,
     )
 
-    requestedPeriod: typing.List[fhirtypes.PeriodType] = Field(
+    requestedPeriod: typing.List[Period] = Field(
         None,
         alias="requestedPeriod",
         title=(
@@ -216,7 +220,7 @@ class Appointment(domainresource.DomainResource):
         element_property=True,
     )
 
-    serviceCategory: fhirtypes.CodeableConceptType = Field(
+    serviceCategory: CodeableConcept = Field(
         None,
         alias="serviceCategory",
         title=(
@@ -228,7 +232,7 @@ class Appointment(domainresource.DomainResource):
         element_property=True,
     )
 
-    serviceType: typing.List[fhirtypes.CodeableConceptType] = Field(
+    serviceType: typing.List[CodeableConcept] = Field(
         None,
         alias="serviceType",
         title="The specific service that is to be performed during this appointment",
@@ -237,7 +241,7 @@ class Appointment(domainresource.DomainResource):
         element_property=True,
     )
 
-    slot: typing.List[fhirtypes.ReferenceType] = Field(
+    slot: typing.List[Reference] = Field(
         None,
         alias="slot",
         title="The slots that this appointment is filling",
@@ -251,7 +255,7 @@ class Appointment(domainresource.DomainResource):
         enum_reference_types=["Slot"],
     )
 
-    specialty: typing.List[fhirtypes.CodeableConceptType] = Field(
+    specialty: typing.List[CodeableConcept] = Field(
         None,
         alias="specialty",
         title=(
@@ -307,7 +311,7 @@ class Appointment(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    supportingInformation: typing.List[fhirtypes.ReferenceType] = Field(
+    supportingInformation: typing.List[Reference] = Field(
         None,
         alias="supportingInformation",
         title="Additional information to support the appointment",
@@ -427,9 +431,9 @@ class AppointmentParticipant(backboneelement.BackboneElement):
     List of participants involved in the appointment.
     """
 
-    resource_type = Field("AppointmentParticipant", const=True)
+    resource_type: str = Field("AppointmentParticipant", const=True)
 
-    actor: fhirtypes.ReferenceType = Field(
+    actor: Reference = Field(
         None,
         alias="actor",
         title="Person, Location/HealthcareService or Device",
@@ -485,7 +489,7 @@ class AppointmentParticipant(backboneelement.BackboneElement):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    type: typing.List[fhirtypes.CodeableConceptType] = Field(
+    type: typing.List[CodeableConcept] = Field(
         None,
         alias="type",
         title="Role of participant in the appointment",
@@ -568,3 +572,6 @@ class AppointmentParticipant(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+Appointment.update_forward_refs()

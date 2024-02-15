@@ -12,6 +12,11 @@ from pydantic.v1 import Field, root_validator
 
 from . import domainresource, fhirtypes
 from .backboneelement import BackboneElement
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .identifier import Identifier
+from .quantity import Quantity
+from .reference import Reference
 
 
 class VisionPrescription(domainresource.DomainResource):
@@ -20,9 +25,9 @@ class VisionPrescription(domainresource.DomainResource):
     An authorization for the supply of glasses and/or contact lenses to a patient.
     """
 
-    resource_type = Field("VisionPrescription", const=True)
+    resource_type: str = Field("VisionPrescription", const=True)
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="Business Identifier for the resource",
@@ -38,7 +43,7 @@ class VisionPrescription(domainresource.DomainResource):
         element_property=True,
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         None,
         alias="patient",
         title="Type 'Reference' referencing 'Patient' (represented as 'dict' in JSON).",
@@ -48,7 +53,7 @@ class VisionPrescription(domainresource.DomainResource):
         element_property=True,
     )
 
-    prescriber: fhirtypes.ReferenceType = Field(
+    prescriber: Reference = Field(
         None,
         alias="prescriber",
         title="Type 'Reference' referencing 'Practitioner' (represented as 'dict' in JSON).",
@@ -58,7 +63,7 @@ class VisionPrescription(domainresource.DomainResource):
         element_property=True,
     )
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title="Type 'Reference' referencing 'Encounter' (represented as 'dict' in JSON).",
@@ -68,7 +73,7 @@ class VisionPrescription(domainresource.DomainResource):
         element_property=True,
     )
 
-    reasonCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    reasonCodeableConcept: CodeableConcept = Field(
         None,
         alias="reasonCodeableConcept",
         title="Reason or indication for writing the prescription",
@@ -80,7 +85,7 @@ class VisionPrescription(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    reasonReference: fhirtypes.ReferenceType = Field(
+    reasonReference: Reference = Field(
         None,
         alias="reasonReference",
         title="Type 'Reference' referencing 'Condition' (represented as 'dict' in JSON).",
@@ -95,7 +100,7 @@ class VisionPrescription(domainresource.DomainResource):
     )
 
     # 9/24 edit per @nazrulworld comment regarding `dispense` field is missing
-    dispense: ListType[fhirtypes.VisionPrescriptionDispenseType] = Field(
+    dispense: ListType["VisionPrescriptionDispense"] = Field(
         None,
         alias="dispense",
         title="List of `VisionPrescription` items(represented as `dict` in JSON)",
@@ -147,9 +152,9 @@ class VisionPrescriptionDispense(BackboneElement):
     Deals with details of the dispense part of the supply specification.
     """
 
-    resource_type = Field("VisionPrescriptionDispense", const=True)
+    resource_type: str = Field("VisionPrescriptionDispense", const=True)
 
-    product: fhirtypes.CodingType = Field(
+    product: Coding = Field(
         ...,
         alias="product",
         title="Type `Coding` (represented as `dict` in JSON).",
@@ -251,7 +256,7 @@ class VisionPrescriptionDispense(BackboneElement):
         element_property=True,
     )
 
-    duration: fhirtypes.QuantityType = Field(
+    duration: Quantity = Field(
         None,
         alias="duration",
         title="Lens wear duration",
@@ -281,3 +286,6 @@ class VisionPrescriptionDispense(BackboneElement):
         description="Notes for special requirements such as coatings and lens materials",
         element_property=True,
     )
+
+
+VisionPrescription.update_forward_refs()

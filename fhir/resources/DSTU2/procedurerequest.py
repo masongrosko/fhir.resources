@@ -11,7 +11,13 @@ from typing import List as ListType
 from pydantic.v1 import Field, root_validator
 
 from . import fhirtypes
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
 from .domainresource import DomainResource
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
+from .timing import Timing
 
 
 class ProcedureRequest(DomainResource):
@@ -20,7 +26,7 @@ class ProcedureRequest(DomainResource):
     A request for a procedure to be performed. May be a proposal or an order.
     """
 
-    resource_type = Field("ProcedureRequest", const=True)
+    resource_type: str = Field("ProcedureRequest", const=True)
 
     asNeededBoolean: fhirtypes.Boolean = Field(
         None,
@@ -30,7 +36,7 @@ class ProcedureRequest(DomainResource):
         one_of_many="asNeeded",  # Choice of Data Types. i.e asNeeded[x]
         one_of_many_required=False,
     )
-    asNeededCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    asNeededCodeableConcept: CodeableConcept = Field(
         None,
         alias="asNeededCodeableConcept",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -39,35 +45,35 @@ class ProcedureRequest(DomainResource):
         one_of_many_required=False,
     )
 
-    bodySite: ListType[fhirtypes.CodeableConceptType] = Field(
+    bodySite: ListType[CodeableConcept] = Field(
         None,
         alias="bodySite",
         title="List of `CodeableConcept` items (represented as `dict` in JSON).",
         description="What part of body to perform on.",
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="What procedure to perform.",
     )
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title="Type `Reference` referencing `Encounter` (represented as `dict` in JSON).",
         description="Encounter request created during.",
     )
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="List of `Identifier` items (represented as `dict` in JSON).",
         description="Unique identifier for the request.",
     )
 
-    notes: ListType[fhirtypes.AnnotationType] = Field(
+    notes: ListType[Annotation] = Field(
         None,
         alias="notes",
         title="List of `Annotation` items (represented as `dict` in JSON).",
@@ -81,7 +87,7 @@ class ProcedureRequest(DomainResource):
         description="When request was created.",
     )
 
-    orderer: fhirtypes.ReferenceType = Field(
+    orderer: Reference = Field(
         None,
         alias="orderer",
         title=(
@@ -90,7 +96,7 @@ class ProcedureRequest(DomainResource):
         ),
         description="Who made request.",
     )
-    performer: fhirtypes.ReferenceType = Field(
+    performer: Reference = Field(
         None,
         alias="performer",
         title=(
@@ -100,7 +106,7 @@ class ProcedureRequest(DomainResource):
         description="Who made request.",
     )
 
-    reasonReference: fhirtypes.ReferenceType = Field(
+    reasonReference: Reference = Field(
         None,
         alias="reasonReference",
         title="Type `Reference` referencing `Condition` (represented as `dict` in JSON).",
@@ -108,7 +114,7 @@ class ProcedureRequest(DomainResource):
         one_of_many="reason",  # Choice of Data Types. i.e reason[x]
         one_of_many_required=False,
     )
-    reasonCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    reasonCodeableConcept: CodeableConcept = Field(
         None,
         alias="reasonCodeableConcept",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -134,7 +140,7 @@ class ProcedureRequest(DomainResource):
         ),
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title="Type `Reference` referencing `Patient, Group` (represented as `dict` in JSON).",
@@ -149,7 +155,7 @@ class ProcedureRequest(DomainResource):
         one_of_many="scheduled",  # Choice of Data Types. i.e scheduled[x]
         one_of_many_required=False,
     )
-    scheduledPeriod: fhirtypes.PeriodType = Field(
+    scheduledPeriod: Period = Field(
         None,
         alias="scheduledPeriod",
         title="Type `Period` (represented as `dict` in JSON).",
@@ -158,7 +164,7 @@ class ProcedureRequest(DomainResource):
         one_of_many_required=False,
     )
 
-    scheduledTiming: fhirtypes.TimingType = Field(
+    scheduledTiming: Timing = Field(
         None,
         alias="scheduledTiming",
         title="Type `Timing` (represented as `dict` in JSON).",

@@ -19,4 +19,4 @@ class Age(Quantity):
     SHALL be positive.
     """
 
-    resource_type = Field("Age", const=True)
+    resource_type: str = Field("Age", const=True)

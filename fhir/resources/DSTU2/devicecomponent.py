@@ -11,7 +11,10 @@ from pydantic.v1 import Field
 
 from . import fhirtypes
 from .backboneelement import BackboneElement
+from .codeableconcept import CodeableConcept
 from .domainresource import DomainResource
+from .identifier import Identifier
+from .reference import Reference
 
 
 class DeviceComponent(DomainResource):
@@ -23,14 +26,14 @@ class DeviceComponent(DomainResource):
 
     resource_type = "DeviceComponent"
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="What kind of component it is.",
     )
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         ...,
         alias="identifier",
         title="Type `Identifier` (represented as `dict` in JSON).",
@@ -44,7 +47,7 @@ class DeviceComponent(DomainResource):
         description="Recent system change timestamp.",
     )
 
-    source: fhirtypes.ReferenceType = Field(
+    source: Reference = Field(
         None,
         alias="source",
         title="Type `Reference` referencing `Device` (represented as `dict` in JSON).",
@@ -52,7 +55,7 @@ class DeviceComponent(DomainResource):
         enum_reference_types=["Device"],
     )
 
-    parent: fhirtypes.ReferenceType = Field(
+    parent: Reference = Field(
         None,
         alias="parent",
         title="Type `Reference` referencing `DeviceComponent` (represented as `dict` in JSON).",
@@ -60,14 +63,14 @@ class DeviceComponent(DomainResource):
         enum_reference_types=["DeviceComponent"],
     )
 
-    operationalStatus: ListType[fhirtypes.CodeableConceptType] = Field(
+    operationalStatus: ListType[CodeableConcept] = Field(
         None,
         alias="operationalStatus",
         title="List of `CodeableConcept` items (represented as `dict` in JSON).",
         description="Component operational status.",
     )
 
-    parameterGroup: fhirtypes.CodeableConceptType = Field(
+    parameterGroup: CodeableConcept = Field(
         None,
         alias="parameterGroup",
         title="Type `CodeableConcept` (represented as `dict` in JSON). ",
@@ -97,9 +100,7 @@ class DeviceComponent(DomainResource):
         ],
     )
 
-    productionSpecification: ListType[
-        fhirtypes.DeviceComponentProductionSpecificationType
-    ] = Field(
+    productionSpecification: ListType["DeviceComponentProductionSpecification"] = Field(
         None,
         alias="productSpecification",
         title=(
@@ -109,7 +110,7 @@ class DeviceComponent(DomainResource):
         description="Production specification of the component.",
     )
 
-    languageCode: fhirtypes.CodeableConceptType = Field(
+    languageCode: CodeableConcept = Field(
         None,
         alias="languageCode",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -129,14 +130,14 @@ class DeviceComponentProductionSpecification(BackboneElement):
 
     resource_type = "DeviceComponentProductionSpecification"
 
-    specType: fhirtypes.CodeableConceptType = Field(
+    specType: CodeableConcept = Field(
         None,
         alias="specType",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="Specification type.",
     )
 
-    componentId: fhirtypes.IdentifierType = Field(
+    componentId: Identifier = Field(
         None,
         alias="componentId",
         title="Type `Identifier` (represented as `dict` in JSON).",
@@ -149,3 +150,6 @@ class DeviceComponentProductionSpecification(BackboneElement):
         title="Type `str`.",
         description="A printable string defining the component.",
     )
+
+
+DeviceComponent.update_forward_refs()

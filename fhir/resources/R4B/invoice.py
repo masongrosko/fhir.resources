@@ -13,6 +13,11 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .money import Money
+from .reference import Reference
 
 
 class Invoice(domainresource.DomainResource):
@@ -25,9 +30,9 @@ class Invoice(domainresource.DomainResource):
     individual and total price for Billing purpose.
     """
 
-    resource_type = Field("Invoice", const=True)
+    resource_type: str = Field("Invoice", const=True)
 
-    account: fhirtypes.ReferenceType = Field(
+    account: Reference = Field(
         None,
         alias="account",
         title="Account that is being balanced",
@@ -65,7 +70,7 @@ class Invoice(domainresource.DomainResource):
         None, alias="_date", title="Extension field for ``date``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business Identifier for item",
@@ -77,7 +82,7 @@ class Invoice(domainresource.DomainResource):
         element_property=True,
     )
 
-    issuer: fhirtypes.ReferenceType = Field(
+    issuer: Reference = Field(
         None,
         alias="issuer",
         title="Issuing Organization of Invoice",
@@ -88,7 +93,7 @@ class Invoice(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    lineItem: typing.List[fhirtypes.InvoiceLineItemType] = Field(
+    lineItem: typing.List["InvoiceLineItem"] = Field(
         None,
         alias="lineItem",
         title="Line items of this Invoice",
@@ -101,7 +106,7 @@ class Invoice(domainresource.DomainResource):
         element_property=True,
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Comments made about the invoice",
@@ -113,7 +118,7 @@ class Invoice(domainresource.DomainResource):
         element_property=True,
     )
 
-    participant: typing.List[fhirtypes.InvoiceParticipantType] = Field(
+    participant: typing.List["InvoiceParticipant"] = Field(
         None,
         alias="participant",
         title="Participant in creation of this Invoice",
@@ -139,7 +144,7 @@ class Invoice(domainresource.DomainResource):
         None, alias="_paymentTerms", title="Extension field for ``paymentTerms``."
     )
 
-    recipient: fhirtypes.ReferenceType = Field(
+    recipient: Reference = Field(
         None,
         alias="recipient",
         title="Recipient of this invoice",
@@ -169,7 +174,7 @@ class Invoice(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title="Recipient(s) of goods and services",
@@ -183,7 +188,7 @@ class Invoice(domainresource.DomainResource):
         enum_reference_types=["Patient", "Group"],
     )
 
-    totalGross: fhirtypes.MoneyType = Field(
+    totalGross: Money = Field(
         None,
         alias="totalGross",
         title="Gross total of this Invoice",
@@ -192,7 +197,7 @@ class Invoice(domainresource.DomainResource):
         element_property=True,
     )
 
-    totalNet: fhirtypes.MoneyType = Field(
+    totalNet: Money = Field(
         None,
         alias="totalNet",
         title="Net total of this Invoice",
@@ -201,9 +206,7 @@ class Invoice(domainresource.DomainResource):
         element_property=True,
     )
 
-    totalPriceComponent: typing.List[
-        fhirtypes.InvoiceLineItemPriceComponentType
-    ] = Field(
+    totalPriceComponent: typing.List["InvoiceLineItemPriceComponent"] = Field(
         None,
         alias="totalPriceComponent",
         title="Components of Invoice total",
@@ -218,7 +221,7 @@ class Invoice(domainresource.DomainResource):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Type of Invoice",
@@ -334,9 +337,9 @@ class InvoiceLineItem(backboneelement.BackboneElement):
     ChargeItem resource.
     """
 
-    resource_type = Field("InvoiceLineItem", const=True)
+    resource_type: str = Field("InvoiceLineItem", const=True)
 
-    chargeItemCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    chargeItemCodeableConcept: CodeableConcept = Field(
         None,
         alias="chargeItemCodeableConcept",
         title=(
@@ -356,7 +359,7 @@ class InvoiceLineItem(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    chargeItemReference: fhirtypes.ReferenceType = Field(
+    chargeItemReference: Reference = Field(
         None,
         alias="chargeItemReference",
         title=(
@@ -378,7 +381,7 @@ class InvoiceLineItem(backboneelement.BackboneElement):
         enum_reference_types=["ChargeItem"],
     )
 
-    priceComponent: typing.List[fhirtypes.InvoiceLineItemPriceComponentType] = Field(
+    priceComponent: typing.List["InvoiceLineItemPriceComponent"] = Field(
         None,
         alias="priceComponent",
         title="Components of total line item price",
@@ -478,9 +481,9 @@ class InvoiceLineItemPriceComponent(backboneelement.BackboneElement):
     of the Invoice as to how the prices have been calculated.
     """
 
-    resource_type = Field("InvoiceLineItemPriceComponent", const=True)
+    resource_type: str = Field("InvoiceLineItemPriceComponent", const=True)
 
-    amount: fhirtypes.MoneyType = Field(
+    amount: Money = Field(
         None,
         alias="amount",
         title="Monetary amount associated with this component",
@@ -489,7 +492,7 @@ class InvoiceLineItemPriceComponent(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Code identifying the specific component",
@@ -624,9 +627,9 @@ class InvoiceParticipant(backboneelement.BackboneElement):
     Indicates who or what performed or participated in the charged service.
     """
 
-    resource_type = Field("InvoiceParticipant", const=True)
+    resource_type: str = Field("InvoiceParticipant", const=True)
 
-    actor: fhirtypes.ReferenceType = Field(
+    actor: Reference = Field(
         ...,
         alias="actor",
         title="Individual who was involved",
@@ -647,7 +650,7 @@ class InvoiceParticipant(backboneelement.BackboneElement):
         ],
     )
 
-    role: fhirtypes.CodeableConceptType = Field(
+    role: CodeableConcept = Field(
         None,
         alias="role",
         title="Type of involvement in creation of this Invoice",
@@ -667,3 +670,7 @@ class InvoiceParticipant(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "role", "actor"]
+
+
+Invoice.update_forward_refs()
+InvoiceLineItem.update_forward_refs()

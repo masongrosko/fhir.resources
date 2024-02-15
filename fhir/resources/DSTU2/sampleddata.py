@@ -9,6 +9,7 @@ from pydantic.v1 import Field
 
 from . import fhirtypes
 from .element import Element
+from .quantity import Quantity
 
 
 class SampledData(Element):
@@ -18,7 +19,7 @@ class SampledData(Element):
     There may be more than one dimension in the data.
     """
 
-    resource_type = Field("SampledData", const=True)
+    resource_type: str = Field("SampledData", const=True)
 
     data: fhirtypes.String = Field(
         ...,
@@ -48,7 +49,7 @@ class SampledData(Element):
         description="Lower limit of detection",
     )
 
-    origin: fhirtypes.QuantityType = Field(
+    origin: Quantity = Field(
         ...,
         alias="origin",
         title="Type `Quantity` (represented as `dict` in JSON)",

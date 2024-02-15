@@ -13,6 +13,12 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .codeablereference import CodeableReference
+from .identifier import Identifier
+from .money import Money
+from .period import Period
+from .reference import Reference
 
 
 class Account(domainresource.DomainResource):
@@ -26,9 +32,9 @@ class Account(domainresource.DomainResource):
     etc.
     """
 
-    resource_type = Field("Account", const=True)
+    resource_type: str = Field("Account", const=True)
 
-    balance: typing.List[fhirtypes.AccountBalanceType] = Field(
+    balance: typing.List["AccountBalance"] = Field(
         None,
         alias="balance",
         title="Calculated account balance(s)",
@@ -41,7 +47,7 @@ class Account(domainresource.DomainResource):
         element_property=True,
     )
 
-    billingStatus: fhirtypes.CodeableConceptType = Field(
+    billingStatus: CodeableConcept = Field(
         None,
         alias="billingStatus",
         title="Tracks the lifecycle of the account through the billing process",
@@ -66,7 +72,7 @@ class Account(domainresource.DomainResource):
         None, alias="_calculatedAt", title="Extension field for ``calculatedAt``."
     )
 
-    coverage: typing.List[fhirtypes.AccountCoverageType] = Field(
+    coverage: typing.List["AccountCoverage"] = Field(
         None,
         alias="coverage",
         title=(
@@ -78,7 +84,7 @@ class Account(domainresource.DomainResource):
         element_property=True,
     )
 
-    currency: fhirtypes.CodeableConceptType = Field(
+    currency: CodeableConcept = Field(
         None,
         alias="currency",
         title="The base or default currency",
@@ -102,7 +108,7 @@ class Account(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    diagnosis: typing.List[fhirtypes.AccountDiagnosisType] = Field(
+    diagnosis: typing.List["AccountDiagnosis"] = Field(
         None,
         alias="diagnosis",
         title="The list of diagnoses relevant to this account",
@@ -116,7 +122,7 @@ class Account(domainresource.DomainResource):
         element_property=True,
     )
 
-    guarantor: typing.List[fhirtypes.AccountGuarantorType] = Field(
+    guarantor: typing.List["AccountGuarantor"] = Field(
         None,
         alias="guarantor",
         title="The parties ultimately responsible for balancing the Account",
@@ -128,7 +134,7 @@ class Account(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Account number",
@@ -154,7 +160,7 @@ class Account(domainresource.DomainResource):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    owner: fhirtypes.ReferenceType = Field(
+    owner: Reference = Field(
         None,
         alias="owner",
         title="Entity managing the Account",
@@ -168,7 +174,7 @@ class Account(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    procedure: typing.List[fhirtypes.AccountProcedureType] = Field(
+    procedure: typing.List["AccountProcedure"] = Field(
         None,
         alias="procedure",
         title="The list of procedures relevant to this account",
@@ -182,7 +188,7 @@ class Account(domainresource.DomainResource):
         element_property=True,
     )
 
-    relatedAccount: typing.List[fhirtypes.AccountRelatedAccountType] = Field(
+    relatedAccount: typing.List["AccountRelatedAccount"] = Field(
         None,
         alias="relatedAccount",
         title="Other associated accounts related to this account",
@@ -191,7 +197,7 @@ class Account(domainresource.DomainResource):
         element_property=True,
     )
 
-    servicePeriod: fhirtypes.PeriodType = Field(
+    servicePeriod: Period = Field(
         None,
         alias="servicePeriod",
         title="Transaction window",
@@ -216,7 +222,7 @@ class Account(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subject: typing.List[fhirtypes.ReferenceType] = Field(
+    subject: typing.List[Reference] = Field(
         None,
         alias="subject",
         title="The entity that caused the expenses",
@@ -240,7 +246,7 @@ class Account(domainresource.DomainResource):
         ],
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="E.g. patient, expense, depreciation",
@@ -356,9 +362,9 @@ class AccountBalance(backboneelement.BackboneElement):
     generated/updated by an invoicing or similar process.
     """
 
-    resource_type = Field("AccountBalance", const=True)
+    resource_type: str = Field("AccountBalance", const=True)
 
-    aggregate: fhirtypes.CodeableConceptType = Field(
+    aggregate: CodeableConcept = Field(
         None,
         alias="aggregate",
         title="Who is expected to pay this part of the balance",
@@ -367,7 +373,7 @@ class AccountBalance(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    amount: fhirtypes.MoneyType = Field(
+    amount: Money = Field(
         ...,
         alias="amount",
         title="Calculated amount",
@@ -395,7 +401,7 @@ class AccountBalance(backboneelement.BackboneElement):
         None, alias="_estimate", title="Extension field for ``estimate``."
     )
 
-    term: fhirtypes.CodeableConceptType = Field(
+    term: CodeableConcept = Field(
         None,
         alias="term",
         title="current | 30 | 60 | 90 | 120",
@@ -433,9 +439,9 @@ class AccountCoverage(backboneelement.BackboneElement):
     and what order should they be applied to the account.
     """
 
-    resource_type = Field("AccountCoverage", const=True)
+    resource_type: str = Field("AccountCoverage", const=True)
 
-    coverage: fhirtypes.ReferenceType = Field(
+    coverage: Reference = Field(
         ...,
         alias="coverage",
         title=(
@@ -486,9 +492,9 @@ class AccountDiagnosis(backboneelement.BackboneElement):
     able to be sequenced appropriately prior to processing to produce claim(s).
     """
 
-    resource_type = Field("AccountDiagnosis", const=True)
+    resource_type: str = Field("AccountDiagnosis", const=True)
 
-    condition: fhirtypes.CodeableReferenceType = Field(
+    condition: CodeableReference = Field(
         ...,
         alias="condition",
         title="The diagnosis relevant to the account",
@@ -523,7 +529,7 @@ class AccountDiagnosis(backboneelement.BackboneElement):
         None, alias="_onAdmission", title="Extension field for ``onAdmission``."
     )
 
-    packageCode: typing.List[fhirtypes.CodeableConceptType] = Field(
+    packageCode: typing.List[CodeableConcept] = Field(
         None,
         alias="packageCode",
         title="Package Code specific for billing",
@@ -547,7 +553,7 @@ class AccountDiagnosis(backboneelement.BackboneElement):
         None, alias="_sequence", title="Extension field for ``sequence``."
     )
 
-    type: typing.List[fhirtypes.CodeableConceptType] = Field(
+    type: typing.List[CodeableConcept] = Field(
         None,
         alias="type",
         title=(
@@ -588,7 +594,7 @@ class AccountGuarantor(backboneelement.BackboneElement):
     fall short.
     """
 
-    resource_type = Field("AccountGuarantor", const=True)
+    resource_type: str = Field("AccountGuarantor", const=True)
 
     onHold: bool = Field(
         None,
@@ -605,7 +611,7 @@ class AccountGuarantor(backboneelement.BackboneElement):
         None, alias="_onHold", title="Extension field for ``onHold``."
     )
 
-    party: fhirtypes.ReferenceType = Field(
+    party: Reference = Field(
         ...,
         alias="party",
         title="Responsible entity",
@@ -616,7 +622,7 @@ class AccountGuarantor(backboneelement.BackboneElement):
         enum_reference_types=["Patient", "RelatedPerson", "Organization"],
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Guarantee account during",
@@ -649,9 +655,9 @@ class AccountProcedure(backboneelement.BackboneElement):
     produce claim(s).
     """
 
-    resource_type = Field("AccountProcedure", const=True)
+    resource_type: str = Field("AccountProcedure", const=True)
 
-    code: fhirtypes.CodeableReferenceType = Field(
+    code: CodeableReference = Field(
         ...,
         alias="code",
         title="The procedure relevant to the account",
@@ -678,7 +684,7 @@ class AccountProcedure(backboneelement.BackboneElement):
         None, alias="_dateOfService", title="Extension field for ``dateOfService``."
     )
 
-    device: typing.List[fhirtypes.ReferenceType] = Field(
+    device: typing.List[Reference] = Field(
         None,
         alias="device",
         title="Any devices that were associated with the procedure",
@@ -692,7 +698,7 @@ class AccountProcedure(backboneelement.BackboneElement):
         enum_reference_types=["Device"],
     )
 
-    packageCode: typing.List[fhirtypes.CodeableConceptType] = Field(
+    packageCode: typing.List[CodeableConcept] = Field(
         None,
         alias="packageCode",
         title="Package Code specific for billing",
@@ -716,7 +722,7 @@ class AccountProcedure(backboneelement.BackboneElement):
         None, alias="_sequence", title="Extension field for ``sequence``."
     )
 
-    type: typing.List[fhirtypes.CodeableConceptType] = Field(
+    type: typing.List[CodeableConcept] = Field(
         None,
         alias="type",
         title="How this procedure value should be used in charging the account",
@@ -752,9 +758,9 @@ class AccountRelatedAccount(backboneelement.BackboneElement):
     Other associated accounts related to this account.
     """
 
-    resource_type = Field("AccountRelatedAccount", const=True)
+    resource_type: str = Field("AccountRelatedAccount", const=True)
 
-    account: fhirtypes.ReferenceType = Field(
+    account: Reference = Field(
         ...,
         alias="account",
         title="Reference to an associated Account",
@@ -765,7 +771,7 @@ class AccountRelatedAccount(backboneelement.BackboneElement):
         enum_reference_types=["Account"],
     )
 
-    relationship: fhirtypes.CodeableConceptType = Field(
+    relationship: CodeableConcept = Field(
         None,
         alias="relationship",
         title="Relationship of the associated Account",
@@ -781,3 +787,6 @@ class AccountRelatedAccount(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "relationship", "account"]
+
+
+Account.update_forward_refs()

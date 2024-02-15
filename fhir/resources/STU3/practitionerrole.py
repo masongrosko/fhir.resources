@@ -13,6 +13,11 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .contactpoint import ContactPoint
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class PractitionerRole(domainresource.DomainResource):
@@ -25,7 +30,7 @@ class PractitionerRole(domainresource.DomainResource):
     may perform at an organization for a period of time.
     """
 
-    resource_type = Field("PractitionerRole", const=True)
+    resource_type: str = Field("PractitionerRole", const=True)
 
     active: bool = Field(
         None,
@@ -58,7 +63,7 @@ class PractitionerRole(domainresource.DomainResource):
         title="Extension field for ``availabilityExceptions``.",
     )
 
-    availableTime: typing.List[fhirtypes.PractitionerRoleAvailableTimeType] = Field(
+    availableTime: typing.List["PractitionerRoleAvailableTime"] = Field(
         None,
         alias="availableTime",
         title="Times the Service Site is available",
@@ -67,7 +72,7 @@ class PractitionerRole(domainresource.DomainResource):
         element_property=True,
     )
 
-    code: typing.List[fhirtypes.CodeableConceptType] = Field(
+    code: typing.List[CodeableConcept] = Field(
         None,
         alias="code",
         title="Roles which this practitioner may perform",
@@ -79,7 +84,7 @@ class PractitionerRole(domainresource.DomainResource):
         element_property=True,
     )
 
-    endpoint: typing.List[fhirtypes.ReferenceType] = Field(
+    endpoint: typing.List[Reference] = Field(
         None,
         alias="endpoint",
         title=(
@@ -93,7 +98,7 @@ class PractitionerRole(domainresource.DomainResource):
         enum_reference_types=["Endpoint"],
     )
 
-    healthcareService: typing.List[fhirtypes.ReferenceType] = Field(
+    healthcareService: typing.List[Reference] = Field(
         None,
         alias="healthcareService",
         title=(
@@ -107,7 +112,7 @@ class PractitionerRole(domainresource.DomainResource):
         enum_reference_types=["HealthcareService"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business Identifiers that are specific to a role/location",
@@ -116,7 +121,7 @@ class PractitionerRole(domainresource.DomainResource):
         element_property=True,
     )
 
-    location: typing.List[fhirtypes.ReferenceType] = Field(
+    location: typing.List[Reference] = Field(
         None,
         alias="location",
         title="The location(s) at which this practitioner provides care",
@@ -127,7 +132,7 @@ class PractitionerRole(domainresource.DomainResource):
         enum_reference_types=["Location"],
     )
 
-    notAvailable: typing.List[fhirtypes.PractitionerRoleNotAvailableType] = Field(
+    notAvailable: typing.List["PractitionerRoleNotAvailable"] = Field(
         None,
         alias="notAvailable",
         title="Not available during this time due to provided reason",
@@ -139,7 +144,7 @@ class PractitionerRole(domainresource.DomainResource):
         element_property=True,
     )
 
-    organization: fhirtypes.ReferenceType = Field(
+    organization: Reference = Field(
         None,
         alias="organization",
         title="Organization where the roles are available",
@@ -150,7 +155,7 @@ class PractitionerRole(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title=(
@@ -165,7 +170,7 @@ class PractitionerRole(domainresource.DomainResource):
         element_property=True,
     )
 
-    practitioner: fhirtypes.ReferenceType = Field(
+    practitioner: Reference = Field(
         None,
         alias="practitioner",
         title=(
@@ -179,7 +184,7 @@ class PractitionerRole(domainresource.DomainResource):
         enum_reference_types=["Practitioner"],
     )
 
-    specialty: typing.List[fhirtypes.CodeableConceptType] = Field(
+    specialty: typing.List[CodeableConcept] = Field(
         None,
         alias="specialty",
         title="Specific specialty of the practitioner",
@@ -188,7 +193,7 @@ class PractitionerRole(domainresource.DomainResource):
         element_property=True,
     )
 
-    telecom: typing.List[fhirtypes.ContactPointType] = Field(
+    telecom: typing.List[ContactPoint] = Field(
         None,
         alias="telecom",
         title="Contact details that are specific to the role/location/service",
@@ -238,7 +243,7 @@ class PractitionerRoleAvailableTime(backboneelement.BackboneElement):
     A collection of times that the Service Site is available.
     """
 
-    resource_type = Field("PractitionerRoleAvailableTime", const=True)
+    resource_type: str = Field("PractitionerRoleAvailableTime", const=True)
 
     allDay: bool = Field(
         None,
@@ -334,7 +339,7 @@ class PractitionerRoleNotAvailable(backboneelement.BackboneElement):
     the provided reason.
     """
 
-    resource_type = Field("PractitionerRoleNotAvailable", const=True)
+    resource_type: str = Field("PractitionerRoleNotAvailable", const=True)
 
     description: fhirtypes.String = Field(
         None,
@@ -352,7 +357,7 @@ class PractitionerRoleNotAvailable(backboneelement.BackboneElement):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    during: fhirtypes.PeriodType = Field(
+    during: Period = Field(
         None,
         alias="during",
         title="Service not availablefrom this date",
@@ -430,3 +435,6 @@ class PractitionerRoleNotAvailable(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+PractitionerRole.update_forward_refs()

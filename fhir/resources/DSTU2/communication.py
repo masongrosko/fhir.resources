@@ -11,8 +11,12 @@ from typing import List as ListType
 from pydantic.v1 import Field, root_validator
 
 from . import fhirtypes
+from .attachment import Attachment
 from .backboneelement import BackboneElement
+from .codeableconcept import CodeableConcept
 from .domainresource import DomainResource
+from .identifier import Identifier
+from .reference import Reference
 
 
 class Communication(DomainResource):
@@ -23,41 +27,41 @@ class Communication(DomainResource):
     reportable condition.
     """
 
-    resource_type = Field("Communication", const=True)
+    resource_type: str = Field("Communication", const=True)
 
-    category: fhirtypes.CodeableConceptType = Field(
+    category: CodeableConcept = Field(
         None,
         alias="category",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="Message category.",
     )
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title="Type `Reference` referencing `Encounter` (represented as `dict` in JSON).",
         description="Encounter leading to message.",
     )
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="List of `Identifier` items (represented as `dict` in JSON).",
         description="Unique identifier.",
     )
-    medium: ListType[fhirtypes.CodeableConceptType] = Field(
+    medium: ListType[CodeableConcept] = Field(
         None,
         alias="medium",
         title="List of `CodeableConcept` items (represented as `dict` in JSON).",
         description="A channel of communication.",
     )
 
-    payload: ListType[fhirtypes.CommunicationPayloadType] = Field(
+    payload: ListType["CommunicationPayload"] = Field(
         None,
         alias="payload",
         title="List of `CommunicationPayload` items (represented as `dict` in JSON).",
         description="Message payload.",
     )
-    reason: ListType[fhirtypes.CodeableConceptType] = Field(
+    reason: ListType[CodeableConcept] = Field(
         None,
         alias="reason",
         title="List of `CodeableConcept` items (represented as `dict` in JSON).",
@@ -67,7 +71,7 @@ class Communication(DomainResource):
         None, alias="received", title="Type DateTime.", description="When received."
     )
 
-    recipient: ListType[fhirtypes.ReferenceType] = Field(
+    recipient: ListType[Reference] = Field(
         None,
         alias="recipient",
         title=(
@@ -77,7 +81,7 @@ class Communication(DomainResource):
         ),
         description="Message recipient.",
     )
-    requestDetail: fhirtypes.ReferenceType = Field(
+    requestDetail: Reference = Field(
         None,
         alias="requestDetail",
         title=(
@@ -86,7 +90,7 @@ class Communication(DomainResource):
         ),
         description="CommunicationRequest producing this message.",
     )
-    sender: fhirtypes.ReferenceType = Field(
+    sender: Reference = Field(
         None,
         alias="sender",
         title=(
@@ -106,7 +110,7 @@ class Communication(DomainResource):
         title="Type `Code.",
         description="in-progress | completed | suspended | rejected | failed.",
     )
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title="Type `Reference` referencing `Patient` (represented as `dict` in JSON).",
@@ -120,8 +124,8 @@ class CommunicationPayload(BackboneElement):
     Text, attachment(s), or resource(s) that was communicated to the recipient.
     """
 
-    resource_type = Field("CommunicationPayload", const=True)
-    contentAttachment: fhirtypes.AttachmentType = Field(
+    resource_type: str = Field("CommunicationPayload", const=True)
+    contentAttachment: Attachment = Field(
         None,
         alias="contentAttachment",
         title="Type `Attachment` (represented as `dict` in JSON).",
@@ -130,7 +134,7 @@ class CommunicationPayload(BackboneElement):
         one_of_many_required=True,
     )
 
-    contentReference: fhirtypes.ReferenceType = Field(
+    contentReference: Reference = Field(
         None,
         alias="contentReference",
         title="Type `Reference` referencing `Resource` (represented as `dict` in JSON).",
@@ -185,3 +189,6 @@ class CommunicationPayload(BackboneElement):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+Communication.update_forward_refs()

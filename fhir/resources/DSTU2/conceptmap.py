@@ -12,7 +12,11 @@ from pydantic.v1 import Field, root_validator
 
 from . import fhirtypes
 from .backboneelement import BackboneElement
+from .codeableconcept import CodeableConcept
+from .contactpoint import ContactPoint
 from .domainresource import DomainResource
+from .identifier import Identifier
+from .reference import Reference
 
 
 class ConceptMap(DomainResource):
@@ -23,9 +27,9 @@ class ConceptMap(DomainResource):
     models.
     """
 
-    resource_type = Field("ConceptMap", const=True)
+    resource_type: str = Field("ConceptMap", const=True)
 
-    contact: ListType[fhirtypes.ConceptMapContactType] = Field(
+    contact: ListType["ConceptMapContact"] = Field(
         None,
         alias="contact",
         title="List of `ConceptMapContact` items (represented as `dict` in JSON).",
@@ -52,7 +56,7 @@ class ConceptMap(DomainResource):
         description="Human language description of the concept map.",
     )
 
-    element: ListType[fhirtypes.ConceptMapElementType] = Field(
+    element: ListType["ConceptMapElement"] = Field(
         None,
         alias="element",
         title="List of `ConceptMapElement` items (represented as `dict` in JSON).",
@@ -66,7 +70,7 @@ class ConceptMap(DomainResource):
         description="If for testing purposes, not real usage.",
     )
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="List of `Identifier` items (represented as `dict` in JSON).",
@@ -90,7 +94,7 @@ class ConceptMap(DomainResource):
         None, alias="requirements", title="Type `String`.", description="Why needed."
     )
 
-    sourceReference: fhirtypes.ReferenceType = Field(
+    sourceReference: Reference = Field(
         None,
         alias="sourceReference",
         title=(
@@ -116,7 +120,7 @@ class ConceptMap(DomainResource):
         description="draft | active | retired.",
     )
 
-    targetReference: fhirtypes.ReferenceType = Field(
+    targetReference: Reference = Field(
         None,
         alias="targetReference",
         title=(
@@ -142,7 +146,7 @@ class ConceptMap(DomainResource):
         description="Globally unique logical id for concept map.",
     )
 
-    useContext: ListType[fhirtypes.CodeableConceptType] = Field(
+    useContext: ListType[CodeableConcept] = Field(
         None,
         alias="useContext",
         title="List of `CodeableConcept` items (represented as `dict` in JSON).",
@@ -202,7 +206,7 @@ class ConceptMapContact(BackboneElement):
     Contacts to assist a user in finding and communicating with the publisher.
     """
 
-    resource_type = Field("ConceptMapContact", const=True)
+    resource_type: str = Field("ConceptMapContact", const=True)
 
     name: fhirtypes.String = Field(
         None,
@@ -210,7 +214,7 @@ class ConceptMapContact(BackboneElement):
         title="Type `String.",
         description="Name of a individual to contact.",
     )
-    telecom: ListType[fhirtypes.ContactPointType] = Field(
+    telecom: ListType[ContactPoint] = Field(
         None,
         alias="telecom",
         title="List of `ContactPoint` items (represented as `dict` in JSON).",
@@ -225,7 +229,7 @@ class ConceptMapElement(BackboneElement):
     the target.
     """
 
-    resource_type = Field("ConceptMapElement", const=True)
+    resource_type: str = Field("ConceptMapElement", const=True)
     code: fhirtypes.Code = Field(
         None,
         alias="code",
@@ -239,7 +243,7 @@ class ConceptMapElement(BackboneElement):
         description="Identifies element being mapped.",
     )
 
-    target: ListType[fhirtypes.ConceptMapElementTargetType] = Field(
+    target: ListType["ConceptMapElementTarget"] = Field(
         None,
         alias="target",
         title="List of `ConceptMapElementTarget` items (represented as `dict` in JSON).",
@@ -253,7 +257,7 @@ class ConceptMapElementTarget(BackboneElement):
     A concept from the target value set that this concept maps to.
     """
 
-    resource_type = Field("ConceptMapElementTarget", const=True)
+    resource_type: str = Field("ConceptMapElementTarget", const=True)
     code: fhirtypes.Code = Field(
         None,
         alias="code",
@@ -274,7 +278,7 @@ class ConceptMapElementTarget(BackboneElement):
         description="System of the target (if necessary).",
     )
 
-    dependsOn: ListType[fhirtypes.ConceptMapElementTargetDependsOnType] = Field(
+    dependsOn: ListType["ConceptMapElementTargetDependsOn"] = Field(
         None,
         alias="dependsOn",
         title=(
@@ -293,7 +297,7 @@ class ConceptMapElementTarget(BackboneElement):
             "inexact | unmatched | disjoint."
         ),
     )
-    product: ListType[fhirtypes.ConceptMapElementTargetDependsOnType] = Field(
+    product: ListType["ConceptMapElementTargetDependsOn"] = Field(
         None,
         alias="dependsOn",
         title=(
@@ -312,7 +316,7 @@ class ConceptMapElementTargetDependsOn(BackboneElement):
     specified value.
     """
 
-    resource_type = Field("ConceptMapElementTargetDependsOn", const=True)
+    resource_type: str = Field("ConceptMapElementTargetDependsOn", const=True)
 
     code: fhirtypes.String = Field(
         None,
@@ -332,3 +336,8 @@ class ConceptMapElementTargetDependsOn(BackboneElement):
         title="Type `Uri.",
         description="Reference to element/field/ValueSet mapping depends on.",
     )
+
+
+ConceptMap.update_forward_refs()
+ConceptMapElement.update_forward_refs()
+ConceptMapElementTarget.update_forward_refs()

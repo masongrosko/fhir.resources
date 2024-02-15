@@ -11,6 +11,12 @@ import typing
 from pydantic.v1 import Field, root_validator
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .period import Period
+from .quantity import Quantity
+from .reference import Reference
+from .timing import Timing
 
 
 class SupplyDelivery(domainresource.DomainResource):
@@ -22,9 +28,9 @@ class SupplyDelivery(domainresource.DomainResource):
     Record of delivery of what is supplied.
     """
 
-    resource_type = Field("SupplyDelivery", const=True)
+    resource_type: str = Field("SupplyDelivery", const=True)
 
-    basedOn: typing.List[fhirtypes.ReferenceType] = Field(
+    basedOn: typing.List[Reference] = Field(
         None,
         alias="basedOn",
         title="Fulfills plan, proposal or order",
@@ -38,7 +44,7 @@ class SupplyDelivery(domainresource.DomainResource):
         enum_reference_types=["SupplyRequest"],
     )
 
-    destination: fhirtypes.ReferenceType = Field(
+    destination: Reference = Field(
         None,
         alias="destination",
         title="Where the delivery was sent",
@@ -52,7 +58,7 @@ class SupplyDelivery(domainresource.DomainResource):
         enum_reference_types=["Location"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="External identifier",
@@ -81,7 +87,7 @@ class SupplyDelivery(domainresource.DomainResource):
         title="Extension field for ``occurrenceDateTime``.",
     )
 
-    occurrencePeriod: fhirtypes.PeriodType = Field(
+    occurrencePeriod: Period = Field(
         None,
         alias="occurrencePeriod",
         title="When event occurred",
@@ -93,7 +99,7 @@ class SupplyDelivery(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    occurrenceTiming: fhirtypes.TimingType = Field(
+    occurrenceTiming: Timing = Field(
         None,
         alias="occurrenceTiming",
         title="When event occurred",
@@ -105,7 +111,7 @@ class SupplyDelivery(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    partOf: typing.List[fhirtypes.ReferenceType] = Field(
+    partOf: typing.List[Reference] = Field(
         None,
         alias="partOf",
         title="Part of referenced event",
@@ -116,7 +122,7 @@ class SupplyDelivery(domainresource.DomainResource):
         enum_reference_types=["SupplyDelivery", "Contract"],
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         None,
         alias="patient",
         title="Patient for whom the item is supplied",
@@ -130,7 +136,7 @@ class SupplyDelivery(domainresource.DomainResource):
         enum_reference_types=["Patient"],
     )
 
-    receiver: typing.List[fhirtypes.ReferenceType] = Field(
+    receiver: typing.List[Reference] = Field(
         None,
         alias="receiver",
         title="Who received the delivery",
@@ -156,7 +162,7 @@ class SupplyDelivery(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    suppliedItem: typing.List[fhirtypes.SupplyDeliverySuppliedItemType] = Field(
+    suppliedItem: typing.List["SupplyDeliverySuppliedItem"] = Field(
         None,
         alias="suppliedItem",
         title="The item that is delivered or supplied",
@@ -165,7 +171,7 @@ class SupplyDelivery(domainresource.DomainResource):
         element_property=True,
     )
 
-    supplier: fhirtypes.ReferenceType = Field(
+    supplier: Reference = Field(
         None,
         alias="supplier",
         title="The item supplier",
@@ -176,7 +182,7 @@ class SupplyDelivery(domainresource.DomainResource):
         enum_reference_types=["Practitioner", "PractitionerRole", "Organization"],
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Category of supply event",
@@ -268,9 +274,9 @@ class SupplyDeliverySuppliedItem(backboneelement.BackboneElement):
     The item that is being delivered or has been supplied.
     """
 
-    resource_type = Field("SupplyDeliverySuppliedItem", const=True)
+    resource_type: str = Field("SupplyDeliverySuppliedItem", const=True)
 
-    itemCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    itemCodeableConcept: CodeableConcept = Field(
         None,
         alias="itemCodeableConcept",
         title="Medication, Substance, Device or Biologically Derived Product supplied",
@@ -287,7 +293,7 @@ class SupplyDeliverySuppliedItem(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    itemReference: fhirtypes.ReferenceType = Field(
+    itemReference: Reference = Field(
         None,
         alias="itemReference",
         title="Medication, Substance, Device or Biologically Derived Product supplied",
@@ -313,7 +319,7 @@ class SupplyDeliverySuppliedItem(backboneelement.BackboneElement):
         ],
     )
 
-    quantity: fhirtypes.QuantityType = Field(
+    quantity: Quantity = Field(
         None,
         alias="quantity",
         title="Amount supplied",
@@ -377,3 +383,6 @@ class SupplyDeliverySuppliedItem(backboneelement.BackboneElement):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+SupplyDelivery.update_forward_refs()

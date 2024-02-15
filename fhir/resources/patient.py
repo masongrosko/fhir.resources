@@ -13,6 +13,14 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .address import Address
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .contactpoint import ContactPoint
+from .humanname import HumanName
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class Patient(domainresource.DomainResource):
@@ -25,7 +33,7 @@ class Patient(domainresource.DomainResource):
     animal receiving care or other health-related services.
     """
 
-    resource_type = Field("Patient", const=True)
+    resource_type: str = Field("Patient", const=True)
 
     active: bool = Field(
         None,
@@ -46,7 +54,7 @@ class Patient(domainresource.DomainResource):
         None, alias="_active", title="Extension field for ``active``."
     )
 
-    address: typing.List[fhirtypes.AddressType] = Field(
+    address: typing.List[Address] = Field(
         None,
         alias="address",
         title="An address for the individual",
@@ -67,7 +75,7 @@ class Patient(domainresource.DomainResource):
         None, alias="_birthDate", title="Extension field for ``birthDate``."
     )
 
-    communication: typing.List[fhirtypes.PatientCommunicationType] = Field(
+    communication: typing.List["PatientCommunication"] = Field(
         None,
         alias="communication",
         title=(
@@ -79,7 +87,7 @@ class Patient(domainresource.DomainResource):
         element_property=True,
     )
 
-    contact: typing.List[fhirtypes.PatientContactType] = Field(
+    contact: typing.List["PatientContact"] = Field(
         None,
         alias="contact",
         title="A contact party (e.g. guardian, partner, friend) for the patient",
@@ -138,7 +146,7 @@ class Patient(domainresource.DomainResource):
         None, alias="_gender", title="Extension field for ``gender``."
     )
 
-    generalPractitioner: typing.List[fhirtypes.ReferenceType] = Field(
+    generalPractitioner: typing.List[Reference] = Field(
         None,
         alias="generalPractitioner",
         title="Patient's nominated primary care provider",
@@ -149,7 +157,7 @@ class Patient(domainresource.DomainResource):
         enum_reference_types=["Organization", "Practitioner", "PractitionerRole"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="An identifier for this patient",
@@ -158,7 +166,7 @@ class Patient(domainresource.DomainResource):
         element_property=True,
     )
 
-    link: typing.List[fhirtypes.PatientLinkType] = Field(
+    link: typing.List["PatientLink"] = Field(
         None,
         alias="link",
         title=(
@@ -170,7 +178,7 @@ class Patient(domainresource.DomainResource):
         element_property=True,
     )
 
-    managingOrganization: fhirtypes.ReferenceType = Field(
+    managingOrganization: Reference = Field(
         None,
         alias="managingOrganization",
         title="Organization that is the custodian of the patient record",
@@ -181,7 +189,7 @@ class Patient(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    maritalStatus: fhirtypes.CodeableConceptType = Field(
+    maritalStatus: CodeableConcept = Field(
         None,
         alias="maritalStatus",
         title="Marital (civil) status of a patient",
@@ -230,7 +238,7 @@ class Patient(domainresource.DomainResource):
         title="Extension field for ``multipleBirthInteger``.",
     )
 
-    name: typing.List[fhirtypes.HumanNameType] = Field(
+    name: typing.List[HumanName] = Field(
         None,
         alias="name",
         title="A name associated with the patient",
@@ -239,7 +247,7 @@ class Patient(domainresource.DomainResource):
         element_property=True,
     )
 
-    photo: typing.List[fhirtypes.AttachmentType] = Field(
+    photo: typing.List[Attachment] = Field(
         None,
         alias="photo",
         title="Image of the patient",
@@ -248,7 +256,7 @@ class Patient(domainresource.DomainResource):
         element_property=True,
     )
 
-    telecom: typing.List[fhirtypes.ContactPointType] = Field(
+    telecom: typing.List[ContactPoint] = Field(
         None,
         alias="telecom",
         title="A contact detail for the individual",
@@ -346,9 +354,9 @@ class PatientCommunication(backboneelement.BackboneElement):
     her health.
     """
 
-    resource_type = Field("PatientCommunication", const=True)
+    resource_type: str = Field("PatientCommunication", const=True)
 
-    language: fhirtypes.CodeableConceptType = Field(
+    language: CodeableConcept = Field(
         ...,
         alias="language",
         title=(
@@ -397,9 +405,9 @@ class PatientContact(backboneelement.BackboneElement):
     A contact party (e.g. guardian, partner, friend) for the patient.
     """
 
-    resource_type = Field("PatientContact", const=True)
+    resource_type: str = Field("PatientContact", const=True)
 
-    address: fhirtypes.AddressType = Field(
+    address: Address = Field(
         None,
         alias="address",
         title="Address for the contact person",
@@ -426,7 +434,7 @@ class PatientContact(backboneelement.BackboneElement):
         None, alias="_gender", title="Extension field for ``gender``."
     )
 
-    name: fhirtypes.HumanNameType = Field(
+    name: HumanName = Field(
         None,
         alias="name",
         title="A name associated with the contact person",
@@ -435,7 +443,7 @@ class PatientContact(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    organization: fhirtypes.ReferenceType = Field(
+    organization: Reference = Field(
         None,
         alias="organization",
         title="Organization that is associated with the contact",
@@ -449,7 +457,7 @@ class PatientContact(backboneelement.BackboneElement):
         enum_reference_types=["Organization"],
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title=(
@@ -461,7 +469,7 @@ class PatientContact(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    relationship: typing.List[fhirtypes.CodeableConceptType] = Field(
+    relationship: typing.List[CodeableConcept] = Field(
         None,
         alias="relationship",
         title="The kind of relationship",
@@ -473,7 +481,7 @@ class PatientContact(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    telecom: typing.List[fhirtypes.ContactPointType] = Field(
+    telecom: typing.List[ContactPoint] = Field(
         None,
         alias="telecom",
         title="A contact detail for the person",
@@ -514,9 +522,9 @@ class PatientLink(backboneelement.BackboneElement):
     individual.
     """
 
-    resource_type = Field("PatientLink", const=True)
+    resource_type: str = Field("PatientLink", const=True)
 
-    other: fhirtypes.ReferenceType = Field(
+    other: Reference = Field(
         ...,
         alias="other",
         title="The other patient or related person resource that the link refers to",
@@ -615,3 +623,6 @@ class PatientLink(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+Patient.update_forward_refs()

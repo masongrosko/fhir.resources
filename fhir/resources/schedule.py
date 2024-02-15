@@ -11,6 +11,11 @@ import typing
 from pydantic.v1 import Field
 
 from . import domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .codeablereference import CodeableReference
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class Schedule(domainresource.DomainResource):
@@ -22,7 +27,7 @@ class Schedule(domainresource.DomainResource):
     appointments.
     """
 
-    resource_type = Field("Schedule", const=True)
+    resource_type: str = Field("Schedule", const=True)
 
     active: bool = Field(
         None,
@@ -39,7 +44,7 @@ class Schedule(domainresource.DomainResource):
         None, alias="_active", title="Extension field for ``active``."
     )
 
-    actor: typing.List[fhirtypes.ReferenceType] = Field(
+    actor: typing.List[Reference] = Field(
         ...,
         alias="actor",
         title="Resource(s) that availability information is being provided for",
@@ -77,7 +82,7 @@ class Schedule(domainresource.DomainResource):
         None, alias="_comment", title="Extension field for ``comment``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="External Ids for this item",
@@ -101,7 +106,7 @@ class Schedule(domainresource.DomainResource):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    planningHorizon: fhirtypes.PeriodType = Field(
+    planningHorizon: Period = Field(
         None,
         alias="planningHorizon",
         title="Period of time covered by schedule",
@@ -116,7 +121,7 @@ class Schedule(domainresource.DomainResource):
         element_property=True,
     )
 
-    serviceCategory: typing.List[fhirtypes.CodeableConceptType] = Field(
+    serviceCategory: typing.List[CodeableConcept] = Field(
         None,
         alias="serviceCategory",
         title="High-level category",
@@ -128,7 +133,7 @@ class Schedule(domainresource.DomainResource):
         element_property=True,
     )
 
-    serviceType: typing.List[fhirtypes.CodeableReferenceType] = Field(
+    serviceType: typing.List[CodeableReference] = Field(
         None,
         alias="serviceType",
         title="Specific service",
@@ -139,7 +144,7 @@ class Schedule(domainresource.DomainResource):
         enum_reference_types=["HealthcareService"],
     )
 
-    specialty: typing.List[fhirtypes.CodeableConceptType] = Field(
+    specialty: typing.List[CodeableConcept] = Field(
         None,
         alias="specialty",
         title="Type of specialty needed",

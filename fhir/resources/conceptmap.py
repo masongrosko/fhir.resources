@@ -13,6 +13,14 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .contactdetail import ContactDetail
+from .identifier import Identifier
+from .period import Period
+from .quantity import Quantity
+from .relatedartifact import RelatedArtifact
+from .usagecontext import UsageContext
 
 
 class ConceptMap(domainresource.DomainResource):
@@ -26,11 +34,9 @@ class ConceptMap(domainresource.DomainResource):
     concepts, or classes in class models.
     """
 
-    resource_type = Field("ConceptMap", const=True)
+    resource_type: str = Field("ConceptMap", const=True)
 
-    additionalAttribute: typing.List[
-        fhirtypes.ConceptMapAdditionalAttributeType
-    ] = Field(
+    additionalAttribute: typing.List["ConceptMapAdditionalAttribute"] = Field(
         None,
         alias="additionalAttribute",
         title=(
@@ -63,7 +69,7 @@ class ConceptMap(domainresource.DomainResource):
         None, alias="_approvalDate", title="Extension field for ``approvalDate``."
     )
 
-    author: typing.List[fhirtypes.ContactDetailType] = Field(
+    author: typing.List[ContactDetail] = Field(
         None,
         alias="author",
         title="Who authored the ConceptMap",
@@ -75,7 +81,7 @@ class ConceptMap(domainresource.DomainResource):
         element_property=True,
     )
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -153,7 +159,7 @@ class ConceptMap(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    editor: typing.List[fhirtypes.ContactDetailType] = Field(
+    editor: typing.List[ContactDetail] = Field(
         None,
         alias="editor",
         title="Who edited the ConceptMap",
@@ -165,7 +171,7 @@ class ConceptMap(domainresource.DomainResource):
         element_property=True,
     )
 
-    effectivePeriod: fhirtypes.PeriodType = Field(
+    effectivePeriod: Period = Field(
         None,
         alias="effectivePeriod",
         title="When the ConceptMap is expected to be used",
@@ -177,7 +183,7 @@ class ConceptMap(domainresource.DomainResource):
         element_property=True,
     )
 
-    endorser: typing.List[fhirtypes.ContactDetailType] = Field(
+    endorser: typing.List[ContactDetail] = Field(
         None,
         alias="endorser",
         title="Who endorsed the ConceptMap",
@@ -206,7 +212,7 @@ class ConceptMap(domainresource.DomainResource):
         None, alias="_experimental", title="Extension field for ``experimental``."
     )
 
-    group: typing.List[fhirtypes.ConceptMapGroupType] = Field(
+    group: typing.List["ConceptMapGroup"] = Field(
         None,
         alias="group",
         title="Same source and target systems",
@@ -215,7 +221,7 @@ class ConceptMap(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Additional identifier for the concept map",
@@ -228,7 +234,7 @@ class ConceptMap(domainresource.DomainResource):
         element_property=True,
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction for concept map (if applicable)",
@@ -272,7 +278,7 @@ class ConceptMap(domainresource.DomainResource):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    property: typing.List[fhirtypes.ConceptMapPropertyType] = Field(
+    property: typing.List["ConceptMapProperty"] = Field(
         None,
         alias="property",
         title="Additional properties of the mapping",
@@ -314,7 +320,7 @@ class ConceptMap(domainresource.DomainResource):
         None, alias="_purpose", title="Extension field for ``purpose``."
     )
 
-    relatedArtifact: typing.List[fhirtypes.RelatedArtifactType] = Field(
+    relatedArtifact: typing.List[RelatedArtifact] = Field(
         None,
         alias="relatedArtifact",
         title="Additional documentation, citations, etc",
@@ -327,7 +333,7 @@ class ConceptMap(domainresource.DomainResource):
         element_property=True,
     )
 
-    reviewer: typing.List[fhirtypes.ContactDetailType] = Field(
+    reviewer: typing.List[ContactDetail] = Field(
         None,
         alias="reviewer",
         title="Who reviewed the ConceptMap",
@@ -458,7 +464,7 @@ class ConceptMap(domainresource.DomainResource):
         None, alias="_title", title="Extension field for ``title``."
     )
 
-    topic: typing.List[fhirtypes.CodeableConceptType] = Field(
+    topic: typing.List[CodeableConcept] = Field(
         None,
         alias="topic",
         title="E.g. Education, Treatment, Assessment, etc",
@@ -494,7 +500,7 @@ class ConceptMap(domainresource.DomainResource):
         None, alias="_url", title="Extension field for ``url``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="The context that the content is intended to support",
@@ -529,7 +535,7 @@ class ConceptMap(domainresource.DomainResource):
         None, alias="_version", title="Extension field for ``version``."
     )
 
-    versionAlgorithmCoding: fhirtypes.CodingType = Field(
+    versionAlgorithmCoding: Coding = Field(
         None,
         alias="versionAlgorithmCoding",
         title="How to compare versions",
@@ -730,7 +736,7 @@ class ConceptMapAdditionalAttribute(backboneelement.BackboneElement):
     versa).
     """
 
-    resource_type = Field("ConceptMapAdditionalAttribute", const=True)
+    resource_type: str = Field("ConceptMapAdditionalAttribute", const=True)
 
     code: fhirtypes.Code = Field(
         None,
@@ -890,9 +896,9 @@ class ConceptMapGroup(backboneelement.BackboneElement):
     A group of mappings that all have the same source and target system.
     """
 
-    resource_type = Field("ConceptMapGroup", const=True)
+    resource_type: str = Field("ConceptMapGroup", const=True)
 
-    element: typing.List[fhirtypes.ConceptMapGroupElementType] = Field(
+    element: typing.List["ConceptMapGroupElement"] = Field(
         ...,
         alias="element",
         title="Mappings for a concept from the source set",
@@ -938,7 +944,7 @@ class ConceptMapGroup(backboneelement.BackboneElement):
         None, alias="_target", title="Extension field for ``target``."
     )
 
-    unmapped: fhirtypes.ConceptMapGroupUnmappedType = Field(
+    unmapped: "ConceptMapGroupUnmapped" = Field(
         None,
         alias="unmapped",
         title=(
@@ -983,7 +989,7 @@ class ConceptMapGroupElement(backboneelement.BackboneElement):
     the target.
     """
 
-    resource_type = Field("ConceptMapGroupElement", const=True)
+    resource_type: str = Field("ConceptMapGroupElement", const=True)
 
     code: fhirtypes.Code = Field(
         None,
@@ -1027,7 +1033,7 @@ class ConceptMapGroupElement(backboneelement.BackboneElement):
         None, alias="_noMap", title="Extension field for ``noMap``."
     )
 
-    target: typing.List[fhirtypes.ConceptMapGroupElementTargetType] = Field(
+    target: typing.List["ConceptMapGroupElementTarget"] = Field(
         None,
         alias="target",
         title="Concept in target system for element",
@@ -1080,7 +1086,7 @@ class ConceptMapGroupElementTarget(backboneelement.BackboneElement):
     A concept from the target value set that this concept maps to.
     """
 
-    resource_type = Field("ConceptMapGroupElementTarget", const=True)
+    resource_type: str = Field("ConceptMapGroupElementTarget", const=True)
 
     code: fhirtypes.Code = Field(
         None,
@@ -1109,7 +1115,7 @@ class ConceptMapGroupElementTarget(backboneelement.BackboneElement):
         None, alias="_comment", title="Extension field for ``comment``."
     )
 
-    dependsOn: typing.List[fhirtypes.ConceptMapGroupElementTargetDependsOnType] = Field(
+    dependsOn: typing.List["ConceptMapGroupElementTargetDependsOn"] = Field(
         None,
         alias="dependsOn",
         title="Other properties required for this mapping",
@@ -1137,7 +1143,7 @@ class ConceptMapGroupElementTarget(backboneelement.BackboneElement):
         None, alias="_display", title="Extension field for ``display``."
     )
 
-    product: typing.List[fhirtypes.ConceptMapGroupElementTargetDependsOnType] = Field(
+    product: typing.List["ConceptMapGroupElementTargetDependsOn"] = Field(
         None,
         alias="product",
         title="Other data elements that this mapping also produces",
@@ -1149,7 +1155,7 @@ class ConceptMapGroupElementTarget(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    property: typing.List[fhirtypes.ConceptMapGroupElementTargetPropertyType] = Field(
+    property: typing.List["ConceptMapGroupElementTargetProperty"] = Field(
         None,
         alias="property",
         title="Property value for the source -> target mapping",
@@ -1298,7 +1304,7 @@ class ConceptMapGroupElementTargetDependsOn(backboneelement.BackboneElement):
     the specified value.
     """
 
-    resource_type = Field("ConceptMapGroupElementTargetDependsOn", const=True)
+    resource_type: str = Field("ConceptMapGroupElementTargetDependsOn", const=True)
 
     attribute: fhirtypes.Code = Field(
         None,
@@ -1349,7 +1355,7 @@ class ConceptMapGroupElementTargetDependsOn(backboneelement.BackboneElement):
         None, alias="_valueCode", title="Extension field for ``valueCode``."
     )
 
-    valueCoding: fhirtypes.CodingType = Field(
+    valueCoding: Coding = Field(
         None,
         alias="valueCoding",
         title="Value of the referenced data element",
@@ -1361,7 +1367,7 @@ class ConceptMapGroupElementTargetDependsOn(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    valueQuantity: fhirtypes.QuantityType = Field(
+    valueQuantity: Quantity = Field(
         None,
         alias="valueQuantity",
         title="Value of the referenced data element",
@@ -1539,7 +1545,7 @@ class ConceptMapGroupElementTargetProperty(backboneelement.BackboneElement):
     A property value for this source -> target mapping.
     """
 
-    resource_type = Field("ConceptMapGroupElementTargetProperty", const=True)
+    resource_type: str = Field("ConceptMapGroupElementTargetProperty", const=True)
 
     code: fhirtypes.Code = Field(
         None,
@@ -1592,7 +1598,7 @@ class ConceptMapGroupElementTargetProperty(backboneelement.BackboneElement):
         None, alias="_valueCode", title="Extension field for ``valueCode``."
     )
 
-    valueCoding: fhirtypes.CodingType = Field(
+    valueCoding: Coding = Field(
         None,
         alias="valueCoding",
         title="Value of the property for this concept",
@@ -1825,7 +1831,7 @@ class ConceptMapGroupUnmapped(backboneelement.BackboneElement):
     or the expansion of ConceptMap.group.element.target.valueSet is empty.
     """
 
-    resource_type = Field("ConceptMapGroupUnmapped", const=True)
+    resource_type: str = Field("ConceptMapGroupUnmapped", const=True)
 
     code: fhirtypes.Code = Field(
         None,
@@ -2035,7 +2041,7 @@ class ConceptMapProperty(backboneelement.BackboneElement):
     provided about a map from source -> target.
     """
 
-    resource_type = Field("ConceptMapProperty", const=True)
+    resource_type: str = Field("ConceptMapProperty", const=True)
 
     code: fhirtypes.Code = Field(
         None,
@@ -2200,3 +2206,9 @@ class ConceptMapProperty(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+ConceptMap.update_forward_refs()
+ConceptMapGroup.update_forward_refs()
+ConceptMapGroupElement.update_forward_refs()
+ConceptMapGroupElementTarget.update_forward_refs()

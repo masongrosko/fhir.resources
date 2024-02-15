@@ -13,6 +13,12 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .contactdetail import ContactDetail
+from .identifier import Identifier
+from .reference import Reference
+from .usagecontext import UsageContext
 
 
 class MessageDefinition(domainresource.DomainResource):
@@ -27,11 +33,9 @@ class MessageDefinition(domainresource.DomainResource):
     content to be transmitted and what response(s), if any, are permitted.
     """
 
-    resource_type = Field("MessageDefinition", const=True)
+    resource_type: str = Field("MessageDefinition", const=True)
 
-    allowedResponse: typing.List[
-        fhirtypes.MessageDefinitionAllowedResponseType
-    ] = Field(
+    allowedResponse: typing.List["MessageDefinitionAllowedResponse"] = Field(
         None,
         alias="allowedResponse",
         title="Responses to this message",
@@ -43,7 +47,7 @@ class MessageDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    base: fhirtypes.ReferenceType = Field(
+    base: Reference = Field(
         None,
         alias="base",
         title="Definition this one is based on",
@@ -72,7 +76,7 @@ class MessageDefinition(domainresource.DomainResource):
         None, alias="_category", title="Extension field for ``category``."
     )
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -134,7 +138,7 @@ class MessageDefinition(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    event: fhirtypes.CodingType = Field(
+    event: Coding = Field(
         ...,
         alias="event",
         title="Event type",
@@ -159,7 +163,7 @@ class MessageDefinition(domainresource.DomainResource):
         None, alias="_experimental", title="Extension field for ``experimental``."
     )
 
-    focus: typing.List[fhirtypes.MessageDefinitionFocusType] = Field(
+    focus: typing.List["MessageDefinitionFocus"] = Field(
         None,
         alias="focus",
         title="Resource(s) that are the subject of the event",
@@ -172,7 +176,7 @@ class MessageDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="Additional identifier for the message definition",
@@ -185,7 +189,7 @@ class MessageDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction for message definition (if applicable)",
@@ -213,7 +217,7 @@ class MessageDefinition(domainresource.DomainResource):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    parent: typing.List[fhirtypes.ReferenceType] = Field(
+    parent: typing.List[Reference] = Field(
         None,
         alias="parent",
         title="Protocol/workflow this is part of",
@@ -257,7 +261,7 @@ class MessageDefinition(domainresource.DomainResource):
         None, alias="_purpose", title="Extension field for ``purpose``."
     )
 
-    replaces: typing.List[fhirtypes.ReferenceType] = Field(
+    replaces: typing.List[Reference] = Field(
         None,
         alias="replaces",
         title="Takes the place of",
@@ -333,7 +337,7 @@ class MessageDefinition(domainresource.DomainResource):
         None, alias="_url", title="Extension field for ``url``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="Context the content is intended to support",
@@ -476,9 +480,9 @@ class MessageDefinitionAllowedResponse(backboneelement.BackboneElement):
     response to this message.
     """
 
-    resource_type = Field("MessageDefinitionAllowedResponse", const=True)
+    resource_type: str = Field("MessageDefinitionAllowedResponse", const=True)
 
-    message: fhirtypes.ReferenceType = Field(
+    message: Reference = Field(
         ...,
         alias="message",
         title="Reference to allowed message definition response",
@@ -527,7 +531,7 @@ class MessageDefinitionFocus(backboneelement.BackboneElement):
     records for a merge.
     """
 
-    resource_type = Field("MessageDefinitionFocus", const=True)
+    resource_type: str = Field("MessageDefinitionFocus", const=True)
 
     code: fhirtypes.Code = Field(
         None,
@@ -574,7 +578,7 @@ class MessageDefinitionFocus(backboneelement.BackboneElement):
         None, alias="_min", title="Extension field for ``min``."
     )
 
-    profile: fhirtypes.ReferenceType = Field(
+    profile: Reference = Field(
         None,
         alias="profile",
         title="Profile that must be adhered to by focus",
@@ -654,3 +658,6 @@ class MessageDefinitionFocus(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+MessageDefinition.update_forward_refs()

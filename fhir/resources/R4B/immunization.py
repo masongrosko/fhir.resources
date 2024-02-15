@@ -13,6 +13,11 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .quantity import Quantity
+from .reference import Reference
 
 
 class Immunization(domainresource.DomainResource):
@@ -25,9 +30,9 @@ class Immunization(domainresource.DomainResource):
     of an immunization as reported by a patient, a clinician or another party.
     """
 
-    resource_type = Field("Immunization", const=True)
+    resource_type: str = Field("Immunization", const=True)
 
-    doseQuantity: fhirtypes.QuantityType = Field(
+    doseQuantity: Quantity = Field(
         None,
         alias="doseQuantity",
         title="Amount of vaccine administered",
@@ -36,7 +41,7 @@ class Immunization(domainresource.DomainResource):
         element_property=True,
     )
 
-    education: typing.List[fhirtypes.ImmunizationEducationType] = Field(
+    education: typing.List["ImmunizationEducation"] = Field(
         None,
         alias="education",
         title="Educational material presented to patient",
@@ -48,7 +53,7 @@ class Immunization(domainresource.DomainResource):
         element_property=True,
     )
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title="Encounter immunization was part of",
@@ -74,7 +79,7 @@ class Immunization(domainresource.DomainResource):
         None, alias="_expirationDate", title="Extension field for ``expirationDate``."
     )
 
-    fundingSource: fhirtypes.CodeableConceptType = Field(
+    fundingSource: CodeableConcept = Field(
         None,
         alias="fundingSource",
         title="Funding source for the vaccine",
@@ -89,7 +94,7 @@ class Immunization(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business identifier",
@@ -113,7 +118,7 @@ class Immunization(domainresource.DomainResource):
         None, alias="_isSubpotent", title="Extension field for ``isSubpotent``."
     )
 
-    location: fhirtypes.ReferenceType = Field(
+    location: Reference = Field(
         None,
         alias="location",
         title="Where immunization occurred",
@@ -139,7 +144,7 @@ class Immunization(domainresource.DomainResource):
         None, alias="_lotNumber", title="Extension field for ``lotNumber``."
     )
 
-    manufacturer: fhirtypes.ReferenceType = Field(
+    manufacturer: Reference = Field(
         None,
         alias="manufacturer",
         title="Vaccine manufacturer",
@@ -150,7 +155,7 @@ class Immunization(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Additional immunization notes",
@@ -196,7 +201,7 @@ class Immunization(domainresource.DomainResource):
         title="Extension field for ``occurrenceString``.",
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         ...,
         alias="patient",
         title="Who was immunized",
@@ -207,7 +212,7 @@ class Immunization(domainresource.DomainResource):
         enum_reference_types=["Patient"],
     )
 
-    performer: typing.List[fhirtypes.ImmunizationPerformerType] = Field(
+    performer: typing.List["ImmunizationPerformer"] = Field(
         None,
         alias="performer",
         title="Who performed event",
@@ -232,7 +237,7 @@ class Immunization(domainresource.DomainResource):
         None, alias="_primarySource", title="Extension field for ``primarySource``."
     )
 
-    programEligibility: typing.List[fhirtypes.CodeableConceptType] = Field(
+    programEligibility: typing.List[CodeableConcept] = Field(
         None,
         alias="programEligibility",
         title="Patient eligibility for a vaccination program",
@@ -241,7 +246,7 @@ class Immunization(domainresource.DomainResource):
         element_property=True,
     )
 
-    protocolApplied: typing.List[fhirtypes.ImmunizationProtocolAppliedType] = Field(
+    protocolApplied: typing.List["ImmunizationProtocolApplied"] = Field(
         None,
         alias="protocolApplied",
         title="Protocol followed by the provider",
@@ -253,7 +258,7 @@ class Immunization(domainresource.DomainResource):
         element_property=True,
     )
 
-    reaction: typing.List[fhirtypes.ImmunizationReactionType] = Field(
+    reaction: typing.List["ImmunizationReaction"] = Field(
         None,
         alias="reaction",
         title="Details of a reaction that follows immunization",
@@ -265,7 +270,7 @@ class Immunization(domainresource.DomainResource):
         element_property=True,
     )
 
-    reasonCode: typing.List[fhirtypes.CodeableConceptType] = Field(
+    reasonCode: typing.List[CodeableConcept] = Field(
         None,
         alias="reasonCode",
         title="Why immunization occurred",
@@ -274,7 +279,7 @@ class Immunization(domainresource.DomainResource):
         element_property=True,
     )
 
-    reasonReference: typing.List[fhirtypes.ReferenceType] = Field(
+    reasonReference: typing.List[Reference] = Field(
         None,
         alias="reasonReference",
         title="Why immunization occurred",
@@ -303,7 +308,7 @@ class Immunization(domainresource.DomainResource):
         None, alias="_recorded", title="Extension field for ``recorded``."
     )
 
-    reportOrigin: fhirtypes.CodeableConceptType = Field(
+    reportOrigin: CodeableConcept = Field(
         None,
         alias="reportOrigin",
         title="Indicates the source of a secondarily reported record",
@@ -315,7 +320,7 @@ class Immunization(domainresource.DomainResource):
         element_property=True,
     )
 
-    route: fhirtypes.CodeableConceptType = Field(
+    route: CodeableConcept = Field(
         None,
         alias="route",
         title="How vaccine entered body",
@@ -324,7 +329,7 @@ class Immunization(domainresource.DomainResource):
         element_property=True,
     )
 
-    site: fhirtypes.CodeableConceptType = Field(
+    site: CodeableConcept = Field(
         None,
         alias="site",
         title="Body site vaccine  was administered",
@@ -349,7 +354,7 @@ class Immunization(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    statusReason: fhirtypes.CodeableConceptType = Field(
+    statusReason: CodeableConcept = Field(
         None,
         alias="statusReason",
         title="Reason not done",
@@ -358,7 +363,7 @@ class Immunization(domainresource.DomainResource):
         element_property=True,
     )
 
-    subpotentReason: typing.List[fhirtypes.CodeableConceptType] = Field(
+    subpotentReason: typing.List[CodeableConcept] = Field(
         None,
         alias="subpotentReason",
         title="Reason for being subpotent",
@@ -367,7 +372,7 @@ class Immunization(domainresource.DomainResource):
         element_property=True,
     )
 
-    vaccineCode: fhirtypes.CodeableConceptType = Field(
+    vaccineCode: CodeableConcept = Field(
         ...,
         alias="vaccineCode",
         title="Vaccine product administered",
@@ -530,7 +535,7 @@ class ImmunizationEducation(backboneelement.BackboneElement):
     vaccine administration.
     """
 
-    resource_type = Field("ImmunizationEducation", const=True)
+    resource_type: str = Field("ImmunizationEducation", const=True)
 
     documentType: fhirtypes.String = Field(
         None,
@@ -611,9 +616,9 @@ class ImmunizationPerformer(backboneelement.BackboneElement):
     Indicates who performed the immunization event.
     """
 
-    resource_type = Field("ImmunizationPerformer", const=True)
+    resource_type: str = Field("ImmunizationPerformer", const=True)
 
-    actor: fhirtypes.ReferenceType = Field(
+    actor: Reference = Field(
         ...,
         alias="actor",
         title="Individual or organization who was performing",
@@ -624,7 +629,7 @@ class ImmunizationPerformer(backboneelement.BackboneElement):
         enum_reference_types=["Practitioner", "PractitionerRole", "Organization"],
     )
 
-    function: fhirtypes.CodeableConceptType = Field(
+    function: CodeableConcept = Field(
         None,
         alias="function",
         title="What type of performance was done",
@@ -655,9 +660,9 @@ class ImmunizationProtocolApplied(backboneelement.BackboneElement):
     administered the dose.
     """
 
-    resource_type = Field("ImmunizationProtocolApplied", const=True)
+    resource_type: str = Field("ImmunizationProtocolApplied", const=True)
 
-    authority: fhirtypes.ReferenceType = Field(
+    authority: Reference = Field(
         None,
         alias="authority",
         title="Who is responsible for publishing the recommendations",
@@ -754,7 +759,7 @@ class ImmunizationProtocolApplied(backboneelement.BackboneElement):
         title="Extension field for ``seriesDosesString``.",
     )
 
-    targetDisease: typing.List[fhirtypes.CodeableConceptType] = Field(
+    targetDisease: typing.List[CodeableConcept] = Field(
         None,
         alias="targetDisease",
         title="Vaccine preventatable disease being targetted",
@@ -836,7 +841,7 @@ class ImmunizationReaction(backboneelement.BackboneElement):
     an immunization.
     """
 
-    resource_type = Field("ImmunizationReaction", const=True)
+    resource_type: str = Field("ImmunizationReaction", const=True)
 
     date: fhirtypes.DateTime = Field(
         None,
@@ -850,7 +855,7 @@ class ImmunizationReaction(backboneelement.BackboneElement):
         None, alias="_date", title="Extension field for ``date``."
     )
 
-    detail: fhirtypes.ReferenceType = Field(
+    detail: Reference = Field(
         None,
         alias="detail",
         title="Additional information on reaction",
@@ -880,3 +885,6 @@ class ImmunizationReaction(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "date", "detail", "reported"]
+
+
+Immunization.update_forward_refs()

@@ -12,6 +12,7 @@ from pydantic.v1 import Field
 from . import fhirtypes
 from .backboneelement import BackboneElement
 from .resource import Resource
+from .signature import Signature
 
 
 class Bundle(Resource):
@@ -20,23 +21,23 @@ class Bundle(Resource):
     A container for a collection of resources.
     """
 
-    resource_type = Field("Bundle", const=True)
+    resource_type: str = Field("Bundle", const=True)
 
-    entry: ListType[fhirtypes.BundleEntryType] = Field(
+    entry: ListType["BundleEntry"] = Field(
         None,
         alias="entry",
         title="List of `BundleEntry` items (represented as `dict` in JSON)",
         description="Entry in the bundle - will have a resource, or information",
     )
 
-    link: ListType[fhirtypes.BundleLinkType] = Field(
+    link: ListType["BundleLink"] = Field(
         None,
         alias="link",
         title="List of `BundleLink` items (represented as `dict` in JSON)",
         description="Links related to this Bundle",
     )
 
-    signature: fhirtypes.SignatureType = Field(
+    signature: Signature = Field(
         None,
         alias="signature",
         title="Type `Signature` (represented as `dict` in JSON)",
@@ -68,7 +69,7 @@ class BundleEntry(BackboneElement):
     information about a resource (transactions and history only).
     """
 
-    resource_type = Field("BundleEntry", const=True)
+    resource_type: str = Field("BundleEntry", const=True)
 
     fullUrl: fhirtypes.Uri = Field(
         None,
@@ -77,35 +78,35 @@ class BundleEntry(BackboneElement):
         description="Absolute URL for resource (server address, or UUID/OID)",
     )
 
-    link: ListType[fhirtypes.BundleLinkType] = Field(
+    link: ListType["BundleLink"] = Field(
         None,
         alias="link",
         title="List of `BundleLink` items (represented as `dict` in JSON)",
         description="Links related to this entry",
     )
 
-    request: fhirtypes.BundleEntryRequestType = Field(
+    request: "BundleEntryRequest" = Field(
         None,
         alias="request",
         title="Type `BundleEntryRequest` (represented as `dict` in JSON)",
         description="Transaction Related Information",
     )
 
-    resource: fhirtypes.ResourceType = Field(
+    resource: Resource = Field(
         None,
         alias="resource",
         title="Type `Resource` (represented as `dict` in JSON)",
         description="A resource in the bundle",
     )
 
-    response: fhirtypes.BundleEntryResponseType = Field(
+    response: "BundleEntryResponse" = Field(
         None,
         alias="response",
         title="Type `BundleEntryResponse` (represented as `dict` in JSON)",
         description="Transaction Related Information",
     )
 
-    search: fhirtypes.BundleEntrySearchType = Field(
+    search: "BundleEntrySearch" = Field(
         None,
         alias="search",
         title="Type `BundleEntrySearch` (represented as `dict` in JSON)",
@@ -120,7 +121,7 @@ class BundleEntryRequest(BackboneElement):
     a transaction.
     """
 
-    resource_type = Field("BundleEntryRequest", const=True)
+    resource_type: str = Field("BundleEntryRequest", const=True)
 
     ifMatch: fhirtypes.String = Field(
         None,
@@ -172,7 +173,7 @@ class BundleEntryResponse(BackboneElement):
     a transaction.
     """
 
-    resource_type = Field("BundleEntryResponse", const=True)
+    resource_type: str = Field("BundleEntryResponse", const=True)
 
     etag: fhirtypes.String = Field(
         None,
@@ -210,7 +211,7 @@ class BundleEntrySearch(BackboneElement):
     entry.
     """
 
-    resource_type = Field("BundleEntrySearch", const=True)
+    resource_type: str = Field("BundleEntrySearch", const=True)
 
     mode: fhirtypes.Code = Field(
         None,
@@ -233,7 +234,7 @@ class BundleLink(BackboneElement):
     A series of links that provide context to this bundle.
     """
 
-    resource_type = Field("BundleLink", const=True)
+    resource_type: str = Field("BundleLink", const=True)
 
     relation: fhirtypes.String = Field(
         ...,
@@ -251,3 +252,7 @@ class BundleLink(BackboneElement):
         title="Type `Uri` (represented as `dict` in JSON)",
         description="Reference details for the link",
     )
+
+
+Bundle.update_forward_refs()
+BundleEntry.update_forward_refs()

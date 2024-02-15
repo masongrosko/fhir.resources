@@ -13,6 +13,7 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
 
 
 class OperationOutcome(domainresource.DomainResource):
@@ -25,9 +26,9 @@ class OperationOutcome(domainresource.DomainResource):
     system action.
     """
 
-    resource_type = Field("OperationOutcome", const=True)
+    resource_type: str = Field("OperationOutcome", const=True)
 
-    issue: typing.List[fhirtypes.OperationOutcomeIssueType] = Field(
+    issue: typing.List["OperationOutcomeIssue"] = Field(
         ...,
         alias="issue",
         title="A single issue associated with the action",
@@ -67,7 +68,7 @@ class OperationOutcomeIssue(backboneelement.BackboneElement):
     An error, warning or information message that results from a system action.
     """
 
-    resource_type = Field("OperationOutcomeIssue", const=True)
+    resource_type: str = Field("OperationOutcomeIssue", const=True)
 
     code: fhirtypes.Code = Field(
         None,
@@ -87,7 +88,7 @@ class OperationOutcomeIssue(backboneelement.BackboneElement):
         None, alias="_code", title="Extension field for ``code``."
     )
 
-    details: fhirtypes.CodeableConceptType = Field(
+    details: CodeableConcept = Field(
         None,
         alias="details",
         title="Additional details about the error",
@@ -243,3 +244,6 @@ class OperationOutcomeIssue(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+OperationOutcome.update_forward_refs()

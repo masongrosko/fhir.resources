@@ -13,6 +13,21 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .contactdetail import ContactDetail
+from .contributor import Contributor
+from .datarequirement import DataRequirement
+from .duration import Duration
+from .identifier import Identifier
+from .period import Period
+from .quantity import Quantity
+from .range import Range
+from .reference import Reference
+from .relatedartifact import RelatedArtifact
+from .timing import Timing
+from .triggerdefinition import TriggerDefinition
+from .usagecontext import UsageContext
 
 
 class PlanDefinition(domainresource.DomainResource):
@@ -28,9 +43,9 @@ class PlanDefinition(domainresource.DomainResource):
     such as clinical decision support rules, order sets and protocols.
     """
 
-    resource_type = Field("PlanDefinition", const=True)
+    resource_type: str = Field("PlanDefinition", const=True)
 
-    action: typing.List[fhirtypes.PlanDefinitionActionType] = Field(
+    action: typing.List["PlanDefinitionAction"] = Field(
         None,
         alias="action",
         title="Action defined by the plan",
@@ -55,7 +70,7 @@ class PlanDefinition(domainresource.DomainResource):
         None, alias="_approvalDate", title="Extension field for ``approvalDate``."
     )
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -67,7 +82,7 @@ class PlanDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    contributor: typing.List[fhirtypes.ContributorType] = Field(
+    contributor: typing.List[Contributor] = Field(
         None,
         alias="contributor",
         title="A content contributor",
@@ -128,7 +143,7 @@ class PlanDefinition(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    effectivePeriod: fhirtypes.PeriodType = Field(
+    effectivePeriod: Period = Field(
         None,
         alias="effectivePeriod",
         title="When the plan definition is expected to be used",
@@ -156,7 +171,7 @@ class PlanDefinition(domainresource.DomainResource):
         None, alias="_experimental", title="Extension field for ``experimental``."
     )
 
-    goal: typing.List[fhirtypes.PlanDefinitionGoalType] = Field(
+    goal: typing.List["PlanDefinitionGoal"] = Field(
         None,
         alias="goal",
         title="What the plan is trying to accomplish",
@@ -170,7 +185,7 @@ class PlanDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Additional identifier for the plan definition",
@@ -183,7 +198,7 @@ class PlanDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction for plan definition (if applicable)",
@@ -211,7 +226,7 @@ class PlanDefinition(domainresource.DomainResource):
         None, alias="_lastReviewDate", title="Extension field for ``lastReviewDate``."
     )
 
-    library: typing.List[fhirtypes.ReferenceType] = Field(
+    library: typing.List[Reference] = Field(
         None,
         alias="library",
         title="Logic used by the plan definition",
@@ -271,7 +286,7 @@ class PlanDefinition(domainresource.DomainResource):
         None, alias="_purpose", title="Extension field for ``purpose``."
     )
 
-    relatedArtifact: typing.List[fhirtypes.RelatedArtifactType] = Field(
+    relatedArtifact: typing.List[RelatedArtifact] = Field(
         None,
         alias="relatedArtifact",
         title="Related artifacts for the asset",
@@ -314,7 +329,7 @@ class PlanDefinition(domainresource.DomainResource):
         None, alias="_title", title="Extension field for ``title``."
     )
 
-    topic: typing.List[fhirtypes.CodeableConceptType] = Field(
+    topic: typing.List[CodeableConcept] = Field(
         None,
         alias="topic",
         title="E.g. Education, Treatment, Assessment, etc",
@@ -327,7 +342,7 @@ class PlanDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="order-set | protocol | eca-rule",
@@ -373,7 +388,7 @@ class PlanDefinition(domainresource.DomainResource):
         None, alias="_usage", title="Extension field for ``usage``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="Context the content is intended to support",
@@ -523,9 +538,9 @@ class PlanDefinitionAction(backboneelement.BackboneElement):
     An action to be taken as part of the plan.
     """
 
-    resource_type = Field("PlanDefinitionAction", const=True)
+    resource_type: str = Field("PlanDefinitionAction", const=True)
 
-    action: typing.List[fhirtypes.PlanDefinitionActionType] = Field(
+    action: typing.List["PlanDefinitionAction"] = Field(
         None,
         alias="action",
         title="A sub-action",
@@ -556,7 +571,7 @@ class PlanDefinitionAction(backboneelement.BackboneElement):
         title="Extension field for ``cardinalityBehavior``.",
     )
 
-    code: typing.List[fhirtypes.CodeableConceptType] = Field(
+    code: typing.List[CodeableConcept] = Field(
         None,
         alias="code",
         title="Code representing the meaning of the action or sub-actions",
@@ -569,7 +584,7 @@ class PlanDefinitionAction(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    condition: typing.List[fhirtypes.PlanDefinitionActionConditionType] = Field(
+    condition: typing.List["PlanDefinitionActionCondition"] = Field(
         None,
         alias="condition",
         title="Whether or not the action is applicable",
@@ -581,7 +596,7 @@ class PlanDefinitionAction(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    definition: fhirtypes.ReferenceType = Field(
+    definition: Reference = Field(
         None,
         alias="definition",
         title="Description of the activity to be performed",
@@ -611,7 +626,7 @@ class PlanDefinitionAction(backboneelement.BackboneElement):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    documentation: typing.List[fhirtypes.RelatedArtifactType] = Field(
+    documentation: typing.List[RelatedArtifact] = Field(
         None,
         alias="documentation",
         title="Supporting documentation for the intended performer of the action",
@@ -624,7 +639,7 @@ class PlanDefinitionAction(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    dynamicValue: typing.List[fhirtypes.PlanDefinitionActionDynamicValueType] = Field(
+    dynamicValue: typing.List["PlanDefinitionActionDynamicValue"] = Field(
         None,
         alias="dynamicValue",
         title="Dynamic aspects of the definition",
@@ -671,7 +686,7 @@ class PlanDefinitionAction(backboneelement.BackboneElement):
         title="Extension field for ``groupingBehavior``.",
     )
 
-    input: typing.List[fhirtypes.DataRequirementType] = Field(
+    input: typing.List[DataRequirement] = Field(
         None,
         alias="input",
         title="Input data requirements",
@@ -692,7 +707,7 @@ class PlanDefinitionAction(backboneelement.BackboneElement):
         None, alias="_label", title="Extension field for ``label``."
     )
 
-    output: typing.List[fhirtypes.DataRequirementType] = Field(
+    output: typing.List[DataRequirement] = Field(
         None,
         alias="output",
         title="Output data definition",
@@ -701,7 +716,7 @@ class PlanDefinitionAction(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    participant: typing.List[fhirtypes.PlanDefinitionActionParticipantType] = Field(
+    participant: typing.List["PlanDefinitionActionParticipant"] = Field(
         None,
         alias="participant",
         title="Who should participate in the action",
@@ -727,7 +742,7 @@ class PlanDefinitionAction(backboneelement.BackboneElement):
         title="Extension field for ``precheckBehavior``.",
     )
 
-    reason: typing.List[fhirtypes.CodeableConceptType] = Field(
+    reason: typing.List[CodeableConcept] = Field(
         None,
         alias="reason",
         title="Why the action should be performed",
@@ -736,7 +751,7 @@ class PlanDefinitionAction(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    relatedAction: typing.List[fhirtypes.PlanDefinitionActionRelatedActionType] = Field(
+    relatedAction: typing.List["PlanDefinitionActionRelatedAction"] = Field(
         None,
         alias="relatedAction",
         title="Relationship to another action",
@@ -824,7 +839,7 @@ class PlanDefinitionAction(backboneelement.BackboneElement):
         None, alias="_timingDateTime", title="Extension field for ``timingDateTime``."
     )
 
-    timingDuration: fhirtypes.DurationType = Field(
+    timingDuration: Duration = Field(
         None,
         alias="timingDuration",
         title="When the action should take place",
@@ -836,7 +851,7 @@ class PlanDefinitionAction(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    timingPeriod: fhirtypes.PeriodType = Field(
+    timingPeriod: Period = Field(
         None,
         alias="timingPeriod",
         title="When the action should take place",
@@ -848,7 +863,7 @@ class PlanDefinitionAction(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    timingRange: fhirtypes.RangeType = Field(
+    timingRange: Range = Field(
         None,
         alias="timingRange",
         title="When the action should take place",
@@ -860,7 +875,7 @@ class PlanDefinitionAction(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    timingTiming: fhirtypes.TimingType = Field(
+    timingTiming: Timing = Field(
         None,
         alias="timingTiming",
         title="When the action should take place",
@@ -884,7 +899,7 @@ class PlanDefinitionAction(backboneelement.BackboneElement):
         None, alias="_title", title="Extension field for ``title``."
     )
 
-    transform: fhirtypes.ReferenceType = Field(
+    transform: Reference = Field(
         None,
         alias="transform",
         title="Transform to apply the template",
@@ -899,7 +914,7 @@ class PlanDefinitionAction(backboneelement.BackboneElement):
         enum_reference_types=["StructureMap"],
     )
 
-    triggerDefinition: typing.List[fhirtypes.TriggerDefinitionType] = Field(
+    triggerDefinition: typing.List[TriggerDefinition] = Field(
         None,
         alias="triggerDefinition",
         title="When the action should be triggered",
@@ -908,7 +923,7 @@ class PlanDefinitionAction(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    type: fhirtypes.CodingType = Field(
+    type: Coding = Field(
         None,
         alias="type",
         title="create | update | remove | fire-event",
@@ -1015,7 +1030,7 @@ class PlanDefinitionActionCondition(backboneelement.BackboneElement):
     conditions for the action.
     """
 
-    resource_type = Field("PlanDefinitionActionCondition", const=True)
+    resource_type: str = Field("PlanDefinitionActionCondition", const=True)
 
     description: fhirtypes.String = Field(
         None,
@@ -1164,7 +1179,7 @@ class PlanDefinitionActionDynamicValue(backboneelement.BackboneElement):
     the result.
     """
 
-    resource_type = Field("PlanDefinitionActionDynamicValue", const=True)
+    resource_type: str = Field("PlanDefinitionActionDynamicValue", const=True)
 
     description: fhirtypes.String = Field(
         None,
@@ -1247,9 +1262,9 @@ class PlanDefinitionActionParticipant(backboneelement.BackboneElement):
     Indicates who should participate in performing the action described.
     """
 
-    resource_type = Field("PlanDefinitionActionParticipant", const=True)
+    resource_type: str = Field("PlanDefinitionActionParticipant", const=True)
 
-    role: fhirtypes.CodeableConceptType = Field(
+    role: CodeableConcept = Field(
         None,
         alias="role",
         title="E.g. Nurse, Surgeon, Parent, etc",
@@ -1355,7 +1370,7 @@ class PlanDefinitionActionRelatedAction(backboneelement.BackboneElement):
     start of".
     """
 
-    resource_type = Field("PlanDefinitionActionRelatedAction", const=True)
+    resource_type: str = Field("PlanDefinitionActionRelatedAction", const=True)
 
     actionId: fhirtypes.Id = Field(
         None,
@@ -1370,7 +1385,7 @@ class PlanDefinitionActionRelatedAction(backboneelement.BackboneElement):
         None, alias="_actionId", title="Extension field for ``actionId``."
     )
 
-    offsetDuration: fhirtypes.DurationType = Field(
+    offsetDuration: Duration = Field(
         None,
         alias="offsetDuration",
         title="Time offset for the relationship",
@@ -1385,7 +1400,7 @@ class PlanDefinitionActionRelatedAction(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    offsetRange: fhirtypes.RangeType = Field(
+    offsetRange: Range = Field(
         None,
         alias="offsetRange",
         title="Time offset for the relationship",
@@ -1558,9 +1573,9 @@ class PlanDefinitionGoal(backboneelement.BackboneElement):
     objective, etc.
     """
 
-    resource_type = Field("PlanDefinitionGoal", const=True)
+    resource_type: str = Field("PlanDefinitionGoal", const=True)
 
-    addresses: typing.List[fhirtypes.CodeableConceptType] = Field(
+    addresses: typing.List[CodeableConcept] = Field(
         None,
         alias="addresses",
         title="What does the goal address",
@@ -1572,7 +1587,7 @@ class PlanDefinitionGoal(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    category: fhirtypes.CodeableConceptType = Field(
+    category: CodeableConcept = Field(
         None,
         alias="category",
         title="E.g. Treatment, dietary, behavioral, etc",
@@ -1581,7 +1596,7 @@ class PlanDefinitionGoal(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    description: fhirtypes.CodeableConceptType = Field(
+    description: CodeableConcept = Field(
         ...,
         alias="description",
         title="Code or text describing the goal",
@@ -1594,7 +1609,7 @@ class PlanDefinitionGoal(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    documentation: typing.List[fhirtypes.RelatedArtifactType] = Field(
+    documentation: typing.List[RelatedArtifact] = Field(
         None,
         alias="documentation",
         title="Supporting documentation for the goal",
@@ -1608,7 +1623,7 @@ class PlanDefinitionGoal(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    priority: fhirtypes.CodeableConceptType = Field(
+    priority: CodeableConcept = Field(
         None,
         alias="priority",
         title="high-priority | medium-priority | low-priority",
@@ -1620,7 +1635,7 @@ class PlanDefinitionGoal(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    start: fhirtypes.CodeableConceptType = Field(
+    start: CodeableConcept = Field(
         None,
         alias="start",
         title="When goal pursuit begins",
@@ -1629,7 +1644,7 @@ class PlanDefinitionGoal(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    target: typing.List[fhirtypes.PlanDefinitionGoalTargetType] = Field(
+    target: typing.List["PlanDefinitionGoalTarget"] = Field(
         None,
         alias="target",
         title="Target outcome for the goal",
@@ -1667,9 +1682,9 @@ class PlanDefinitionGoalTarget(backboneelement.BackboneElement):
     Indicates what should be done and within what timeframe.
     """
 
-    resource_type = Field("PlanDefinitionGoalTarget", const=True)
+    resource_type: str = Field("PlanDefinitionGoalTarget", const=True)
 
-    detailCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    detailCodeableConcept: CodeableConcept = Field(
         None,
         alias="detailCodeableConcept",
         title="The target value to be achieved",
@@ -1688,7 +1703,7 @@ class PlanDefinitionGoalTarget(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    detailQuantity: fhirtypes.QuantityType = Field(
+    detailQuantity: Quantity = Field(
         None,
         alias="detailQuantity",
         title="The target value to be achieved",
@@ -1707,7 +1722,7 @@ class PlanDefinitionGoalTarget(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    detailRange: fhirtypes.RangeType = Field(
+    detailRange: Range = Field(
         None,
         alias="detailRange",
         title="The target value to be achieved",
@@ -1726,7 +1741,7 @@ class PlanDefinitionGoalTarget(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    due: fhirtypes.DurationType = Field(
+    due: Duration = Field(
         None,
         alias="due",
         title="Reach goal within",
@@ -1738,7 +1753,7 @@ class PlanDefinitionGoalTarget(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    measure: fhirtypes.CodeableConceptType = Field(
+    measure: CodeableConcept = Field(
         None,
         alias="measure",
         title="The parameter whose value is to be tracked",
@@ -1806,3 +1821,8 @@ class PlanDefinitionGoalTarget(backboneelement.BackboneElement):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+PlanDefinition.update_forward_refs()
+PlanDefinitionAction.update_forward_refs()
+PlanDefinitionGoal.update_forward_refs()

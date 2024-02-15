@@ -11,6 +11,9 @@ import typing
 from pydantic.v1 import Field
 
 from . import domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .reference import Reference
 
 
 class Basic(domainresource.DomainResource):
@@ -24,9 +27,9 @@ class Basic(domainresource.DomainResource):
     appropriate for inclusion in the FHIR specification.
     """
 
-    resource_type = Field("Basic", const=True)
+    resource_type: str = Field("Basic", const=True)
 
-    author: fhirtypes.ReferenceType = Field(
+    author: Reference = Field(
         None,
         alias="author",
         title="Who created",
@@ -37,7 +40,7 @@ class Basic(domainresource.DomainResource):
         enum_reference_types=["Practitioner", "Patient", "RelatedPerson"],
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         ...,
         alias="code",
         title="Kind of Resource",
@@ -61,7 +64,7 @@ class Basic(domainresource.DomainResource):
         None, alias="_created", title="Extension field for ``created``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business identifier",
@@ -73,7 +76,7 @@ class Basic(domainresource.DomainResource):
         element_property=True,
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title="Identifies the focus of this resource",

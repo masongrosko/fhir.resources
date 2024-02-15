@@ -13,6 +13,10 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class ResearchSubject(domainresource.DomainResource):
@@ -26,7 +30,7 @@ class ResearchSubject(domainresource.DomainResource):
     investigative activities in a research study.
     """
 
-    resource_type = Field("ResearchSubject", const=True)
+    resource_type: str = Field("ResearchSubject", const=True)
 
     actualComparisonGroup: fhirtypes.Id = Field(
         None,
@@ -62,7 +66,7 @@ class ResearchSubject(domainresource.DomainResource):
         title="Extension field for ``assignedComparisonGroup``.",
     )
 
-    consent: typing.List[fhirtypes.ReferenceType] = Field(
+    consent: typing.List[Reference] = Field(
         None,
         alias="consent",
         title="Agreement to participate in study",
@@ -76,7 +80,7 @@ class ResearchSubject(domainresource.DomainResource):
         enum_reference_types=["Consent"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business Identifier for research subject in a study",
@@ -85,7 +89,7 @@ class ResearchSubject(domainresource.DomainResource):
         element_property=True,
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Start and end of participation",
@@ -96,7 +100,7 @@ class ResearchSubject(domainresource.DomainResource):
         element_property=True,
     )
 
-    progress: typing.List[fhirtypes.ResearchSubjectProgressType] = Field(
+    progress: typing.List["ResearchSubjectProgress"] = Field(
         None,
         alias="progress",
         title="Subject status",
@@ -124,7 +128,7 @@ class ResearchSubject(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    study: fhirtypes.ReferenceType = Field(
+    study: Reference = Field(
         ...,
         alias="study",
         title="Study subject is part of",
@@ -135,7 +139,7 @@ class ResearchSubject(domainresource.DomainResource):
         enum_reference_types=["ResearchStudy"],
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         ...,
         alias="subject",
         title="Who or what is part of study",
@@ -252,7 +256,7 @@ class ResearchSubjectProgress(backboneelement.BackboneElement):
     where appropriate.
     """
 
-    resource_type = Field("ResearchSubjectProgress", const=True)
+    resource_type: str = Field("ResearchSubjectProgress", const=True)
 
     endDate: fhirtypes.DateTime = Field(
         None,
@@ -266,7 +270,7 @@ class ResearchSubjectProgress(backboneelement.BackboneElement):
         None, alias="_endDate", title="Extension field for ``endDate``."
     )
 
-    milestone: fhirtypes.CodeableConceptType = Field(
+    milestone: CodeableConcept = Field(
         None,
         alias="milestone",
         title="SignedUp | Screened | Randomized",
@@ -275,7 +279,7 @@ class ResearchSubjectProgress(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    reason: fhirtypes.CodeableConceptType = Field(
+    reason: CodeableConcept = Field(
         None,
         alias="reason",
         title="State change reason",
@@ -299,7 +303,7 @@ class ResearchSubjectProgress(backboneelement.BackboneElement):
         None, alias="_startDate", title="Extension field for ``startDate``."
     )
 
-    subjectState: fhirtypes.CodeableConceptType = Field(
+    subjectState: CodeableConcept = Field(
         None,
         alias="subjectState",
         title=(
@@ -312,7 +316,7 @@ class ResearchSubjectProgress(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="state | milestone",
@@ -341,3 +345,6 @@ class ResearchSubjectProgress(backboneelement.BackboneElement):
             "startDate",
             "endDate",
         ]
+
+
+ResearchSubject.update_forward_refs()

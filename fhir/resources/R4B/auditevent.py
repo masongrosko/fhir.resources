@@ -13,6 +13,10 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .period import Period
+from .reference import Reference
 
 
 class AuditEvent(domainresource.DomainResource):
@@ -26,7 +30,7 @@ class AuditEvent(domainresource.DomainResource):
     inappropriate usage.
     """
 
-    resource_type = Field("AuditEvent", const=True)
+    resource_type: str = Field("AuditEvent", const=True)
 
     action: fhirtypes.Code = Field(
         None,
@@ -43,7 +47,7 @@ class AuditEvent(domainresource.DomainResource):
         None, alias="_action", title="Extension field for ``action``."
     )
 
-    agent: typing.List[fhirtypes.AuditEventAgentType] = Field(
+    agent: typing.List["AuditEventAgent"] = Field(
         ...,
         alias="agent",
         title="Actor involved in the event",
@@ -54,7 +58,7 @@ class AuditEvent(domainresource.DomainResource):
         element_property=True,
     )
 
-    entity: typing.List[fhirtypes.AuditEventEntityType] = Field(
+    entity: typing.List["AuditEventEntity"] = Field(
         None,
         alias="entity",
         title="Data or objects used",
@@ -87,7 +91,7 @@ class AuditEvent(domainresource.DomainResource):
         None, alias="_outcomeDesc", title="Extension field for ``outcomeDesc``."
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="When the activity occurred",
@@ -96,7 +100,7 @@ class AuditEvent(domainresource.DomainResource):
         element_property=True,
     )
 
-    purposeOfEvent: typing.List[fhirtypes.CodeableConceptType] = Field(
+    purposeOfEvent: typing.List[CodeableConcept] = Field(
         None,
         alias="purposeOfEvent",
         title="The purposeOfUse of the event",
@@ -121,7 +125,7 @@ class AuditEvent(domainresource.DomainResource):
         None, alias="_recorded", title="Extension field for ``recorded``."
     )
 
-    source: fhirtypes.AuditEventSourceType = Field(
+    source: "AuditEventSource" = Field(
         ...,
         alias="source",
         title="Audit Event Reporter",
@@ -130,7 +134,7 @@ class AuditEvent(domainresource.DomainResource):
         element_property=True,
     )
 
-    subtype: typing.List[fhirtypes.CodingType] = Field(
+    subtype: typing.List[Coding] = Field(
         None,
         alias="subtype",
         title="More specific type/id for the event",
@@ -139,7 +143,7 @@ class AuditEvent(domainresource.DomainResource):
         element_property=True,
     )
 
-    type: fhirtypes.CodingType = Field(
+    type: Coding = Field(
         ...,
         alias="type",
         title="Type/identifier of event",
@@ -249,7 +253,7 @@ class AuditEventAgent(backboneelement.BackboneElement):
     An actor taking an active role in the event or activity that is logged.
     """
 
-    resource_type = Field("AuditEventAgent", const=True)
+    resource_type: str = Field("AuditEventAgent", const=True)
 
     altId: fhirtypes.String = Field(
         None,
@@ -268,7 +272,7 @@ class AuditEventAgent(backboneelement.BackboneElement):
         None, alias="_altId", title="Extension field for ``altId``."
     )
 
-    location: fhirtypes.ReferenceType = Field(
+    location: Reference = Field(
         None,
         alias="location",
         title="Where",
@@ -279,7 +283,7 @@ class AuditEventAgent(backboneelement.BackboneElement):
         enum_reference_types=["Location"],
     )
 
-    media: fhirtypes.CodingType = Field(
+    media: Coding = Field(
         None,
         alias="media",
         title="Type of media",
@@ -303,7 +307,7 @@ class AuditEventAgent(backboneelement.BackboneElement):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    network: fhirtypes.AuditEventAgentNetworkType = Field(
+    network: "AuditEventAgentNetwork" = Field(
         None,
         alias="network",
         title="Logical network location for application activity",
@@ -332,7 +336,7 @@ class AuditEventAgent(backboneelement.BackboneElement):
         typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
     ] = Field(None, alias="_policy", title="Extension field for ``policy``.")
 
-    purposeOfUse: typing.List[fhirtypes.CodeableConceptType] = Field(
+    purposeOfUse: typing.List[CodeableConcept] = Field(
         None,
         alias="purposeOfUse",
         title="Reason given for this user",
@@ -360,7 +364,7 @@ class AuditEventAgent(backboneelement.BackboneElement):
         None, alias="_requestor", title="Extension field for ``requestor``."
     )
 
-    role: typing.List[fhirtypes.CodeableConceptType] = Field(
+    role: typing.List[CodeableConcept] = Field(
         None,
         alias="role",
         title="Agent role in the event",
@@ -373,7 +377,7 @@ class AuditEventAgent(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="How agent participated",
@@ -385,7 +389,7 @@ class AuditEventAgent(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    who: fhirtypes.ReferenceType = Field(
+    who: Reference = Field(
         None,
         alias="who",
         title="Identifier of who",
@@ -496,7 +500,7 @@ class AuditEventAgentNetwork(backboneelement.BackboneElement):
     network location.
     """
 
-    resource_type = Field("AuditEventAgentNetwork", const=True)
+    resource_type: str = Field("AuditEventAgentNetwork", const=True)
 
     address: fhirtypes.String = Field(
         None,
@@ -546,7 +550,7 @@ class AuditEventEntity(backboneelement.BackboneElement):
     Specific instances of data or objects that have been accessed.
     """
 
-    resource_type = Field("AuditEventEntity", const=True)
+    resource_type: str = Field("AuditEventEntity", const=True)
 
     description: fhirtypes.String = Field(
         None,
@@ -560,7 +564,7 @@ class AuditEventEntity(backboneelement.BackboneElement):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    detail: typing.List[fhirtypes.AuditEventEntityDetailType] = Field(
+    detail: typing.List["AuditEventEntityDetail"] = Field(
         None,
         alias="detail",
         title="Additional Information about the entity",
@@ -572,7 +576,7 @@ class AuditEventEntity(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    lifecycle: fhirtypes.CodingType = Field(
+    lifecycle: Coding = Field(
         None,
         alias="lifecycle",
         title="Life-cycle stage for the entity",
@@ -605,7 +609,7 @@ class AuditEventEntity(backboneelement.BackboneElement):
         None, alias="_query", title="Extension field for ``query``."
     )
 
-    role: fhirtypes.CodingType = Field(
+    role: Coding = Field(
         None,
         alias="role",
         title="What role the entity played",
@@ -617,7 +621,7 @@ class AuditEventEntity(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    securityLabel: typing.List[fhirtypes.CodingType] = Field(
+    securityLabel: typing.List[Coding] = Field(
         None,
         alias="securityLabel",
         title="Security labels on the entity",
@@ -626,7 +630,7 @@ class AuditEventEntity(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    type: fhirtypes.CodingType = Field(
+    type: Coding = Field(
         None,
         alias="type",
         title="Type of entity involved",
@@ -635,7 +639,7 @@ class AuditEventEntity(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    what: fhirtypes.ReferenceType = Field(
+    what: Reference = Field(
         None,
         alias="what",
         title="Specific instance of resource",
@@ -680,7 +684,7 @@ class AuditEventEntityDetail(backboneelement.BackboneElement):
     Tagged value pairs for conveying additional information about the entity.
     """
 
-    resource_type = Field("AuditEventEntityDetail", const=True)
+    resource_type: str = Field("AuditEventEntityDetail", const=True)
 
     type: fhirtypes.String = Field(
         None,
@@ -849,9 +853,9 @@ class AuditEventSource(backboneelement.BackboneElement):
     The system that is reporting the event.
     """
 
-    resource_type = Field("AuditEventSource", const=True)
+    resource_type: str = Field("AuditEventSource", const=True)
 
-    observer: fhirtypes.ReferenceType = Field(
+    observer: Reference = Field(
         ...,
         alias="observer",
         title="The identity of source detecting the event",
@@ -885,7 +889,7 @@ class AuditEventSource(backboneelement.BackboneElement):
         None, alias="_site", title="Extension field for ``site``."
     )
 
-    type: typing.List[fhirtypes.CodingType] = Field(
+    type: typing.List[Coding] = Field(
         None,
         alias="type",
         title="The type of source where event originated",
@@ -901,3 +905,8 @@ class AuditEventSource(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "site", "observer", "type"]
+
+
+AuditEvent.update_forward_refs()
+AuditEventAgent.update_forward_refs()
+AuditEventEntity.update_forward_refs()

@@ -11,6 +11,11 @@ import typing
 from pydantic.v1 import Field, root_validator
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .quantity import Quantity
+from .range import Range
+from .reference import Reference
 
 
 class SubstanceReferenceInformation(domainresource.DomainResource):
@@ -21,7 +26,7 @@ class SubstanceReferenceInformation(domainresource.DomainResource):
     Todo.
     """
 
-    resource_type = Field("SubstanceReferenceInformation", const=True)
+    resource_type: str = Field("SubstanceReferenceInformation", const=True)
 
     comment: fhirtypes.String = Field(
         None,
@@ -35,7 +40,7 @@ class SubstanceReferenceInformation(domainresource.DomainResource):
         None, alias="_comment", title="Extension field for ``comment``."
     )
 
-    gene: typing.List[fhirtypes.SubstanceReferenceInformationGeneType] = Field(
+    gene: typing.List["SubstanceReferenceInformationGene"] = Field(
         None,
         alias="gene",
         title="Todo",
@@ -44,9 +49,7 @@ class SubstanceReferenceInformation(domainresource.DomainResource):
         element_property=True,
     )
 
-    geneElement: typing.List[
-        fhirtypes.SubstanceReferenceInformationGeneElementType
-    ] = Field(
+    geneElement: typing.List["SubstanceReferenceInformationGeneElement"] = Field(
         None,
         alias="geneElement",
         title="Todo",
@@ -55,7 +58,7 @@ class SubstanceReferenceInformation(domainresource.DomainResource):
         element_property=True,
     )
 
-    target: typing.List[fhirtypes.SubstanceReferenceInformationTargetType] = Field(
+    target: typing.List["SubstanceReferenceInformationTarget"] = Field(
         None,
         alias="target",
         title="Todo",
@@ -94,9 +97,9 @@ class SubstanceReferenceInformationGene(backboneelement.BackboneElement):
     Todo.
     """
 
-    resource_type = Field("SubstanceReferenceInformationGene", const=True)
+    resource_type: str = Field("SubstanceReferenceInformationGene", const=True)
 
-    gene: fhirtypes.CodeableConceptType = Field(
+    gene: CodeableConcept = Field(
         None,
         alias="gene",
         title="Todo",
@@ -105,7 +108,7 @@ class SubstanceReferenceInformationGene(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    geneSequenceOrigin: fhirtypes.CodeableConceptType = Field(
+    geneSequenceOrigin: CodeableConcept = Field(
         None,
         alias="geneSequenceOrigin",
         title="Todo",
@@ -114,7 +117,7 @@ class SubstanceReferenceInformationGene(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    source: typing.List[fhirtypes.ReferenceType] = Field(
+    source: typing.List[Reference] = Field(
         None,
         alias="source",
         title="Todo",
@@ -149,9 +152,9 @@ class SubstanceReferenceInformationGeneElement(backboneelement.BackboneElement):
     Todo.
     """
 
-    resource_type = Field("SubstanceReferenceInformationGeneElement", const=True)
+    resource_type: str = Field("SubstanceReferenceInformationGeneElement", const=True)
 
-    element: fhirtypes.IdentifierType = Field(
+    element: Identifier = Field(
         None,
         alias="element",
         title="Todo",
@@ -160,7 +163,7 @@ class SubstanceReferenceInformationGeneElement(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    source: typing.List[fhirtypes.ReferenceType] = Field(
+    source: typing.List[Reference] = Field(
         None,
         alias="source",
         title="Todo",
@@ -171,7 +174,7 @@ class SubstanceReferenceInformationGeneElement(backboneelement.BackboneElement):
         enum_reference_types=["DocumentReference"],
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Todo",
@@ -197,9 +200,9 @@ class SubstanceReferenceInformationTarget(backboneelement.BackboneElement):
     Todo.
     """
 
-    resource_type = Field("SubstanceReferenceInformationTarget", const=True)
+    resource_type: str = Field("SubstanceReferenceInformationTarget", const=True)
 
-    amountQuantity: fhirtypes.QuantityType = Field(
+    amountQuantity: Quantity = Field(
         None,
         alias="amountQuantity",
         title="Todo",
@@ -211,7 +214,7 @@ class SubstanceReferenceInformationTarget(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    amountRange: fhirtypes.RangeType = Field(
+    amountRange: Range = Field(
         None,
         alias="amountRange",
         title="Todo",
@@ -238,7 +241,7 @@ class SubstanceReferenceInformationTarget(backboneelement.BackboneElement):
         None, alias="_amountString", title="Extension field for ``amountString``."
     )
 
-    amountType: fhirtypes.CodeableConceptType = Field(
+    amountType: CodeableConcept = Field(
         None,
         alias="amountType",
         title="Todo",
@@ -247,7 +250,7 @@ class SubstanceReferenceInformationTarget(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    interaction: fhirtypes.CodeableConceptType = Field(
+    interaction: CodeableConcept = Field(
         None,
         alias="interaction",
         title="Todo",
@@ -256,7 +259,7 @@ class SubstanceReferenceInformationTarget(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    organism: fhirtypes.CodeableConceptType = Field(
+    organism: CodeableConcept = Field(
         None,
         alias="organism",
         title="Todo",
@@ -265,7 +268,7 @@ class SubstanceReferenceInformationTarget(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    organismType: fhirtypes.CodeableConceptType = Field(
+    organismType: CodeableConcept = Field(
         None,
         alias="organismType",
         title="Todo",
@@ -274,7 +277,7 @@ class SubstanceReferenceInformationTarget(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    source: typing.List[fhirtypes.ReferenceType] = Field(
+    source: typing.List[Reference] = Field(
         None,
         alias="source",
         title="Todo",
@@ -285,7 +288,7 @@ class SubstanceReferenceInformationTarget(backboneelement.BackboneElement):
         enum_reference_types=["DocumentReference"],
     )
 
-    target: fhirtypes.IdentifierType = Field(
+    target: Identifier = Field(
         None,
         alias="target",
         title="Todo",
@@ -294,7 +297,7 @@ class SubstanceReferenceInformationTarget(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Todo",
@@ -364,3 +367,6 @@ class SubstanceReferenceInformationTarget(backboneelement.BackboneElement):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+SubstanceReferenceInformation.update_forward_refs()

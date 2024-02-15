@@ -10,8 +10,13 @@ from typing import List as ListType
 from pydantic.v1 import Field
 
 from . import fhirtypes
+from .annotation import Annotation
 from .backboneelement import BackboneElement
+from .codeableconcept import CodeableConcept
 from .domainresource import DomainResource
+from .identifier import Identifier
+from .quantity import Quantity
+from .reference import Reference
 
 
 class Immunization(DomainResource):
@@ -23,7 +28,7 @@ class Immunization(DomainResource):
     protocol was followed.
     """
 
-    resource_type = Field("Immunization", const=True)
+    resource_type: str = Field("Immunization", const=True)
 
     date: fhirtypes.DateTime = Field(
         None,
@@ -31,14 +36,14 @@ class Immunization(DomainResource):
         title="Type `DateTime`",
         description="Vaccination administration date.",
     )
-    doseQuantity: fhirtypes.QuantityType = Field(
+    doseQuantity: Quantity = Field(
         None,
         alias="doseQuantity",
         title="Type `Quantity` referencing `SimpleQuantity` (represented as `dict` in JSON).",
         description="Amount of vaccine administered.",
     )
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title="Type `Reference` referencing `Encounter` (represented as `dict` in JSON).",
@@ -52,48 +57,48 @@ class Immunization(DomainResource):
         description="Vaccine expiration date.",
     )
 
-    explanation: fhirtypes.ImmunizationExplanationType = Field(
+    explanation: "ImmunizationExplanation" = Field(
         None,
         alias="explanation",
         title="Type `ImmunizationExplanation` (represented as `dict` in JSON).",
         description="Administration/non-administration reasons.",
     )
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="List of `Identifier` items (represented as `dict` in JSON).",
         description="Business identifier.",
     )
 
-    location: fhirtypes.ReferenceType = Field(
+    location: Reference = Field(
         None,
         alias="location",
         title="Type `Reference` referencing `Location` (represented as `dict` in JSON).",
         description="Where vaccination occurred.",
     )
-    manufacturer: fhirtypes.ReferenceType = Field(
+    manufacturer: Reference = Field(
         None,
         alias="manufacturer",
         title="Type `Reference` referencing `Organization` (represented as `dict` in JSON).",
         description="Vaccine manufacturer.",
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         None,
         alias="patient",
         title="Type `Reference` referencing `Patient` (represented as `dict` in JSON).",
         description="Who was immunized.",
     )
 
-    performer: fhirtypes.ReferenceType = Field(
+    performer: Reference = Field(
         None,
         alias="performer",
         title="Type `Reference` referencing `Practitioner` (represented as `dict` in JSON).",
         description="Who administered vaccine.",
     )
 
-    requester: fhirtypes.ReferenceType = Field(
+    requester: Reference = Field(
         None,
         alias="requester",
         title="Type `Reference` referencing `Practitioner` (represented as `dict` in JSON).",
@@ -127,43 +132,41 @@ class Immunization(DomainResource):
         description="in-progress | on-hold | completed | entered-in-error | stopped.",
     )
 
-    route: fhirtypes.CodeableConceptType = Field(
+    route: CodeableConcept = Field(
         None,
         alias="route",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="How vaccine entered body.",
     )
 
-    site: fhirtypes.CodeableConceptType = Field(
+    site: CodeableConcept = Field(
         None,
         alias="site",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="Body site vaccine  was administered.",
     )
 
-    vaccineCode: fhirtypes.CodeableConceptType = Field(
+    vaccineCode: CodeableConcept = Field(
         None,
         alias="vaccineCode",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="Vaccine product administered.",
     )
 
-    note: ListType[fhirtypes.AnnotationType] = Field(
+    note: ListType[Annotation] = Field(
         None,
         alias="note",
         title="List of `Annotation` items (represented as `dict` in JSON).",
         description="Vaccination notes.",
     )
-    reaction: ListType[fhirtypes.ImmunizationReactionType] = Field(
+    reaction: ListType["ImmunizationReaction"] = Field(
         None,
         alias="reaction",
         title="List of `ImmunizationReaction` items (represented as `dict` in JSON).",
         description="Details of a reaction that follows immunization.",
     )
 
-    vaccinationProtocol: ListType[
-        fhirtypes.ImmunizationVaccinationProtocolType
-    ] = Field(
+    vaccinationProtocol: ListType["ImmunizationVaccinationProtocol"] = Field(
         None,
         alias="vaccinationProtocol",
         title=(
@@ -180,16 +183,16 @@ class ImmunizationExplanation(BackboneElement):
     Reasons why a vaccine was or was not administered.
     """
 
-    resource_type = Field("ImmunizationExplanation", const=True)
+    resource_type: str = Field("ImmunizationExplanation", const=True)
 
-    reason: ListType[fhirtypes.CodeableConceptType] = Field(
+    reason: ListType[CodeableConcept] = Field(
         None,
         alias="reason",
         title="List of `CodeableConcept` items (represented as `dict` in JSON).",
         description="Why immunization occurred.",
     )
 
-    reasonNotGiven: ListType[fhirtypes.CodeableConceptType] = Field(
+    reasonNotGiven: ListType[CodeableConcept] = Field(
         None,
         alias="reasonNotGiven",
         title="List of `CodeableConcept` items (represented as `dict` in JSON).",
@@ -204,7 +207,7 @@ class ImmunizationReaction(BackboneElement):
     an immunization.
     """
 
-    resource_type = Field("ImmunizationReaction", const=True)
+    resource_type: str = Field("ImmunizationReaction", const=True)
 
     date: fhirtypes.DateTime = Field(
         None,
@@ -212,7 +215,7 @@ class ImmunizationReaction(BackboneElement):
         title="Type `DateTime`",
         description="When reaction started.",
     )
-    detail: fhirtypes.ReferenceType = Field(
+    detail: Reference = Field(
         None,
         alias="detail",
         title="Type `Reference` referencing `Observation` (represented as `dict` in JSON).",
@@ -234,9 +237,9 @@ class ImmunizationVaccinationProtocol(BackboneElement):
     administered.
     """
 
-    resource_type = Field("ImmunizationVaccinationProtocol", const=True)
+    resource_type: str = Field("ImmunizationVaccinationProtocol", const=True)
 
-    authority: fhirtypes.ReferenceType = Field(
+    authority: Reference = Field(
         None,
         alias="authority",
         title="Type `Reference` referencing `Organization` (represented as `dict` in JSON).",
@@ -256,14 +259,14 @@ class ImmunizationVaccinationProtocol(BackboneElement):
         title="Type `Interger`.",
         description="Dose number within series.",
     )
-    doseStatus: fhirtypes.CodeableConceptType = Field(
+    doseStatus: CodeableConcept = Field(
         None,
         alias="doseStatus",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="Indicates if dose counts towards immunity.",
     )
 
-    doseStatusReason: fhirtypes.CodeableConceptType = Field(
+    doseStatusReason: CodeableConcept = Field(
         None,
         alias="doseStatusReason",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -283,9 +286,12 @@ class ImmunizationVaccinationProtocol(BackboneElement):
         description="Recommended number of doses for immunity.",
     )
 
-    targetDisease: ListType[fhirtypes.CodeableConceptType] = Field(
+    targetDisease: ListType[CodeableConcept] = Field(
         None,
         alias="targetDisease",
         title="List of `CodeableConcept` items (represented as `dict` in JSON).",
         description="Disease immunized against.",
     )
+
+
+Immunization.update_forward_refs()

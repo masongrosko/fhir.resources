@@ -13,6 +13,11 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .annotation import Annotation
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .reference import Reference
 
 
 class Communication(domainresource.DomainResource):
@@ -26,9 +31,9 @@ class Communication(domainresource.DomainResource):
     reportable condition.
     """
 
-    resource_type = Field("Communication", const=True)
+    resource_type: str = Field("Communication", const=True)
 
-    about: typing.List[fhirtypes.ReferenceType] = Field(
+    about: typing.List[Reference] = Field(
         None,
         alias="about",
         title="Resources that pertain to this communication",
@@ -42,7 +47,7 @@ class Communication(domainresource.DomainResource):
         enum_reference_types=["Resource"],
     )
 
-    basedOn: typing.List[fhirtypes.ReferenceType] = Field(
+    basedOn: typing.List[Reference] = Field(
         None,
         alias="basedOn",
         title="Request fulfilled by this communication",
@@ -56,7 +61,7 @@ class Communication(domainresource.DomainResource):
         enum_reference_types=["Resource"],
     )
 
-    category: typing.List[fhirtypes.CodeableConceptType] = Field(
+    category: typing.List[CodeableConcept] = Field(
         None,
         alias="category",
         title="Message category",
@@ -68,7 +73,7 @@ class Communication(domainresource.DomainResource):
         element_property=True,
     )
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title="Encounter created as part of",
@@ -82,7 +87,7 @@ class Communication(domainresource.DomainResource):
         enum_reference_types=["Encounter"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Unique identifier",
@@ -95,7 +100,7 @@ class Communication(domainresource.DomainResource):
         element_property=True,
     )
 
-    inResponseTo: typing.List[fhirtypes.ReferenceType] = Field(
+    inResponseTo: typing.List[Reference] = Field(
         None,
         alias="inResponseTo",
         title="Reply to",
@@ -152,7 +157,7 @@ class Communication(domainresource.DomainResource):
         None, alias="_instantiatesUri", title="Extension field for ``instantiatesUri``."
     )
 
-    medium: typing.List[fhirtypes.CodeableConceptType] = Field(
+    medium: typing.List[CodeableConcept] = Field(
         None,
         alias="medium",
         title="A channel of communication",
@@ -161,7 +166,7 @@ class Communication(domainresource.DomainResource):
         element_property=True,
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Comments made about the communication",
@@ -173,7 +178,7 @@ class Communication(domainresource.DomainResource):
         element_property=True,
     )
 
-    partOf: typing.List[fhirtypes.ReferenceType] = Field(
+    partOf: typing.List[Reference] = Field(
         None,
         alias="partOf",
         title="Part of this action",
@@ -184,7 +189,7 @@ class Communication(domainresource.DomainResource):
         enum_reference_types=["Resource"],
     )
 
-    payload: typing.List[fhirtypes.CommunicationPayloadType] = Field(
+    payload: typing.List["CommunicationPayload"] = Field(
         None,
         alias="payload",
         title="Message payload",
@@ -214,7 +219,7 @@ class Communication(domainresource.DomainResource):
         None, alias="_priority", title="Extension field for ``priority``."
     )
 
-    reasonCode: typing.List[fhirtypes.CodeableConceptType] = Field(
+    reasonCode: typing.List[CodeableConcept] = Field(
         None,
         alias="reasonCode",
         title="Indication for message",
@@ -223,7 +228,7 @@ class Communication(domainresource.DomainResource):
         element_property=True,
     )
 
-    reasonReference: typing.List[fhirtypes.ReferenceType] = Field(
+    reasonReference: typing.List[Reference] = Field(
         None,
         alias="reasonReference",
         title="Why was communication done?",
@@ -254,7 +259,7 @@ class Communication(domainresource.DomainResource):
         None, alias="_received", title="Extension field for ``received``."
     )
 
-    recipient: typing.List[fhirtypes.ReferenceType] = Field(
+    recipient: typing.List[Reference] = Field(
         None,
         alias="recipient",
         title="Message recipient",
@@ -283,7 +288,7 @@ class Communication(domainresource.DomainResource):
         ],
     )
 
-    sender: fhirtypes.ReferenceType = Field(
+    sender: Reference = Field(
         None,
         alias="sender",
         title="Message sender",
@@ -345,7 +350,7 @@ class Communication(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    statusReason: fhirtypes.CodeableConceptType = Field(
+    statusReason: CodeableConcept = Field(
         None,
         alias="statusReason",
         title="Reason for current status",
@@ -354,7 +359,7 @@ class Communication(domainresource.DomainResource):
         element_property=True,
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title="Focus of message",
@@ -365,7 +370,7 @@ class Communication(domainresource.DomainResource):
         enum_reference_types=["Patient", "Group"],
     )
 
-    topic: fhirtypes.CodeableConceptType = Field(
+    topic: CodeableConcept = Field(
         None,
         alias="topic",
         title="Description of the purpose/content",
@@ -486,9 +491,9 @@ class CommunicationPayload(backboneelement.BackboneElement):
     Text, attachment(s), or resource(s) that was communicated to the recipient.
     """
 
-    resource_type = Field("CommunicationPayload", const=True)
+    resource_type: str = Field("CommunicationPayload", const=True)
 
-    contentAttachment: fhirtypes.AttachmentType = Field(
+    contentAttachment: Attachment = Field(
         None,
         alias="contentAttachment",
         title="Message part content",
@@ -503,7 +508,7 @@ class CommunicationPayload(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    contentReference: fhirtypes.ReferenceType = Field(
+    contentReference: Reference = Field(
         None,
         alias="contentReference",
         title="Message part content",
@@ -592,3 +597,6 @@ class CommunicationPayload(backboneelement.BackboneElement):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+Communication.update_forward_refs()

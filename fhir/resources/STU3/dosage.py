@@ -11,6 +11,11 @@ import typing
 from pydantic.v1 import Field, root_validator
 
 from . import element, fhirtypes
+from .codeableconcept import CodeableConcept
+from .quantity import Quantity
+from .range import Range
+from .ratio import Ratio
+from .timing import Timing
 
 
 class Dosage(element.Element):
@@ -23,9 +28,9 @@ class Dosage(element.Element):
     patient.
     """
 
-    resource_type = Field("Dosage", const=True)
+    resource_type: str = Field("Dosage", const=True)
 
-    additionalInstruction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    additionalInstruction: typing.List[CodeableConcept] = Field(
         None,
         alias="additionalInstruction",
         title='Supplemental instruction - e.g. "with meals"',
@@ -53,7 +58,7 @@ class Dosage(element.Element):
         None, alias="_asNeededBoolean", title="Extension field for ``asNeededBoolean``."
     )
 
-    asNeededCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    asNeededCodeableConcept: CodeableConcept = Field(
         None,
         alias="asNeededCodeableConcept",
         title='Take "as needed" (for x)',
@@ -69,7 +74,7 @@ class Dosage(element.Element):
         one_of_many_required=False,
     )
 
-    doseQuantity: fhirtypes.QuantityType = Field(
+    doseQuantity: Quantity = Field(
         None,
         alias="doseQuantity",
         title="Amount of medication per dose",
@@ -81,7 +86,7 @@ class Dosage(element.Element):
         one_of_many_required=False,
     )
 
-    doseRange: fhirtypes.RangeType = Field(
+    doseRange: Range = Field(
         None,
         alias="doseRange",
         title="Amount of medication per dose",
@@ -93,7 +98,7 @@ class Dosage(element.Element):
         one_of_many_required=False,
     )
 
-    maxDosePerAdministration: fhirtypes.QuantityType = Field(
+    maxDosePerAdministration: Quantity = Field(
         None,
         alias="maxDosePerAdministration",
         title="Upper limit on medication per administration",
@@ -102,7 +107,7 @@ class Dosage(element.Element):
         element_property=True,
     )
 
-    maxDosePerLifetime: fhirtypes.QuantityType = Field(
+    maxDosePerLifetime: Quantity = Field(
         None,
         alias="maxDosePerLifetime",
         title="Upper limit on medication per lifetime of the patient",
@@ -111,7 +116,7 @@ class Dosage(element.Element):
         element_property=True,
     )
 
-    maxDosePerPeriod: fhirtypes.RatioType = Field(
+    maxDosePerPeriod: Ratio = Field(
         None,
         alias="maxDosePerPeriod",
         title="Upper limit on medication per unit of time",
@@ -120,7 +125,7 @@ class Dosage(element.Element):
         element_property=True,
     )
 
-    method: fhirtypes.CodeableConceptType = Field(
+    method: CodeableConcept = Field(
         None,
         alias="method",
         title="Technique for administering medication",
@@ -143,7 +148,7 @@ class Dosage(element.Element):
         title="Extension field for ``patientInstruction``.",
     )
 
-    rateQuantity: fhirtypes.QuantityType = Field(
+    rateQuantity: Quantity = Field(
         None,
         alias="rateQuantity",
         title="Amount of medication per unit of time",
@@ -155,7 +160,7 @@ class Dosage(element.Element):
         one_of_many_required=False,
     )
 
-    rateRange: fhirtypes.RangeType = Field(
+    rateRange: Range = Field(
         None,
         alias="rateRange",
         title="Amount of medication per unit of time",
@@ -167,7 +172,7 @@ class Dosage(element.Element):
         one_of_many_required=False,
     )
 
-    rateRatio: fhirtypes.RatioType = Field(
+    rateRatio: Ratio = Field(
         None,
         alias="rateRatio",
         title="Amount of medication per unit of time",
@@ -179,7 +184,7 @@ class Dosage(element.Element):
         one_of_many_required=False,
     )
 
-    route: fhirtypes.CodeableConceptType = Field(
+    route: CodeableConcept = Field(
         None,
         alias="route",
         title="How drug should enter body",
@@ -203,7 +208,7 @@ class Dosage(element.Element):
         None, alias="_sequence", title="Extension field for ``sequence``."
     )
 
-    site: fhirtypes.CodeableConceptType = Field(
+    site: CodeableConcept = Field(
         None,
         alias="site",
         title="Body site to administer to",
@@ -224,7 +229,7 @@ class Dosage(element.Element):
         None, alias="_text", title="Extension field for ``text``."
     )
 
-    timing: fhirtypes.TimingType = Field(
+    timing: Timing = Field(
         None,
         alias="timing",
         title="When medication should be administered",

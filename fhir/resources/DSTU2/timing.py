@@ -11,7 +11,11 @@ from typing import List as ListType
 from pydantic.v1 import Field, root_validator
 
 from . import fhirtypes
+from .codeableconcept import CodeableConcept
+from .duration import Duration
 from .element import Element
+from .period import Period
+from .range import Range
 
 
 class Timing(Element):
@@ -23,9 +27,9 @@ class Timing(Element):
     planning care of various kinds.
     """
 
-    resource_type = Field("Timing", const=True)
+    resource_type: str = Field("Timing", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Type `CodeableConcept` (represented as `dict` in JSON)",
@@ -39,7 +43,7 @@ class Timing(Element):
         description="When the event occurs",
     )
 
-    repeat: fhirtypes.TimingRepeatType = Field(
+    repeat: "TimingRepeat" = Field(
         None,
         alias="repeat",
         title="Type `TimingRepeat` (represented as `dict` in JSON)",
@@ -53,9 +57,9 @@ class TimingRepeat(Element):
     A set of rules that describe when the event should occur.
     """
 
-    resource_type = Field("TimingRepeat", const=True)
+    resource_type: str = Field("TimingRepeat", const=True)
 
-    boundsQuantity: fhirtypes.DurationType = Field(
+    boundsQuantity: Duration = Field(
         None,
         alias="boundsQuantity",
         title="Type `Duration` (represented as `dict` in JSON)",
@@ -64,7 +68,7 @@ class TimingRepeat(Element):
         one_of_many_required=False,
     )
 
-    boundsPeriod: fhirtypes.PeriodType = Field(
+    boundsPeriod: Period = Field(
         None,
         alias="boundsPeriod",
         title="Type `Period` (represented as `dict` in JSON)",
@@ -73,7 +77,7 @@ class TimingRepeat(Element):
         one_of_many_required=False,
     )
 
-    boundsRange: fhirtypes.RangeType = Field(
+    boundsRange: Range = Field(
         None,
         alias="boundsRange",
         title="Type `Range` (represented as `dict` in JSON)",
@@ -189,3 +193,6 @@ class TimingRepeat(Element):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+Timing.update_forward_refs()

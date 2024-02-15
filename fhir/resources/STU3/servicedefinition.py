@@ -13,6 +13,16 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .contactdetail import ContactDetail
+from .contributor import Contributor
+from .datarequirement import DataRequirement
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
+from .relatedartifact import RelatedArtifact
+from .triggerdefinition import TriggerDefinition
+from .usagecontext import UsageContext
 
 
 class ServiceDefinition(domainresource.DomainResource):
@@ -26,7 +36,7 @@ class ServiceDefinition(domainresource.DomainResource):
     drug interaction checking.
     """
 
-    resource_type = Field("ServiceDefinition", const=True)
+    resource_type: str = Field("ServiceDefinition", const=True)
 
     approvalDate: fhirtypes.Date = Field(
         None,
@@ -44,7 +54,7 @@ class ServiceDefinition(domainresource.DomainResource):
         None, alias="_approvalDate", title="Extension field for ``approvalDate``."
     )
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -56,7 +66,7 @@ class ServiceDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    contributor: typing.List[fhirtypes.ContributorType] = Field(
+    contributor: typing.List[Contributor] = Field(
         None,
         alias="contributor",
         title="A content contributor",
@@ -84,7 +94,7 @@ class ServiceDefinition(domainresource.DomainResource):
         None, alias="_copyright", title="Extension field for ``copyright``."
     )
 
-    dataRequirement: typing.List[fhirtypes.DataRequirementType] = Field(
+    dataRequirement: typing.List[DataRequirement] = Field(
         None,
         alias="dataRequirement",
         title="What data is used by the module",
@@ -129,7 +139,7 @@ class ServiceDefinition(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    effectivePeriod: fhirtypes.PeriodType = Field(
+    effectivePeriod: Period = Field(
         None,
         alias="effectivePeriod",
         title="When the service definition is expected to be used",
@@ -157,7 +167,7 @@ class ServiceDefinition(domainresource.DomainResource):
         None, alias="_experimental", title="Extension field for ``experimental``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Additional identifier for the service definition",
@@ -172,7 +182,7 @@ class ServiceDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction for service definition (if applicable)",
@@ -216,7 +226,7 @@ class ServiceDefinition(domainresource.DomainResource):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    operationDefinition: fhirtypes.ReferenceType = Field(
+    operationDefinition: Reference = Field(
         None,
         alias="operationDefinition",
         title="Operation to invoke",
@@ -257,7 +267,7 @@ class ServiceDefinition(domainresource.DomainResource):
         None, alias="_purpose", title="Extension field for ``purpose``."
     )
 
-    relatedArtifact: typing.List[fhirtypes.RelatedArtifactType] = Field(
+    relatedArtifact: typing.List[RelatedArtifact] = Field(
         None,
         alias="relatedArtifact",
         title="Additional documentation, citations, etc",
@@ -300,7 +310,7 @@ class ServiceDefinition(domainresource.DomainResource):
         None, alias="_title", title="Extension field for ``title``."
     )
 
-    topic: typing.List[fhirtypes.CodeableConceptType] = Field(
+    topic: typing.List[CodeableConcept] = Field(
         None,
         alias="topic",
         title="E.g. Education, Treatment, Assessment, etc",
@@ -313,7 +323,7 @@ class ServiceDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    trigger: typing.List[fhirtypes.TriggerDefinitionType] = Field(
+    trigger: typing.List[TriggerDefinition] = Field(
         None,
         alias="trigger",
         title='"when" the module should be invoked',
@@ -361,7 +371,7 @@ class ServiceDefinition(domainresource.DomainResource):
         None, alias="_usage", title="Extension field for ``usage``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="Context the content is intended to support",

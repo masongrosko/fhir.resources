@@ -13,6 +13,12 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .money import Money
+from .period import Period
+from .quantity import Quantity
+from .reference import Reference
 
 
 class CoverageEligibilityRequest(domainresource.DomainResource):
@@ -28,7 +34,7 @@ class CoverageEligibilityRequest(domainresource.DomainResource):
     details of the policy.
     """
 
-    resource_type = Field("CoverageEligibilityRequest", const=True)
+    resource_type: str = Field("CoverageEligibilityRequest", const=True)
 
     created: fhirtypes.DateTime = Field(
         None,
@@ -43,7 +49,7 @@ class CoverageEligibilityRequest(domainresource.DomainResource):
         None, alias="_created", title="Extension field for ``created``."
     )
 
-    enterer: fhirtypes.ReferenceType = Field(
+    enterer: Reference = Field(
         None,
         alias="enterer",
         title="Author",
@@ -54,7 +60,7 @@ class CoverageEligibilityRequest(domainresource.DomainResource):
         enum_reference_types=["Practitioner", "PractitionerRole"],
     )
 
-    event: typing.List[fhirtypes.CoverageEligibilityRequestEventType] = Field(
+    event: typing.List["CoverageEligibilityRequestEvent"] = Field(
         None,
         alias="event",
         title="Event information",
@@ -63,7 +69,7 @@ class CoverageEligibilityRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    facility: fhirtypes.ReferenceType = Field(
+    facility: Reference = Field(
         None,
         alias="facility",
         title="Servicing facility",
@@ -74,7 +80,7 @@ class CoverageEligibilityRequest(domainresource.DomainResource):
         enum_reference_types=["Location"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business Identifier for coverage eligiblity request",
@@ -83,7 +89,7 @@ class CoverageEligibilityRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    insurance: typing.List[fhirtypes.CoverageEligibilityRequestInsuranceType] = Field(
+    insurance: typing.List["CoverageEligibilityRequestInsurance"] = Field(
         None,
         alias="insurance",
         title="Patient insurance information",
@@ -95,7 +101,7 @@ class CoverageEligibilityRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    insurer: fhirtypes.ReferenceType = Field(
+    insurer: Reference = Field(
         ...,
         alias="insurer",
         title="Coverage issuer",
@@ -109,7 +115,7 @@ class CoverageEligibilityRequest(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    item: typing.List[fhirtypes.CoverageEligibilityRequestItemType] = Field(
+    item: typing.List["CoverageEligibilityRequestItem"] = Field(
         None,
         alias="item",
         title="Item to be evaluated for eligibiity",
@@ -122,7 +128,7 @@ class CoverageEligibilityRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         ...,
         alias="patient",
         title="Intended recipient of products and services",
@@ -136,7 +142,7 @@ class CoverageEligibilityRequest(domainresource.DomainResource):
         enum_reference_types=["Patient"],
     )
 
-    priority: fhirtypes.CodeableConceptType = Field(
+    priority: CodeableConcept = Field(
         None,
         alias="priority",
         title="Desired processing priority",
@@ -145,7 +151,7 @@ class CoverageEligibilityRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    provider: fhirtypes.ReferenceType = Field(
+    provider: Reference = Field(
         None,
         alias="provider",
         title="Party responsible for the request",
@@ -196,7 +202,7 @@ class CoverageEligibilityRequest(domainresource.DomainResource):
         None, alias="_servicedDate", title="Extension field for ``servicedDate``."
     )
 
-    servicedPeriod: fhirtypes.PeriodType = Field(
+    servicedPeriod: Period = Field(
         None,
         alias="servicedPeriod",
         title="Estimated date or dates of service",
@@ -227,9 +233,7 @@ class CoverageEligibilityRequest(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    supportingInfo: typing.List[
-        fhirtypes.CoverageEligibilityRequestSupportingInfoType
-    ] = Field(
+    supportingInfo: typing.List["CoverageEligibilityRequestSupportingInfo"] = Field(
         None,
         alias="supportingInfo",
         title="Supporting information",
@@ -385,9 +389,9 @@ class CoverageEligibilityRequestEvent(backboneelement.BackboneElement):
     Information code for an event with a corresponding date or period.
     """
 
-    resource_type = Field("CoverageEligibilityRequestEvent", const=True)
+    resource_type: str = Field("CoverageEligibilityRequestEvent", const=True)
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title="Specific event",
@@ -414,7 +418,7 @@ class CoverageEligibilityRequestEvent(backboneelement.BackboneElement):
         None, alias="_whenDateTime", title="Extension field for ``whenDateTime``."
     )
 
-    whenPeriod: fhirtypes.PeriodType = Field(
+    whenPeriod: Period = Field(
         None,
         alias="whenPeriod",
         title="Occurance date or period",
@@ -493,7 +497,7 @@ class CoverageEligibilityRequestInsurance(backboneelement.BackboneElement):
     services.
     """
 
-    resource_type = Field("CoverageEligibilityRequestInsurance", const=True)
+    resource_type: str = Field("CoverageEligibilityRequestInsurance", const=True)
 
     businessArrangement: fhirtypes.String = Field(
         None,
@@ -512,7 +516,7 @@ class CoverageEligibilityRequestInsurance(backboneelement.BackboneElement):
         title="Extension field for ``businessArrangement``.",
     )
 
-    coverage: fhirtypes.ReferenceType = Field(
+    coverage: Reference = Field(
         ...,
         alias="coverage",
         title="Insurance information",
@@ -569,9 +573,9 @@ class CoverageEligibilityRequestItem(backboneelement.BackboneElement):
     authorization prior to service delivery may be required by the payor.
     """
 
-    resource_type = Field("CoverageEligibilityRequestItem", const=True)
+    resource_type: str = Field("CoverageEligibilityRequestItem", const=True)
 
-    category: fhirtypes.CodeableConceptType = Field(
+    category: CodeableConcept = Field(
         None,
         alias="category",
         title="Benefit classification",
@@ -583,7 +587,7 @@ class CoverageEligibilityRequestItem(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    detail: typing.List[fhirtypes.ReferenceType] = Field(
+    detail: typing.List[Reference] = Field(
         None,
         alias="detail",
         title="Product or service details",
@@ -594,9 +598,7 @@ class CoverageEligibilityRequestItem(backboneelement.BackboneElement):
         enum_reference_types=["Resource"],
     )
 
-    diagnosis: typing.List[
-        fhirtypes.CoverageEligibilityRequestItemDiagnosisType
-    ] = Field(
+    diagnosis: typing.List["CoverageEligibilityRequestItemDiagnosis"] = Field(
         None,
         alias="diagnosis",
         title="Applicable diagnosis",
@@ -605,7 +607,7 @@ class CoverageEligibilityRequestItem(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    facility: fhirtypes.ReferenceType = Field(
+    facility: Reference = Field(
         None,
         alias="facility",
         title="Servicing facility",
@@ -616,7 +618,7 @@ class CoverageEligibilityRequestItem(backboneelement.BackboneElement):
         enum_reference_types=["Location", "Organization"],
     )
 
-    modifier: typing.List[fhirtypes.CodeableConceptType] = Field(
+    modifier: typing.List[CodeableConcept] = Field(
         None,
         alias="modifier",
         title="Product or service billing modifiers",
@@ -628,7 +630,7 @@ class CoverageEligibilityRequestItem(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    productOrService: fhirtypes.CodeableConceptType = Field(
+    productOrService: CodeableConcept = Field(
         None,
         alias="productOrService",
         title="Billing, service, product, or drug code",
@@ -640,7 +642,7 @@ class CoverageEligibilityRequestItem(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    provider: fhirtypes.ReferenceType = Field(
+    provider: Reference = Field(
         None,
         alias="provider",
         title="Perfoming practitioner",
@@ -654,7 +656,7 @@ class CoverageEligibilityRequestItem(backboneelement.BackboneElement):
         enum_reference_types=["Practitioner", "PractitionerRole"],
     )
 
-    quantity: fhirtypes.QuantityType = Field(
+    quantity: Quantity = Field(
         None,
         alias="quantity",
         title="Count of products or services",
@@ -682,7 +684,7 @@ class CoverageEligibilityRequestItem(backboneelement.BackboneElement):
         title="Extension field for ``supportingInfoSequence``.",
     )
 
-    unitPrice: fhirtypes.MoneyType = Field(
+    unitPrice: Money = Field(
         None,
         alias="unitPrice",
         title="Fee, charge or cost per item",
@@ -723,9 +725,9 @@ class CoverageEligibilityRequestItemDiagnosis(backboneelement.BackboneElement):
     Patient diagnosis for which care is sought.
     """
 
-    resource_type = Field("CoverageEligibilityRequestItemDiagnosis", const=True)
+    resource_type: str = Field("CoverageEligibilityRequestItemDiagnosis", const=True)
 
-    diagnosisCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    diagnosisCodeableConcept: CodeableConcept = Field(
         None,
         alias="diagnosisCodeableConcept",
         title="Nature of illness or problem",
@@ -740,7 +742,7 @@ class CoverageEligibilityRequestItemDiagnosis(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    diagnosisReference: fhirtypes.ReferenceType = Field(
+    diagnosisReference: Reference = Field(
         None,
         alias="diagnosisReference",
         title="Nature of illness or problem",
@@ -822,7 +824,7 @@ class CoverageEligibilityRequestSupportingInfo(backboneelement.BackboneElement):
     the condition, situation, prior or concurrent issues.
     """
 
-    resource_type = Field("CoverageEligibilityRequestSupportingInfo", const=True)
+    resource_type: str = Field("CoverageEligibilityRequestSupportingInfo", const=True)
 
     appliesToAll: bool = Field(
         None,
@@ -839,7 +841,7 @@ class CoverageEligibilityRequestSupportingInfo(backboneelement.BackboneElement):
         None, alias="_appliesToAll", title="Extension field for ``appliesToAll``."
     )
 
-    information: fhirtypes.ReferenceType = Field(
+    information: Reference = Field(
         ...,
         alias="information",
         title="Data to be provided",
@@ -940,3 +942,7 @@ class CoverageEligibilityRequestSupportingInfo(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+CoverageEligibilityRequest.update_forward_refs()
+CoverageEligibilityRequestItem.update_forward_refs()

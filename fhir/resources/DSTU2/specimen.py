@@ -12,7 +12,12 @@ from pydantic.v1 import Field, root_validator
 
 from . import fhirtypes
 from .backboneelement import BackboneElement
+from .codeableconcept import CodeableConcept
 from .domainresource import DomainResource
+from .identifier import Identifier
+from .period import Period
+from .quantity import Quantity
+from .reference import Reference
 
 
 class Specimen(DomainResource):
@@ -32,9 +37,9 @@ class Specimen(DomainResource):
     is only used when these other aspects are not relevant.
     """
 
-    resource_type = Field("Specimen", const=True)
+    resource_type: str = Field("Specimen", const=True)
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="List of `Identifier` items (represented as `dict` in JSON).",
@@ -53,7 +58,7 @@ class Specimen(DomainResource):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="type",
@@ -62,7 +67,7 @@ class Specimen(DomainResource):
         element_property=True,
     )
 
-    parent: ListType[fhirtypes.ReferenceType] = Field(
+    parent: ListType[Reference] = Field(
         None,
         alias="parent",
         title="parent",
@@ -73,7 +78,7 @@ class Specimen(DomainResource):
         enum_reference_types=["Specimen"],
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         ...,
         alias="subject",
         title="subject",
@@ -87,7 +92,7 @@ class Specimen(DomainResource):
         enum_reference_types=["Patient", "Group", "Device", "Substance"],
     )
 
-    accessionIdentifier: fhirtypes.IdentifierType = Field(
+    accessionIdentifier: Identifier = Field(
         None,
         alias="accessionIdentifier",
         title="accessionIdentifier",
@@ -105,7 +110,7 @@ class Specimen(DomainResource):
         element_property=True,
     )
 
-    collection_fhir: fhirtypes.SpecimenCollectionType = Field(
+    collection_fhir: "SpecimenCollection" = Field(
         None,
         alias="collection",
         title="collection",
@@ -114,7 +119,7 @@ class Specimen(DomainResource):
         element_property=True,
     )
 
-    treatment: ListType[fhirtypes.SpecimenTreatmentType] = Field(
+    treatment: ListType["SpecimenTreatment"] = Field(
         None,
         alias="treatment",
         title="treatment",
@@ -123,7 +128,7 @@ class Specimen(DomainResource):
         element_property=True,
     )
 
-    container: ListType[fhirtypes.SpecimenContainerType] = Field(
+    container: ListType["SpecimenContainer"] = Field(
         None,
         alias="container",
         title="container",
@@ -134,9 +139,9 @@ class Specimen(DomainResource):
 
 
 class SpecimenCollection(BackboneElement):
-    resource_type = Field("SpecimenCollection", const=True)
+    resource_type: str = Field("SpecimenCollection", const=True)
 
-    collector: fhirtypes.ReferenceType = Field(
+    collector: Reference = Field(
         None,
         alias="collector",
         title="collector",
@@ -171,7 +176,7 @@ class SpecimenCollection(BackboneElement):
         alias="_collectedDateTime",
         title="Extension field for ``collectedDateTime``.",
     )
-    collectedPeriod: fhirtypes.PeriodType = Field(
+    collectedPeriod: Period = Field(
         None,
         alias="collectedPeriod",
         title="collectedPeriod",
@@ -182,7 +187,7 @@ class SpecimenCollection(BackboneElement):
         one_of_many_required=False,
     )
 
-    quantity: fhirtypes.QuantityType = Field(
+    quantity: Quantity = Field(
         None,
         alias="quantity",
         title=(
@@ -193,7 +198,7 @@ class SpecimenCollection(BackboneElement):
         element_property=True,
     )
 
-    method: fhirtypes.CodeableConceptType = Field(
+    method: CodeableConcept = Field(
         None,
         alias="method",
         title="method",
@@ -202,7 +207,7 @@ class SpecimenCollection(BackboneElement):
         element_property=True,
     )
 
-    bodySite: fhirtypes.CodeableConceptType = Field(
+    bodySite: CodeableConcept = Field(
         None,
         alias="bodySite",
         title="bodySite",
@@ -251,7 +256,7 @@ class SpecimenCollection(BackboneElement):
 
 
 class SpecimenTreatment(BackboneElement):
-    resource_type = Field("SpecimenTreatment", const=True)
+    resource_type: str = Field("SpecimenTreatment", const=True)
     description: fhirtypes.String = Field(
         None,
         alias="description",
@@ -260,7 +265,7 @@ class SpecimenTreatment(BackboneElement):
         element_property=True,
     )
 
-    procedure: fhirtypes.CodeableConceptType = Field(
+    procedure: CodeableConcept = Field(
         None,
         alias="procedure",
         title="procedure",
@@ -269,7 +274,7 @@ class SpecimenTreatment(BackboneElement):
         element_property=True,
     )
 
-    additive: ListType[fhirtypes.ReferenceType] = Field(
+    additive: ListType[Reference] = Field(
         None,
         alias="additive",
         title="additive",
@@ -282,9 +287,9 @@ class SpecimenTreatment(BackboneElement):
 
 
 class SpecimenContainer(BackboneElement):
-    resource_type = Field("SpecimenContainer", const=True)
+    resource_type: str = Field("SpecimenContainer", const=True)
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="List of `Identifier` items (represented as `dict` in JSON).",
@@ -301,7 +306,7 @@ class SpecimenContainer(BackboneElement):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="type",
@@ -310,7 +315,7 @@ class SpecimenContainer(BackboneElement):
         element_property=True,
     )
 
-    capacity: fhirtypes.QuantityType = Field(
+    capacity: Quantity = Field(
         None,
         alias="capacity",
         title=(
@@ -321,7 +326,7 @@ class SpecimenContainer(BackboneElement):
         element_property=True,
     )
 
-    specimenQuantity: fhirtypes.QuantityType = Field(
+    specimenQuantity: Quantity = Field(
         None,
         alias="specimenQuantity",
         title=(
@@ -332,7 +337,7 @@ class SpecimenContainer(BackboneElement):
         element_property=True,
     )
 
-    additiveCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    additiveCodeableConcept: CodeableConcept = Field(
         None,
         alias="additiveCodeableConcept",
         title="additiveCodeableConcept",
@@ -344,7 +349,7 @@ class SpecimenContainer(BackboneElement):
         one_of_many_required=False,
     )
 
-    additiveReference: fhirtypes.ReferenceType = Field(
+    additiveReference: Reference = Field(
         None,
         alias="additiveReference",
         title="additiveReference",
@@ -395,3 +400,6 @@ class SpecimenContainer(BackboneElement):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+Specimen.update_forward_refs()

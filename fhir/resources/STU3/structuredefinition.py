@@ -13,6 +13,12 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .contactdetail import ContactDetail
+from .elementdefinition import ElementDefinition
+from .identifier import Identifier
+from .usagecontext import UsageContext
 
 
 class StructureDefinition(domainresource.DomainResource):
@@ -26,7 +32,7 @@ class StructureDefinition(domainresource.DomainResource):
     extensions and constraints on resources and data types.
     """
 
-    resource_type = Field("StructureDefinition", const=True)
+    resource_type: str = Field("StructureDefinition", const=True)
 
     abstract: bool = Field(
         None,
@@ -61,7 +67,7 @@ class StructureDefinition(domainresource.DomainResource):
         None, alias="_baseDefinition", title="Extension field for ``baseDefinition``."
     )
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -189,7 +195,7 @@ class StructureDefinition(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    differential: fhirtypes.StructureDefinitionDifferentialType = Field(
+    differential: "StructureDefinitionDifferential" = Field(
         None,
         alias="differential",
         title="Differential view of the structure",
@@ -234,7 +240,7 @@ class StructureDefinition(domainresource.DomainResource):
         None, alias="_fhirVersion", title="Extension field for ``fhirVersion``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Additional identifier for the structure definition",
@@ -247,7 +253,7 @@ class StructureDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction for structure definition (if applicable)",
@@ -259,7 +265,7 @@ class StructureDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    keyword: typing.List[fhirtypes.CodingType] = Field(
+    keyword: typing.List[Coding] = Field(
         None,
         alias="keyword",
         title="Assist with indexing and finding",
@@ -287,7 +293,7 @@ class StructureDefinition(domainresource.DomainResource):
         None, alias="_kind", title="Extension field for ``kind``."
     )
 
-    mapping: typing.List[fhirtypes.StructureDefinitionMappingType] = Field(
+    mapping: typing.List["StructureDefinitionMapping"] = Field(
         None,
         alias="mapping",
         title="External specification that the content is mapped to",
@@ -343,7 +349,7 @@ class StructureDefinition(domainresource.DomainResource):
         None, alias="_purpose", title="Extension field for ``purpose``."
     )
 
-    snapshot: fhirtypes.StructureDefinitionSnapshotType = Field(
+    snapshot: "StructureDefinitionSnapshot" = Field(
         None,
         alias="snapshot",
         title="Snapshot view of the structure",
@@ -429,7 +435,7 @@ class StructureDefinition(domainresource.DomainResource):
         None, alias="_url", title="Extension field for ``url``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="Context the content is intended to support",
@@ -584,9 +590,9 @@ class StructureDefinitionDifferential(backboneelement.BackboneElement):
     a statement of differences that it applies.
     """
 
-    resource_type = Field("StructureDefinitionDifferential", const=True)
+    resource_type: str = Field("StructureDefinitionDifferential", const=True)
 
-    element: typing.List[fhirtypes.ElementDefinitionType] = Field(
+    element: typing.List[ElementDefinition] = Field(
         ...,
         alias="element",
         title="Definition of elements in the resource (if no StructureDefinition)",
@@ -613,7 +619,7 @@ class StructureDefinitionMapping(backboneelement.BackboneElement):
     An external specification that the content is mapped to.
     """
 
-    resource_type = Field("StructureDefinitionMapping", const=True)
+    resource_type: str = Field("StructureDefinitionMapping", const=True)
 
     comment: fhirtypes.String = Field(
         None,
@@ -759,9 +765,9 @@ class StructureDefinitionSnapshot(backboneelement.BackboneElement):
     interpreted without considering the base StructureDefinition.
     """
 
-    resource_type = Field("StructureDefinitionSnapshot", const=True)
+    resource_type: str = Field("StructureDefinitionSnapshot", const=True)
 
-    element: typing.List[fhirtypes.ElementDefinitionType] = Field(
+    element: typing.List[ElementDefinition] = Field(
         ...,
         alias="element",
         title="Definition of elements in the resource (if no StructureDefinition)",
@@ -777,3 +783,6 @@ class StructureDefinitionSnapshot(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "element"]
+
+
+StructureDefinition.update_forward_refs()

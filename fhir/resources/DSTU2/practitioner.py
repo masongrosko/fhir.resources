@@ -10,8 +10,16 @@ from typing import List as ListType
 from pydantic.v1 import Field
 
 from . import fhirtypes
+from .address import Address
+from .attachment import Attachment
 from .backboneelement import BackboneElement
+from .codeableconcept import CodeableConcept
+from .contactpoint import ContactPoint
 from .domainresource import DomainResource
+from .humanname import HumanName
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class Practitioner(DomainResource):
@@ -22,7 +30,7 @@ class Practitioner(DomainResource):
     healthcare.
     """
 
-    resource_type = Field("Practitioner", const=True)
+    resource_type: str = Field("Practitioner", const=True)
 
     active: fhirtypes.Boolean = Field(
         None,
@@ -44,54 +52,54 @@ class Practitioner(DomainResource):
         description="male | female | other | unknown.",
     )
 
-    name: fhirtypes.HumanNameType = Field(
+    name: HumanName = Field(
         None,
         alias="name",
         title="Type `HumanName` (represented as `dict` in JSON).",
         description="A name associated with the person.",
     )
 
-    address: ListType[fhirtypes.AddressType] = Field(
+    address: ListType[Address] = Field(
         None,
         alias="address",
         title="Type `Address` (represented as `dict` in JSON).",
         description="Where practitioner can be found/visited.",
     )
 
-    communication: ListType[fhirtypes.CodeableConceptType] = Field(
+    communication: ListType[CodeableConcept] = Field(
         None,
         alias="communication",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="A language the practitioner is able to use in patient communication.",
     )
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="List of `Identifier` items (represented as `dict` in JSON).",
         description="A identifier for the person as this agent.",
     )
-    photo: ListType[fhirtypes.AttachmentType] = Field(
+    photo: ListType[Attachment] = Field(
         None,
         alias="photo",
         title="List of `Attachment` items (represented as `dict` in JSON).",
         description="Image of the person.",
     )
 
-    practitionerRole: ListType[fhirtypes.PractitionerPractitionerRoleType] = Field(
+    practitionerRole: ListType["PractitionerPractitionerRole"] = Field(
         None,
         alias="practitionerRole",
         title="List of `PractitionerPractitionerRole` items (represented as `dict` in JSON).",
         description="Roles/organizations the practitioner is associated with.",
     )
 
-    qualification: ListType[fhirtypes.PractitionerQualificationType] = Field(
+    qualification: ListType["PractitionerQualification"] = Field(
         None,
         alias="qualification",
         title="List of `PractitionerQualification` items (represented as `dict` in JSON).",
         description="Qualifications obtained by training and certification.",
     )
-    telecom: ListType[fhirtypes.ContactPointType] = Field(
+    telecom: ListType[ContactPoint] = Field(
         None,
         alias="telecom",
         title="List of `ContactPoint` items (represented as `dict` in JSON).",
@@ -105,9 +113,9 @@ class PractitionerPractitionerRole(BackboneElement):
     The list of roles/organizations that the practitioner is associated with.
     """
 
-    resource_type = Field("PractitionerPractitionerRole", const=True)
+    resource_type: str = Field("PractitionerPractitionerRole", const=True)
 
-    healthcareService: ListType[fhirtypes.ReferenceType] = Field(
+    healthcareService: ListType[Reference] = Field(
         None,
         alias="healthcareService",
         title=(
@@ -120,7 +128,7 @@ class PractitionerPractitionerRole(BackboneElement):
         ),
     )
 
-    location: ListType[fhirtypes.ReferenceType] = Field(
+    location: ListType[Reference] = Field(
         None,
         alias="location",
         title=(
@@ -130,13 +138,13 @@ class PractitionerPractitionerRole(BackboneElement):
         description=("The location(s) at which this practitioner provides care."),
     )
 
-    managingOrganization: fhirtypes.ReferenceType = Field(
+    managingOrganization: Reference = Field(
         None,
         alias="managingOrganization",
         title="`Reference` referencing `Organization` (represented as `dict` in JSON).",
         description="Organization where the roles are performed.",
     )
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Type `Period` (represented as `dict` in JSON).",
@@ -146,14 +154,14 @@ class PractitionerPractitionerRole(BackboneElement):
         ),
     )
 
-    role: fhirtypes.CodeableConceptType = Field(
+    role: CodeableConcept = Field(
         None,
         alias="role",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="Roles which this practitioner may perform.",
     )
 
-    specialty: ListType[fhirtypes.CodeableConceptType] = Field(
+    specialty: ListType[CodeableConcept] = Field(
         None,
         alias="specialty",
         title="List of `CodeableConcept` items (represented as `dict` in JSON).",
@@ -164,31 +172,34 @@ class PractitionerPractitionerRole(BackboneElement):
 class PractitionerQualification(BackboneElement):
     """Qualifications obtained by training and certification."""
 
-    resource_type = Field("PractitionerQualification", const=True)
+    resource_type: str = Field("PractitionerQualification", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="Coded representation of the qualification.",
     )
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="List of `Identifier` items (represented as `dict` in JSON).",
         description="An identifier for this qualification for the practitioner.",
     )
 
-    issuer: fhirtypes.ReferenceType = Field(
+    issuer: Reference = Field(
         None,
         alias="issuer",
         title="Type `Reference` referencing `Organization` (represented as `dict` in JSON).",
         description="Organization that regulates and issues the qualification.",
     )
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Type `Period` (represented as `dict` in JSON).",
         description="Period during which the qualification is valid.",
     )
+
+
+Practitioner.update_forward_refs()

@@ -10,7 +10,11 @@ from typing import List as ListType
 from pydantic.v1 import Field
 
 from . import fhirtypes
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
 from .domainresource import DomainResource
+from .identifier import Identifier
+from .reference import Reference
 
 
 class BodySite(DomainResource):
@@ -21,9 +25,9 @@ class BodySite(DomainResource):
     necessary detail needed for the use case.
     """
 
-    resource_type = Field("BodySite", const=True)
+    resource_type: str = Field("BodySite", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Type `CodeableConcept` (represented as `dict` in JSON)",
@@ -37,28 +41,28 @@ class BodySite(DomainResource):
         description="Anatomical location description",
     )
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="List of `Identifier` items (represented as `dict` in JSON)",
         description="Bodysite identifier",
     )
 
-    image: ListType[fhirtypes.AttachmentType] = Field(
+    image: ListType[Attachment] = Field(
         None,
         alias="image",
         title="List of `Attachment` items (represented as `dict` in JSON)",
         description="Attached images",
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         ...,
         alias="patient",
         title="Type `Reference` referencing `Patient` (represented as `dict` in JSON)",
         description="Who this is about",
     )
 
-    modifier: ListType[fhirtypes.CodeableConceptType] = Field(
+    modifier: ListType[CodeableConcept] = Field(
         None,
         alias="modifier",
         title="List of `CodeableConcept` items (represented as `dict` in JSON)",

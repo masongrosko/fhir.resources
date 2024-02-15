@@ -13,6 +13,11 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .expression import Expression
+from .period import Period
+from .reference import Reference
 
 
 class Permission(domainresource.DomainResource):
@@ -24,9 +29,9 @@ class Permission(domainresource.DomainResource):
     Permission resource holds access rules for a given data and context.
     """
 
-    resource_type = Field("Permission", const=True)
+    resource_type: str = Field("Permission", const=True)
 
-    asserter: fhirtypes.ReferenceType = Field(
+    asserter: Reference = Field(
         None,
         alias="asserter",
         title="The person or entity that asserts the permission",
@@ -82,11 +87,11 @@ class Permission(domainresource.DomainResource):
         # if property is element of this resource.
         element_property=True,
     )
-    date__ext: typing.List[
-        typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
-    ] = Field(None, alias="_date", title="Extension field for ``date``.")
+    date__ext: typing.List[typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]] = (
+        Field(None, alias="_date", title="Extension field for ``date``.")
+    )
 
-    justification: fhirtypes.PermissionJustificationType = Field(
+    justification: "PermissionJustification" = Field(
         None,
         alias="justification",
         title="The asserted justification for using the data",
@@ -95,7 +100,7 @@ class Permission(domainresource.DomainResource):
         element_property=True,
     )
 
-    rule: typing.List[fhirtypes.PermissionRuleType] = Field(
+    rule: typing.List["PermissionRule"] = Field(
         None,
         alias="rule",
         title="Constraints to the Permission",
@@ -120,7 +125,7 @@ class Permission(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    validity: fhirtypes.PeriodType = Field(
+    validity: Period = Field(
         None,
         alias="validity",
         title="The period in which the permission is active",
@@ -221,9 +226,9 @@ class PermissionJustification(backboneelement.BackboneElement):
     The asserted justification for using the data.
     """
 
-    resource_type = Field("PermissionJustification", const=True)
+    resource_type: str = Field("PermissionJustification", const=True)
 
-    basis: typing.List[fhirtypes.CodeableConceptType] = Field(
+    basis: typing.List[CodeableConcept] = Field(
         None,
         alias="basis",
         title="The regulatory grounds upon which this Permission builds",
@@ -235,7 +240,7 @@ class PermissionJustification(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    evidence: typing.List[fhirtypes.ReferenceType] = Field(
+    evidence: typing.List[Reference] = Field(
         None,
         alias="evidence",
         title="Justifing rational",
@@ -264,9 +269,9 @@ class PermissionRule(backboneelement.BackboneElement):
     A set of rules.
     """
 
-    resource_type = Field("PermissionRule", const=True)
+    resource_type: str = Field("PermissionRule", const=True)
 
-    activity: typing.List[fhirtypes.PermissionRuleActivityType] = Field(
+    activity: typing.List["PermissionRuleActivity"] = Field(
         None,
         alias="activity",
         title=(
@@ -278,7 +283,7 @@ class PermissionRule(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    data: typing.List[fhirtypes.PermissionRuleDataType] = Field(
+    data: typing.List["PermissionRuleData"] = Field(
         None,
         alias="data",
         title=(
@@ -293,7 +298,7 @@ class PermissionRule(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    limit: typing.List[fhirtypes.CodeableConceptType] = Field(
+    limit: typing.List[CodeableConcept] = Field(
         None,
         alias="limit",
         title="What limits apply to the use of the data",
@@ -343,9 +348,9 @@ class PermissionRuleActivity(backboneelement.BackboneElement):
     the data.
     """
 
-    resource_type = Field("PermissionRuleActivity", const=True)
+    resource_type: str = Field("PermissionRuleActivity", const=True)
 
-    action: typing.List[fhirtypes.CodeableConceptType] = Field(
+    action: typing.List[CodeableConcept] = Field(
         None,
         alias="action",
         title="Actions controlled by this rule",
@@ -354,7 +359,7 @@ class PermissionRuleActivity(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    actor: typing.List[fhirtypes.ReferenceType] = Field(
+    actor: typing.List[Reference] = Field(
         None,
         alias="actor",
         title="Authorized actor(s)",
@@ -374,7 +379,7 @@ class PermissionRuleActivity(backboneelement.BackboneElement):
         ],
     )
 
-    purpose: typing.List[fhirtypes.CodeableConceptType] = Field(
+    purpose: typing.List[CodeableConcept] = Field(
         None,
         alias="purpose",
         title="The purpose for which the permission is given",
@@ -403,9 +408,9 @@ class PermissionRuleData(backboneelement.BackboneElement):
     the data.
     """
 
-    resource_type = Field("PermissionRuleData", const=True)
+    resource_type: str = Field("PermissionRuleData", const=True)
 
-    expression: fhirtypes.ExpressionType = Field(
+    expression: Expression = Field(
         None,
         alias="expression",
         title="Expression identifying the data",
@@ -414,7 +419,7 @@ class PermissionRuleData(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    period: typing.List[fhirtypes.PeriodType] = Field(
+    period: typing.List[Period] = Field(
         None,
         alias="period",
         title="Timeframe encompasing data create/update",
@@ -426,7 +431,7 @@ class PermissionRuleData(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    resource: typing.List[fhirtypes.PermissionRuleDataResourceType] = Field(
+    resource: typing.List["PermissionRuleDataResource"] = Field(
         None,
         alias="resource",
         title="Explicit FHIR Resource references",
@@ -435,7 +440,7 @@ class PermissionRuleData(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    security: typing.List[fhirtypes.CodingType] = Field(
+    security: typing.List[Coding] = Field(
         None,
         alias="security",
         title="Security tag code on .meta.security",
@@ -472,7 +477,7 @@ class PermissionRuleDataResource(backboneelement.BackboneElement):
     Explicit FHIR Resource references.
     """
 
-    resource_type = Field("PermissionRuleDataResource", const=True)
+    resource_type: str = Field("PermissionRuleDataResource", const=True)
 
     meaning: fhirtypes.Code = Field(
         None,
@@ -493,7 +498,7 @@ class PermissionRuleDataResource(backboneelement.BackboneElement):
         None, alias="_meaning", title="Extension field for ``meaning``."
     )
 
-    reference: fhirtypes.ReferenceType = Field(
+    reference: Reference = Field(
         ...,
         alias="reference",
         title="The actual data reference",
@@ -573,3 +578,8 @@ class PermissionRuleDataResource(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+Permission.update_forward_refs()
+PermissionRule.update_forward_refs()
+PermissionRuleData.update_forward_refs()

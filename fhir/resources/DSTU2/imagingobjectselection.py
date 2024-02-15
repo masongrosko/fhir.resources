@@ -11,7 +11,9 @@ from pydantic.v1 import Field
 
 from . import fhirtypes
 from .backboneelement import BackboneElement
+from .codeableconcept import CodeableConcept
 from .domainresource import DomainResource
+from .reference import Reference
 
 
 class ImagingObjectSelection(DomainResource):
@@ -31,7 +33,7 @@ class ImagingObjectSelection(DomainResource):
 
     resource_type = "ImagingObjectSelection"
 
-    author: fhirtypes.ReferenceType = Field(
+    author: Reference = Field(
         None,
         alias="author",
         title=(
@@ -63,7 +65,7 @@ class ImagingObjectSelection(DomainResource):
         description="Description text.",
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         ...,
         alias="patient",
         title="Type `Reference` referencing `Patient` (represented as `dict` in JSON).",
@@ -72,7 +74,7 @@ class ImagingObjectSelection(DomainResource):
         enum_reference_types=["Patient"],
     )
 
-    study: ListType[fhirtypes.ImagingObjectSelectionStudyType] = Field(
+    study: ListType["ImagingObjectSelectionStudy"] = Field(
         ...,
         alias="study",
         title=(
@@ -82,7 +84,7 @@ class ImagingObjectSelection(DomainResource):
         description="Study identity of the selected instances.",
     )
 
-    title: fhirtypes.CodeableConceptType = Field(
+    title: CodeableConcept = Field(
         ...,
         alias="title",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -106,7 +108,7 @@ class ImagingObjectSelectionStudy(BackboneElement):
 
     resource_type = "ImagingObjectSelectionStudy"
 
-    imagingStudy: fhirtypes.ReferenceType = Field(
+    imagingStudy: Reference = Field(
         None,
         alias="imagingStudy",
         title=(
@@ -118,7 +120,7 @@ class ImagingObjectSelectionStudy(BackboneElement):
         enum_reference_types=["ImagingStudy"],
     )
 
-    series: ListType[fhirtypes.ImagingObjectSelectionStudySeriesType] = Field(
+    series: ListType["ImagingObjectSelectionStudySeries"] = Field(
         ...,
         alias="series",
         title=(
@@ -152,7 +154,7 @@ class ImagingObjectSelectionStudySeries(BackboneElement):
 
     resource_type = "ImagingObjectSelectionStudySeries"
 
-    instance: ListType[fhirtypes.ImagingObjectSelectionStudySeriesInstanceType] = Field(
+    instance: ListType["ImagingObjectSelectionStudySeriesInstance"] = Field(
         ...,
         alias="instance",
         title=(
@@ -185,9 +187,7 @@ class ImagingObjectSelectionStudySeriesInstance(BackboneElement):
 
     resource_type = "ImagingObjectSelectionStudySeriesInstance"
 
-    frames: ListType[
-        fhirtypes.ImagingObjectSelectionStudySeriesInstanceFramesType
-    ] = Field(
+    frames: ListType["ImagingObjectSelectionStudySeriesInstanceFrames"] = Field(
         None,
         alias="frames",
         title=(
@@ -240,3 +240,9 @@ class ImagingObjectSelectionStudySeriesInstanceFrames(BackboneElement):
         title="Type `Uri`.",
         description="Retrieve frame URL.",
     )
+
+
+ImagingObjectSelection.update_forward_refs()
+ImagingObjectSelectionStudy.update_forward_refs()
+ImagingObjectSelectionStudySeries.update_forward_refs()
+ImagingObjectSelectionStudySeriesInstance.update_forward_refs()

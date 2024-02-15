@@ -13,6 +13,12 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class DocumentReference(domainresource.DomainResource):
@@ -23,9 +29,9 @@ class DocumentReference(domainresource.DomainResource):
     A reference to a document.
     """
 
-    resource_type = Field("DocumentReference", const=True)
+    resource_type: str = Field("DocumentReference", const=True)
 
-    authenticator: fhirtypes.ReferenceType = Field(
+    authenticator: Reference = Field(
         None,
         alias="authenticator",
         title="Who/what authenticated the document",
@@ -38,7 +44,7 @@ class DocumentReference(domainresource.DomainResource):
         enum_reference_types=["Practitioner", "Organization"],
     )
 
-    author: typing.List[fhirtypes.ReferenceType] = Field(
+    author: typing.List[Reference] = Field(
         None,
         alias="author",
         title="Who and/or what authored the document",
@@ -58,7 +64,7 @@ class DocumentReference(domainresource.DomainResource):
         ],
     )
 
-    class_fhir: fhirtypes.CodeableConceptType = Field(
+    class_fhir: CodeableConcept = Field(
         None,
         alias="class",
         title="Categorization of document",
@@ -71,7 +77,7 @@ class DocumentReference(domainresource.DomainResource):
         element_property=True,
     )
 
-    content: typing.List[fhirtypes.DocumentReferenceContentType] = Field(
+    content: typing.List["DocumentReferenceContent"] = Field(
         ...,
         alias="content",
         title="Document referenced",
@@ -83,7 +89,7 @@ class DocumentReference(domainresource.DomainResource):
         element_property=True,
     )
 
-    context: fhirtypes.DocumentReferenceContextType = Field(
+    context: "DocumentReferenceContext" = Field(
         None,
         alias="context",
         title="Clinical context of document",
@@ -104,7 +110,7 @@ class DocumentReference(domainresource.DomainResource):
         None, alias="_created", title="Extension field for ``created``."
     )
 
-    custodian: fhirtypes.ReferenceType = Field(
+    custodian: Reference = Field(
         None,
         alias="custodian",
         title="Organization which maintains the document",
@@ -148,7 +154,7 @@ class DocumentReference(domainresource.DomainResource):
         None, alias="_docStatus", title="Extension field for ``docStatus``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Other identifiers for the document",
@@ -173,7 +179,7 @@ class DocumentReference(domainresource.DomainResource):
         None, alias="_indexed", title="Extension field for ``indexed``."
     )
 
-    masterIdentifier: fhirtypes.IdentifierType = Field(
+    masterIdentifier: Identifier = Field(
         None,
         alias="masterIdentifier",
         title="Master Version Specific Identifier",
@@ -187,7 +193,7 @@ class DocumentReference(domainresource.DomainResource):
         element_property=True,
     )
 
-    relatesTo: typing.List[fhirtypes.DocumentReferenceRelatesToType] = Field(
+    relatesTo: typing.List["DocumentReferenceRelatesTo"] = Field(
         None,
         alias="relatesTo",
         title="Relationships to other documents",
@@ -199,7 +205,7 @@ class DocumentReference(domainresource.DomainResource):
         element_property=True,
     )
 
-    securityLabel: typing.List[fhirtypes.CodeableConceptType] = Field(
+    securityLabel: typing.List[CodeableConcept] = Field(
         None,
         alias="securityLabel",
         title="Document security-tags",
@@ -230,7 +236,7 @@ class DocumentReference(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title="Who/what is the subject of the document",
@@ -246,7 +252,7 @@ class DocumentReference(domainresource.DomainResource):
         enum_reference_types=["Patient", "Practitioner", "Group", "Device"],
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title="Kind of document (LOINC if possible)",
@@ -363,9 +369,9 @@ class DocumentReferenceContent(backboneelement.BackboneElement):
     repetitions, each with a different format.
     """
 
-    resource_type = Field("DocumentReferenceContent", const=True)
+    resource_type: str = Field("DocumentReferenceContent", const=True)
 
-    attachment: fhirtypes.AttachmentType = Field(
+    attachment: Attachment = Field(
         ...,
         alias="attachment",
         title="Where to access the document",
@@ -377,7 +383,7 @@ class DocumentReferenceContent(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    format: fhirtypes.CodingType = Field(
+    format: Coding = Field(
         None,
         alias="format",
         title="Format/content rules for the document",
@@ -408,9 +414,9 @@ class DocumentReferenceContext(backboneelement.BackboneElement):
     The clinical context in which the document was prepared.
     """
 
-    resource_type = Field("DocumentReferenceContext", const=True)
+    resource_type: str = Field("DocumentReferenceContext", const=True)
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title="Context of the document  content",
@@ -424,7 +430,7 @@ class DocumentReferenceContext(backboneelement.BackboneElement):
         enum_reference_types=["Encounter"],
     )
 
-    event: typing.List[fhirtypes.CodeableConceptType] = Field(
+    event: typing.List[CodeableConcept] = Field(
         None,
         alias="event",
         title="Main clinical acts documented",
@@ -439,7 +445,7 @@ class DocumentReferenceContext(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    facilityType: fhirtypes.CodeableConceptType = Field(
+    facilityType: CodeableConcept = Field(
         None,
         alias="facilityType",
         title="Kind of facility where patient was seen",
@@ -448,7 +454,7 @@ class DocumentReferenceContext(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Time of service that is being documented",
@@ -460,7 +466,7 @@ class DocumentReferenceContext(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    practiceSetting: fhirtypes.CodeableConceptType = Field(
+    practiceSetting: CodeableConcept = Field(
         None,
         alias="practiceSetting",
         title=(
@@ -475,7 +481,7 @@ class DocumentReferenceContext(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    related: typing.List[fhirtypes.DocumentReferenceContextRelatedType] = Field(
+    related: typing.List["DocumentReferenceContextRelated"] = Field(
         None,
         alias="related",
         title="Related identifiers or resources",
@@ -486,7 +492,7 @@ class DocumentReferenceContext(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    sourcePatientInfo: fhirtypes.ReferenceType = Field(
+    sourcePatientInfo: Reference = Field(
         None,
         alias="sourcePatientInfo",
         title="Patient demographics from source",
@@ -529,9 +535,9 @@ class DocumentReferenceContextRelated(backboneelement.BackboneElement):
     Related identifiers or resources associated with the DocumentReference.
     """
 
-    resource_type = Field("DocumentReferenceContextRelated", const=True)
+    resource_type: str = Field("DocumentReferenceContextRelated", const=True)
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="Identifier of related objects or events",
@@ -543,7 +549,7 @@ class DocumentReferenceContextRelated(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    ref: fhirtypes.ReferenceType = Field(
+    ref: Reference = Field(
         None,
         alias="ref",
         title="Related Resource",
@@ -576,7 +582,7 @@ class DocumentReferenceRelatesTo(backboneelement.BackboneElement):
     already exist.
     """
 
-    resource_type = Field("DocumentReferenceRelatesTo", const=True)
+    resource_type: str = Field("DocumentReferenceRelatesTo", const=True)
 
     code: fhirtypes.Code = Field(
         None,
@@ -594,7 +600,7 @@ class DocumentReferenceRelatesTo(backboneelement.BackboneElement):
         None, alias="_code", title="Extension field for ``code``."
     )
 
-    target: fhirtypes.ReferenceType = Field(
+    target: Reference = Field(
         ...,
         alias="target",
         title="Target of the relationship",
@@ -671,3 +677,7 @@ class DocumentReferenceRelatesTo(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+DocumentReference.update_forward_refs()
+DocumentReferenceContext.update_forward_refs()

@@ -13,6 +13,11 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .codeablereference import CodeableReference
+from .coding import Coding
+from .identifier import Identifier
+from .reference import Reference
 
 
 class ImagingSelection(domainresource.DomainResource):
@@ -28,9 +33,9 @@ class ImagingSelection(domainresource.DomainResource):
     ImagingStudy Resource.
     """
 
-    resource_type = Field("ImagingSelection", const=True)
+    resource_type: str = Field("ImagingSelection", const=True)
 
-    basedOn: typing.List[fhirtypes.ReferenceType] = Field(
+    basedOn: typing.List[Reference] = Field(
         None,
         alias="basedOn",
         title="Associated request",
@@ -50,7 +55,7 @@ class ImagingSelection(domainresource.DomainResource):
         ],
     )
 
-    bodySite: fhirtypes.CodeableReferenceType = Field(
+    bodySite: CodeableReference = Field(
         None,
         alias="bodySite",
         title="Body part examined",
@@ -65,7 +70,7 @@ class ImagingSelection(domainresource.DomainResource):
         enum_reference_types=["BodyStructure"],
     )
 
-    category: typing.List[fhirtypes.CodeableConceptType] = Field(
+    category: typing.List[CodeableConcept] = Field(
         None,
         alias="category",
         title="Classifies the imaging selection",
@@ -74,7 +79,7 @@ class ImagingSelection(domainresource.DomainResource):
         element_property=True,
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         ...,
         alias="code",
         title="Imaging Selection purpose text or code",
@@ -83,7 +88,7 @@ class ImagingSelection(domainresource.DomainResource):
         element_property=True,
     )
 
-    derivedFrom: typing.List[fhirtypes.ReferenceType] = Field(
+    derivedFrom: typing.List[Reference] = Field(
         None,
         alias="derivedFrom",
         title="The imaging study from which the imaging selection is derived",
@@ -94,7 +99,7 @@ class ImagingSelection(domainresource.DomainResource):
         enum_reference_types=["ImagingStudy", "DocumentReference"],
     )
 
-    endpoint: typing.List[fhirtypes.ReferenceType] = Field(
+    endpoint: typing.List[Reference] = Field(
         None,
         alias="endpoint",
         title=(
@@ -112,7 +117,7 @@ class ImagingSelection(domainresource.DomainResource):
         enum_reference_types=["Endpoint"],
     )
 
-    focus: typing.List[fhirtypes.ReferenceType] = Field(
+    focus: typing.List[Reference] = Field(
         None,
         alias="focus",
         title="Related resource that is the focus for the imaging selection",
@@ -152,7 +157,7 @@ class ImagingSelection(domainresource.DomainResource):
         title="Extension field for ``frameOfReferenceUid``.",
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business Identifier for Imaging Selection",
@@ -161,7 +166,7 @@ class ImagingSelection(domainresource.DomainResource):
         element_property=True,
     )
 
-    instance: typing.List[fhirtypes.ImagingSelectionInstanceType] = Field(
+    instance: typing.List["ImagingSelectionInstance"] = Field(
         None,
         alias="instance",
         title="The selected instances",
@@ -185,7 +190,7 @@ class ImagingSelection(domainresource.DomainResource):
         None, alias="_issued", title="Extension field for ``issued``."
     )
 
-    performer: typing.List[fhirtypes.ImagingSelectionPerformerType] = Field(
+    performer: typing.List["ImagingSelectionPerformer"] = Field(
         None,
         alias="performer",
         title="Selector of the instances (human or machine)",
@@ -259,7 +264,7 @@ class ImagingSelection(domainresource.DomainResource):
         None, alias="_studyUid", title="Extension field for ``studyUid``."
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title="Subject of the selected instances",
@@ -388,11 +393,9 @@ class ImagingSelectionInstance(backboneelement.BackboneElement):
     Each imaging selection includes one or more selected DICOM SOP instances.
     """
 
-    resource_type = Field("ImagingSelectionInstance", const=True)
+    resource_type: str = Field("ImagingSelectionInstance", const=True)
 
-    imageRegion2D: typing.List[
-        fhirtypes.ImagingSelectionInstanceImageRegion2DType
-    ] = Field(
+    imageRegion2D: typing.List["ImagingSelectionInstanceImageRegion2D"] = Field(
         None,
         alias="imageRegion2D",
         title="A specific 2D region in a DICOM image / frame",
@@ -407,9 +410,7 @@ class ImagingSelectionInstance(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    imageRegion3D: typing.List[
-        fhirtypes.ImagingSelectionInstanceImageRegion3DType
-    ] = Field(
+    imageRegion3D: typing.List["ImagingSelectionInstanceImageRegion3D"] = Field(
         None,
         alias="imageRegion3D",
         title="A specific 3D region in a DICOM frame of reference",
@@ -433,7 +434,7 @@ class ImagingSelectionInstance(backboneelement.BackboneElement):
         None, alias="_number", title="Extension field for ``number``."
     )
 
-    sopClass: fhirtypes.CodingType = Field(
+    sopClass: Coding = Field(
         None,
         alias="sopClass",
         title="DICOM SOP Class UID",
@@ -566,7 +567,7 @@ class ImagingSelectionInstanceImageRegion2D(backboneelement.BackboneElement):
     type frame, the image region applies to all frames in the subset list.
     """
 
-    resource_type = Field("ImagingSelectionInstanceImageRegion2D", const=True)
+    resource_type: str = Field("ImagingSelectionInstanceImageRegion2D", const=True)
 
     coordinate: typing.List[typing.Optional[fhirtypes.Decimal]] = Field(
         None,
@@ -686,7 +687,7 @@ class ImagingSelectionInstanceImageRegion3D(backboneelement.BackboneElement):
     region type and a set of 3D coordinates.
     """
 
-    resource_type = Field("ImagingSelectionInstanceImageRegion3D", const=True)
+    resource_type: str = Field("ImagingSelectionInstanceImageRegion3D", const=True)
 
     coordinate: typing.List[typing.Optional[fhirtypes.Decimal]] = Field(
         None,
@@ -809,9 +810,9 @@ class ImagingSelectionPerformer(backboneelement.BackboneElement):
     Selector of the instances – human or machine.
     """
 
-    resource_type = Field("ImagingSelectionPerformer", const=True)
+    resource_type: str = Field("ImagingSelectionPerformer", const=True)
 
-    actor: fhirtypes.ReferenceType = Field(
+    actor: Reference = Field(
         None,
         alias="actor",
         title="Author (human or machine)",
@@ -831,7 +832,7 @@ class ImagingSelectionPerformer(backboneelement.BackboneElement):
         ],
     )
 
-    function: fhirtypes.CodeableConceptType = Field(
+    function: CodeableConcept = Field(
         None,
         alias="function",
         title="Type of performer",
@@ -847,3 +848,7 @@ class ImagingSelectionPerformer(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "function", "actor"]
+
+
+ImagingSelection.update_forward_refs()
+ImagingSelectionInstance.update_forward_refs()

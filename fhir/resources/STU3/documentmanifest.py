@@ -13,6 +13,10 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .reference import Reference
 
 
 class DocumentManifest(domainresource.DomainResource):
@@ -25,9 +29,9 @@ class DocumentManifest(domainresource.DomainResource):
     that applies to the collection.
     """
 
-    resource_type = Field("DocumentManifest", const=True)
+    resource_type: str = Field("DocumentManifest", const=True)
 
-    author: typing.List[fhirtypes.ReferenceType] = Field(
+    author: typing.List[Reference] = Field(
         None,
         alias="author",
         title="Who and/or what authored the manifest",
@@ -47,7 +51,7 @@ class DocumentManifest(domainresource.DomainResource):
         ],
     )
 
-    content: typing.List[fhirtypes.DocumentManifestContentType] = Field(
+    content: typing.List["DocumentManifestContent"] = Field(
         ...,
         alias="content",
         title="The items included",
@@ -87,7 +91,7 @@ class DocumentManifest(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Other identifiers for the manifest",
@@ -99,7 +103,7 @@ class DocumentManifest(domainresource.DomainResource):
         element_property=True,
     )
 
-    masterIdentifier: fhirtypes.IdentifierType = Field(
+    masterIdentifier: Identifier = Field(
         None,
         alias="masterIdentifier",
         title="Unique Identifier for the set of documents",
@@ -111,7 +115,7 @@ class DocumentManifest(domainresource.DomainResource):
         element_property=True,
     )
 
-    recipient: typing.List[fhirtypes.ReferenceType] = Field(
+    recipient: typing.List[Reference] = Field(
         None,
         alias="recipient",
         title="Intended to get notified about this set of documents",
@@ -130,7 +134,7 @@ class DocumentManifest(domainresource.DomainResource):
         ],
     )
 
-    related: typing.List[fhirtypes.DocumentManifestRelatedType] = Field(
+    related: typing.List["DocumentManifestRelated"] = Field(
         None,
         alias="related",
         title="Related things",
@@ -170,7 +174,7 @@ class DocumentManifest(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title="The subject of the set of documents",
@@ -188,7 +192,7 @@ class DocumentManifest(domainresource.DomainResource):
         enum_reference_types=["Patient", "Practitioner", "Group", "Device"],
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Kind of document set",
@@ -300,9 +304,9 @@ class DocumentManifestContent(backboneelement.BackboneElement):
     The list of Documents included in the manifest.
     """
 
-    resource_type = Field("DocumentManifestContent", const=True)
+    resource_type: str = Field("DocumentManifestContent", const=True)
 
-    pAttachment: fhirtypes.AttachmentType = Field(
+    pAttachment: Attachment = Field(
         None,
         alias="pAttachment",
         title="Contents of this set of documents",
@@ -319,7 +323,7 @@ class DocumentManifestContent(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    pReference: fhirtypes.ReferenceType = Field(
+    pReference: Reference = Field(
         None,
         alias="pReference",
         title="Contents of this set of documents",
@@ -394,9 +398,9 @@ class DocumentManifestRelated(backboneelement.BackboneElement):
     Related identifiers or resources associated with the DocumentManifest.
     """
 
-    resource_type = Field("DocumentManifestRelated", const=True)
+    resource_type: str = Field("DocumentManifestRelated", const=True)
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="Identifiers of things that are related",
@@ -408,7 +412,7 @@ class DocumentManifestRelated(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    ref: fhirtypes.ReferenceType = Field(
+    ref: Reference = Field(
         None,
         alias="ref",
         title="Related Resource",
@@ -429,3 +433,6 @@ class DocumentManifestRelated(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "identifier", "ref"]
+
+
+DocumentManifest.update_forward_refs()

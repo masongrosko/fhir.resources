@@ -11,6 +11,9 @@ import typing
 from pydantic.v1 import Field
 
 from . import backboneelement, domainresource, fhirtypes
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
 
 
 class SubstanceNucleicAcid(domainresource.DomainResource):
@@ -24,7 +27,7 @@ class SubstanceNucleicAcid(domainresource.DomainResource):
     direction.
     """
 
-    resource_type = Field("SubstanceNucleicAcid", const=True)
+    resource_type: str = Field("SubstanceNucleicAcid", const=True)
 
     areaOfHybridisation: fhirtypes.String = Field(
         None,
@@ -66,7 +69,7 @@ class SubstanceNucleicAcid(domainresource.DomainResource):
         title="Extension field for ``numberOfSubunits``.",
     )
 
-    oligoNucleotideType: fhirtypes.CodeableConceptType = Field(
+    oligoNucleotideType: CodeableConcept = Field(
         None,
         alias="oligoNucleotideType",
         title="(TBC)",
@@ -75,7 +78,7 @@ class SubstanceNucleicAcid(domainresource.DomainResource):
         element_property=True,
     )
 
-    sequenceType: fhirtypes.CodeableConceptType = Field(
+    sequenceType: CodeableConcept = Field(
         None,
         alias="sequenceType",
         title=(
@@ -87,7 +90,7 @@ class SubstanceNucleicAcid(domainresource.DomainResource):
         element_property=True,
     )
 
-    subunit: typing.List[fhirtypes.SubstanceNucleicAcidSubunitType] = Field(
+    subunit: typing.List["SubstanceNucleicAcidSubunit"] = Field(
         None,
         alias="subunit",
         title=(
@@ -133,9 +136,9 @@ class SubstanceNucleicAcidSubunit(backboneelement.BackboneElement):
     sequences will be repeated multiple times.
     """
 
-    resource_type = Field("SubstanceNucleicAcidSubunit", const=True)
+    resource_type: str = Field("SubstanceNucleicAcidSubunit", const=True)
 
-    fivePrime: fhirtypes.CodeableConceptType = Field(
+    fivePrime: CodeableConcept = Field(
         None,
         alias="fivePrime",
         title=(
@@ -161,7 +164,7 @@ class SubstanceNucleicAcidSubunit(backboneelement.BackboneElement):
         None, alias="_length", title="Extension field for ``length``."
     )
 
-    linkage: typing.List[fhirtypes.SubstanceNucleicAcidSubunitLinkageType] = Field(
+    linkage: typing.List["SubstanceNucleicAcidSubunitLinkage"] = Field(
         None,
         alias="linkage",
         title="The linkages between sugar residues will also be captured",
@@ -186,7 +189,7 @@ class SubstanceNucleicAcidSubunit(backboneelement.BackboneElement):
         None, alias="_sequence", title="Extension field for ``sequence``."
     )
 
-    sequenceAttachment: fhirtypes.AttachmentType = Field(
+    sequenceAttachment: Attachment = Field(
         None,
         alias="sequenceAttachment",
         title="(TBC)",
@@ -212,7 +215,7 @@ class SubstanceNucleicAcidSubunit(backboneelement.BackboneElement):
         None, alias="_subunit", title="Extension field for ``subunit``."
     )
 
-    sugar: typing.List[fhirtypes.SubstanceNucleicAcidSubunitSugarType] = Field(
+    sugar: typing.List["SubstanceNucleicAcidSubunitSugar"] = Field(
         None,
         alias="sugar",
         title="5.3.6.8.1 Sugar ID (Mandatory)",
@@ -221,7 +224,7 @@ class SubstanceNucleicAcidSubunit(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    threePrime: fhirtypes.CodeableConceptType = Field(
+    threePrime: CodeableConcept = Field(
         None,
         alias="threePrime",
         title=(
@@ -264,7 +267,7 @@ class SubstanceNucleicAcidSubunitLinkage(backboneelement.BackboneElement):
     The linkages between sugar residues will also be captured.
     """
 
-    resource_type = Field("SubstanceNucleicAcidSubunitLinkage", const=True)
+    resource_type: str = Field("SubstanceNucleicAcidSubunitLinkage", const=True)
 
     connectivity: fhirtypes.String = Field(
         None,
@@ -286,7 +289,7 @@ class SubstanceNucleicAcidSubunitLinkage(backboneelement.BackboneElement):
         None, alias="_connectivity", title="Extension field for ``connectivity``."
     )
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="Each linkage will be registered as a fragment and have an ID",
@@ -347,9 +350,9 @@ class SubstanceNucleicAcidSubunitSugar(backboneelement.BackboneElement):
     5.3.6.8.1 Sugar ID (Mandatory).
     """
 
-    resource_type = Field("SubstanceNucleicAcidSubunitSugar", const=True)
+    resource_type: str = Field("SubstanceNucleicAcidSubunitSugar", const=True)
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title=(
@@ -406,3 +409,7 @@ class SubstanceNucleicAcidSubunitSugar(backboneelement.BackboneElement):
             "name",
             "residueSite",
         ]
+
+
+SubstanceNucleicAcid.update_forward_refs()
+SubstanceNucleicAcidSubunit.update_forward_refs()

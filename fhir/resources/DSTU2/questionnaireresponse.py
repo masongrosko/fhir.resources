@@ -11,7 +11,12 @@ from typing import List as ListType
 from pydantic.v1 import Field, root_validator
 
 from . import domainresource, fhirtypes
+from .attachment import Attachment
 from .backboneelement import BackboneElement
+from .coding import Coding
+from .identifier import Identifier
+from .quantity import Quantity
+from .reference import Reference
 
 
 class QuestionnaireResponse(domainresource.DomainResource):
@@ -24,9 +29,9 @@ class QuestionnaireResponse(domainresource.DomainResource):
     to the structure of the grouping of the underlying questions.
     """
 
-    resource_type = Field("QuestionnaireResponse", const=True)
+    resource_type: str = Field("QuestionnaireResponse", const=True)
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="Unique id for this set of answers",
@@ -37,7 +42,7 @@ class QuestionnaireResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    questionnaire: fhirtypes.ReferenceType = Field(
+    questionnaire: Reference = Field(
         None,
         alias="questionnaire",
         title="Type 'Reference' referencing 'Questionnaire'  (represented as 'dict' in JSON).",
@@ -58,7 +63,7 @@ class QuestionnaireResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title="Type 'Reference' referencing 'Any'  (represented as 'dict' in JSON).",
@@ -68,7 +73,7 @@ class QuestionnaireResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    author: fhirtypes.ReferenceType = Field(
+    author: Reference = Field(
         None,
         alias="author",
         title=(
@@ -92,7 +97,7 @@ class QuestionnaireResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    source: fhirtypes.ReferenceType = Field(
+    source: Reference = Field(
         None,
         alias="source",
         title=(
@@ -105,7 +110,7 @@ class QuestionnaireResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title="Type 'Reference' referencing 'Encounter'  (represented as 'dict' in JSON).",
@@ -115,7 +120,7 @@ class QuestionnaireResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    group: fhirtypes.QuestionnaireResponseGroupType = Field(
+    group: "QuestionnaireResponseGroup" = Field(
         None,
         alias="group",
         title="Grouped questions",
@@ -132,7 +137,7 @@ class QuestionnaireResponseGroup(BackboneElement):
     of questions in the questionnaire response.
     """
 
-    resource_type = Field("QuestionnaireResponseGroup", const=True)
+    resource_type: str = Field("QuestionnaireResponseGroup", const=True)
 
     linkId: fhirtypes.String = Field(
         None,
@@ -158,7 +163,7 @@ class QuestionnaireResponseGroup(BackboneElement):
         element_property=True,
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title="Type 'Reference' referencing 'Any'  (represented as 'dict' in JSON).",
@@ -168,7 +173,7 @@ class QuestionnaireResponseGroup(BackboneElement):
         element_property=True,
     )
 
-    group: ListType[fhirtypes.QuestionnaireResponseGroupType] = Field(
+    group: ListType["QuestionnaireResponseGroup"] = Field(
         None,
         alias="group",
         title="Nested questionnaire response group",
@@ -180,7 +185,7 @@ class QuestionnaireResponseGroup(BackboneElement):
         element_property=True,
     )
 
-    question: ListType[fhirtypes.QuestionnaireResponseGroupQuestionType] = Field(
+    question: ListType["QuestionnaireResponseGroupQuestion"] = Field(
         None,
         alias="question",
         title="Questions in this group",
@@ -197,7 +202,7 @@ class QuestionnaireResponseGroupQuestion(BackboneElement):
     The order of questions within the group is relevant.
     """
 
-    resource_type = Field("QuestionnaireResponseGroupQuestion", const=True)
+    resource_type: str = Field("QuestionnaireResponseGroupQuestion", const=True)
 
     linkId: fhirtypes.String = Field(
         None,
@@ -215,9 +220,7 @@ class QuestionnaireResponseGroupQuestion(BackboneElement):
         element_property=True,
     )
 
-    answer: ListType[
-        fhirtypes.QuestionnaireResponseGroupQuestionAnswerType
-    ] = Field(  # noqa: B950
+    answer: ListType["QuestionnaireResponseGroupQuestionAnswer"] = Field(  # noqa: B950
         None,
         alias="answer",
         title="The response(s) to the question",
@@ -234,7 +237,7 @@ class QuestionnaireResponseGroupQuestionAnswer(BackboneElement):
     The respondent's answer(s) to the question.
     """
 
-    resource_type = Field("QuestionnaireResponseGroupQuestionAnswer", const=True)
+    resource_type: str = Field("QuestionnaireResponseGroupQuestionAnswer", const=True)
 
     valueBoolean: bool = Field(
         None,
@@ -362,7 +365,7 @@ class QuestionnaireResponseGroupQuestionAnswer(BackboneElement):
         one_of_many_required=False,
     )
 
-    valueAttachment: fhirtypes.AttachmentType = Field(
+    valueAttachment: Attachment = Field(
         None,
         alias="valueAttachment",
         title="Single-valued answer to the question",
@@ -376,7 +379,7 @@ class QuestionnaireResponseGroupQuestionAnswer(BackboneElement):
         one_of_many_required=False,
     )
 
-    valueCoding: fhirtypes.CodingType = Field(
+    valueCoding: Coding = Field(
         None,
         alias="valueCoding",
         title="Single-valued answer to the question",
@@ -390,7 +393,7 @@ class QuestionnaireResponseGroupQuestionAnswer(BackboneElement):
         one_of_many_required=False,
     )
 
-    valueQuantity: fhirtypes.QuantityType = Field(
+    valueQuantity: Quantity = Field(
         ...,
         alias="valueQuantity",
         title="Single-valued answer to the question",
@@ -404,7 +407,7 @@ class QuestionnaireResponseGroupQuestionAnswer(BackboneElement):
         one_of_many_required=False,
     )
 
-    valueReference: fhirtypes.ReferenceType = Field(
+    valueReference: Reference = Field(
         None,
         alias="valueReference",
         title="Single-valued answer to the question",
@@ -418,7 +421,7 @@ class QuestionnaireResponseGroupQuestionAnswer(BackboneElement):
         one_of_many_required=False,
     )
 
-    group: ListType[fhirtypes.QuestionnaireResponseGroupType] = Field(
+    group: ListType["QuestionnaireResponseGroup"] = Field(
         None,
         alias="group",
         title="Nested questionnaire response group",
@@ -480,3 +483,9 @@ class QuestionnaireResponseGroupQuestionAnswer(BackboneElement):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+QuestionnaireResponse.update_forward_refs()
+QuestionnaireResponseGroup.update_forward_refs()
+QuestionnaireResponseGroupQuestion.update_forward_refs()
+QuestionnaireResponseGroupQuestionAnswer.update_forward_refs()

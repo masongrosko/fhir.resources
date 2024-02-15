@@ -11,6 +11,11 @@ from pydantic.v1 import Field
 
 from . import domainresource, fhirtypes
 from .backboneelement import BackboneElement
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .contactpoint import ContactPoint
+from .identifier import Identifier
+from .reference import Reference
 
 
 class TestScript(domainresource.DomainResource):
@@ -22,7 +27,7 @@ class TestScript(domainresource.DomainResource):
     server implementation to determine compliance against the FHIR specification.
     """
 
-    resource_type = Field("TestScript", const=True)
+    resource_type: str = Field("TestScript", const=True)
 
     url: fhirtypes.Uri = Field(
         None,
@@ -66,7 +71,7 @@ class TestScript(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="External identifier",
@@ -98,7 +103,7 @@ class TestScript(domainresource.DomainResource):
         element_property=True,
     )
 
-    contact: ListType[fhirtypes.TestScriptContactType] = Field(
+    contact: ListType["TestScriptContact"] = Field(
         None,
         alias="contact",
         title="Contact details of the publisher",
@@ -129,7 +134,7 @@ class TestScript(domainresource.DomainResource):
         element_property=True,
     )
 
-    useContext: ListType[fhirtypes.CodeableConceptType] = Field(
+    useContext: ListType[CodeableConcept] = Field(
         None,
         alias="useContext",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -153,7 +158,7 @@ class TestScript(domainresource.DomainResource):
         element_property=True,
     )
 
-    metadata: ListType[fhirtypes.TestScriptMetadataType] = Field(
+    metadata: ListType["TestScriptMetadata"] = Field(
         None,
         alias="metadata",
         title=(
@@ -178,7 +183,7 @@ class TestScript(domainresource.DomainResource):
         element_property=True,
     )
 
-    fixture: ListType[fhirtypes.TestScriptFixtureType] = Field(
+    fixture: ListType["TestScriptFixture"] = Field(
         None,
         alias="fixture",
         title="Fixture in the test script - by reference (uri)",
@@ -187,7 +192,7 @@ class TestScript(domainresource.DomainResource):
         element_property=True,
     )
 
-    profile: ListType[fhirtypes.ReferenceType] = Field(
+    profile: ListType[Reference] = Field(
         None,
         alias="profile",
         title="Type 'Reference' referencing 'Any'  (represented as 'dict' in JSON).",
@@ -197,7 +202,7 @@ class TestScript(domainresource.DomainResource):
         element_property=True,
     )
 
-    variable: ListType[fhirtypes.TestScriptVariableType] = Field(
+    variable: ListType["TestScriptVariable"] = Field(
         None,
         alias="variable",
         title="Placeholder for evaluated elements",
@@ -206,7 +211,7 @@ class TestScript(domainresource.DomainResource):
         element_property=True,
     )
 
-    setup: fhirtypes.TestScriptSetupType = Field(
+    setup: "TestScriptSetup" = Field(
         None,
         alias="setup",
         title="A series of required setup operations before tests are executed",
@@ -215,7 +220,7 @@ class TestScript(domainresource.DomainResource):
         element_property=True,
     )
 
-    test: ListType[fhirtypes.TestScriptTestType] = Field(
+    test: ListType["TestScriptTest"] = Field(
         None,
         alias="test",
         title="A test in this script",
@@ -224,7 +229,7 @@ class TestScript(domainresource.DomainResource):
         element_property=True,
     )
 
-    teardown: fhirtypes.TestScriptTeardownType = Field(
+    teardown: "TestScriptTeardown" = Field(
         None,
         alias="teardown",
         title="A series of required clean up steps",
@@ -240,7 +245,7 @@ class TestScriptContact(BackboneElement):
     Contacts to assist a user in finding and communicating with the publisher.
     """
 
-    resource_type = Field("TestScriptContact", const=True)
+    resource_type: str = Field("TestScriptContact", const=True)
 
     name: fhirtypes.String = Field(
         None,
@@ -250,7 +255,7 @@ class TestScriptContact(BackboneElement):
         element_property=True,
     )
 
-    telecom: ListType[fhirtypes.ContactPointType] = Field(
+    telecom: ListType[ContactPoint] = Field(
         None,
         alias="telecom",
         title="Contact details for individual or publisher",
@@ -270,9 +275,9 @@ class TestScriptMetadata(BackboneElement):
     on the FHIR server being tested.
     """
 
-    resource_type = Field("TestScriptMetadata", const=True)
+    resource_type: str = Field("TestScriptMetadata", const=True)
 
-    link: ListType[fhirtypes.TestScriptMetadataLinkType] = Field(
+    link: ListType["TestScriptMetadataLink"] = Field(
         None,
         alias="link",
         title="Links to the FHIR specification",
@@ -281,7 +286,7 @@ class TestScriptMetadata(BackboneElement):
         element_property=True,
     )
 
-    capability: ListType[fhirtypes.TestScriptMetadataCapabilityType] = Field(
+    capability: ListType["TestScriptMetadataCapability"] = Field(
         None,
         alias="capability",
         title=(
@@ -301,7 +306,7 @@ class TestScriptFixture(BackboneElement):
     All fixtures are required for the test script to execute.
     """
 
-    resource_type = Field("TestScriptFixture", const=True)
+    resource_type: str = Field("TestScriptFixture", const=True)
 
     autocreate: bool = Field(
         None,
@@ -331,7 +336,7 @@ class TestScriptFixture(BackboneElement):
         element_property=True,
     )
 
-    resource: fhirtypes.ReferenceType = Field(
+    resource: Reference = Field(
         None,
         alias="resource",
         title="Type 'Reference' referencing 'Any'  (represented as 'dict' in JSON).",
@@ -349,7 +354,7 @@ class TestScriptVariable(BackboneElement):
      field value in the response headers.
     """
 
-    resource_type = Field("TestScriptVariable", const=True)
+    resource_type: str = Field("TestScriptVariable", const=True)
 
     name: fhirtypes.String = Field(
         None,
@@ -394,9 +399,9 @@ class TestScriptSetup(BackboneElement):
     A series of required setup operations before tests are executed.
     """
 
-    resource_type = Field("TestScriptSetup", const=True)
+    resource_type: str = Field("TestScriptSetup", const=True)
 
-    metadata: fhirtypes.TestScriptMetadataType = Field(
+    metadata: "TestScriptMetadata" = Field(
         None,
         alias="metadata",
         title=(
@@ -411,7 +416,7 @@ class TestScriptSetup(BackboneElement):
         element_property=True,
     )
 
-    action: ListType[fhirtypes.TestScriptSetupActionType] = Field(
+    action: ListType["TestScriptSetupAction"] = Field(
         None,
         alias="action",
         title="A setup operation or assert to perform",
@@ -429,7 +434,7 @@ class TestScriptTest(BackboneElement):
     A test in this script.
     """
 
-    resource_type = Field("TestScriptTest", const=True)
+    resource_type: str = Field("TestScriptTest", const=True)
 
     name: fhirtypes.String = Field(
         None,
@@ -447,7 +452,7 @@ class TestScriptTest(BackboneElement):
         element_property=True,
     )
 
-    metadata: fhirtypes.TestScriptMetadataType = Field(
+    metadata: "TestScriptMetadata" = Field(
         None,
         alias="metadata",
         title=(
@@ -462,7 +467,7 @@ class TestScriptTest(BackboneElement):
         element_property=True,
     )
 
-    action: ListType[fhirtypes.TestScriptTestActionType] = Field(
+    action: ListType["TestScriptTestAction"] = Field(
         None,
         alias="action",
         title="A test operation or assert to perform",
@@ -479,9 +484,9 @@ class TestScriptTeardown(BackboneElement):
     are executed (successfully or otherwise).
     """
 
-    resource_type = Field("TestScriptTeardown", const=True)
+    resource_type: str = Field("TestScriptTeardown", const=True)
 
-    action: ListType[fhirtypes.TestScriptTeardownActionType] = Field(
+    action: ListType["TestScriptTeardownAction"] = Field(
         None,
         alias="action",
         title="One or more teardown operations to perform",
@@ -497,7 +502,7 @@ class TestScriptMetadataLink(BackboneElement):
     A link to the FHIR specification that this test is covering.
     """
 
-    resource_type = Field("TestScriptMetadataLink", const=True)
+    resource_type: str = Field("TestScriptMetadataLink", const=True)
 
     url: fhirtypes.Uri = Field(
         None,
@@ -525,7 +530,7 @@ class TestScriptMetadataCapability(BackboneElement):
     correctly on the FHIR server being tested.
     """
 
-    resource_type = Field("TestScriptMetadataCapability", const=True)
+    resource_type: str = Field("TestScriptMetadataCapability", const=True)
 
     required: bool = Field(
         None,
@@ -580,7 +585,7 @@ class TestScriptMetadataCapability(BackboneElement):
         element_property=True,
     )
 
-    conformance: fhirtypes.ReferenceType = Field(
+    conformance: Reference = Field(
         None,
         alias="conformance",
         title="Type 'Reference' referencing 'Conformance'  (represented as 'dict' in JSON).",
@@ -598,9 +603,9 @@ class TestScriptSetupAction(BackboneElement):
     Action would contain either an operation or an assertion.
     """
 
-    resource_type = Field("TestScriptSetupAction", const=True)
+    resource_type: str = Field("TestScriptSetupAction", const=True)
 
-    operation: fhirtypes.TestScriptSetupActionOperationType = Field(
+    operation: "TestScriptSetupActionOperation" = Field(
         None,
         alias="operation",
         title="A setup operation or assert to perform",
@@ -609,7 +614,7 @@ class TestScriptSetupAction(BackboneElement):
         element_property=True,
     )
 
-    assert_fhir: fhirtypes.TestScriptSetupActionAssertType = Field(
+    assert_fhir: "TestScriptSetupActionAssert" = Field(
         None,
         alias="assert",
         title="The assertion to perform",
@@ -626,9 +631,9 @@ class TestScriptTestAction(BackboneElement):
     Action would contain either an operation or an assertion.
     """
 
-    resource_type = Field("TestScriptTestAction", const=True)
+    resource_type: str = Field("TestScriptTestAction", const=True)
 
-    operation: fhirtypes.TestScriptSetupActionOperationType = Field(
+    operation: "TestScriptSetupActionOperation" = Field(
         None,
         alias="operation",
         title="The setup operation to perform",
@@ -637,7 +642,7 @@ class TestScriptTestAction(BackboneElement):
         element_property=True,
     )
 
-    assert_fhir: fhirtypes.TestScriptSetupActionAssertType = Field(
+    assert_fhir: "TestScriptSetupActionAssert" = Field(
         None,
         alias="assert",
         title="The setup assertion to perform",
@@ -654,9 +659,9 @@ class TestScriptTeardownAction(BackboneElement):
     The teardown action will only contain an operation.
     """
 
-    resource_type = Field("TestScriptTeardownAction", const=True)
+    resource_type: str = Field("TestScriptTeardownAction", const=True)
 
-    operation: fhirtypes.TestScriptSetupActionOperationType = Field(
+    operation: "TestScriptSetupActionOperation" = Field(
         None,
         alias="operation",
         title="The teardown operation to perform",
@@ -673,9 +678,9 @@ class TestScriptSetupActionOperation(BackboneElement):
     The operation to perform.
     """
 
-    resource_type = Field("TestScriptSetupActionOperation", const=True)
+    resource_type: str = Field("TestScriptSetupActionOperation", const=True)
 
-    type: fhirtypes.CodingType = Field(
+    type: Coding = Field(
         None,
         alias="type",
         title="Type `Coding` (represented as `dict` in JSON).",
@@ -777,7 +782,7 @@ class TestScriptSetupActionOperation(BackboneElement):
         element_property=True,
     )
 
-    requestHeader: fhirtypes.TestScriptSetupActionOperationRequestHeaderType = Field(  # noqa: B950
+    requestHeader: "TestScriptSetupActionOperationRequestHeader" = Field(  # noqa: B950
         None,
         alias="requestHeader",
         title="Each operation can have one ore more header elements",
@@ -835,7 +840,7 @@ class TestScriptSetupActionAssert(BackboneElement):
     if the server under test behaves appropriately.
     """
 
-    resource_type = Field("TestScriptSetupActionAssert", const=True)
+    resource_type: str = Field("TestScriptSetupActionAssert", const=True)
 
     label: fhirtypes.String = Field(
         None,
@@ -1066,7 +1071,9 @@ class TestScriptSetupActionOperationRequestHeader(BackboneElement):
     Header elements would be used to set HTTP headers.
     """
 
-    resource_type = Field("TestScriptSetupActionOperationRequestHeader", const=True)
+    resource_type: str = Field(
+        "TestScriptSetupActionOperationRequestHeader", const=True
+    )
 
     field: fhirtypes.String = Field(
         None,
@@ -1083,3 +1090,14 @@ class TestScriptSetupActionOperationRequestHeader(BackboneElement):
         description="The value of the header e.g. 'application/xml'.",
         element_property=True,
     )
+
+
+TestScript.update_forward_refs()
+TestScriptMetadata.update_forward_refs()
+TestScriptSetup.update_forward_refs()
+TestScriptTest.update_forward_refs()
+TestScriptTeardown.update_forward_refs()
+TestScriptSetupAction.update_forward_refs()
+TestScriptTestAction.update_forward_refs()
+TestScriptTeardownAction.update_forward_refs()
+TestScriptSetupActionOperation.update_forward_refs()

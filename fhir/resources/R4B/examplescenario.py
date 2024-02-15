@@ -13,6 +13,10 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .contactdetail import ContactDetail
+from .identifier import Identifier
+from .usagecontext import UsageContext
 
 
 class ExampleScenario(domainresource.DomainResource):
@@ -23,9 +27,9 @@ class ExampleScenario(domainresource.DomainResource):
     Example of workflow instance.
     """
 
-    resource_type = Field("ExampleScenario", const=True)
+    resource_type: str = Field("ExampleScenario", const=True)
 
-    actor: typing.List[fhirtypes.ExampleScenarioActorType] = Field(
+    actor: typing.List["ExampleScenarioActor"] = Field(
         None,
         alias="actor",
         title="Actor participating in the resource",
@@ -34,7 +38,7 @@ class ExampleScenario(domainresource.DomainResource):
         element_property=True,
     )
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -96,7 +100,7 @@ class ExampleScenario(domainresource.DomainResource):
         None, alias="_experimental", title="Extension field for ``experimental``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Additional identifier for the example scenario",
@@ -109,7 +113,7 @@ class ExampleScenario(domainresource.DomainResource):
         element_property=True,
     )
 
-    instance: typing.List[fhirtypes.ExampleScenarioInstanceType] = Field(
+    instance: typing.List["ExampleScenarioInstance"] = Field(
         None,
         alias="instance",
         title="Each resource and each version that is present in the workflow",
@@ -118,7 +122,7 @@ class ExampleScenario(domainresource.DomainResource):
         element_property=True,
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction for example scenario (if applicable)",
@@ -146,7 +150,7 @@ class ExampleScenario(domainresource.DomainResource):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    process: typing.List[fhirtypes.ExampleScenarioProcessType] = Field(
+    process: typing.List["ExampleScenarioProcess"] = Field(
         None,
         alias="process",
         title="Each major process - a group of operations",
@@ -228,7 +232,7 @@ class ExampleScenario(domainresource.DomainResource):
         None, alias="_url", title="Extension field for ``url``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="The context that the content is intended to support",
@@ -379,7 +383,7 @@ class ExampleScenarioActor(backboneelement.BackboneElement):
     Actor participating in the resource.
     """
 
-    resource_type = Field("ExampleScenarioActor", const=True)
+    resource_type: str = Field("ExampleScenarioActor", const=True)
 
     actorId: fhirtypes.String = Field(
         None,
@@ -518,11 +522,9 @@ class ExampleScenarioInstance(backboneelement.BackboneElement):
     Each resource and each version that is present in the workflow.
     """
 
-    resource_type = Field("ExampleScenarioInstance", const=True)
+    resource_type: str = Field("ExampleScenarioInstance", const=True)
 
-    containedInstance: typing.List[
-        fhirtypes.ExampleScenarioInstanceContainedInstanceType
-    ] = Field(
+    containedInstance: typing.List["ExampleScenarioInstanceContainedInstance"] = Field(
         None,
         alias="containedInstance",
         title="Resources contained in the instance",
@@ -584,7 +586,7 @@ class ExampleScenarioInstance(backboneelement.BackboneElement):
         None, alias="_resourceType", title="Extension field for ``resourceType``."
     )
 
-    version: typing.List[fhirtypes.ExampleScenarioInstanceVersionType] = Field(
+    version: typing.List["ExampleScenarioInstanceVersion"] = Field(
         None,
         alias="version",
         title="A specific version of the resource",
@@ -684,7 +686,7 @@ class ExampleScenarioInstanceContainedInstance(backboneelement.BackboneElement):
     bundle).
     """
 
-    resource_type = Field("ExampleScenarioInstanceContainedInstance", const=True)
+    resource_type: str = Field("ExampleScenarioInstanceContainedInstance", const=True)
 
     resourceId: fhirtypes.String = Field(
         None,
@@ -787,7 +789,7 @@ class ExampleScenarioInstanceVersion(backboneelement.BackboneElement):
     A specific version of the resource.
     """
 
-    resource_type = Field("ExampleScenarioInstanceVersion", const=True)
+    resource_type: str = Field("ExampleScenarioInstanceVersion", const=True)
 
     description: fhirtypes.Markdown = Field(
         None,
@@ -894,7 +896,7 @@ class ExampleScenarioProcess(backboneelement.BackboneElement):
     Each major process - a group of operations.
     """
 
-    resource_type = Field("ExampleScenarioProcess", const=True)
+    resource_type: str = Field("ExampleScenarioProcess", const=True)
 
     description: fhirtypes.Markdown = Field(
         None,
@@ -932,7 +934,7 @@ class ExampleScenarioProcess(backboneelement.BackboneElement):
         None, alias="_preConditions", title="Extension field for ``preConditions``."
     )
 
-    step: typing.List[fhirtypes.ExampleScenarioProcessStepType] = Field(
+    step: typing.List["ExampleScenarioProcessStep"] = Field(
         None,
         alias="step",
         title="Each step of the process",
@@ -1039,11 +1041,9 @@ class ExampleScenarioProcessStep(backboneelement.BackboneElement):
     Each step of the process.
     """
 
-    resource_type = Field("ExampleScenarioProcessStep", const=True)
+    resource_type: str = Field("ExampleScenarioProcessStep", const=True)
 
-    alternative: typing.List[
-        fhirtypes.ExampleScenarioProcessStepAlternativeType
-    ] = Field(
+    alternative: typing.List["ExampleScenarioProcessStepAlternative"] = Field(
         None,
         alias="alternative",
         title="Alternate non-typical step action",
@@ -1055,7 +1055,7 @@ class ExampleScenarioProcessStep(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    operation: fhirtypes.ExampleScenarioProcessStepOperationType = Field(
+    operation: "ExampleScenarioProcessStepOperation" = Field(
         None,
         alias="operation",
         title="Each interaction or action",
@@ -1076,7 +1076,7 @@ class ExampleScenarioProcessStep(backboneelement.BackboneElement):
         None, alias="_pause", title="Extension field for ``pause``."
     )
 
-    process: typing.List[fhirtypes.ExampleScenarioProcessType] = Field(
+    process: typing.List["ExampleScenarioProcess"] = Field(
         None,
         alias="process",
         title="Nested process",
@@ -1112,7 +1112,7 @@ class ExampleScenarioProcessStepAlternative(backboneelement.BackboneElement):
     on the base step in exceptional/atypical circumstances.
     """
 
-    resource_type = Field("ExampleScenarioProcessStepAlternative", const=True)
+    resource_type: str = Field("ExampleScenarioProcessStepAlternative", const=True)
 
     description: fhirtypes.Markdown = Field(
         None,
@@ -1129,7 +1129,7 @@ class ExampleScenarioProcessStepAlternative(backboneelement.BackboneElement):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    step: typing.List[fhirtypes.ExampleScenarioProcessStepType] = Field(
+    step: typing.List["ExampleScenarioProcessStep"] = Field(
         None,
         alias="step",
         title="What happens in each alternative option",
@@ -1230,7 +1230,7 @@ class ExampleScenarioProcessStepOperation(backboneelement.BackboneElement):
     Each interaction or action.
     """
 
-    resource_type = Field("ExampleScenarioProcessStepOperation", const=True)
+    resource_type: str = Field("ExampleScenarioProcessStepOperation", const=True)
 
     description: fhirtypes.Markdown = Field(
         None,
@@ -1317,7 +1317,7 @@ class ExampleScenarioProcessStepOperation(backboneelement.BackboneElement):
         None, alias="_receiverActive", title="Extension field for ``receiverActive``."
     )
 
-    request: fhirtypes.ExampleScenarioInstanceContainedInstanceType = Field(
+    request: "ExampleScenarioInstanceContainedInstance" = Field(
         None,
         alias="request",
         title="Each resource instance used by the initiator",
@@ -1326,7 +1326,7 @@ class ExampleScenarioProcessStepOperation(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    response: fhirtypes.ExampleScenarioInstanceContainedInstanceType = Field(
+    response: "ExampleScenarioInstanceContainedInstance" = Field(
         None,
         alias="response",
         title="Each resource instance used by the responder",
@@ -1427,3 +1427,11 @@ class ExampleScenarioProcessStepOperation(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+ExampleScenario.update_forward_refs()
+ExampleScenarioInstance.update_forward_refs()
+ExampleScenarioProcess.update_forward_refs()
+ExampleScenarioProcessStep.update_forward_refs()
+ExampleScenarioProcessStepAlternative.update_forward_refs()
+ExampleScenarioProcessStepOperation.update_forward_refs()

@@ -11,6 +11,11 @@ from pydantic.v1 import Field
 
 from . import domainresource, fhirtypes
 from .backboneelement import BackboneElement
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .quantity import Quantity
+from .ratio import Ratio
+from .reference import Reference
 
 
 class Substance(domainresource.DomainResource):
@@ -18,9 +23,9 @@ class Substance(domainresource.DomainResource):
     A homogeneous material with a definite composition.
     """
 
-    resource_type = Field("Substance", const=True)
+    resource_type: str = Field("Substance", const=True)
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="List of Unique identifier (represented as 'dict' in JSON)",
@@ -28,7 +33,7 @@ class Substance(domainresource.DomainResource):
         element_property=True,
     )
 
-    category: ListType[fhirtypes.CodeableConceptType] = Field(
+    category: ListType[CodeableConcept] = Field(
         None,
         alias="category",
         title="List of Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -36,7 +41,7 @@ class Substance(domainresource.DomainResource):
         element_property=True,
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -52,7 +57,7 @@ class Substance(domainresource.DomainResource):
         element_property=True,
     )
 
-    instance: ListType[fhirtypes.SubstanceInstanceType] = Field(
+    instance: ListType["SubstanceInstance"] = Field(
         None,
         alias="instance",
         title="List of Type `SubstanceInstance` (represented as `dict` in JSON).",
@@ -60,7 +65,7 @@ class Substance(domainresource.DomainResource):
         element_property=True,
     )
 
-    ingredient: ListType[fhirtypes.SubstanceIngredientType] = Field(
+    ingredient: ListType["SubstanceIngredient"] = Field(
         None,
         alias="ingredient",
         title="List of Type `SubstanceIngredient` (represented as `dict` in JSON).",
@@ -75,9 +80,9 @@ class SubstanceInstance(BackboneElement):
     If this describes a specific package/container of the substance.
     """
 
-    resource_type = Field("SubstanceInstance", const=True)
+    resource_type: str = Field("SubstanceInstance", const=True)
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="Identifier of the package/container",
@@ -99,7 +104,7 @@ class SubstanceInstance(BackboneElement):
         element_property=True,
     )
 
-    quantity: fhirtypes.QuantityType = Field(
+    quantity: Quantity = Field(
         None,
         alias="quantity",
         title=(
@@ -118,9 +123,9 @@ class SubstanceIngredient(BackboneElement):
     A substance can be composed of other substances.
     """
 
-    resource_type = Field("SubstanceIngredient", const=True)
+    resource_type: str = Field("SubstanceIngredient", const=True)
 
-    quantity: fhirtypes.RatioType = Field(
+    quantity: Ratio = Field(
         None,
         alias="quantity",
         title="Type `Ratio` (represented as `dict` in JSON).",
@@ -128,7 +133,7 @@ class SubstanceIngredient(BackboneElement):
         element_property=True,
     )
 
-    substance: fhirtypes.ReferenceType = Field(
+    substance: Reference = Field(
         None,
         alias="substance",
         title=(
@@ -139,3 +144,6 @@ class SubstanceIngredient(BackboneElement):
         enum_reference_types=["Substance"],
         element_property=True,
     )
+
+
+Substance.update_forward_refs()

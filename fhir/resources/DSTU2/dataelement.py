@@ -10,7 +10,11 @@ from typing import List as ListType
 from pydantic.v1 import Field
 
 from . import fhirtypes
+from .codeableconcept import CodeableConcept
+from .contactpoint import ContactPoint
 from .domainresource import DomainResource
+from .elementdefinition import ElementDefinition
+from .identifier import Identifier
 
 
 class DataElement(DomainResource):
@@ -20,7 +24,7 @@ class DataElement(DomainResource):
     gathered and reported.
     """
 
-    resource_type = Field("DataElement", const=True)
+    resource_type: str = Field("DataElement", const=True)
 
     url: fhirtypes.Uri = Field(
         None,
@@ -29,7 +33,7 @@ class DataElement(DomainResource):
         description="Globally unique logical id for data element.",
     )
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="List of `Identifier` items (represented as `dict` in JSON).",
@@ -74,7 +78,7 @@ class DataElement(DomainResource):
         description="Name of the publisher (Organization or individual).",
     )
 
-    contact: ListType[fhirtypes.DataElementContactType] = Field(
+    contact: ListType["DataElementContact"] = Field(
         None,
         alias="contact",
         title="List of `DataElementContact` items (represented as `dict` in JSON).",
@@ -88,7 +92,7 @@ class DataElement(DomainResource):
         description="Date for this version of the data element.",
     )
 
-    useContext: ListType[fhirtypes.CodeableConceptType] = Field(
+    useContext: ListType[CodeableConcept] = Field(
         None,
         alias="useContext",
         title="List of `CodeableConcept` items (represented as `dict` in JSON).",
@@ -122,14 +126,14 @@ class DataElement(DomainResource):
         ],
     )
 
-    mapping: ListType[fhirtypes.DataElementMappingType] = Field(
+    mapping: ListType["DataElementMapping"] = Field(
         None,
         alias="mapping",
         title="List of `DataElementMapping` items (represented as `dict` in JSON).",
         description="External specification mapped to.",
     )
 
-    element: ListType[fhirtypes.ElementDefinitionType] = Field(
+    element: ListType[ElementDefinition] = Field(
         ...,
         alias="element",
         title="List of `ElementDefinition` items (represented as `dict` in JSON).",
@@ -143,7 +147,7 @@ class DataElementContact(DomainResource):
     Contacts to assist a user in finding and communicating with the publisher.
     """
 
-    resource_type = Field("DataElementContact", const=True)
+    resource_type: str = Field("DataElementContact", const=True)
 
     name: fhirtypes.String = Field(
         None,
@@ -152,7 +156,7 @@ class DataElementContact(DomainResource):
         description="Name of a individual to contact.",
     )
 
-    telecom: ListType[fhirtypes.ContactPointType] = Field(
+    telecom: ListType[ContactPoint] = Field(
         None,
         alias="telecom",
         title="List of `ContactPoint` items (represented as `dict` in JSON).",
@@ -167,7 +171,7 @@ class DataElementMapping(DomainResource):
     which make up the DataElement have some correspondence with.
     """
 
-    resource_type = Field("DataElementMapping", const=True)
+    resource_type: str = Field("DataElementMapping", const=True)
 
     identity: fhirtypes.Id = Field(
         ...,
@@ -196,3 +200,6 @@ class DataElementMapping(DomainResource):
         title="Type `str`.",
         description="Versions, Issues, Scope limitations etc..",
     )
+
+
+DataElement.update_forward_refs()

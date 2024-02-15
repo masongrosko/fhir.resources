@@ -11,6 +11,10 @@ from pydantic.v1 import Field
 
 from . import domainresource, fhirtypes
 from .backboneelement import BackboneElement
+from .coding import Coding
+from .contactpoint import ContactPoint
+from .identifier import Identifier
+from .reference import Reference
 
 
 class Questionnaire(domainresource.DomainResource):
@@ -24,9 +28,9 @@ class Questionnaire(domainresource.DomainResource):
     structure of the grouping of the underlying questions.
     """
 
-    resource_type = Field("Questionnaire", const=True)
+    resource_type: str = Field("Questionnaire", const=True)
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="External identifiers for this questionnaire",
@@ -75,7 +79,7 @@ class Questionnaire(domainresource.DomainResource):
         element_property=True,
     )
 
-    telecom: ListType[fhirtypes.ContactPointType] = Field(
+    telecom: ListType[ContactPoint] = Field(
         None,
         alias="telecom",
         title="Contact information of the publisher",
@@ -95,7 +99,7 @@ class Questionnaire(domainresource.DomainResource):
         element_property=True,
     )
 
-    group: fhirtypes.QuestionnaireGroupType = Field(
+    group: "QuestionnaireGroup" = Field(
         None,
         alias="group",
         title="Grouped questions",
@@ -111,7 +115,7 @@ class QuestionnaireGroup(BackboneElement):
     A collection of related questions (or further groupings of questions).
     """
 
-    resource_type = Field("QuestionnaireGroup", const=True)
+    resource_type: str = Field("QuestionnaireGroup", const=True)
 
     linkId: fhirtypes.String = Field(
         None,
@@ -129,7 +133,7 @@ class QuestionnaireGroup(BackboneElement):
         element_property=True,
     )
 
-    concept: ListType[fhirtypes.CodingType] = Field(
+    concept: ListType[Coding] = Field(
         None,
         alias="concept",
         title="Concept that represents this section in a questionnaire",
@@ -174,7 +178,7 @@ class QuestionnaireGroup(BackboneElement):
         element_property=True,
     )
 
-    group: ListType[fhirtypes.QuestionnaireGroupType] = Field(
+    group: ListType["QuestionnaireGroup"] = Field(
         None,
         alias="group",
         title="Nested questionnaire group",
@@ -186,7 +190,7 @@ class QuestionnaireGroup(BackboneElement):
         element_property=True,
     )
 
-    question: ListType[fhirtypes.QuestionnaireGroupQuestionType] = Field(
+    question: ListType["QuestionnaireGroupQuestion"] = Field(
         None,
         alias="question",
         title="Questions in this group",
@@ -202,7 +206,7 @@ class QuestionnaireGroupQuestion(BackboneElement):
     Set of questions within this group. The order of questions within the group is relevant.
     """
 
-    resource_type = Field("QuestionnaireGroupQuestion", const=True)
+    resource_type: str = Field("QuestionnaireGroupQuestion", const=True)
 
     linkId: fhirtypes.String = Field(
         None,
@@ -212,7 +216,7 @@ class QuestionnaireGroupQuestion(BackboneElement):
         element_property=True,
     )
 
-    concept: ListType[fhirtypes.CodingType] = Field(
+    concept: ListType[Coding] = Field(
         None,
         alias="concept",
         title="Concept that represents this question in a questionnaire",
@@ -266,7 +270,7 @@ class QuestionnaireGroupQuestion(BackboneElement):
         element_property=True,
     )
 
-    options: fhirtypes.ReferenceType = Field(
+    options: Reference = Field(
         None,
         alias="options",
         title="Type 'Reference' referencing 'ValueSet' (represented as 'dict' in JSON).",
@@ -276,7 +280,7 @@ class QuestionnaireGroupQuestion(BackboneElement):
         element_property=True,
     )
 
-    option: ListType[fhirtypes.CodingType] = Field(
+    option: ListType[Coding] = Field(
         None,
         alias="option",
         title="Permitted answer",
@@ -288,7 +292,7 @@ class QuestionnaireGroupQuestion(BackboneElement):
         element_property=True,
     )
 
-    group: ListType[fhirtypes.QuestionnaireGroupType] = Field(
+    group: ListType["QuestionnaireGroup"] = Field(
         None,
         alias="group",
         title="Nested questionnaire group",
@@ -299,3 +303,8 @@ class QuestionnaireGroupQuestion(BackboneElement):
         # if property is element of this resource.
         element_property=True,
     )
+
+
+Questionnaire.update_forward_refs()
+QuestionnaireGroup.update_forward_refs()
+QuestionnaireGroupQuestion.update_forward_refs()

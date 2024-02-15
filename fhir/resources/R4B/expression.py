@@ -26,7 +26,7 @@ class Expression(element.Element):
     expression is evaluated, and how the result of the expression is used.
     """
 
-    resource_type = Field("Expression", const=True)
+    resource_type: str = Field("Expression", const=True)
 
     description: fhirtypes.String = Field(
         None,

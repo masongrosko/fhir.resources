@@ -10,7 +10,11 @@ from typing import List as ListType
 from pydantic.v1 import Field
 
 from . import fhirtypes
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
 from .domainresource import DomainResource
+from .identifier import Identifier
+from .reference import Reference
 
 
 class Media(DomainResource):
@@ -18,9 +22,9 @@ class Media(DomainResource):
     actual content may be inline or provided by direct reference.
     """
 
-    resource_type = Field("Media", const=True)
+    resource_type: str = Field("Media", const=True)
 
-    content: fhirtypes.AttachmentType = Field(
+    content: Attachment = Field(
         ...,
         alias="content",
         title="Type `Attachment` (represented as `dict` in JSON)",
@@ -55,14 +59,14 @@ class Media(DomainResource):
         description="Height of the image in pixels (photo/video)",
     )
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="List of `Identifier` items (represented as `dict` in JSON)",
         description="Identifier(s) for the image",
     )
 
-    operator: fhirtypes.ReferenceType = Field(
+    operator: Reference = Field(
         None,
         alias="operator",
         title=(
@@ -72,7 +76,7 @@ class Media(DomainResource):
         description="The person who generated the image",
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title=(
@@ -82,7 +86,7 @@ class Media(DomainResource):
         description="Who/What this Media is a record of",
     )
 
-    subtype: fhirtypes.CodeableConceptType = Field(
+    subtype: CodeableConcept = Field(
         None,
         alias="subtype",
         title="Type `CodeableConcept` (represented as `dict` in JSON)",
@@ -96,7 +100,7 @@ class Media(DomainResource):
         description="photo | video | audio",
     )
 
-    view: fhirtypes.CodeableConceptType = Field(
+    view: CodeableConcept = Field(
         None,
         alias="view",
         title="Type `CodeableConcept` (represented as `dict` in JSON)",

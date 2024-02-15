@@ -13,6 +13,12 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import domainresource, fhirtypes
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
+from .timing import Timing
 
 
 class DeviceUseStatement(domainresource.DomainResource):
@@ -25,9 +31,9 @@ class DeviceUseStatement(domainresource.DomainResource):
     of a report from the patient or another clinician.
     """
 
-    resource_type = Field("DeviceUseStatement", const=True)
+    resource_type: str = Field("DeviceUseStatement", const=True)
 
-    basedOn: typing.List[fhirtypes.ReferenceType] = Field(
+    basedOn: typing.List[Reference] = Field(
         None,
         alias="basedOn",
         title="Fulfills plan, proposal or order",
@@ -41,7 +47,7 @@ class DeviceUseStatement(domainresource.DomainResource):
         enum_reference_types=["ServiceRequest"],
     )
 
-    bodySite: fhirtypes.CodeableConceptType = Field(
+    bodySite: CodeableConcept = Field(
         None,
         alias="bodySite",
         title="Target body site",
@@ -53,7 +59,7 @@ class DeviceUseStatement(domainresource.DomainResource):
         element_property=True,
     )
 
-    derivedFrom: typing.List[fhirtypes.ReferenceType] = Field(
+    derivedFrom: typing.List[Reference] = Field(
         None,
         alias="derivedFrom",
         title="Supporting information",
@@ -75,7 +81,7 @@ class DeviceUseStatement(domainresource.DomainResource):
         ],
     )
 
-    device: fhirtypes.ReferenceType = Field(
+    device: Reference = Field(
         ...,
         alias="device",
         title="Reference to device used",
@@ -86,7 +92,7 @@ class DeviceUseStatement(domainresource.DomainResource):
         enum_reference_types=["Device"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="External identifier for this record",
@@ -95,7 +101,7 @@ class DeviceUseStatement(domainresource.DomainResource):
         element_property=True,
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Addition details (comments, instructions)",
@@ -109,7 +115,7 @@ class DeviceUseStatement(domainresource.DomainResource):
         element_property=True,
     )
 
-    reasonCode: typing.List[fhirtypes.CodeableConceptType] = Field(
+    reasonCode: typing.List[CodeableConcept] = Field(
         None,
         alias="reasonCode",
         title="Why device was used",
@@ -118,7 +124,7 @@ class DeviceUseStatement(domainresource.DomainResource):
         element_property=True,
     )
 
-    reasonReference: typing.List[fhirtypes.ReferenceType] = Field(
+    reasonReference: typing.List[Reference] = Field(
         None,
         alias="reasonReference",
         title="Why was DeviceUseStatement performed?",
@@ -150,7 +156,7 @@ class DeviceUseStatement(domainresource.DomainResource):
         None, alias="_recordedOn", title="Extension field for ``recordedOn``."
     )
 
-    source: fhirtypes.ReferenceType = Field(
+    source: Reference = Field(
         None,
         alias="source",
         title="Who made the statement",
@@ -186,7 +192,7 @@ class DeviceUseStatement(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         ...,
         alias="subject",
         title="Patient using device",
@@ -212,7 +218,7 @@ class DeviceUseStatement(domainresource.DomainResource):
         None, alias="_timingDateTime", title="Extension field for ``timingDateTime``."
     )
 
-    timingPeriod: fhirtypes.PeriodType = Field(
+    timingPeriod: Period = Field(
         None,
         alias="timingPeriod",
         title="How often  the device was used",
@@ -224,7 +230,7 @@ class DeviceUseStatement(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    timingTiming: fhirtypes.TimingType = Field(
+    timingTiming: Timing = Field(
         None,
         alias="timingTiming",
         title="How often  the device was used",

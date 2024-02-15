@@ -11,8 +11,13 @@ from typing import List as ListType
 from pydantic.v1 import Field, root_validator
 
 from . import fhirtypes
+from .attachment import Attachment
 from .backboneelement import BackboneElement
+from .codeableconcept import CodeableConcept
 from .domainresource import DomainResource
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class DiagnosticReport(DomainResource):
@@ -26,7 +31,7 @@ class DiagnosticReport(DomainResource):
     interpretations, and formatted representation of diagnostic reports.
     """
 
-    resource_type = Field("DiagnosticReport", const=True)
+    resource_type: str = Field("DiagnosticReport", const=True)
 
     conclusion: fhirtypes.String = Field(
         None,
@@ -44,7 +49,7 @@ class DiagnosticReport(DomainResource):
         ),
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title=(
@@ -62,7 +67,7 @@ class DiagnosticReport(DomainResource):
         one_of_many="effective",  # Choice of Data Types. i.e effective[x]
         one_of_many_required=False,
     )
-    effectivePeriod: fhirtypes.PeriodType = Field(
+    effectivePeriod: Period = Field(
         None,
         alias="effectivePeriod",
         title="Type `Period` (represented as `dict` in JSON).",
@@ -71,48 +76,48 @@ class DiagnosticReport(DomainResource):
         one_of_many_required=False,
     )
 
-    category: fhirtypes.CodeableConceptType = Field(
+    category: CodeableConcept = Field(
         None,
         alias="category",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="Service category.",
     )
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="Name/Code for this diagnostic report.",
     )
 
-    codedDiagnosis: ListType[fhirtypes.CodeableConceptType] = Field(
+    codedDiagnosis: ListType[CodeableConcept] = Field(
         None,
         alias="codedDiagnosis",
         title="List of `CodeableConcept` items (represented as `dict` in JSON).",
         description="Codes for the conclusion.",
     )
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title="Type `Reference` referencing `Encounter` (represented as `dict` in JSON).",
         description="Health care event when test ordered.",
     )
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="List of `Identifier` items (represented as `dict` in JSON).",
         description="Id for external references to this report.",
     )
 
-    image: ListType[fhirtypes.DiagnosticReportImageType] = Field(
+    image: ListType["DiagnosticReportImage"] = Field(
         None,
         alias="image",
         title="List of `DiagnosticReportImage` items (represented as `dict` in JSON).",
         description="Key images associated with this report.",
     )
 
-    imagingStudy: ListType[fhirtypes.ReferenceType] = Field(
+    imagingStudy: ListType[Reference] = Field(
         None,
         alias="imagingStudy",
         title=(
@@ -132,7 +137,7 @@ class DiagnosticReport(DomainResource):
         description="DateTime this version was released.",
     )
 
-    performer: fhirtypes.ReferenceType = Field(
+    performer: Reference = Field(
         None,
         alias="performer",
         title=(
@@ -142,14 +147,14 @@ class DiagnosticReport(DomainResource):
         description="Responsible Diagnostic Service.",
     )
 
-    presentedForm: ListType[fhirtypes.AttachmentType] = Field(
+    presentedForm: ListType[Attachment] = Field(
         None,
         alias="presentedForm",
         title="List of `Attachment` items (represented as `dict` in JSON).",
         description="Entire report as issued.",
     )
 
-    request: ListType[fhirtypes.ReferenceType] = Field(
+    request: ListType[Reference] = Field(
         None,
         alias="request",
         title=(
@@ -160,7 +165,7 @@ class DiagnosticReport(DomainResource):
         description="What was requested.",
     )
 
-    result: ListType[fhirtypes.ReferenceType] = Field(
+    result: ListType[Reference] = Field(
         None,
         alias="result",
         title=(
@@ -170,7 +175,7 @@ class DiagnosticReport(DomainResource):
         description="Observations - simple, or complex nested groups.",
     )
 
-    specimen: ListType[fhirtypes.ReferenceType] = Field(
+    specimen: ListType[Reference] = Field(
         None,
         alias="specimen",
         title=(
@@ -227,7 +232,7 @@ class DiagnosticReportImage(BackboneElement):
     or of treated specimens (i.e. slides of interest).
     """
 
-    resource_type = Field("DiagnosticReportImage", const=True)
+    resource_type: str = Field("DiagnosticReportImage", const=True)
 
     comment: fhirtypes.String = Field(
         None,
@@ -236,9 +241,12 @@ class DiagnosticReportImage(BackboneElement):
         description="Comment about the image (e.g. explanation).",
     )
 
-    link: fhirtypes.ReferenceType = Field(
+    link: Reference = Field(
         None,
         alias="link",
         title="Type `Reference` referencing `Media` (represented as `dict` in JSON).",
         description="Reference to the image source.",
     )
+
+
+DiagnosticReport.update_forward_refs()

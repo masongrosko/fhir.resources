@@ -13,6 +13,12 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .contactdetail import ContactDetail
+from .identifier import Identifier
+from .reference import Reference
+from .usagecontext import UsageContext
 
 
 class ImplementationGuide(domainresource.DomainResource):
@@ -27,9 +33,9 @@ class ImplementationGuide(domainresource.DomainResource):
     to publish a computable definition of all the parts.
     """
 
-    resource_type = Field("ImplementationGuide", const=True)
+    resource_type: str = Field("ImplementationGuide", const=True)
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -92,7 +98,7 @@ class ImplementationGuide(domainresource.DomainResource):
         None, alias="_date", title="Extension field for ``date``."
     )
 
-    definition: fhirtypes.ImplementationGuideDefinitionType = Field(
+    definition: "ImplementationGuideDefinition" = Field(
         None,
         alias="definition",
         title="Information needed to build the IG",
@@ -104,7 +110,7 @@ class ImplementationGuide(domainresource.DomainResource):
         element_property=True,
     )
 
-    dependsOn: typing.List[fhirtypes.ImplementationGuideDependsOnType] = Field(
+    dependsOn: typing.List["ImplementationGuideDependsOn"] = Field(
         None,
         alias="dependsOn",
         title="Another Implementation guide this depends on",
@@ -166,7 +172,7 @@ class ImplementationGuide(domainresource.DomainResource):
         typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
     ] = Field(None, alias="_fhirVersion", title="Extension field for ``fhirVersion``.")
 
-    global_fhir: typing.List[fhirtypes.ImplementationGuideGlobalType] = Field(
+    global_fhir: typing.List["ImplementationGuideGlobal"] = Field(
         None,
         alias="global",
         title="Profiles that apply globally",
@@ -178,7 +184,7 @@ class ImplementationGuide(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title=(
@@ -194,7 +200,7 @@ class ImplementationGuide(domainresource.DomainResource):
         element_property=True,
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction for implementation guide (if applicable)",
@@ -221,7 +227,7 @@ class ImplementationGuide(domainresource.DomainResource):
         None, alias="_license", title="Extension field for ``license``."
     )
 
-    manifest: fhirtypes.ImplementationGuideManifestType = Field(
+    manifest: "ImplementationGuideManifest" = Field(
         None,
         alias="manifest",
         title="Information about an assembled IG",
@@ -356,7 +362,7 @@ class ImplementationGuide(domainresource.DomainResource):
         None, alias="_url", title="Extension field for ``url``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="The context that the content is intended to support",
@@ -391,7 +397,7 @@ class ImplementationGuide(domainresource.DomainResource):
         None, alias="_version", title="Extension field for ``version``."
     )
 
-    versionAlgorithmCoding: fhirtypes.CodingType = Field(
+    versionAlgorithmCoding: Coding = Field(
         None,
         alias="versionAlgorithmCoding",
         title="How to compare versions",
@@ -584,9 +590,9 @@ class ImplementationGuideDefinition(backboneelement.BackboneElement):
     implementation guide.
     """
 
-    resource_type = Field("ImplementationGuideDefinition", const=True)
+    resource_type: str = Field("ImplementationGuideDefinition", const=True)
 
-    grouping: typing.List[fhirtypes.ImplementationGuideDefinitionGroupingType] = Field(
+    grouping: typing.List["ImplementationGuideDefinitionGrouping"] = Field(
         None,
         alias="grouping",
         title="Grouping used to present related resources in the IG",
@@ -598,7 +604,7 @@ class ImplementationGuideDefinition(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    page: fhirtypes.ImplementationGuideDefinitionPageType = Field(
+    page: "ImplementationGuideDefinitionPage" = Field(
         None,
         alias="page",
         title="Page/Section in the Guide",
@@ -610,9 +616,7 @@ class ImplementationGuideDefinition(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    parameter: typing.List[
-        fhirtypes.ImplementationGuideDefinitionParameterType
-    ] = Field(
+    parameter: typing.List["ImplementationGuideDefinitionParameter"] = Field(
         None,
         alias="parameter",
         title="Defines how IG is built by tools",
@@ -625,7 +629,7 @@ class ImplementationGuideDefinition(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    resource: typing.List[fhirtypes.ImplementationGuideDefinitionResourceType] = Field(
+    resource: typing.List["ImplementationGuideDefinitionResource"] = Field(
         None,
         alias="resource",
         title="Resource in the implementation guide",
@@ -639,7 +643,7 @@ class ImplementationGuideDefinition(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    template: typing.List[fhirtypes.ImplementationGuideDefinitionTemplateType] = Field(
+    template: typing.List["ImplementationGuideDefinitionTemplate"] = Field(
         None,
         alias="template",
         title="A template for building resources",
@@ -676,7 +680,7 @@ class ImplementationGuideDefinitionGrouping(backboneelement.BackboneElement):
     pages.
     """
 
-    resource_type = Field("ImplementationGuideDefinitionGrouping", const=True)
+    resource_type: str = Field("ImplementationGuideDefinitionGrouping", const=True)
 
     description: fhirtypes.Markdown = Field(
         None,
@@ -784,7 +788,7 @@ class ImplementationGuideDefinitionPage(backboneelement.BackboneElement):
     implementation guide home page.
     """
 
-    resource_type = Field("ImplementationGuideDefinitionPage", const=True)
+    resource_type: str = Field("ImplementationGuideDefinitionPage", const=True)
 
     generation: fhirtypes.Code = Field(
         None,
@@ -815,7 +819,7 @@ class ImplementationGuideDefinitionPage(backboneelement.BackboneElement):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    page: typing.List[fhirtypes.ImplementationGuideDefinitionPageType] = Field(
+    page: typing.List["ImplementationGuideDefinitionPage"] = Field(
         None,
         alias="page",
         title="Nested Pages / Sections",
@@ -1017,9 +1021,9 @@ class ImplementationGuideDefinitionParameter(backboneelement.BackboneElement):
     guides.
     """
 
-    resource_type = Field("ImplementationGuideDefinitionParameter", const=True)
+    resource_type: str = Field("ImplementationGuideDefinitionParameter", const=True)
 
-    code: fhirtypes.CodingType = Field(
+    code: Coding = Field(
         ...,
         alias="code",
         title="Code that identifies parameter",
@@ -1121,7 +1125,7 @@ class ImplementationGuideDefinitionResource(backboneelement.BackboneElement):
     example resource.
     """
 
-    resource_type = Field("ImplementationGuideDefinitionResource", const=True)
+    resource_type: str = Field("ImplementationGuideDefinitionResource", const=True)
 
     description: fhirtypes.Markdown = Field(
         None,
@@ -1208,7 +1212,7 @@ class ImplementationGuideDefinitionResource(backboneelement.BackboneElement):
         typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
     ] = Field(None, alias="_profile", title="Extension field for ``profile``.")
 
-    reference: fhirtypes.ReferenceType = Field(
+    reference: Reference = Field(
         ...,
         alias="reference",
         title="Location of the resource",
@@ -1247,7 +1251,7 @@ class ImplementationGuideDefinitionTemplate(backboneelement.BackboneElement):
     A template for building resources.
     """
 
-    resource_type = Field("ImplementationGuideDefinitionTemplate", const=True)
+    resource_type: str = Field("ImplementationGuideDefinitionTemplate", const=True)
 
     code: fhirtypes.Code = Field(
         None,
@@ -1366,7 +1370,7 @@ class ImplementationGuideDependsOn(backboneelement.BackboneElement):
     other implementation guides.
     """
 
-    resource_type = Field("ImplementationGuideDependsOn", const=True)
+    resource_type: str = Field("ImplementationGuideDependsOn", const=True)
 
     packageId: fhirtypes.Id = Field(
         None,
@@ -1513,7 +1517,7 @@ class ImplementationGuideGlobal(backboneelement.BackboneElement):
     must conform to.
     """
 
-    resource_type = Field("ImplementationGuideGlobal", const=True)
+    resource_type: str = Field("ImplementationGuideGlobal", const=True)
 
     profile: fhirtypes.Canonical = Field(
         None,
@@ -1621,7 +1625,7 @@ class ImplementationGuideManifest(backboneelement.BackboneElement):
     publication tooling.
     """
 
-    resource_type = Field("ImplementationGuideManifest", const=True)
+    resource_type: str = Field("ImplementationGuideManifest", const=True)
 
     image: typing.List[typing.Optional[fhirtypes.String]] = Field(
         None,
@@ -1651,7 +1655,7 @@ class ImplementationGuideManifest(backboneelement.BackboneElement):
         typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
     ] = Field(None, alias="_other", title="Extension field for ``other``.")
 
-    page: typing.List[fhirtypes.ImplementationGuideManifestPageType] = Field(
+    page: typing.List["ImplementationGuideManifestPage"] = Field(
         None,
         alias="page",
         title="HTML page within the parent IG",
@@ -1675,7 +1679,7 @@ class ImplementationGuideManifest(backboneelement.BackboneElement):
         None, alias="_rendering", title="Extension field for ``rendering``."
     )
 
-    resource: typing.List[fhirtypes.ImplementationGuideManifestResourceType] = Field(
+    resource: typing.List["ImplementationGuideManifestResource"] = Field(
         ...,
         alias="resource",
         title="Resource in the implementation guide",
@@ -1716,7 +1720,7 @@ class ImplementationGuideManifestPage(backboneelement.BackboneElement):
     Information about a page within the IG.
     """
 
-    resource_type = Field("ImplementationGuideManifestPage", const=True)
+    resource_type: str = Field("ImplementationGuideManifestPage", const=True)
 
     anchor: typing.List[typing.Optional[fhirtypes.String]] = Field(
         None,
@@ -1835,7 +1839,7 @@ class ImplementationGuideManifestResource(backboneelement.BackboneElement):
     example resource.
     """
 
-    resource_type = Field("ImplementationGuideManifestResource", const=True)
+    resource_type: str = Field("ImplementationGuideManifestResource", const=True)
 
     isExample: bool = Field(
         None,
@@ -1863,7 +1867,7 @@ class ImplementationGuideManifestResource(backboneelement.BackboneElement):
         typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
     ] = Field(None, alias="_profile", title="Extension field for ``profile``.")
 
-    reference: fhirtypes.ReferenceType = Field(
+    reference: Reference = Field(
         ...,
         alias="reference",
         title="Location of the resource",
@@ -1901,3 +1905,9 @@ class ImplementationGuideManifestResource(backboneelement.BackboneElement):
             "profile",
             "relativePath",
         ]
+
+
+ImplementationGuide.update_forward_refs()
+ImplementationGuideDefinition.update_forward_refs()
+ImplementationGuideDefinitionPage.update_forward_refs()
+ImplementationGuideManifest.update_forward_refs()

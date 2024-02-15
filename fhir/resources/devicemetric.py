@@ -13,6 +13,10 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .quantity import Quantity
+from .reference import Reference
 
 
 class DeviceMetric(domainresource.DomainResource):
@@ -24,9 +28,9 @@ class DeviceMetric(domainresource.DomainResource):
     Describes a measurement, calculation or setting capability of a device.
     """
 
-    resource_type = Field("DeviceMetric", const=True)
+    resource_type: str = Field("DeviceMetric", const=True)
 
-    calibration: typing.List[fhirtypes.DeviceMetricCalibrationType] = Field(
+    calibration: typing.List["DeviceMetricCalibration"] = Field(
         None,
         alias="calibration",
         title=(
@@ -77,7 +81,7 @@ class DeviceMetric(domainresource.DomainResource):
         None, alias="_color", title="Extension field for ``color``."
     )
 
-    device: fhirtypes.ReferenceType = Field(
+    device: Reference = Field(
         ...,
         alias="device",
         title="Describes the link to the Device",
@@ -91,7 +95,7 @@ class DeviceMetric(domainresource.DomainResource):
         enum_reference_types=["Device"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Instance identifier",
@@ -104,7 +108,7 @@ class DeviceMetric(domainresource.DomainResource):
         element_property=True,
     )
 
-    measurementFrequency: fhirtypes.QuantityType = Field(
+    measurementFrequency: Quantity = Field(
         None,
         alias="measurementFrequency",
         title="Indicates how often the metric is taken or recorded",
@@ -142,7 +146,7 @@ class DeviceMetric(domainresource.DomainResource):
         title="Extension field for ``operationalStatus``.",
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title="Identity of metric, for example Heart Rate or PEEP Setting",
@@ -154,7 +158,7 @@ class DeviceMetric(domainresource.DomainResource):
         element_property=True,
     )
 
-    unit: fhirtypes.CodeableConceptType = Field(
+    unit: CodeableConcept = Field(
         None,
         alias="unit",
         title="Unit of Measure for the Metric",
@@ -261,7 +265,7 @@ class DeviceMetricCalibration(backboneelement.BackboneElement):
     be performed.
     """
 
-    resource_type = Field("DeviceMetricCalibration", const=True)
+    resource_type: str = Field("DeviceMetricCalibration", const=True)
 
     state: fhirtypes.Code = Field(
         None,
@@ -317,3 +321,6 @@ class DeviceMetricCalibration(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "type", "state", "time"]
+
+
+DeviceMetric.update_forward_refs()

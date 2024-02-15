@@ -11,6 +11,11 @@ import typing
 from pydantic.v1 import Field
 
 from . import domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .extendedcontactdetail import ExtendedContactDetail
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class OrganizationAffiliation(domainresource.DomainResource):
@@ -22,7 +27,7 @@ class OrganizationAffiliation(domainresource.DomainResource):
     organizations, that is not a part-of relationship/sub-division relationship.
     """
 
-    resource_type = Field("OrganizationAffiliation", const=True)
+    resource_type: str = Field("OrganizationAffiliation", const=True)
 
     active: bool = Field(
         None,
@@ -36,7 +41,7 @@ class OrganizationAffiliation(domainresource.DomainResource):
         None, alias="_active", title="Extension field for ``active``."
     )
 
-    code: typing.List[fhirtypes.CodeableConceptType] = Field(
+    code: typing.List[CodeableConcept] = Field(
         None,
         alias="code",
         title="Definition of the role the participatingOrganization plays",
@@ -48,7 +53,7 @@ class OrganizationAffiliation(domainresource.DomainResource):
         element_property=True,
     )
 
-    contact: typing.List[fhirtypes.ExtendedContactDetailType] = Field(
+    contact: typing.List[ExtendedContactDetail] = Field(
         None,
         alias="contact",
         title=(
@@ -63,7 +68,7 @@ class OrganizationAffiliation(domainresource.DomainResource):
         element_property=True,
     )
 
-    endpoint: typing.List[fhirtypes.ReferenceType] = Field(
+    endpoint: typing.List[Reference] = Field(
         None,
         alias="endpoint",
         title=(
@@ -76,7 +81,7 @@ class OrganizationAffiliation(domainresource.DomainResource):
         enum_reference_types=["Endpoint"],
     )
 
-    healthcareService: typing.List[fhirtypes.ReferenceType] = Field(
+    healthcareService: typing.List[Reference] = Field(
         None,
         alias="healthcareService",
         title="Healthcare services provided through the role",
@@ -87,7 +92,7 @@ class OrganizationAffiliation(domainresource.DomainResource):
         enum_reference_types=["HealthcareService"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business identifiers that are specific to this role",
@@ -96,7 +101,7 @@ class OrganizationAffiliation(domainresource.DomainResource):
         element_property=True,
     )
 
-    location: typing.List[fhirtypes.ReferenceType] = Field(
+    location: typing.List[Reference] = Field(
         None,
         alias="location",
         title="The location(s) at which the role occurs",
@@ -107,7 +112,7 @@ class OrganizationAffiliation(domainresource.DomainResource):
         enum_reference_types=["Location"],
     )
 
-    network: typing.List[fhirtypes.ReferenceType] = Field(
+    network: typing.List[Reference] = Field(
         None,
         alias="network",
         title=(
@@ -121,7 +126,7 @@ class OrganizationAffiliation(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    organization: fhirtypes.ReferenceType = Field(
+    organization: Reference = Field(
         None,
         alias="organization",
         title="Organization where the role is available",
@@ -135,7 +140,7 @@ class OrganizationAffiliation(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    participatingOrganization: fhirtypes.ReferenceType = Field(
+    participatingOrganization: Reference = Field(
         None,
         alias="participatingOrganization",
         title=(
@@ -153,7 +158,7 @@ class OrganizationAffiliation(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title=(
@@ -165,7 +170,7 @@ class OrganizationAffiliation(domainresource.DomainResource):
         element_property=True,
     )
 
-    specialty: typing.List[fhirtypes.CodeableConceptType] = Field(
+    specialty: typing.List[CodeableConcept] = Field(
         None,
         alias="specialty",
         title=(

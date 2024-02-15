@@ -13,6 +13,15 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .codeablereference import CodeableReference
+from .identifier import Identifier
+from .period import Period
+from .quantity import Quantity
+from .range import Range
+from .reference import Reference
+from .timing import Timing
 
 
 class DeviceRequest(domainresource.DomainResource):
@@ -26,7 +35,7 @@ class DeviceRequest(domainresource.DomainResource):
     walker.
     """
 
-    resource_type = Field("DeviceRequest", const=True)
+    resource_type: str = Field("DeviceRequest", const=True)
 
     asNeeded: bool = Field(
         None,
@@ -43,7 +52,7 @@ class DeviceRequest(domainresource.DomainResource):
         None, alias="_asNeeded", title="Extension field for ``asNeeded``."
     )
 
-    asNeededFor: fhirtypes.CodeableConceptType = Field(
+    asNeededFor: CodeableConcept = Field(
         None,
         alias="asNeededFor",
         title="Device usage reason",
@@ -64,7 +73,7 @@ class DeviceRequest(domainresource.DomainResource):
         None, alias="_authoredOn", title="Extension field for ``authoredOn``."
     )
 
-    basedOn: typing.List[fhirtypes.ReferenceType] = Field(
+    basedOn: typing.List[Reference] = Field(
         None,
         alias="basedOn",
         title="What request fulfills",
@@ -75,7 +84,7 @@ class DeviceRequest(domainresource.DomainResource):
         enum_reference_types=["Resource"],
     )
 
-    code: fhirtypes.CodeableReferenceType = Field(
+    code: CodeableReference = Field(
         ...,
         alias="code",
         title="Device requested",
@@ -104,7 +113,7 @@ class DeviceRequest(domainresource.DomainResource):
         None, alias="_doNotPerform", title="Extension field for ``doNotPerform``."
     )
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title="Encounter motivating request",
@@ -118,7 +127,7 @@ class DeviceRequest(domainresource.DomainResource):
         enum_reference_types=["Encounter"],
     )
 
-    groupIdentifier: fhirtypes.IdentifierType = Field(
+    groupIdentifier: Identifier = Field(
         None,
         alias="groupIdentifier",
         title="Identifier of composite request",
@@ -135,7 +144,7 @@ class DeviceRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="External Request identifier",
@@ -184,7 +193,7 @@ class DeviceRequest(domainresource.DomainResource):
         None, alias="_instantiatesUri", title="Extension field for ``instantiatesUri``."
     )
 
-    insurance: typing.List[fhirtypes.ReferenceType] = Field(
+    insurance: typing.List[Reference] = Field(
         None,
         alias="insurance",
         title="Associated insurance coverage",
@@ -231,7 +240,7 @@ class DeviceRequest(domainresource.DomainResource):
         None, alias="_intent", title="Extension field for ``intent``."
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Notes or comments",
@@ -267,7 +276,7 @@ class DeviceRequest(domainresource.DomainResource):
         title="Extension field for ``occurrenceDateTime``.",
     )
 
-    occurrencePeriod: fhirtypes.PeriodType = Field(
+    occurrencePeriod: Period = Field(
         None,
         alias="occurrencePeriod",
         title="Desired time or schedule for use",
@@ -284,7 +293,7 @@ class DeviceRequest(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    occurrenceTiming: fhirtypes.TimingType = Field(
+    occurrenceTiming: Timing = Field(
         None,
         alias="occurrenceTiming",
         title="Desired time or schedule for use",
@@ -301,7 +310,7 @@ class DeviceRequest(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    parameter: typing.List[fhirtypes.DeviceRequestParameterType] = Field(
+    parameter: typing.List["DeviceRequestParameter"] = Field(
         None,
         alias="parameter",
         title="Device details",
@@ -313,7 +322,7 @@ class DeviceRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    performer: fhirtypes.CodeableReferenceType = Field(
+    performer: CodeableReference = Field(
         None,
         alias="performer",
         title="Requested Filler",
@@ -366,7 +375,7 @@ class DeviceRequest(domainresource.DomainResource):
         None, alias="_quantity", title="Extension field for ``quantity``."
     )
 
-    reason: typing.List[fhirtypes.CodeableReferenceType] = Field(
+    reason: typing.List[CodeableReference] = Field(
         None,
         alias="reason",
         title="Coded/Linked Reason for request",
@@ -382,7 +391,7 @@ class DeviceRequest(domainresource.DomainResource):
         ],
     )
 
-    relevantHistory: typing.List[fhirtypes.ReferenceType] = Field(
+    relevantHistory: typing.List[Reference] = Field(
         None,
         alias="relevantHistory",
         title="Request provenance",
@@ -393,7 +402,7 @@ class DeviceRequest(domainresource.DomainResource):
         enum_reference_types=["Provenance"],
     )
 
-    replaces: typing.List[fhirtypes.ReferenceType] = Field(
+    replaces: typing.List[Reference] = Field(
         None,
         alias="replaces",
         title="What request replaces",
@@ -407,7 +416,7 @@ class DeviceRequest(domainresource.DomainResource):
         enum_reference_types=["DeviceRequest"],
     )
 
-    requester: fhirtypes.ReferenceType = Field(
+    requester: Reference = Field(
         None,
         alias="requester",
         title="Who/what submitted the device request",
@@ -452,7 +461,7 @@ class DeviceRequest(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         ...,
         alias="subject",
         title="Focus of request",
@@ -463,7 +472,7 @@ class DeviceRequest(domainresource.DomainResource):
         enum_reference_types=["Patient", "Group", "Location", "Device"],
     )
 
-    supportingInfo: typing.List[fhirtypes.ReferenceType] = Field(
+    supportingInfo: typing.List[Reference] = Field(
         None,
         alias="supportingInfo",
         title="Additional clinical information",
@@ -633,9 +642,9 @@ class DeviceRequestParameter(backboneelement.BackboneElement):
     lenses.
     """
 
-    resource_type = Field("DeviceRequestParameter", const=True)
+    resource_type: str = Field("DeviceRequestParameter", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Device detail",
@@ -659,7 +668,7 @@ class DeviceRequestParameter(backboneelement.BackboneElement):
         None, alias="_valueBoolean", title="Extension field for ``valueBoolean``."
     )
 
-    valueCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    valueCodeableConcept: CodeableConcept = Field(
         None,
         alias="valueCodeableConcept",
         title="Value of detail",
@@ -671,7 +680,7 @@ class DeviceRequestParameter(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    valueQuantity: fhirtypes.QuantityType = Field(
+    valueQuantity: Quantity = Field(
         None,
         alias="valueQuantity",
         title="Value of detail",
@@ -683,7 +692,7 @@ class DeviceRequestParameter(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    valueRange: fhirtypes.RangeType = Field(
+    valueRange: Range = Field(
         None,
         alias="valueRange",
         title="Value of detail",
@@ -756,3 +765,6 @@ class DeviceRequestParameter(backboneelement.BackboneElement):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+DeviceRequest.update_forward_refs()

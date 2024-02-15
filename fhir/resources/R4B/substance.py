@@ -11,6 +11,11 @@ import typing
 from pydantic.v1 import Field, root_validator
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .quantity import Quantity
+from .ratio import Ratio
+from .reference import Reference
 
 
 class Substance(domainresource.DomainResource):
@@ -21,9 +26,9 @@ class Substance(domainresource.DomainResource):
     A homogeneous material with a definite composition.
     """
 
-    resource_type = Field("Substance", const=True)
+    resource_type: str = Field("Substance", const=True)
 
-    category: typing.List[fhirtypes.CodeableConceptType] = Field(
+    category: typing.List[CodeableConcept] = Field(
         None,
         alias="category",
         title="What class/type of substance this is",
@@ -35,7 +40,7 @@ class Substance(domainresource.DomainResource):
         element_property=True,
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         ...,
         alias="code",
         title="What substance this is",
@@ -59,7 +64,7 @@ class Substance(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Unique identifier",
@@ -68,7 +73,7 @@ class Substance(domainresource.DomainResource):
         element_property=True,
     )
 
-    ingredient: typing.List[fhirtypes.SubstanceIngredientType] = Field(
+    ingredient: typing.List["SubstanceIngredient"] = Field(
         None,
         alias="ingredient",
         title="Composition information about the substance",
@@ -77,7 +82,7 @@ class Substance(domainresource.DomainResource):
         element_property=True,
     )
 
-    instance: typing.List[fhirtypes.SubstanceInstanceType] = Field(
+    instance: typing.List["SubstanceInstance"] = Field(
         None,
         alias="instance",
         title="If this describes a specific package/container of the substance",
@@ -138,9 +143,9 @@ class SubstanceIngredient(backboneelement.BackboneElement):
     A substance can be composed of other substances.
     """
 
-    resource_type = Field("SubstanceIngredient", const=True)
+    resource_type: str = Field("SubstanceIngredient", const=True)
 
-    quantity: fhirtypes.RatioType = Field(
+    quantity: Ratio = Field(
         None,
         alias="quantity",
         title="Optional amount (concentration)",
@@ -149,7 +154,7 @@ class SubstanceIngredient(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    substanceCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    substanceCodeableConcept: CodeableConcept = Field(
         None,
         alias="substanceCodeableConcept",
         title="A component of the substance",
@@ -161,7 +166,7 @@ class SubstanceIngredient(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    substanceReference: fhirtypes.ReferenceType = Field(
+    substanceReference: Reference = Field(
         None,
         alias="substanceReference",
         title="A component of the substance",
@@ -241,7 +246,7 @@ class SubstanceInstance(backboneelement.BackboneElement):
     package/container of the substance: an instance.
     """
 
-    resource_type = Field("SubstanceInstance", const=True)
+    resource_type: str = Field("SubstanceInstance", const=True)
 
     expiry: fhirtypes.DateTime = Field(
         None,
@@ -258,7 +263,7 @@ class SubstanceInstance(backboneelement.BackboneElement):
         None, alias="_expiry", title="Extension field for ``expiry``."
     )
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="Identifier of the package/container",
@@ -270,7 +275,7 @@ class SubstanceInstance(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    quantity: fhirtypes.QuantityType = Field(
+    quantity: Quantity = Field(
         None,
         alias="quantity",
         title="Amount of substance in the package",
@@ -293,3 +298,6 @@ class SubstanceInstance(backboneelement.BackboneElement):
             "expiry",
             "quantity",
         ]
+
+
+Substance.update_forward_refs()

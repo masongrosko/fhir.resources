@@ -13,6 +13,13 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .contactdetail import ContactDetail
+from .identifier import Identifier
+from .money import Money
+from .period import Period
+from .reference import Reference
+from .usagecontext import UsageContext
 
 
 class ChargeItemDefinition(domainresource.DomainResource):
@@ -29,9 +36,9 @@ class ChargeItemDefinition(domainresource.DomainResource):
     system.
     """
 
-    resource_type = Field("ChargeItemDefinition", const=True)
+    resource_type: str = Field("ChargeItemDefinition", const=True)
 
-    applicability: typing.List[fhirtypes.ChargeItemDefinitionApplicabilityType] = Field(
+    applicability: typing.List["ChargeItemDefinitionApplicability"] = Field(
         None,
         alias="applicability",
         title="Whether or not the billing code is applicable",
@@ -56,7 +63,7 @@ class ChargeItemDefinition(domainresource.DomainResource):
         None, alias="_approvalDate", title="Extension field for ``approvalDate``."
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Billing codes or product types this definition applies to",
@@ -68,7 +75,7 @@ class ChargeItemDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -146,7 +153,7 @@ class ChargeItemDefinition(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    effectivePeriod: fhirtypes.PeriodType = Field(
+    effectivePeriod: Period = Field(
         None,
         alias="effectivePeriod",
         title="When the charge item definition is expected to be used",
@@ -174,7 +181,7 @@ class ChargeItemDefinition(domainresource.DomainResource):
         None, alias="_experimental", title="Extension field for ``experimental``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Additional identifier for the charge item definition",
@@ -187,7 +194,7 @@ class ChargeItemDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    instance: typing.List[fhirtypes.ReferenceType] = Field(
+    instance: typing.List[Reference] = Field(
         None,
         alias="instance",
         title="Instances this definition applies to",
@@ -201,7 +208,7 @@ class ChargeItemDefinition(domainresource.DomainResource):
         enum_reference_types=["Medication", "Substance", "Device"],
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction for charge item definition (if applicable)",
@@ -246,7 +253,7 @@ class ChargeItemDefinition(domainresource.DomainResource):
         typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
     ] = Field(None, alias="_partOf", title="Extension field for ``partOf``.")
 
-    propertyGroup: typing.List[fhirtypes.ChargeItemDefinitionPropertyGroupType] = Field(
+    propertyGroup: typing.List["ChargeItemDefinitionPropertyGroup"] = Field(
         None,
         alias="propertyGroup",
         title="Group of properties which are applicable under the same conditions",
@@ -350,7 +357,7 @@ class ChargeItemDefinition(domainresource.DomainResource):
         None, alias="_url", title="Extension field for ``url``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="The context that the content is intended to support",
@@ -499,7 +506,7 @@ class ChargeItemDefinitionApplicability(backboneelement.BackboneElement):
     Expressions that describe applicability criteria for the billing code.
     """
 
-    resource_type = Field("ChargeItemDefinitionApplicability", const=True)
+    resource_type: str = Field("ChargeItemDefinitionApplicability", const=True)
 
     description: fhirtypes.String = Field(
         None,
@@ -576,9 +583,9 @@ class ChargeItemDefinitionPropertyGroup(backboneelement.BackboneElement):
     always apply.
     """
 
-    resource_type = Field("ChargeItemDefinitionPropertyGroup", const=True)
+    resource_type: str = Field("ChargeItemDefinitionPropertyGroup", const=True)
 
-    applicability: typing.List[fhirtypes.ChargeItemDefinitionApplicabilityType] = Field(
+    applicability: typing.List["ChargeItemDefinitionApplicability"] = Field(
         None,
         alias="applicability",
         title="Conditions under which the priceComponent is applicable",
@@ -590,23 +597,23 @@ class ChargeItemDefinitionPropertyGroup(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    priceComponent: typing.List[
-        fhirtypes.ChargeItemDefinitionPropertyGroupPriceComponentType
-    ] = Field(
-        None,
-        alias="priceComponent",
-        title="Components of total line item price",
-        description=(
-            "The price for a ChargeItem may be calculated as a base price with "
-            "surcharges/deductions that apply in certain conditions. A "
-            "ChargeItemDefinition resource that defines the prices, factors and "
-            "conditions that apply to a billing code is currently under "
-            "development. The priceComponent element can be used to offer "
-            "transparency to the recipient of the Invoice of how the prices have "
-            "been calculated."
-        ),
-        # if property is element of this resource.
-        element_property=True,
+    priceComponent: typing.List["ChargeItemDefinitionPropertyGroupPriceComponent"] = (
+        Field(
+            None,
+            alias="priceComponent",
+            title="Components of total line item price",
+            description=(
+                "The price for a ChargeItem may be calculated as a base price with "
+                "surcharges/deductions that apply in certain conditions. A "
+                "ChargeItemDefinition resource that defines the prices, factors and "
+                "conditions that apply to a billing code is currently under "
+                "development. The priceComponent element can be used to offer "
+                "transparency to the recipient of the Invoice of how the prices have "
+                "been calculated."
+            ),
+            # if property is element of this resource.
+            element_property=True,
+        )
     )
 
     @classmethod
@@ -638,9 +645,11 @@ class ChargeItemDefinitionPropertyGroupPriceComponent(backboneelement.BackboneEl
     of the Invoice of how the prices have been calculated.
     """
 
-    resource_type = Field("ChargeItemDefinitionPropertyGroupPriceComponent", const=True)
+    resource_type: str = Field(
+        "ChargeItemDefinitionPropertyGroupPriceComponent", const=True
+    )
 
-    amount: fhirtypes.MoneyType = Field(
+    amount: Money = Field(
         None,
         alias="amount",
         title="Monetary amount associated with this component",
@@ -649,7 +658,7 @@ class ChargeItemDefinitionPropertyGroupPriceComponent(backboneelement.BackboneEl
         element_property=True,
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Code identifying the specific component",
@@ -773,3 +782,7 @@ class ChargeItemDefinitionPropertyGroupPriceComponent(backboneelement.BackboneEl
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+ChargeItemDefinition.update_forward_refs()
+ChargeItemDefinitionPropertyGroup.update_forward_refs()

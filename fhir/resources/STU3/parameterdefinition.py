@@ -13,6 +13,7 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import element, fhirtypes
+from .reference import Reference
 
 
 class ParameterDefinition(element.Element):
@@ -27,7 +28,7 @@ class ParameterDefinition(element.Element):
     GuidanceResponse.
     """
 
-    resource_type = Field("ParameterDefinition", const=True)
+    resource_type: str = Field("ParameterDefinition", const=True)
 
     documentation: fhirtypes.String = Field(
         None,
@@ -89,7 +90,7 @@ class ParameterDefinition(element.Element):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    profile: fhirtypes.ReferenceType = Field(
+    profile: Reference = Field(
         None,
         alias="profile",
         title="What profile the value is expected to be",

@@ -11,6 +11,11 @@ import typing
 from pydantic.v1 import Field
 
 from . import backboneelement, domainresource, fhirtypes
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .contactpoint import ContactPoint
+from .identifier import Identifier
+from .reference import Reference
 
 
 class Device(domainresource.DomainResource):
@@ -28,9 +33,9 @@ class Device(domainresource.DomainResource):
     include items such as a machine, cellphone, computer, application, etc.
     """
 
-    resource_type = Field("Device", const=True)
+    resource_type: str = Field("Device", const=True)
 
-    contact: typing.List[fhirtypes.ContactPointType] = Field(
+    contact: typing.List[ContactPoint] = Field(
         None,
         alias="contact",
         title="Details for human/organization for support",
@@ -57,7 +62,7 @@ class Device(domainresource.DomainResource):
         None, alias="_expirationDate", title="Extension field for ``expirationDate``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Instance identifier",
@@ -69,7 +74,7 @@ class Device(domainresource.DomainResource):
         element_property=True,
     )
 
-    location: fhirtypes.ReferenceType = Field(
+    location: Reference = Field(
         None,
         alias="location",
         title="Where the resource is found",
@@ -132,7 +137,7 @@ class Device(domainresource.DomainResource):
         None, alias="_model", title="Extension field for ``model``."
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Device notes and comments",
@@ -144,7 +149,7 @@ class Device(domainresource.DomainResource):
         element_property=True,
     )
 
-    owner: fhirtypes.ReferenceType = Field(
+    owner: Reference = Field(
         None,
         alias="owner",
         title="Organization responsible for device",
@@ -158,7 +163,7 @@ class Device(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         None,
         alias="patient",
         title="Patient to whom Device is affixed",
@@ -169,7 +174,7 @@ class Device(domainresource.DomainResource):
         enum_reference_types=["Patient"],
     )
 
-    safety: typing.List[fhirtypes.CodeableConceptType] = Field(
+    safety: typing.List[CodeableConcept] = Field(
         None,
         alias="safety",
         title="Safety Characteristics of Device",
@@ -196,7 +201,7 @@ class Device(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="What kind of device this is",
@@ -205,7 +210,7 @@ class Device(domainresource.DomainResource):
         element_property=True,
     )
 
-    udi: fhirtypes.DeviceUdiType = Field(
+    udi: "DeviceUdi" = Field(
         None,
         alias="udi",
         title="Unique Device Identifier (UDI) Barcode string",
@@ -289,7 +294,7 @@ class DeviceUdi(backboneelement.BackboneElement):
     label or package.
     """
 
-    resource_type = Field("DeviceUdi", const=True)
+    resource_type: str = Field("DeviceUdi", const=True)
 
     carrierAIDC: fhirtypes.Base64Binary = Field(
         None,
@@ -424,3 +429,6 @@ class DeviceUdi(backboneelement.BackboneElement):
             "issuer",
             "entryType",
         ]
+
+
+Device.update_forward_refs()

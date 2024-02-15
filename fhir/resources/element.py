@@ -7,10 +7,26 @@ Build ID: 2aecd53
 Last updated: 2023-03-26T15:21:02.749+11:00
 """
 import typing
+from typing import TYPE_CHECKING
 
 from pydantic.v1 import Field
+from pydantic.v1.parse import load_str_bytes
+
+from fhir.resources.core import fhirabstractmodel
 
 from . import base, fhirtypes
+from .fhirtypesvalidators import fhir_model_validator
+
+if TYPE_CHECKING:
+    from pydantic.v1.typing import CallableGenerator
+
+
+class classproperty:
+    def __init__(self, func):
+        self.fget = func
+
+    def __get__(self, instance, owner):
+        return self.fget(owner)
 
 
 class Element(base.Base):
@@ -22,7 +38,7 @@ class Element(base.Base):
     Base definition for all elements in a resource.
     """
 
-    resource_type = Field("Element", const=True)
+    resource_type: str = Field("Element", const=True)
 
     extension: typing.List[fhirtypes.ExtensionType] = Field(
         None,
@@ -59,3 +75,42 @@ class Element(base.Base):
         with preserving original sequence order.
         """
         return ["id", "extension"]
+
+    __fhir_release__: str = "R5"
+
+    @classproperty
+    def __resource_type__(cls) -> str:
+        """Resource type."""
+        return cls.__name__
+
+    @classmethod
+    def __get_validators__(cls) -> "CallableGenerator":
+        yield cls.validate
+
+    @classmethod
+    def validate(cls, v, values, config, field):
+        """ """
+        if isinstance(v, fhirabstractmodel.FHIRAbstractModel):
+            resource_type = v.resource_type
+        elif "resourceType" not in cls.__fields__:
+            if isinstance(v, (bytes, str)):
+                input_data = load_str_bytes(v)
+                resource_type = input_data.get("resourceType", None)
+            else:
+                resource_type = v.get("resourceType", None)
+        else:
+            resource_type = None
+        if resource_type is None:
+            resource_type = cls.__resource_type__
+        v = fhir_model_validator(resource_type, v)
+        return v
+
+    @classmethod
+    def is_primitive(cls) -> bool:
+        """ """
+        return False
+
+    @classmethod
+    def fhir_type_name(cls) -> str:
+        """ """
+        return cls.__resource_type__

@@ -12,6 +12,7 @@ from pydantic.v1 import Field
 
 from . import fhirtypes
 from .element import Element
+from .period import Period
 
 
 class HumanName(Element):
@@ -20,7 +21,7 @@ class HumanName(Element):
     A human's name with the ability to identify parts and usage.
     """
 
-    resource_type = Field("HumanName", const=True)
+    resource_type: str = Field("HumanName", const=True)
 
     family: ListType[fhirtypes.String] = Field(
         None,
@@ -36,7 +37,7 @@ class HumanName(Element):
         description="Given names (not always 'first'). Includes middle names",
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Type `Period` (represented as `dict` in JSON)",

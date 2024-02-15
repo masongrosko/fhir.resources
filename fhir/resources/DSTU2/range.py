@@ -7,8 +7,8 @@ Revision: 7202
 """
 from pydantic.v1 import Field
 
-from . import fhirtypes
 from .element import Element
+from .quantity import Quantity
 
 
 class Range(Element):
@@ -17,16 +17,16 @@ class Range(Element):
     A set of ordered Quantities defined by a low and high limit.
     """
 
-    resource_type = Field("Range", const=True)
+    resource_type: str = Field("Range", const=True)
 
-    high: fhirtypes.QuantityType = Field(
+    high: Quantity = Field(
         None,
         alias="high",
         title="Type `Quantity` (represented as `dict` in JSON)",
         description="High limit",
     )
 
-    low: fhirtypes.QuantityType = Field(
+    low: Quantity = Field(
         None,
         alias="low",
         title="Type `Quantity` (represented as `dict` in JSON)",

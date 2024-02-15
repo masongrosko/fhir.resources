@@ -10,7 +10,11 @@ import typing
 
 from pydantic.v1 import Field
 
-from . import backboneelement, domainresource, fhirtypes
+from . import backboneelement, domainresource
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class DeviceAssociation(domainresource.DomainResource):
@@ -21,9 +25,9 @@ class DeviceAssociation(domainresource.DomainResource):
     A record of association or dissociation of a device with a patient.
     """
 
-    resource_type = Field("DeviceAssociation", const=True)
+    resource_type: str = Field("DeviceAssociation", const=True)
 
-    bodyStructure: fhirtypes.ReferenceType = Field(
+    bodyStructure: Reference = Field(
         None,
         alias="bodyStructure",
         title="Current anatomical location of the device in/on subject",
@@ -34,7 +38,7 @@ class DeviceAssociation(domainresource.DomainResource):
         enum_reference_types=["BodyStructure"],
     )
 
-    category: typing.List[fhirtypes.CodeableConceptType] = Field(
+    category: typing.List[CodeableConcept] = Field(
         None,
         alias="category",
         title="Describes the relationship between the device and subject",
@@ -43,7 +47,7 @@ class DeviceAssociation(domainresource.DomainResource):
         element_property=True,
     )
 
-    device: fhirtypes.ReferenceType = Field(
+    device: Reference = Field(
         ...,
         alias="device",
         title="Reference to the devices associated with the patient or group",
@@ -54,7 +58,7 @@ class DeviceAssociation(domainresource.DomainResource):
         enum_reference_types=["Device"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Instance identifier",
@@ -63,7 +67,7 @@ class DeviceAssociation(domainresource.DomainResource):
         element_property=True,
     )
 
-    operation: typing.List[fhirtypes.DeviceAssociationOperationType] = Field(
+    operation: typing.List["DeviceAssociationOperation"] = Field(
         None,
         alias="operation",
         title=(
@@ -75,7 +79,7 @@ class DeviceAssociation(domainresource.DomainResource):
         element_property=True,
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Begin and end dates and times for the device association",
@@ -84,7 +88,7 @@ class DeviceAssociation(domainresource.DomainResource):
         element_property=True,
     )
 
-    status: fhirtypes.CodeableConceptType = Field(
+    status: CodeableConcept = Field(
         ...,
         alias="status",
         title="implanted | explanted | attached | entered-in-error | unknown",
@@ -93,7 +97,7 @@ class DeviceAssociation(domainresource.DomainResource):
         element_property=True,
     )
 
-    statusReason: typing.List[fhirtypes.CodeableConceptType] = Field(
+    statusReason: typing.List[CodeableConcept] = Field(
         None,
         alias="statusReason",
         title="The reasons given for the current association status",
@@ -102,7 +106,7 @@ class DeviceAssociation(domainresource.DomainResource):
         element_property=True,
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title=(
@@ -157,9 +161,9 @@ class DeviceAssociationOperation(backboneelement.BackboneElement):
     The details about the device when it is in use to describe its operation.
     """
 
-    resource_type = Field("DeviceAssociationOperation", const=True)
+    resource_type: str = Field("DeviceAssociationOperation", const=True)
 
-    operator: typing.List[fhirtypes.ReferenceType] = Field(
+    operator: typing.List[Reference] = Field(
         None,
         alias="operator",
         title="The individual performing the action enabled by the device",
@@ -170,7 +174,7 @@ class DeviceAssociationOperation(backboneelement.BackboneElement):
         enum_reference_types=["Patient", "Practitioner", "RelatedPerson"],
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Begin and end dates and times for the device's operation",
@@ -179,7 +183,7 @@ class DeviceAssociationOperation(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    status: fhirtypes.CodeableConceptType = Field(
+    status: CodeableConcept = Field(
         ...,
         alias="status",
         title="Device operational condition",
@@ -195,3 +199,6 @@ class DeviceAssociationOperation(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "status", "operator", "period"]
+
+
+DeviceAssociation.update_forward_refs()

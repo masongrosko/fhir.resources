@@ -13,6 +13,30 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .address import Address
+from .age import Age
+from .annotation import Annotation
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .contactdetail import ContactDetail
+from .contactpoint import ContactPoint
+from .count import Count
+from .distance import Distance
+from .duration import Duration
+from .humanname import HumanName
+from .identifier import Identifier
+from .meta import Meta
+from .money import Money
+from .period import Period
+from .quantity import Quantity
+from .range import Range
+from .ratio import Ratio
+from .reference import Reference
+from .sampleddata import SampledData
+from .signature import Signature
+from .timing import Timing
+from .usagecontext import UsageContext
 
 
 class StructureMap(domainresource.DomainResource):
@@ -24,9 +48,9 @@ class StructureMap(domainresource.DomainResource):
     data.
     """
 
-    resource_type = Field("StructureMap", const=True)
+    resource_type: str = Field("StructureMap", const=True)
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -102,7 +126,7 @@ class StructureMap(domainresource.DomainResource):
         None, alias="_experimental", title="Extension field for ``experimental``."
     )
 
-    group: typing.List[fhirtypes.StructureMapGroupType] = Field(
+    group: typing.List["StructureMapGroup"] = Field(
         ...,
         alias="group",
         title="Named sections for reader convenience",
@@ -114,7 +138,7 @@ class StructureMap(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Additional identifier for the structure map",
@@ -139,7 +163,7 @@ class StructureMap(domainresource.DomainResource):
         typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
     ] = Field(None, alias="_import", title="Extension field for ``import_fhir``.")
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction for structure map (if applicable)",
@@ -217,7 +241,7 @@ class StructureMap(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    structure: typing.List[fhirtypes.StructureMapStructureType] = Field(
+    structure: typing.List["StructureMapStructure"] = Field(
         None,
         alias="structure",
         title="Structure Definition used by this map",
@@ -262,7 +286,7 @@ class StructureMap(domainresource.DomainResource):
         None, alias="_url", title="Extension field for ``url``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="Context the content is intended to support",
@@ -404,7 +428,7 @@ class StructureMapGroup(backboneelement.BackboneElement):
     maintenance.
     """
 
-    resource_type = Field("StructureMapGroup", const=True)
+    resource_type: str = Field("StructureMapGroup", const=True)
 
     documentation: fhirtypes.String = Field(
         None,
@@ -433,7 +457,7 @@ class StructureMapGroup(backboneelement.BackboneElement):
         None, alias="_extends", title="Extension field for ``extends``."
     )
 
-    input: typing.List[fhirtypes.StructureMapGroupInputType] = Field(
+    input: typing.List["StructureMapGroupInput"] = Field(
         ...,
         alias="input",
         title="Named instance provided when invoking the map",
@@ -458,7 +482,7 @@ class StructureMapGroup(backboneelement.BackboneElement):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    rule: typing.List[fhirtypes.StructureMapGroupRuleType] = Field(
+    rule: typing.List["StructureMapGroupRule"] = Field(
         ...,
         alias="rule",
         title="Transform Rule from source to target",
@@ -574,7 +598,7 @@ class StructureMapGroupInput(backboneelement.BackboneElement):
     the mapping is invoked.
     """
 
-    resource_type = Field("StructureMapGroupInput", const=True)
+    resource_type: str = Field("StructureMapGroupInput", const=True)
 
     documentation: fhirtypes.String = Field(
         None,
@@ -713,9 +737,9 @@ class StructureMapGroupRule(backboneelement.BackboneElement):
     Transform Rule from source to target.
     """
 
-    resource_type = Field("StructureMapGroupRule", const=True)
+    resource_type: str = Field("StructureMapGroupRule", const=True)
 
-    dependent: typing.List[fhirtypes.StructureMapGroupRuleDependentType] = Field(
+    dependent: typing.List["StructureMapGroupRuleDependent"] = Field(
         None,
         alias="dependent",
         title="Which other rules to apply in the context of this rule",
@@ -749,7 +773,7 @@ class StructureMapGroupRule(backboneelement.BackboneElement):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    rule: typing.List[fhirtypes.StructureMapGroupRuleType] = Field(
+    rule: typing.List["StructureMapGroupRule"] = Field(
         None,
         alias="rule",
         title="Rules contained in this rule",
@@ -758,7 +782,7 @@ class StructureMapGroupRule(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    source: typing.List[fhirtypes.StructureMapGroupRuleSourceType] = Field(
+    source: typing.List["StructureMapGroupRuleSource"] = Field(
         ...,
         alias="source",
         title="Source inputs to the mapping",
@@ -767,7 +791,7 @@ class StructureMapGroupRule(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    target: typing.List[fhirtypes.StructureMapGroupRuleTargetType] = Field(
+    target: typing.List["StructureMapGroupRuleTarget"] = Field(
         None,
         alias="target",
         title="Content to create because of this mapping rule",
@@ -862,7 +886,7 @@ class StructureMapGroupRuleDependent(backboneelement.BackboneElement):
     Which other rules to apply in the context of this rule.
     """
 
-    resource_type = Field("StructureMapGroupRuleDependent", const=True)
+    resource_type: str = Field("StructureMapGroupRuleDependent", const=True)
 
     name: fhirtypes.Id = Field(
         None,
@@ -966,7 +990,7 @@ class StructureMapGroupRuleSource(backboneelement.BackboneElement):
     Source inputs to the mapping.
     """
 
-    resource_type = Field("StructureMapGroupRuleSource", const=True)
+    resource_type: str = Field("StructureMapGroupRuleSource", const=True)
 
     check: fhirtypes.String = Field(
         None,
@@ -1008,7 +1032,7 @@ class StructureMapGroupRuleSource(backboneelement.BackboneElement):
         None, alias="_context", title="Extension field for ``context``."
     )
 
-    defaultValueAddress: fhirtypes.AddressType = Field(
+    defaultValueAddress: Address = Field(
         None,
         alias="defaultValueAddress",
         title="Default value if no value exists",
@@ -1020,7 +1044,7 @@ class StructureMapGroupRuleSource(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    defaultValueAge: fhirtypes.AgeType = Field(
+    defaultValueAge: Age = Field(
         None,
         alias="defaultValueAge",
         title="Default value if no value exists",
@@ -1032,7 +1056,7 @@ class StructureMapGroupRuleSource(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    defaultValueAnnotation: fhirtypes.AnnotationType = Field(
+    defaultValueAnnotation: Annotation = Field(
         None,
         alias="defaultValueAnnotation",
         title="Default value if no value exists",
@@ -1044,7 +1068,7 @@ class StructureMapGroupRuleSource(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    defaultValueAttachment: fhirtypes.AttachmentType = Field(
+    defaultValueAttachment: Attachment = Field(
         None,
         alias="defaultValueAttachment",
         title="Default value if no value exists",
@@ -1107,7 +1131,7 @@ class StructureMapGroupRuleSource(backboneelement.BackboneElement):
         title="Extension field for ``defaultValueCode``.",
     )
 
-    defaultValueCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    defaultValueCodeableConcept: CodeableConcept = Field(
         None,
         alias="defaultValueCodeableConcept",
         title="Default value if no value exists",
@@ -1119,7 +1143,7 @@ class StructureMapGroupRuleSource(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    defaultValueCoding: fhirtypes.CodingType = Field(
+    defaultValueCoding: Coding = Field(
         None,
         alias="defaultValueCoding",
         title="Default value if no value exists",
@@ -1131,7 +1155,7 @@ class StructureMapGroupRuleSource(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    defaultValueContactPoint: fhirtypes.ContactPointType = Field(
+    defaultValueContactPoint: ContactPoint = Field(
         None,
         alias="defaultValueContactPoint",
         title="Default value if no value exists",
@@ -1143,7 +1167,7 @@ class StructureMapGroupRuleSource(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    defaultValueCount: fhirtypes.CountType = Field(
+    defaultValueCount: Count = Field(
         None,
         alias="defaultValueCount",
         title="Default value if no value exists",
@@ -1206,7 +1230,7 @@ class StructureMapGroupRuleSource(backboneelement.BackboneElement):
         title="Extension field for ``defaultValueDecimal``.",
     )
 
-    defaultValueDistance: fhirtypes.DistanceType = Field(
+    defaultValueDistance: Distance = Field(
         None,
         alias="defaultValueDistance",
         title="Default value if no value exists",
@@ -1218,7 +1242,7 @@ class StructureMapGroupRuleSource(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    defaultValueDuration: fhirtypes.DurationType = Field(
+    defaultValueDuration: Duration = Field(
         None,
         alias="defaultValueDuration",
         title="Default value if no value exists",
@@ -1230,7 +1254,7 @@ class StructureMapGroupRuleSource(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    defaultValueHumanName: fhirtypes.HumanNameType = Field(
+    defaultValueHumanName: HumanName = Field(
         None,
         alias="defaultValueHumanName",
         title="Default value if no value exists",
@@ -1257,7 +1281,7 @@ class StructureMapGroupRuleSource(backboneelement.BackboneElement):
         None, alias="_defaultValueId", title="Extension field for ``defaultValueId``."
     )
 
-    defaultValueIdentifier: fhirtypes.IdentifierType = Field(
+    defaultValueIdentifier: Identifier = Field(
         None,
         alias="defaultValueIdentifier",
         title="Default value if no value exists",
@@ -1320,7 +1344,7 @@ class StructureMapGroupRuleSource(backboneelement.BackboneElement):
         title="Extension field for ``defaultValueMarkdown``.",
     )
 
-    defaultValueMeta: fhirtypes.MetaType = Field(
+    defaultValueMeta: Meta = Field(
         None,
         alias="defaultValueMeta",
         title="Default value if no value exists",
@@ -1332,7 +1356,7 @@ class StructureMapGroupRuleSource(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    defaultValueMoney: fhirtypes.MoneyType = Field(
+    defaultValueMoney: Money = Field(
         None,
         alias="defaultValueMoney",
         title="Default value if no value exists",
@@ -1359,7 +1383,7 @@ class StructureMapGroupRuleSource(backboneelement.BackboneElement):
         None, alias="_defaultValueOid", title="Extension field for ``defaultValueOid``."
     )
 
-    defaultValuePeriod: fhirtypes.PeriodType = Field(
+    defaultValuePeriod: Period = Field(
         None,
         alias="defaultValuePeriod",
         title="Default value if no value exists",
@@ -1388,7 +1412,7 @@ class StructureMapGroupRuleSource(backboneelement.BackboneElement):
         title="Extension field for ``defaultValuePositiveInt``.",
     )
 
-    defaultValueQuantity: fhirtypes.QuantityType = Field(
+    defaultValueQuantity: Quantity = Field(
         None,
         alias="defaultValueQuantity",
         title="Default value if no value exists",
@@ -1400,7 +1424,7 @@ class StructureMapGroupRuleSource(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    defaultValueRange: fhirtypes.RangeType = Field(
+    defaultValueRange: Range = Field(
         None,
         alias="defaultValueRange",
         title="Default value if no value exists",
@@ -1412,7 +1436,7 @@ class StructureMapGroupRuleSource(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    defaultValueRatio: fhirtypes.RatioType = Field(
+    defaultValueRatio: Ratio = Field(
         None,
         alias="defaultValueRatio",
         title="Default value if no value exists",
@@ -1424,7 +1448,7 @@ class StructureMapGroupRuleSource(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    defaultValueReference: fhirtypes.ReferenceType = Field(
+    defaultValueReference: Reference = Field(
         None,
         alias="defaultValueReference",
         title="Default value if no value exists",
@@ -1436,7 +1460,7 @@ class StructureMapGroupRuleSource(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    defaultValueSampledData: fhirtypes.SampledDataType = Field(
+    defaultValueSampledData: SampledData = Field(
         None,
         alias="defaultValueSampledData",
         title="Default value if no value exists",
@@ -1448,7 +1472,7 @@ class StructureMapGroupRuleSource(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    defaultValueSignature: fhirtypes.SignatureType = Field(
+    defaultValueSignature: Signature = Field(
         None,
         alias="defaultValueSignature",
         title="Default value if no value exists",
@@ -1494,7 +1518,7 @@ class StructureMapGroupRuleSource(backboneelement.BackboneElement):
         title="Extension field for ``defaultValueTime``.",
     )
 
-    defaultValueTiming: fhirtypes.TimingType = Field(
+    defaultValueTiming: Timing = Field(
         None,
         alias="defaultValueTiming",
         title="Default value if no value exists",
@@ -1829,7 +1853,7 @@ class StructureMapGroupRuleTarget(backboneelement.BackboneElement):
     Content to create because of this mapping rule.
     """
 
-    resource_type = Field("StructureMapGroupRuleTarget", const=True)
+    resource_type: str = Field("StructureMapGroupRuleTarget", const=True)
 
     context: fhirtypes.Id = Field(
         None,
@@ -1897,7 +1921,7 @@ class StructureMapGroupRuleTarget(backboneelement.BackboneElement):
         None, alias="_listRuleId", title="Extension field for ``listRuleId``."
     )
 
-    parameter: typing.List[fhirtypes.StructureMapGroupRuleTargetParameterType] = Field(
+    parameter: typing.List["StructureMapGroupRuleTargetParameter"] = Field(
         None,
         alias="parameter",
         title="Parameters to the transform",
@@ -1962,7 +1986,7 @@ class StructureMapGroupRuleTargetParameter(backboneelement.BackboneElement):
     Parameters to the transform.
     """
 
-    resource_type = Field("StructureMapGroupRuleTargetParameter", const=True)
+    resource_type: str = Field("StructureMapGroupRuleTargetParameter", const=True)
 
     valueBoolean: bool = Field(
         None,
@@ -2113,7 +2137,7 @@ class StructureMapStructure(backboneelement.BackboneElement):
     describe instances that are converted, or the instances that are produced.
     """
 
-    resource_type = Field("StructureMapStructure", const=True)
+    resource_type: str = Field("StructureMapStructure", const=True)
 
     alias: fhirtypes.String = Field(
         None,
@@ -2242,3 +2266,9 @@ class StructureMapStructure(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+StructureMap.update_forward_refs()
+StructureMapGroup.update_forward_refs()
+StructureMapGroupRule.update_forward_refs()
+StructureMapGroupRuleTarget.update_forward_refs()

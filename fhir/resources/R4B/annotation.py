@@ -13,6 +13,7 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import element, fhirtypes
+from .reference import Reference
 
 
 class Annotation(element.Element):
@@ -25,9 +26,9 @@ class Annotation(element.Element):
     and when.
     """
 
-    resource_type = Field("Annotation", const=True)
+    resource_type: str = Field("Annotation", const=True)
 
-    authorReference: fhirtypes.ReferenceType = Field(
+    authorReference: Reference = Field(
         None,
         alias="authorReference",
         title="Individual responsible for the annotation",

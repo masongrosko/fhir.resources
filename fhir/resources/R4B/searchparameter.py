@@ -13,6 +13,9 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .contactdetail import ContactDetail
+from .usagecontext import UsageContext
 
 
 class SearchParameter(domainresource.DomainResource):
@@ -25,7 +28,7 @@ class SearchParameter(domainresource.DomainResource):
     search/filter on a resource.
     """
 
-    resource_type = Field("SearchParameter", const=True)
+    resource_type: str = Field("SearchParameter", const=True)
 
     base: typing.List[typing.Optional[fhirtypes.Code]] = Field(
         None,
@@ -39,9 +42,9 @@ class SearchParameter(domainresource.DomainResource):
         element_property=True,
         element_required=True,
     )
-    base__ext: typing.List[
-        typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
-    ] = Field(None, alias="_base", title="Extension field for ``base``.")
+    base__ext: typing.List[typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]] = (
+        Field(None, alias="_base", title="Extension field for ``base``.")
+    )
 
     chain: typing.List[typing.Optional[fhirtypes.String]] = Field(
         None,
@@ -94,7 +97,7 @@ class SearchParameter(domainresource.DomainResource):
         typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
     ] = Field(None, alias="_comparator", title="Extension field for ``comparator``.")
 
-    component: typing.List[fhirtypes.SearchParameterComponentType] = Field(
+    component: typing.List["SearchParameterComponent"] = Field(
         None,
         alias="component",
         title="For Composite resources to define the parts",
@@ -103,7 +106,7 @@ class SearchParameter(domainresource.DomainResource):
         element_property=True,
     )
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -196,7 +199,7 @@ class SearchParameter(domainresource.DomainResource):
         None, alias="_expression", title="Extension field for ``expression``."
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction for search parameter (if applicable)",
@@ -404,7 +407,7 @@ class SearchParameter(domainresource.DomainResource):
         None, alias="_url", title="Extension field for ``url``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="The context that the content is intended to support",
@@ -592,7 +595,7 @@ class SearchParameterComponent(backboneelement.BackboneElement):
     Used to define the parts of a composite search parameter.
     """
 
-    resource_type = Field("SearchParameterComponent", const=True)
+    resource_type: str = Field("SearchParameterComponent", const=True)
 
     definition: fhirtypes.Canonical = Field(
         None,
@@ -694,3 +697,6 @@ class SearchParameterComponent(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+SearchParameter.update_forward_refs()

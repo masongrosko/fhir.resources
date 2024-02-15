@@ -11,6 +11,23 @@ from typing import List as ListType
 from pydantic.v1 import Field, root_validator
 
 from . import backboneelement, element, fhirtypes
+from .address import Address
+from .annotation import Annotation
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .contactpoint import ContactPoint
+from .humanname import HumanName
+from .identifier import Identifier
+from .meta import Meta
+from .period import Period
+from .quantity import Quantity
+from .range import Range
+from .ratio import Ratio
+from .reference import Reference
+from .sampleddata import SampledData
+from .signature import Signature
+from .timing import Timing
 
 
 class ElementDefinition(backboneelement.BackboneElement):
@@ -20,7 +37,7 @@ class ElementDefinition(backboneelement.BackboneElement):
     extension.
     """
 
-    resource_type = Field("ElementDefinition", const=True)
+    resource_type: str = Field("ElementDefinition", const=True)
 
     alias: ListType[fhirtypes.String] = Field(
         None,
@@ -29,7 +46,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         description="Identifies additional names by which this element might also be known.",
     )
 
-    base: fhirtypes.ElementDefinitionBaseType = Field(
+    base: "ElementDefinitionBase" = Field(
         None,
         alias="base",
         title="Base definition information for tools",
@@ -45,7 +62,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         ),
     )
 
-    binding: fhirtypes.ElementDefinitionBindingType = Field(
+    binding: "ElementDefinitionBinding" = Field(
         None,
         alias="binding",
         title="ValueSet details if this is coded",
@@ -55,7 +72,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         ),
     )
 
-    code: ListType[fhirtypes.CodingType] = Field(
+    code: ListType[Coding] = Field(
         None,
         alias="code",
         title="Corresponding codes in terminologies",
@@ -87,7 +104,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         ),
     )
 
-    constraint: ListType[fhirtypes.ElementDefinitionConstraintType] = Field(
+    constraint: ListType["ElementDefinitionConstraint"] = Field(
         None,
         alias="constraint",
         title="Condition that must evaluate to true",
@@ -97,7 +114,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         ),
     )
 
-    defaultValueAddress: fhirtypes.AddressType = Field(
+    defaultValueAddress: Address = Field(
         None,
         alias="defaultValueAddress",
         title="Specified value if missing from instance",
@@ -110,7 +127,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    defaultValueAnnotation: fhirtypes.AnnotationType = Field(
+    defaultValueAnnotation: Annotation = Field(
         None,
         alias="defaultValueAnnotation",
         title="Specified value if missing from instance",
@@ -123,7 +140,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    defaultValueAttachment: fhirtypes.AttachmentType = Field(
+    defaultValueAttachment: Attachment = Field(
         None,
         alias="defaultValueAttachment",
         title="Specified value if missing from instance",
@@ -174,7 +191,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    defaultValueCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    defaultValueCodeableConcept: CodeableConcept = Field(
         None,
         alias="defaultValueCodeableConcept",
         title="Specified value if missing from instance",
@@ -187,7 +204,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    defaultValueCoding: fhirtypes.CodingType = Field(
+    defaultValueCoding: Coding = Field(
         None,
         alias="defaultValueCoding",
         title="Specified value if missing from instance",
@@ -200,7 +217,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    defaultValueContactPoint: fhirtypes.ContactPointType = Field(
+    defaultValueContactPoint: ContactPoint = Field(
         None,
         alias="defaultValueContactPoint",
         title="Specified value if missing from instance",
@@ -252,7 +269,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    defaultValueHumanName: fhirtypes.HumanNameType = Field(
+    defaultValueHumanName: HumanName = Field(
         None,
         alias="defaultValueHumanName",
         title="Specified value if missing from instance",
@@ -278,7 +295,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    defaultValueIdentifier: fhirtypes.IdentifierType = Field(
+    defaultValueIdentifier: Identifier = Field(
         None,
         alias="defaultValueIdentifier",
         title="Specified value if missing from instance",
@@ -330,7 +347,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    defaultValueMeta: fhirtypes.MetaType = Field(
+    defaultValueMeta: Meta = Field(
         None,
         alias="defaultValueMeta",
         title="Specified value if missing from instance",
@@ -356,7 +373,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    defaultValuePeriod: fhirtypes.PeriodType = Field(
+    defaultValuePeriod: Period = Field(
         None,
         alias="defaultValuePeriod",
         title="Specified value if missing from instance",
@@ -382,7 +399,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    defaultValueQuantity: fhirtypes.QuantityType = Field(
+    defaultValueQuantity: Quantity = Field(
         None,
         alias="defaultValueQuantity",
         title="Specified value if missing from instance",
@@ -395,7 +412,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    defaultValueRange: fhirtypes.RangeType = Field(
+    defaultValueRange: Range = Field(
         None,
         alias="defaultValueRange",
         title="Specified value if missing from instance",
@@ -408,7 +425,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    defaultValueRatio: fhirtypes.RatioType = Field(
+    defaultValueRatio: Ratio = Field(
         None,
         alias="defaultValueRatio",
         title="Specified value if missing from instance",
@@ -421,7 +438,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    defaultValueReference: fhirtypes.ReferenceType = Field(
+    defaultValueReference: Reference = Field(
         None,
         alias="defaultValueReference",
         title="Specified value if missing from instance",
@@ -436,7 +453,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         enum_reference_types=["Resource"],
     )
 
-    defaultValueSampledData: fhirtypes.SampledDataType = Field(
+    defaultValueSampledData: SampledData = Field(
         None,
         alias="defaultValueSampledData",
         title="Specified value if missing from instance",
@@ -449,7 +466,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    defaultValueSignature: fhirtypes.SignatureType = Field(
+    defaultValueSignature: Signature = Field(
         None,
         alias="defaultValueSignature",
         title="Specified value if missing from instance",
@@ -488,7 +505,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    defaultValueTiming: fhirtypes.TimingType = Field(
+    defaultValueTiming: Timing = Field(
         None,
         alias="defaultValueTiming",
         title="Specified value if missing from instance",
@@ -541,7 +558,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         ),
     )
 
-    exampleAddress: fhirtypes.AddressType = Field(
+    exampleAddress: Address = Field(
         None,
         alias="exampleAddress",
         title="Specified value if missing from instance",
@@ -554,7 +571,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    exampleAnnotation: fhirtypes.AnnotationType = Field(
+    exampleAnnotation: Annotation = Field(
         None,
         alias="exampleAnnotation",
         title="Specified value if missing from instance",
@@ -567,7 +584,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    exampleAttachment: fhirtypes.AttachmentType = Field(
+    exampleAttachment: Attachment = Field(
         None,
         alias="exampleAttachment",
         title="Specified value if missing from instance",
@@ -618,7 +635,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    exampleCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    exampleCodeableConcept: CodeableConcept = Field(
         None,
         alias="exampleCodeableConcept",
         title="Specified value if missing from instance",
@@ -631,7 +648,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    exampleCoding: fhirtypes.CodingType = Field(
+    exampleCoding: Coding = Field(
         None,
         alias="exampleCoding",
         title="Specified value if missing from instance",
@@ -644,7 +661,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    exampleContactPoint: fhirtypes.ContactPointType = Field(
+    exampleContactPoint: ContactPoint = Field(
         None,
         alias="exampleContactPoint",
         title="Specified value if missing from instance",
@@ -696,7 +713,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    exampleHumanName: fhirtypes.HumanNameType = Field(
+    exampleHumanName: HumanName = Field(
         None,
         alias="exampleHumanName",
         title="Specified value if missing from instance",
@@ -722,7 +739,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    exampleIdentifier: fhirtypes.IdentifierType = Field(
+    exampleIdentifier: Identifier = Field(
         None,
         alias="exampleIdentifier",
         title="Specified value if missing from instance",
@@ -774,7 +791,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    exampleMeta: fhirtypes.MetaType = Field(
+    exampleMeta: Meta = Field(
         None,
         alias="exampleMeta",
         title="Specified value if missing from instance",
@@ -800,7 +817,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    examplePeriod: fhirtypes.PeriodType = Field(
+    examplePeriod: Period = Field(
         None,
         alias="examplePeriod",
         title="Specified value if missing from instance",
@@ -826,7 +843,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    exampleQuantity: fhirtypes.QuantityType = Field(
+    exampleQuantity: Quantity = Field(
         None,
         alias="exampleQuantity",
         title="Specified value if missing from instance",
@@ -839,7 +856,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    exampleRange: fhirtypes.RangeType = Field(
+    exampleRange: Range = Field(
         None,
         alias="exampleRange",
         title="Specified value if missing from instance",
@@ -852,7 +869,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    exampleRatio: fhirtypes.RatioType = Field(
+    exampleRatio: Ratio = Field(
         None,
         alias="exampleRatio",
         title="Specified value if missing from instance",
@@ -865,7 +882,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    exampleReference: fhirtypes.ReferenceType = Field(
+    exampleReference: Reference = Field(
         None,
         alias="exampleReference",
         title="Specified value if missing from instance",
@@ -880,7 +897,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         enum_reference_types=["Resource"],
     )
 
-    exampleSampledData: fhirtypes.SampledDataType = Field(
+    exampleSampledData: SampledData = Field(
         None,
         alias="exampleSampledData",
         title="Specified value if missing from instance",
@@ -893,7 +910,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    exampleSignature: fhirtypes.SignatureType = Field(
+    exampleSignature: Signature = Field(
         None,
         alias="exampleSignature",
         title="Specified value if missing from instance",
@@ -932,7 +949,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    exampleTiming: fhirtypes.TimingType = Field(
+    exampleTiming: Timing = Field(
         None,
         alias="exampleTiming",
         title="Specified value if missing from instance",
@@ -971,7 +988,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    fixedAddress: fhirtypes.AddressType = Field(
+    fixedAddress: Address = Field(
         None,
         alias="fixedAddress",
         title="Value must be exactly this",
@@ -986,7 +1003,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    fixedAnnotation: fhirtypes.AnnotationType = Field(
+    fixedAnnotation: Annotation = Field(
         None,
         alias="fixedAnnotation",
         title="Value must be exactly this",
@@ -1001,7 +1018,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    fixedAttachment: fhirtypes.AttachmentType = Field(
+    fixedAttachment: Attachment = Field(
         None,
         alias="fixedAttachment",
         title="Value must be exactly this",
@@ -1061,7 +1078,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    fixedCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    fixedCodeableConcept: CodeableConcept = Field(
         None,
         alias="fixedCodeableConcept",
         title="Value must be exactly this",
@@ -1076,7 +1093,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    fixedCoding: fhirtypes.CodingType = Field(
+    fixedCoding: Coding = Field(
         None,
         alias="fixedCoding",
         title="Value must be exactly this",
@@ -1091,7 +1108,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    fixedContactPoint: fhirtypes.ContactPointType = Field(
+    fixedContactPoint: ContactPoint = Field(
         None,
         alias="fixedContactPoint",
         title="Value must be exactly this",
@@ -1151,7 +1168,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    fixedHumanName: fhirtypes.HumanNameType = Field(
+    fixedHumanName: HumanName = Field(
         None,
         alias="fixedHumanName",
         title="Value must be exactly this",
@@ -1181,7 +1198,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    fixedIdentifier: fhirtypes.IdentifierType = Field(
+    fixedIdentifier: Identifier = Field(
         None,
         alias="fixedIdentifier",
         title="Value must be exactly this",
@@ -1241,7 +1258,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    fixedMeta: fhirtypes.MetaType = Field(
+    fixedMeta: Meta = Field(
         None,
         alias="fixedMeta",
         title="Value must be exactly this",
@@ -1271,7 +1288,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    fixedPeriod: fhirtypes.PeriodType = Field(
+    fixedPeriod: Period = Field(
         None,
         alias="fixedPeriod",
         title="Value must be exactly this",
@@ -1301,7 +1318,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    fixedQuantity: fhirtypes.QuantityType = Field(
+    fixedQuantity: Quantity = Field(
         None,
         alias="fixedQuantity",
         title="Value must be exactly this",
@@ -1316,7 +1333,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    fixedRange: fhirtypes.RangeType = Field(
+    fixedRange: Range = Field(
         None,
         alias="fixedRange",
         title="Value must be exactly this",
@@ -1331,7 +1348,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    fixedRatio: fhirtypes.RatioType = Field(
+    fixedRatio: Ratio = Field(
         None,
         alias="fixedRatio",
         title="Value must be exactly this",
@@ -1346,7 +1363,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    fixedReference: fhirtypes.ReferenceType = Field(
+    fixedReference: Reference = Field(
         None,
         alias="fixedReference",
         title="Value must be exactly this",
@@ -1363,7 +1380,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         enum_reference_types=["Resource"],
     )
 
-    fixedSampledData: fhirtypes.SampledDataType = Field(
+    fixedSampledData: SampledData = Field(
         None,
         alias="fixedSampledData",
         title="Value must be exactly this",
@@ -1378,7 +1395,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    fixedSignature: fhirtypes.SignatureType = Field(
+    fixedSignature: Signature = Field(
         None,
         alias="fixedSignature",
         title="Value must be exactly this",
@@ -1423,7 +1440,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    fixedTiming: fhirtypes.TimingType = Field(
+    fixedTiming: Timing = Field(
         None,
         alias="fixedTiming",
         title="Value must be exactly this",
@@ -1504,7 +1521,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         ),
     )
 
-    mapping: ListType[fhirtypes.ElementDefinitionMappingType] = Field(
+    mapping: ListType["ElementDefinitionMapping"] = Field(
         None,
         alias="mapping",
         title="Map element to another set of definitions",
@@ -1619,7 +1636,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    maxValueQuantity: fhirtypes.QuantityType = Field(
+    maxValueQuantity: Quantity = Field(
         None,
         alias="maxValueQuantity",
         title="Maximum Allowed Value (for some types)",
@@ -1762,7 +1779,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    minValueQuantity: fhirtypes.QuantityType = Field(
+    minValueQuantity: Quantity = Field(
         None,
         alias="minValueQuantity",
         title="Minimum Allowed Value (for some types)",
@@ -1850,7 +1867,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         ),
     )
 
-    patternAddress: fhirtypes.AddressType = Field(
+    patternAddress: Address = Field(
         None,
         alias="patternAddress",
         title="Value must have at least these property values",
@@ -1875,7 +1892,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    patternAnnotation: fhirtypes.AnnotationType = Field(
+    patternAnnotation: Annotation = Field(
         None,
         alias="patternAnnotation",
         title="Value must have at least these property values",
@@ -1900,7 +1917,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    patternAttachment: fhirtypes.AttachmentType = Field(
+    patternAttachment: Attachment = Field(
         None,
         alias="patternAttachment",
         title="Value must have at least these property values",
@@ -2000,7 +2017,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    patternCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    patternCodeableConcept: CodeableConcept = Field(
         None,
         alias="patternCodeableConcept",
         title="Value must have at least these property values",
@@ -2025,7 +2042,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    patternCoding: fhirtypes.CodingType = Field(
+    patternCoding: Coding = Field(
         None,
         alias="patternCoding",
         title="Value must have at least these property values",
@@ -2050,7 +2067,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    patternContactPoint: fhirtypes.ContactPointType = Field(
+    patternContactPoint: ContactPoint = Field(
         None,
         alias="patternContactPoint",
         title="Value must have at least these property values",
@@ -2150,7 +2167,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    patternHumanName: fhirtypes.HumanNameType = Field(
+    patternHumanName: HumanName = Field(
         None,
         alias="patternHumanName",
         title="Value must have at least these property values",
@@ -2200,7 +2217,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    patternIdentifier: fhirtypes.IdentifierType = Field(
+    patternIdentifier: Identifier = Field(
         None,
         alias="patternIdentifier",
         title="Value must have at least these property values",
@@ -2300,7 +2317,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    patternMeta: fhirtypes.MetaType = Field(
+    patternMeta: Meta = Field(
         None,
         alias="patternMeta",
         title="Value must have at least these property values",
@@ -2350,7 +2367,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    patternPeriod: fhirtypes.PeriodType = Field(
+    patternPeriod: Period = Field(
         None,
         alias="patternPeriod",
         title="Value must have at least these property values",
@@ -2400,7 +2417,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    patternQuantity: fhirtypes.QuantityType = Field(
+    patternQuantity: Quantity = Field(
         None,
         alias="patternQuantity",
         title="Value must have at least these property values",
@@ -2425,7 +2442,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    patternRange: fhirtypes.RangeType = Field(
+    patternRange: Range = Field(
         None,
         alias="patternRange",
         title="Value must have at least these property values",
@@ -2450,7 +2467,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    patternRatio: fhirtypes.RatioType = Field(
+    patternRatio: Ratio = Field(
         None,
         alias="patternRatio",
         title="Value must have at least these property values",
@@ -2475,7 +2492,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    patternReference: fhirtypes.ReferenceType = Field(
+    patternReference: Reference = Field(
         None,
         alias="patternReference",
         title="Value must have at least these property values",
@@ -2502,7 +2519,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         enum_reference_types=["Resource"],
     )
 
-    patternSampledData: fhirtypes.SampledDataType = Field(
+    patternSampledData: SampledData = Field(
         None,
         alias="patternSampledData",
         title="Value must have at least these property values",
@@ -2527,7 +2544,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    patternSignature: fhirtypes.SignatureType = Field(
+    patternSignature: Signature = Field(
         None,
         alias="patternSignature",
         title="Value must have at least these property values",
@@ -2602,7 +2619,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    patternTiming: fhirtypes.TimingType = Field(
+    patternTiming: Timing = Field(
         None,
         alias="patternTiming",
         title="Value must have at least these property values",
@@ -2709,7 +2726,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         ),
     )
 
-    slicing: fhirtypes.ElementDefinitionSlicingType = Field(
+    slicing: "ElementDefinitionSlicing" = Field(
         None,
         alias="slicing",
         title="This element is sliced - slices follow",
@@ -2725,7 +2742,7 @@ class ElementDefinition(backboneelement.BackboneElement):
         ),
     )
 
-    type: ListType[fhirtypes.ElementDefinitionTypeType] = Field(
+    type: ListType["ElementDefinitionType"] = Field(
         None,
         alias="type",
         title="Data type and Profile for this element",
@@ -2952,7 +2969,7 @@ class ElementDefinitionBase(element.Element):
     same.
     """
 
-    resource_type = Field("ElementDefinitionBase", const=True)
+    resource_type: str = Field("ElementDefinitionBase", const=True)
 
     max: fhirtypes.String = Field(
         ...,
@@ -2989,7 +3006,7 @@ class ElementDefinitionBinding(element.Element):
     CodeableConcept, Quantity), or the data types (string, uri).
     """
 
-    resource_type = Field("ElementDefinitionBinding", const=True)
+    resource_type: str = Field("ElementDefinitionBinding", const=True)
 
     description: fhirtypes.String = Field(
         None,
@@ -3024,7 +3041,7 @@ class ElementDefinitionBinding(element.Element):
         one_of_many_required=True,
     )
 
-    valueSetReference: fhirtypes.ReferenceType = Field(
+    valueSetReference: Reference = Field(
         None,
         alias="valueSetReference",
         title="ValueSet reference",
@@ -3081,7 +3098,7 @@ class ElementDefinitionConstraint(element.Element):
     computationally evaluated within the context of the instance.
     """
 
-    resource_type = Field("ElementDefinitionConstraint", const=True)
+    resource_type: str = Field("ElementDefinitionConstraint", const=True)
 
     human: fhirtypes.String = Field(
         ...,
@@ -3142,7 +3159,7 @@ class ElementDefinitionMapping(element.Element):
     corresponds to this element.
     """
 
-    resource_type = Field("ElementDefinitionMapping", const=True)
+    resource_type: str = Field("ElementDefinitionMapping", const=True)
 
     identity: fhirtypes.Id = Field(
         ...,
@@ -3181,7 +3198,7 @@ class ElementDefinitionSlicing(element.Element):
     occurs (the shorter path terminates the set).
     """
 
-    resource_type = Field("ElementDefinitionSlicing", const=True)
+    resource_type: str = Field("ElementDefinitionSlicing", const=True)
 
     description: fhirtypes.String = Field(
         None,
@@ -3240,7 +3257,7 @@ class ElementDefinitionType(element.Element):
     be.
     """
 
-    resource_type = Field("ElementDefinitionType", const=True)
+    resource_type: str = Field("ElementDefinitionType", const=True)
 
     aggregation: ListType[fhirtypes.Code] = Field(
         None,
@@ -3285,3 +3302,6 @@ class ElementDefinitionType(element.Element):
             "guide."
         ),
     )
+
+
+ElementDefinition.update_forward_refs()

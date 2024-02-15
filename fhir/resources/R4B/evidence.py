@@ -13,6 +13,15 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .contactdetail import ContactDetail
+from .identifier import Identifier
+from .quantity import Quantity
+from .range import Range
+from .reference import Reference
+from .relatedartifact import RelatedArtifact
+from .usagecontext import UsageContext
 
 
 class Evidence(domainresource.DomainResource):
@@ -27,7 +36,7 @@ class Evidence(domainresource.DomainResource):
     confounding variables), the statistics, and the certainty of this evidence.
     """
 
-    resource_type = Field("Evidence", const=True)
+    resource_type: str = Field("Evidence", const=True)
 
     approvalDate: fhirtypes.Date = Field(
         None,
@@ -57,7 +66,7 @@ class Evidence(domainresource.DomainResource):
         None, alias="_assertion", title="Extension field for ``assertion``."
     )
 
-    author: typing.List[fhirtypes.ContactDetailType] = Field(
+    author: typing.List[ContactDetail] = Field(
         None,
         alias="author",
         title="Who authored the content",
@@ -69,7 +78,7 @@ class Evidence(domainresource.DomainResource):
         element_property=True,
     )
 
-    certainty: typing.List[fhirtypes.EvidenceCertaintyType] = Field(
+    certainty: typing.List["EvidenceCertainty"] = Field(
         None,
         alias="certainty",
         title="Certainty or quality of the evidence",
@@ -96,7 +105,7 @@ class Evidence(domainresource.DomainResource):
         None, alias="_citeAsMarkdown", title="Extension field for ``citeAsMarkdown``."
     )
 
-    citeAsReference: fhirtypes.ReferenceType = Field(
+    citeAsReference: Reference = Field(
         None,
         alias="citeAsReference",
         title="Citation for this evidence",
@@ -110,7 +119,7 @@ class Evidence(domainresource.DomainResource):
         enum_reference_types=["Citation"],
     )
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -154,7 +163,7 @@ class Evidence(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    editor: typing.List[fhirtypes.ContactDetailType] = Field(
+    editor: typing.List[ContactDetail] = Field(
         None,
         alias="editor",
         title="Who edited the content",
@@ -166,7 +175,7 @@ class Evidence(domainresource.DomainResource):
         element_property=True,
     )
 
-    endorser: typing.List[fhirtypes.ContactDetailType] = Field(
+    endorser: typing.List[ContactDetail] = Field(
         None,
         alias="endorser",
         title="Who endorsed the content",
@@ -178,7 +187,7 @@ class Evidence(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Additional identifier for the summary",
@@ -207,7 +216,7 @@ class Evidence(domainresource.DomainResource):
         None, alias="_lastReviewDate", title="Extension field for ``lastReviewDate``."
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Footnotes and/or explanatory notes",
@@ -230,7 +239,7 @@ class Evidence(domainresource.DomainResource):
         None, alias="_publisher", title="Extension field for ``publisher``."
     )
 
-    relatedArtifact: typing.List[fhirtypes.RelatedArtifactType] = Field(
+    relatedArtifact: typing.List[RelatedArtifact] = Field(
         None,
         alias="relatedArtifact",
         title="Link or citation to artifact associated with the summary",
@@ -239,7 +248,7 @@ class Evidence(domainresource.DomainResource):
         element_property=True,
     )
 
-    reviewer: typing.List[fhirtypes.ContactDetailType] = Field(
+    reviewer: typing.List[ContactDetail] = Field(
         None,
         alias="reviewer",
         title="Who reviewed the content",
@@ -251,7 +260,7 @@ class Evidence(domainresource.DomainResource):
         element_property=True,
     )
 
-    statistic: typing.List[fhirtypes.EvidenceStatisticType] = Field(
+    statistic: typing.List["EvidenceStatistic"] = Field(
         None,
         alias="statistic",
         title="Values and parameters for a single statistic",
@@ -279,7 +288,7 @@ class Evidence(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    studyType: fhirtypes.CodeableConceptType = Field(
+    studyType: CodeableConcept = Field(
         None,
         alias="studyType",
         title="The type of study that produced this evidence",
@@ -288,7 +297,7 @@ class Evidence(domainresource.DomainResource):
         element_property=True,
     )
 
-    synthesisType: fhirtypes.CodeableConceptType = Field(
+    synthesisType: CodeableConcept = Field(
         None,
         alias="synthesisType",
         title="The method to combine studies",
@@ -332,7 +341,7 @@ class Evidence(domainresource.DomainResource):
         None, alias="_url", title="Extension field for ``url``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="The context that the content is intended to support",
@@ -347,7 +356,7 @@ class Evidence(domainresource.DomainResource):
         element_property=True,
     )
 
-    variableDefinition: typing.List[fhirtypes.EvidenceVariableDefinitionType] = Field(
+    variableDefinition: typing.List["EvidenceVariableDefinition"] = Field(
         ...,
         alias="variableDefinition",
         title="Evidence variable such as population, exposure, or outcome",
@@ -527,7 +536,7 @@ class EvidenceCertainty(backboneelement.BackboneElement):
     evidence.
     """
 
-    resource_type = Field("EvidenceCertainty", const=True)
+    resource_type: str = Field("EvidenceCertainty", const=True)
 
     description: fhirtypes.String = Field(
         None,
@@ -541,7 +550,7 @@ class EvidenceCertainty(backboneelement.BackboneElement):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Footnotes and/or explanatory notes",
@@ -562,7 +571,7 @@ class EvidenceCertainty(backboneelement.BackboneElement):
         None, alias="_rater", title="Extension field for ``rater``."
     )
 
-    rating: fhirtypes.CodeableConceptType = Field(
+    rating: CodeableConcept = Field(
         None,
         alias="rating",
         title="Assessment or judgement of the aspect",
@@ -571,7 +580,7 @@ class EvidenceCertainty(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    subcomponent: typing.List[fhirtypes.EvidenceCertaintyType] = Field(
+    subcomponent: typing.List["EvidenceCertainty"] = Field(
         None,
         alias="subcomponent",
         title="A domain or subdomain of certainty",
@@ -580,7 +589,7 @@ class EvidenceCertainty(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Aspect of certainty being rated",
@@ -616,11 +625,9 @@ class EvidenceStatistic(backboneelement.BackboneElement):
     Values and parameters for a single statistic.
     """
 
-    resource_type = Field("EvidenceStatistic", const=True)
+    resource_type: str = Field("EvidenceStatistic", const=True)
 
-    attributeEstimate: typing.List[
-        fhirtypes.EvidenceStatisticAttributeEstimateType
-    ] = Field(
+    attributeEstimate: typing.List["EvidenceStatisticAttributeEstimate"] = Field(
         None,
         alias="attributeEstimate",
         title="An attribute of the Statistic",
@@ -632,7 +639,7 @@ class EvidenceStatistic(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    category: fhirtypes.CodeableConceptType = Field(
+    category: CodeableConcept = Field(
         None,
         alias="category",
         title="Associated category for categorical variable",
@@ -656,9 +663,7 @@ class EvidenceStatistic(backboneelement.BackboneElement):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    modelCharacteristic: typing.List[
-        fhirtypes.EvidenceStatisticModelCharacteristicType
-    ] = Field(
+    modelCharacteristic: typing.List["EvidenceStatisticModelCharacteristic"] = Field(
         None,
         alias="modelCharacteristic",
         title="An aspect of the statistical model",
@@ -667,7 +672,7 @@ class EvidenceStatistic(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Footnotes and/or explanatory notes",
@@ -707,7 +712,7 @@ class EvidenceStatistic(backboneelement.BackboneElement):
         None, alias="_numberOfEvents", title="Extension field for ``numberOfEvents``."
     )
 
-    quantity: fhirtypes.QuantityType = Field(
+    quantity: Quantity = Field(
         None,
         alias="quantity",
         title="Statistic value",
@@ -716,7 +721,7 @@ class EvidenceStatistic(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    sampleSize: fhirtypes.EvidenceStatisticSampleSizeType = Field(
+    sampleSize: "EvidenceStatisticSampleSize" = Field(
         None,
         alias="sampleSize",
         title="Number of samples in the statistic",
@@ -725,7 +730,7 @@ class EvidenceStatistic(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    statisticType: fhirtypes.CodeableConceptType = Field(
+    statisticType: CodeableConcept = Field(
         None,
         alias="statisticType",
         title="Type of statistic, eg relative risk",
@@ -767,11 +772,9 @@ class EvidenceStatisticAttributeEstimate(backboneelement.BackboneElement):
     heterogeneity.
     """
 
-    resource_type = Field("EvidenceStatisticAttributeEstimate", const=True)
+    resource_type: str = Field("EvidenceStatisticAttributeEstimate", const=True)
 
-    attributeEstimate: typing.List[
-        fhirtypes.EvidenceStatisticAttributeEstimateType
-    ] = Field(
+    attributeEstimate: typing.List["EvidenceStatisticAttributeEstimate"] = Field(
         None,
         alias="attributeEstimate",
         title=(
@@ -807,7 +810,7 @@ class EvidenceStatisticAttributeEstimate(backboneelement.BackboneElement):
         None, alias="_level", title="Extension field for ``level``."
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Footnote or explanatory note about the estimate",
@@ -816,7 +819,7 @@ class EvidenceStatisticAttributeEstimate(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    quantity: fhirtypes.QuantityType = Field(
+    quantity: Quantity = Field(
         None,
         alias="quantity",
         title=(
@@ -829,7 +832,7 @@ class EvidenceStatisticAttributeEstimate(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    range: fhirtypes.RangeType = Field(
+    range: Range = Field(
         None,
         alias="range",
         title="Lower and upper bound values of the attribute estimate",
@@ -838,7 +841,7 @@ class EvidenceStatisticAttributeEstimate(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="The type of attribute estimate, eg confidence interval or p value",
@@ -876,11 +879,9 @@ class EvidenceStatisticModelCharacteristic(backboneelement.BackboneElement):
     A component of the method to generate the statistic.
     """
 
-    resource_type = Field("EvidenceStatisticModelCharacteristic", const=True)
+    resource_type: str = Field("EvidenceStatisticModelCharacteristic", const=True)
 
-    attributeEstimate: typing.List[
-        fhirtypes.EvidenceStatisticAttributeEstimateType
-    ] = Field(
+    attributeEstimate: typing.List["EvidenceStatisticAttributeEstimate"] = Field(
         None,
         alias="attributeEstimate",
         title="An attribute of the statistic used as a model characteristic",
@@ -889,7 +890,7 @@ class EvidenceStatisticModelCharacteristic(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         ...,
         alias="code",
         title="Model specification",
@@ -898,7 +899,7 @@ class EvidenceStatisticModelCharacteristic(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    value: fhirtypes.QuantityType = Field(
+    value: Quantity = Field(
         None,
         alias="value",
         title="Numerical value to complete model specification",
@@ -910,9 +911,7 @@ class EvidenceStatisticModelCharacteristic(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    variable: typing.List[
-        fhirtypes.EvidenceStatisticModelCharacteristicVariableType
-    ] = Field(
+    variable: typing.List["EvidenceStatisticModelCharacteristicVariable"] = Field(
         None,
         alias="variable",
         title="A variable adjusted for in the adjusted analysis",
@@ -946,7 +945,9 @@ class EvidenceStatisticModelCharacteristicVariable(backboneelement.BackboneEleme
     A variable adjusted for in the adjusted analysis.
     """
 
-    resource_type = Field("EvidenceStatisticModelCharacteristicVariable", const=True)
+    resource_type: str = Field(
+        "EvidenceStatisticModelCharacteristicVariable", const=True
+    )
 
     handling: fhirtypes.Code = Field(
         None,
@@ -963,7 +964,7 @@ class EvidenceStatisticModelCharacteristicVariable(backboneelement.BackboneEleme
         None, alias="_handling", title="Extension field for ``handling``."
     )
 
-    valueCategory: typing.List[fhirtypes.CodeableConceptType] = Field(
+    valueCategory: typing.List[CodeableConcept] = Field(
         None,
         alias="valueCategory",
         title="Description for grouping of ordinal or polychotomous variables",
@@ -972,7 +973,7 @@ class EvidenceStatisticModelCharacteristicVariable(backboneelement.BackboneEleme
         element_property=True,
     )
 
-    valueQuantity: typing.List[fhirtypes.QuantityType] = Field(
+    valueQuantity: typing.List[Quantity] = Field(
         None,
         alias="valueQuantity",
         title="Discrete value for grouping of ordinal or polychotomous variables",
@@ -981,7 +982,7 @@ class EvidenceStatisticModelCharacteristicVariable(backboneelement.BackboneEleme
         element_property=True,
     )
 
-    valueRange: typing.List[fhirtypes.RangeType] = Field(
+    valueRange: typing.List[Range] = Field(
         None,
         alias="valueRange",
         title="Range of values for grouping of ordinal or polychotomous variables",
@@ -990,7 +991,7 @@ class EvidenceStatisticModelCharacteristicVariable(backboneelement.BackboneEleme
         element_property=True,
     )
 
-    variableDefinition: fhirtypes.ReferenceType = Field(
+    variableDefinition: Reference = Field(
         ...,
         alias="variableDefinition",
         title="Description of the variable",
@@ -1027,7 +1028,7 @@ class EvidenceStatisticSampleSize(backboneelement.BackboneElement):
     Number of samples in the statistic.
     """
 
-    resource_type = Field("EvidenceStatisticSampleSize", const=True)
+    resource_type: str = Field("EvidenceStatisticSampleSize", const=True)
 
     description: fhirtypes.String = Field(
         None,
@@ -1053,7 +1054,7 @@ class EvidenceStatisticSampleSize(backboneelement.BackboneElement):
         None, alias="_knownDataCount", title="Extension field for ``knownDataCount``."
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Footnote or explanatory note about the sample size",
@@ -1117,7 +1118,7 @@ class EvidenceVariableDefinition(backboneelement.BackboneElement):
     Evidence variable such as population, exposure, or outcome.
     """
 
-    resource_type = Field("EvidenceVariableDefinition", const=True)
+    resource_type: str = Field("EvidenceVariableDefinition", const=True)
 
     description: fhirtypes.Markdown = Field(
         None,
@@ -1131,7 +1132,7 @@ class EvidenceVariableDefinition(backboneelement.BackboneElement):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    directnessMatch: fhirtypes.CodeableConceptType = Field(
+    directnessMatch: CodeableConcept = Field(
         None,
         alias="directnessMatch",
         title="low | moderate | high | exact",
@@ -1143,7 +1144,7 @@ class EvidenceVariableDefinition(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    intended: fhirtypes.ReferenceType = Field(
+    intended: Reference = Field(
         None,
         alias="intended",
         title="Definition of the intended variable related to the Evidence",
@@ -1154,7 +1155,7 @@ class EvidenceVariableDefinition(backboneelement.BackboneElement):
         enum_reference_types=["Group", "EvidenceVariable"],
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Footnotes and/or explanatory notes",
@@ -1163,7 +1164,7 @@ class EvidenceVariableDefinition(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    observed: fhirtypes.ReferenceType = Field(
+    observed: Reference = Field(
         None,
         alias="observed",
         title="Definition of the actual variable related to the statistic(s)",
@@ -1174,7 +1175,7 @@ class EvidenceVariableDefinition(backboneelement.BackboneElement):
         enum_reference_types=["Group", "EvidenceVariable"],
     )
 
-    variableRole: fhirtypes.CodeableConceptType = Field(
+    variableRole: CodeableConcept = Field(
         ...,
         alias="variableRole",
         title=(
@@ -1203,3 +1204,10 @@ class EvidenceVariableDefinition(backboneelement.BackboneElement):
             "intended",
             "directnessMatch",
         ]
+
+
+Evidence.update_forward_refs()
+EvidenceCertainty.update_forward_refs()
+EvidenceStatistic.update_forward_refs()
+EvidenceStatisticAttributeEstimate.update_forward_refs()
+EvidenceStatisticModelCharacteristic.update_forward_refs()

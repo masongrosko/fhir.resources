@@ -10,13 +10,27 @@ from typing import Any, Dict
 from pydantic.v1 import Field, root_validator
 
 from . import fhirtypes
+from .address import Address
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .contactpoint import ContactPoint
 from .element import Element
+from .humanname import HumanName
+from .identifier import Identifier
+from .period import Period
+from .quantity import Quantity
+from .range import Range
+from .ratio import Ratio
+from .reference import Reference
+from .signature import Signature
+from .timing import Timing
 
 
 class Extension(Element):
     """Optional Extensions Element - found in all resources."""
 
-    resource_type = Field("Extension", const=True)
+    resource_type: str = Field("Extension", const=True)
 
     url: fhirtypes.Uri = Field(
         ...,
@@ -25,7 +39,7 @@ class Extension(Element):
         description="identifies the meaning of the extension",
     )
 
-    valueAddress: fhirtypes.AddressType = Field(
+    valueAddress: Address = Field(
         None,
         alias="valueAddress",
         title="Type `Address` (represented as `dict` in JSON)",
@@ -34,7 +48,7 @@ class Extension(Element):
         one_of_many_required=False,
     )
 
-    valueAttachment: fhirtypes.AttachmentType = Field(
+    valueAttachment: Attachment = Field(
         None,
         alias="valueAttachment",
         title="Type `Attachment` (represented as `dict` in JSON)",
@@ -70,7 +84,7 @@ class Extension(Element):
         one_of_many_required=False,
     )
 
-    valueCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    valueCodeableConcept: CodeableConcept = Field(
         None,
         alias="valueCodeableConcept",
         title="Type `CodeableConcept` (represented as `dict` in JSON)",
@@ -79,7 +93,7 @@ class Extension(Element):
         one_of_many_required=False,
     )
 
-    valueCoding: fhirtypes.CodingType = Field(
+    valueCoding: Coding = Field(
         None,
         alias="valueCoding",
         title="Type `Coding` (represented as `dict` in JSON)",
@@ -88,7 +102,7 @@ class Extension(Element):
         one_of_many_required=False,
     )
 
-    valueContactPoint: fhirtypes.ContactPointType = Field(
+    valueContactPoint: ContactPoint = Field(
         None,
         alias="valueContactPoint",
         title="Type `ContactPoint` (represented as `dict` in JSON)",
@@ -124,7 +138,7 @@ class Extension(Element):
         one_of_many_required=False,
     )
 
-    valueHumanName: fhirtypes.HumanNameType = Field(
+    valueHumanName: HumanName = Field(
         None,
         alias="valueHumanName",
         title="Type `HumanName` (represented as `dict` in JSON)",
@@ -133,7 +147,7 @@ class Extension(Element):
         one_of_many_required=False,
     )
 
-    valueIdentifier: fhirtypes.IdentifierType = Field(
+    valueIdentifier: Identifier = Field(
         None,
         alias="valueIdentifier",
         title="Type `Identifier` (represented as `dict` in JSON)",
@@ -169,7 +183,7 @@ class Extension(Element):
         one_of_many_required=False,
     )
 
-    valuePeriod: fhirtypes.PeriodType = Field(
+    valuePeriod: Period = Field(
         None,
         alias="valuePeriod",
         title="Type `Period` (represented as `dict` in JSON)",
@@ -178,7 +192,7 @@ class Extension(Element):
         one_of_many_required=False,
     )
 
-    valueQuantity: fhirtypes.QuantityType = Field(
+    valueQuantity: Quantity = Field(
         None,
         alias="valueQuantity",
         title="Type `Quantity` (represented as `dict` in JSON)",
@@ -187,7 +201,7 @@ class Extension(Element):
         one_of_many_required=False,
     )
 
-    valueRange: fhirtypes.RangeType = Field(
+    valueRange: Range = Field(
         None,
         alias="valueRange",
         title="Type `Range` (represented as `dict` in JSON)",
@@ -196,7 +210,7 @@ class Extension(Element):
         one_of_many_required=False,
     )
 
-    valueRatio: fhirtypes.RatioType = Field(
+    valueRatio: Ratio = Field(
         None,
         alias="valueRatio",
         title="Type `Ratio` (represented as `dict` in JSON)",
@@ -205,7 +219,7 @@ class Extension(Element):
         one_of_many_required=False,
     )
 
-    valueReference: fhirtypes.ReferenceType = Field(
+    valueReference: Reference = Field(
         None,
         alias="valueReference",
         title="Type `Reference` (represented as `dict` in JSON)",
@@ -214,7 +228,7 @@ class Extension(Element):
         one_of_many_required=False,
     )
 
-    valueSignature: fhirtypes.SignatureType = Field(
+    valueSignature: Signature = Field(
         None,
         alias="valueSignature",
         title="Type `Signature` (represented as `dict` in JSON)",
@@ -232,7 +246,7 @@ class Extension(Element):
         one_of_many_required=False,
     )
 
-    valueTiming: fhirtypes.TimingType = Field(
+    valueTiming: Timing = Field(
         None,
         alias="valueTiming",
         title="Type `Timing` (represented as `dict` in JSON)",

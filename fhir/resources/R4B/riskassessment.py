@@ -13,6 +13,12 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .period import Period
+from .range import Range
+from .reference import Reference
 
 
 class RiskAssessment(domainresource.DomainResource):
@@ -25,9 +31,9 @@ class RiskAssessment(domainresource.DomainResource):
     well as the likelihood of each outcome.
     """
 
-    resource_type = Field("RiskAssessment", const=True)
+    resource_type: str = Field("RiskAssessment", const=True)
 
-    basedOn: fhirtypes.ReferenceType = Field(
+    basedOn: Reference = Field(
         None,
         alias="basedOn",
         title="Request fulfilled by this assessment",
@@ -38,7 +44,7 @@ class RiskAssessment(domainresource.DomainResource):
         enum_reference_types=["Resource"],
     )
 
-    basis: typing.List[fhirtypes.ReferenceType] = Field(
+    basis: typing.List[Reference] = Field(
         None,
         alias="basis",
         title="Information used in assessment",
@@ -52,7 +58,7 @@ class RiskAssessment(domainresource.DomainResource):
         enum_reference_types=["Resource"],
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Type of assessment",
@@ -61,7 +67,7 @@ class RiskAssessment(domainresource.DomainResource):
         element_property=True,
     )
 
-    condition: fhirtypes.ReferenceType = Field(
+    condition: Reference = Field(
         None,
         alias="condition",
         title="Condition assessed",
@@ -75,7 +81,7 @@ class RiskAssessment(domainresource.DomainResource):
         enum_reference_types=["Condition"],
     )
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title="Where was assessment performed?",
@@ -86,7 +92,7 @@ class RiskAssessment(domainresource.DomainResource):
         enum_reference_types=["Encounter"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Unique identifier for the assessment",
@@ -95,7 +101,7 @@ class RiskAssessment(domainresource.DomainResource):
         element_property=True,
     )
 
-    method: fhirtypes.CodeableConceptType = Field(
+    method: CodeableConcept = Field(
         None,
         alias="method",
         title="Evaluation mechanism",
@@ -119,7 +125,7 @@ class RiskAssessment(domainresource.DomainResource):
         None, alias="_mitigation", title="Extension field for ``mitigation``."
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Comments on the risk assessment",
@@ -145,7 +151,7 @@ class RiskAssessment(domainresource.DomainResource):
         title="Extension field for ``occurrenceDateTime``.",
     )
 
-    occurrencePeriod: fhirtypes.PeriodType = Field(
+    occurrencePeriod: Period = Field(
         None,
         alias="occurrencePeriod",
         title="When was assessment made?",
@@ -157,7 +163,7 @@ class RiskAssessment(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    parent: fhirtypes.ReferenceType = Field(
+    parent: Reference = Field(
         None,
         alias="parent",
         title="Part of this occurrence",
@@ -171,7 +177,7 @@ class RiskAssessment(domainresource.DomainResource):
         enum_reference_types=["Resource"],
     )
 
-    performer: fhirtypes.ReferenceType = Field(
+    performer: Reference = Field(
         None,
         alias="performer",
         title="Who did assessment?",
@@ -182,7 +188,7 @@ class RiskAssessment(domainresource.DomainResource):
         enum_reference_types=["Practitioner", "PractitionerRole", "Device"],
     )
 
-    prediction: typing.List[fhirtypes.RiskAssessmentPredictionType] = Field(
+    prediction: typing.List["RiskAssessmentPrediction"] = Field(
         None,
         alias="prediction",
         title="Outcome predicted",
@@ -191,7 +197,7 @@ class RiskAssessment(domainresource.DomainResource):
         element_property=True,
     )
 
-    reasonCode: typing.List[fhirtypes.CodeableConceptType] = Field(
+    reasonCode: typing.List[CodeableConcept] = Field(
         None,
         alias="reasonCode",
         title="Why the assessment was necessary?",
@@ -200,7 +206,7 @@ class RiskAssessment(domainresource.DomainResource):
         element_property=True,
     )
 
-    reasonReference: typing.List[fhirtypes.ReferenceType] = Field(
+    reasonReference: typing.List[Reference] = Field(
         None,
         alias="reasonReference",
         title="Why the assessment was necessary?",
@@ -235,7 +241,7 @@ class RiskAssessment(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         ...,
         alias="subject",
         title="Who/what does assessment apply to?",
@@ -388,9 +394,9 @@ class RiskAssessmentPrediction(backboneelement.BackboneElement):
     Describes the expected outcome for the subject.
     """
 
-    resource_type = Field("RiskAssessmentPrediction", const=True)
+    resource_type: str = Field("RiskAssessmentPrediction", const=True)
 
-    outcome: fhirtypes.CodeableConceptType = Field(
+    outcome: CodeableConcept = Field(
         None,
         alias="outcome",
         title="Possible outcome for the subject",
@@ -419,7 +425,7 @@ class RiskAssessmentPrediction(backboneelement.BackboneElement):
         title="Extension field for ``probabilityDecimal``.",
     )
 
-    probabilityRange: fhirtypes.RangeType = Field(
+    probabilityRange: Range = Field(
         None,
         alias="probabilityRange",
         title="Likelihood of specified outcome",
@@ -431,7 +437,7 @@ class RiskAssessmentPrediction(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    qualitativeRisk: fhirtypes.CodeableConceptType = Field(
+    qualitativeRisk: CodeableConcept = Field(
         None,
         alias="qualitativeRisk",
         title="Likelihood of specified outcome as a qualitative value",
@@ -472,7 +478,7 @@ class RiskAssessmentPrediction(backboneelement.BackboneElement):
         None, alias="_relativeRisk", title="Extension field for ``relativeRisk``."
     )
 
-    whenPeriod: fhirtypes.PeriodType = Field(
+    whenPeriod: Period = Field(
         None,
         alias="whenPeriod",
         title="Timeframe or age range",
@@ -487,7 +493,7 @@ class RiskAssessmentPrediction(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    whenRange: fhirtypes.RangeType = Field(
+    whenRange: Range = Field(
         None,
         alias="whenRange",
         title="Timeframe or age range",
@@ -562,3 +568,6 @@ class RiskAssessmentPrediction(backboneelement.BackboneElement):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+RiskAssessment.update_forward_refs()

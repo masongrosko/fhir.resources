@@ -13,6 +13,8 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .coding import Coding
+from .contactpoint import ContactPoint
 
 
 class Subscription(domainresource.DomainResource):
@@ -28,9 +30,9 @@ class Subscription(domainresource.DomainResource):
     "channel" so that another system is able to take an appropriate action.
     """
 
-    resource_type = Field("Subscription", const=True)
+    resource_type: str = Field("Subscription", const=True)
 
-    channel: fhirtypes.SubscriptionChannelType = Field(
+    channel: "SubscriptionChannel" = Field(
         ...,
         alias="channel",
         title="The channel on which to report matches to the criteria",
@@ -42,7 +44,7 @@ class Subscription(domainresource.DomainResource):
         element_property=True,
     )
 
-    contact: typing.List[fhirtypes.ContactPointType] = Field(
+    contact: typing.List[ContactPoint] = Field(
         None,
         alias="contact",
         title="Contact details for source (e.g. troubleshooting)",
@@ -129,7 +131,7 @@ class Subscription(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    tag: typing.List[fhirtypes.CodingType] = Field(
+    tag: typing.List[Coding] = Field(
         None,
         alias="tag",
         title="A tag to add to matching resources",
@@ -240,7 +242,7 @@ class SubscriptionChannel(backboneelement.BackboneElement):
     the criteria.
     """
 
-    resource_type = Field("SubscriptionChannel", const=True)
+    resource_type: str = Field("SubscriptionChannel", const=True)
 
     endpoint: fhirtypes.Uri = Field(
         None,
@@ -372,3 +374,6 @@ class SubscriptionChannel(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+Subscription.update_forward_refs()

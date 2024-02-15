@@ -18,7 +18,7 @@ class Period(Element):
     A time period defined by a start and end date and optionally time.
     """
 
-    resource_type = Field("Period", const=True)
+    resource_type: str = Field("Period", const=True)
 
     end: fhirtypes.DateTime = Field(
         None,

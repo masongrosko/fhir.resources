@@ -11,6 +11,11 @@ import typing
 from pydantic.v1 import Field, root_validator
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .codeablereference import CodeableReference
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class RegulatedAuthorization(domainresource.DomainResource):
@@ -27,9 +32,9 @@ class RegulatedAuthorization(domainresource.DomainResource):
     Medicinal Product.
     """
 
-    resource_type = Field("RegulatedAuthorization", const=True)
+    resource_type: str = Field("RegulatedAuthorization", const=True)
 
-    attachedDocument: typing.List[fhirtypes.ReferenceType] = Field(
+    attachedDocument: typing.List[Reference] = Field(
         None,
         alias="attachedDocument",
         title=(
@@ -43,7 +48,7 @@ class RegulatedAuthorization(domainresource.DomainResource):
         enum_reference_types=["DocumentReference"],
     )
 
-    basis: typing.List[fhirtypes.CodeableConceptType] = Field(
+    basis: typing.List[CodeableConcept] = Field(
         None,
         alias="basis",
         title=(
@@ -58,7 +63,7 @@ class RegulatedAuthorization(domainresource.DomainResource):
         element_property=True,
     )
 
-    case: fhirtypes.RegulatedAuthorizationCaseType = Field(
+    case: "RegulatedAuthorizationCase" = Field(
         None,
         alias="case",
         title=(
@@ -92,7 +97,7 @@ class RegulatedAuthorization(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    holder: fhirtypes.ReferenceType = Field(
+    holder: Reference = Field(
         None,
         alias="holder",
         title=(
@@ -109,7 +114,7 @@ class RegulatedAuthorization(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title=(
@@ -121,7 +126,7 @@ class RegulatedAuthorization(domainresource.DomainResource):
         element_property=True,
     )
 
-    indication: typing.List[fhirtypes.CodeableReferenceType] = Field(
+    indication: typing.List[CodeableReference] = Field(
         None,
         alias="indication",
         title="Condition for which the use of the regulated product applies",
@@ -132,7 +137,7 @@ class RegulatedAuthorization(domainresource.DomainResource):
         enum_reference_types=["ClinicalUseDefinition"],
     )
 
-    intendedUse: fhirtypes.CodeableConceptType = Field(
+    intendedUse: CodeableConcept = Field(
         None,
         alias="intendedUse",
         title="The intended use of the product, e.g. prevention, treatment",
@@ -143,7 +148,7 @@ class RegulatedAuthorization(domainresource.DomainResource):
         element_property=True,
     )
 
-    region: typing.List[fhirtypes.CodeableConceptType] = Field(
+    region: typing.List[CodeableConcept] = Field(
         None,
         alias="region",
         title="The territory in which the authorization has been granted",
@@ -155,7 +160,7 @@ class RegulatedAuthorization(domainresource.DomainResource):
         element_property=True,
     )
 
-    regulator: fhirtypes.ReferenceType = Field(
+    regulator: Reference = Field(
         None,
         alias="regulator",
         title=(
@@ -172,7 +177,7 @@ class RegulatedAuthorization(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    status: fhirtypes.CodeableConceptType = Field(
+    status: CodeableConcept = Field(
         None,
         alias="status",
         title=(
@@ -199,7 +204,7 @@ class RegulatedAuthorization(domainresource.DomainResource):
         None, alias="_statusDate", title="Extension field for ``statusDate``."
     )
 
-    subject: typing.List[fhirtypes.ReferenceType] = Field(
+    subject: typing.List[Reference] = Field(
         None,
         alias="subject",
         title=(
@@ -229,7 +234,7 @@ class RegulatedAuthorization(domainresource.DomainResource):
         ],
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title=(
@@ -241,7 +246,7 @@ class RegulatedAuthorization(domainresource.DomainResource):
         element_property=True,
     )
 
-    validityPeriod: fhirtypes.PeriodType = Field(
+    validityPeriod: Period = Field(
         None,
         alias="validityPeriod",
         title=(
@@ -309,9 +314,9 @@ class RegulatedAuthorizationCase(backboneelement.BackboneElement):
     bottom of page).
     """
 
-    resource_type = Field("RegulatedAuthorizationCase", const=True)
+    resource_type: str = Field("RegulatedAuthorizationCase", const=True)
 
-    application: typing.List[fhirtypes.RegulatedAuthorizationCaseType] = Field(
+    application: typing.List["RegulatedAuthorizationCase"] = Field(
         None,
         alias="application",
         title=(
@@ -344,7 +349,7 @@ class RegulatedAuthorizationCase(backboneelement.BackboneElement):
         None, alias="_dateDateTime", title="Extension field for ``dateDateTime``."
     )
 
-    datePeriod: fhirtypes.PeriodType = Field(
+    datePeriod: Period = Field(
         None,
         alias="datePeriod",
         title="Relevant date for this case",
@@ -356,7 +361,7 @@ class RegulatedAuthorizationCase(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="Identifier by which this case can be referenced",
@@ -365,7 +370,7 @@ class RegulatedAuthorizationCase(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    status: fhirtypes.CodeableConceptType = Field(
+    status: CodeableConcept = Field(
         None,
         alias="status",
         title="The status associated with the case",
@@ -374,7 +379,7 @@ class RegulatedAuthorizationCase(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="The defining type of case",
@@ -438,3 +443,7 @@ class RegulatedAuthorizationCase(backboneelement.BackboneElement):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+RegulatedAuthorization.update_forward_refs()
+RegulatedAuthorizationCase.update_forward_refs()

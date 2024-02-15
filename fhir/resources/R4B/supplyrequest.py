@@ -11,6 +11,13 @@ import typing
 from pydantic.v1 import Field, root_validator
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .period import Period
+from .quantity import Quantity
+from .range import Range
+from .reference import Reference
+from .timing import Timing
 
 
 class SupplyRequest(domainresource.DomainResource):
@@ -23,7 +30,7 @@ class SupplyRequest(domainresource.DomainResource):
     healthcare setting.
     """
 
-    resource_type = Field("SupplyRequest", const=True)
+    resource_type: str = Field("SupplyRequest", const=True)
 
     authoredOn: fhirtypes.DateTime = Field(
         None,
@@ -37,7 +44,7 @@ class SupplyRequest(domainresource.DomainResource):
         None, alias="_authoredOn", title="Extension field for ``authoredOn``."
     )
 
-    category: fhirtypes.CodeableConceptType = Field(
+    category: CodeableConcept = Field(
         None,
         alias="category",
         title="The kind of supply (central, non-stock, etc.)",
@@ -49,7 +56,7 @@ class SupplyRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    deliverFrom: fhirtypes.ReferenceType = Field(
+    deliverFrom: Reference = Field(
         None,
         alias="deliverFrom",
         title="The origin of the supply",
@@ -60,7 +67,7 @@ class SupplyRequest(domainresource.DomainResource):
         enum_reference_types=["Organization", "Location"],
     )
 
-    deliverTo: fhirtypes.ReferenceType = Field(
+    deliverTo: Reference = Field(
         None,
         alias="deliverTo",
         title="The destination of the supply",
@@ -71,7 +78,7 @@ class SupplyRequest(domainresource.DomainResource):
         enum_reference_types=["Organization", "Location", "Patient"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business Identifier for SupplyRequest",
@@ -84,7 +91,7 @@ class SupplyRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    itemCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    itemCodeableConcept: CodeableConcept = Field(
         None,
         alias="itemCodeableConcept",
         title="Medication, Substance, or Device requested to be supplied",
@@ -100,7 +107,7 @@ class SupplyRequest(domainresource.DomainResource):
         one_of_many_required=True,
     )
 
-    itemReference: fhirtypes.ReferenceType = Field(
+    itemReference: Reference = Field(
         None,
         alias="itemReference",
         title="Medication, Substance, or Device requested to be supplied",
@@ -135,7 +142,7 @@ class SupplyRequest(domainresource.DomainResource):
         title="Extension field for ``occurrenceDateTime``.",
     )
 
-    occurrencePeriod: fhirtypes.PeriodType = Field(
+    occurrencePeriod: Period = Field(
         None,
         alias="occurrencePeriod",
         title="When the request should be fulfilled",
@@ -147,7 +154,7 @@ class SupplyRequest(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    occurrenceTiming: fhirtypes.TimingType = Field(
+    occurrenceTiming: Timing = Field(
         None,
         alias="occurrenceTiming",
         title="When the request should be fulfilled",
@@ -159,7 +166,7 @@ class SupplyRequest(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    parameter: typing.List[fhirtypes.SupplyRequestParameterType] = Field(
+    parameter: typing.List["SupplyRequestParameter"] = Field(
         None,
         alias="parameter",
         title="Ordered item details",
@@ -189,7 +196,7 @@ class SupplyRequest(domainresource.DomainResource):
         None, alias="_priority", title="Extension field for ``priority``."
     )
 
-    quantity: fhirtypes.QuantityType = Field(
+    quantity: Quantity = Field(
         ...,
         alias="quantity",
         title="The requested amount of the item indicated",
@@ -198,7 +205,7 @@ class SupplyRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    reasonCode: typing.List[fhirtypes.CodeableConceptType] = Field(
+    reasonCode: typing.List[CodeableConcept] = Field(
         None,
         alias="reasonCode",
         title="The reason why the supply item was requested",
@@ -207,7 +214,7 @@ class SupplyRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    reasonReference: typing.List[fhirtypes.ReferenceType] = Field(
+    reasonReference: typing.List[Reference] = Field(
         None,
         alias="reasonReference",
         title="The reason why the supply item was requested",
@@ -223,7 +230,7 @@ class SupplyRequest(domainresource.DomainResource):
         ],
     )
 
-    requester: fhirtypes.ReferenceType = Field(
+    requester: Reference = Field(
         None,
         alias="requester",
         title="Individual making the request",
@@ -256,7 +263,7 @@ class SupplyRequest(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    supplier: typing.List[fhirtypes.ReferenceType] = Field(
+    supplier: typing.List[Reference] = Field(
         None,
         alias="supplier",
         title="Who is intended to fulfill the request",
@@ -358,9 +365,9 @@ class SupplyRequestParameter(backboneelement.BackboneElement):
     indicated item.
     """
 
-    resource_type = Field("SupplyRequestParameter", const=True)
+    resource_type: str = Field("SupplyRequestParameter", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Item detail",
@@ -384,7 +391,7 @@ class SupplyRequestParameter(backboneelement.BackboneElement):
         None, alias="_valueBoolean", title="Extension field for ``valueBoolean``."
     )
 
-    valueCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    valueCodeableConcept: CodeableConcept = Field(
         None,
         alias="valueCodeableConcept",
         title="Value of detail",
@@ -396,7 +403,7 @@ class SupplyRequestParameter(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    valueQuantity: fhirtypes.QuantityType = Field(
+    valueQuantity: Quantity = Field(
         None,
         alias="valueQuantity",
         title="Value of detail",
@@ -408,7 +415,7 @@ class SupplyRequestParameter(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    valueRange: fhirtypes.RangeType = Field(
+    valueRange: Range = Field(
         None,
         alias="valueRange",
         title="Value of detail",
@@ -481,3 +488,6 @@ class SupplyRequestParameter(backboneelement.BackboneElement):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+SupplyRequest.update_forward_refs()

@@ -11,6 +11,9 @@ import typing
 from pydantic.v1 import Field
 
 from . import domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .reference import Reference
 
 
 class EnrollmentResponse(domainresource.DomainResource):
@@ -23,7 +26,7 @@ class EnrollmentResponse(domainresource.DomainResource):
     an Enrollment resource.
     """
 
-    resource_type = Field("EnrollmentResponse", const=True)
+    resource_type: str = Field("EnrollmentResponse", const=True)
 
     created: fhirtypes.DateTime = Field(
         None,
@@ -52,7 +55,7 @@ class EnrollmentResponse(domainresource.DomainResource):
         None, alias="_disposition", title="Extension field for ``disposition``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business Identifier",
@@ -61,7 +64,7 @@ class EnrollmentResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    organization: fhirtypes.ReferenceType = Field(
+    organization: Reference = Field(
         None,
         alias="organization",
         title="Insurer",
@@ -72,7 +75,7 @@ class EnrollmentResponse(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    outcome: fhirtypes.CodeableConceptType = Field(
+    outcome: CodeableConcept = Field(
         None,
         alias="outcome",
         title="complete | error | partial",
@@ -81,7 +84,7 @@ class EnrollmentResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    request: fhirtypes.ReferenceType = Field(
+    request: Reference = Field(
         None,
         alias="request",
         title="Claim reference",
@@ -92,7 +95,7 @@ class EnrollmentResponse(domainresource.DomainResource):
         enum_reference_types=["EnrollmentRequest"],
     )
 
-    requestOrganization: fhirtypes.ReferenceType = Field(
+    requestOrganization: Reference = Field(
         None,
         alias="requestOrganization",
         title="Responsible organization",
@@ -106,7 +109,7 @@ class EnrollmentResponse(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    requestProvider: fhirtypes.ReferenceType = Field(
+    requestProvider: Reference = Field(
         None,
         alias="requestProvider",
         title="Responsible practitioner",

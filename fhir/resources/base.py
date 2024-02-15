@@ -20,7 +20,7 @@ class Base(fhirabstractmodel.FHIRAbstractModel):
     Base definition for all types defined in FHIR type system.
     """
 
-    resource_type = Field("Base", const=True)
+    resource_type: str = Field("Base", const=True)
 
     @classmethod
     def elements_sequence(cls):

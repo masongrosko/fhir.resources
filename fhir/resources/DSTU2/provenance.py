@@ -11,6 +11,12 @@ from pydantic.v1 import Field
 
 from . import domainresource, fhirtypes
 from .backboneelement import BackboneElement
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
+from .signature import Signature
 
 
 class Provenance(domainresource.DomainResource):
@@ -29,9 +35,9 @@ class Provenance(domainresource.DomainResource):
      may impact security, privacy, and trust policies.
     """
 
-    resource_type = Field("Provenance", const=True)
+    resource_type: str = Field("Provenance", const=True)
 
-    target: ListType[fhirtypes.ReferenceType] = Field(
+    target: ListType[Reference] = Field(
         None,
         alias="target",
         title="Type 'Reference' referencing 'Any'  (represented as 'dict' in JSON).",
@@ -41,7 +47,7 @@ class Provenance(domainresource.DomainResource):
         element_property=True,
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="When the activity occurred",
@@ -58,7 +64,7 @@ class Provenance(domainresource.DomainResource):
         element_property=True,
     )
 
-    reason: ListType[fhirtypes.CodeableConceptType] = Field(
+    reason: ListType[CodeableConcept] = Field(
         None,
         alias="reason",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -66,7 +72,7 @@ class Provenance(domainresource.DomainResource):
         element_property=True,
     )
 
-    activity: fhirtypes.CodeableConceptType = Field(
+    activity: CodeableConcept = Field(
         None,
         alias="activity",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -74,7 +80,7 @@ class Provenance(domainresource.DomainResource):
         element_property=True,
     )
 
-    location: fhirtypes.ReferenceType = Field(
+    location: Reference = Field(
         None,
         alias="location",
         title="Type 'Reference' referencing 'Location'  (represented as 'dict' in JSON).",
@@ -97,7 +103,7 @@ class Provenance(domainresource.DomainResource):
         element_property=True,
     )
 
-    agent: ListType[fhirtypes.ProvenanceAgentType] = Field(
+    agent: ListType["ProvenanceAgent"] = Field(
         None,
         alias="agent",
         title="Agents involved in creating resource",
@@ -106,7 +112,7 @@ class Provenance(domainresource.DomainResource):
         element_property=True,
     )
 
-    entity: ListType[fhirtypes.ProvenanceEntityType] = Field(
+    entity: ListType["ProvenanceEntity"] = Field(
         None,
         alias="entity",
         title="An entity used in this activity",
@@ -115,7 +121,7 @@ class Provenance(domainresource.DomainResource):
         element_property=True,
     )
 
-    signature: ListType[fhirtypes.SignatureType] = Field(
+    signature: ListType[Signature] = Field(
         None,
         alias="signature",
         title="List of Type `Signature` (represented as `dict` in JSON)",
@@ -134,9 +140,9 @@ class ProvenanceAgent(BackboneElement):
     ascribed responsibility.
     """
 
-    resource_type = Field("ProvenanceAgent", const=True)
+    resource_type: str = Field("ProvenanceAgent", const=True)
 
-    role: fhirtypes.CodingType = Field(
+    role: Coding = Field(
         None,
         alias="role",
         title="What the agents involvement was",
@@ -145,7 +151,7 @@ class ProvenanceAgent(BackboneElement):
         element_property=True,
     )
 
-    actor: fhirtypes.ReferenceType = Field(
+    actor: Reference = Field(
         None,
         alias="actor",
         title=(
@@ -165,7 +171,7 @@ class ProvenanceAgent(BackboneElement):
         element_property=True,
     )
 
-    userId: fhirtypes.IdentifierType = Field(
+    userId: Identifier = Field(
         None,
         alias="userId",
         title="Authorization-system identifier for the agent",
@@ -173,7 +179,7 @@ class ProvenanceAgent(BackboneElement):
         element_property=True,
     )
 
-    relatedAgent: ListType[fhirtypes.ProvenanceAgentRelatedAgentType] = Field(
+    relatedAgent: ListType["ProvenanceAgentRelatedAgent"] = Field(
         None,
         alias="relatedAgent",
         title="Track delegation between agents",
@@ -193,9 +199,9 @@ class ProvenanceAgentRelatedAgent(BackboneElement):
     one person acted on another's behest.
     """
 
-    resource_type = Field("ProvenanceAgentRelatedAgent", const=True)
+    resource_type: str = Field("ProvenanceAgentRelatedAgent", const=True)
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -223,7 +229,7 @@ class ProvenanceEntity(BackboneElement):
     An entity used in this activity.
     """
 
-    resource_type = Field("ProvenanceEntity", const=True)
+    resource_type: str = Field("ProvenanceEntity", const=True)
 
     role: fhirtypes.Code = Field(
         None,
@@ -236,7 +242,7 @@ class ProvenanceEntity(BackboneElement):
         element_property=True,
     )
 
-    type: fhirtypes.CodingType = Field(
+    type: Coding = Field(
         None,
         alias="type",
         title="The type of resource in this entity",
@@ -268,7 +274,7 @@ class ProvenanceEntity(BackboneElement):
         element_property=True,
     )
 
-    agent: fhirtypes.ProvenanceAgentType = Field(
+    agent: "ProvenanceAgent" = Field(
         None,
         alias="agent",
         title="Entity is attributed to this agent",
@@ -281,3 +287,8 @@ class ProvenanceEntity(BackboneElement):
         # if property is element of this resource.
         element_property=True,
     )
+
+
+Provenance.update_forward_refs()
+ProvenanceAgent.update_forward_refs()
+ProvenanceEntity.update_forward_refs()

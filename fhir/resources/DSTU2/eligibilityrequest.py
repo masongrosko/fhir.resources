@@ -10,6 +10,9 @@ from typing import List as ListType
 from pydantic.v1 import Field
 
 from . import domainresource, fhirtypes
+from .coding import Coding
+from .identifier import Identifier
+from .reference import Reference
 
 
 class EligibilityRequest(domainresource.DomainResource):
@@ -19,16 +22,16 @@ class EligibilityRequest(domainresource.DomainResource):
     insurer regarding a specified coverage and optionally some class of service.
     """
 
-    resource_type = Field("EligibilityRequest", const=True)
+    resource_type: str = Field("EligibilityRequest", const=True)
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="Business Identifier",
         description=("The Response business identifier."),
     )
 
-    ruleset: fhirtypes.CodingType = Field(
+    ruleset: Coding = Field(
         None,
         alias="ruleset",
         title="Resource version",
@@ -39,7 +42,7 @@ class EligibilityRequest(domainresource.DomainResource):
         ),
     )
 
-    originalRuleset: fhirtypes.CodingType = Field(
+    originalRuleset: Coding = Field(
         None,
         alias="originalRuleset",
         title="Original version",
@@ -56,7 +59,7 @@ class EligibilityRequest(domainresource.DomainResource):
         description="Creation date",
     )
 
-    target: fhirtypes.ReferenceType = Field(
+    target: Reference = Field(
         None,
         alias="target",
         title="Insurer",
@@ -65,7 +68,7 @@ class EligibilityRequest(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    provider: fhirtypes.ReferenceType = Field(
+    provider: Reference = Field(
         None,
         alias="provider",
         title="Responsible practitioner",
@@ -77,7 +80,7 @@ class EligibilityRequest(domainresource.DomainResource):
         enum_reference_types=["Practitioner"],
     )
 
-    organization: fhirtypes.ReferenceType = Field(
+    organization: Reference = Field(
         None,
         alias="organization",
         title="Responsible organization",

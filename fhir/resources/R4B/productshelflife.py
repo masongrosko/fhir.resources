@@ -10,7 +10,10 @@ import typing
 
 from pydantic.v1 import Field
 
-from . import backboneelement, fhirtypes
+from . import backboneelement
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .quantity import Quantity
 
 
 class ProductShelfLife(backboneelement.BackboneElement):
@@ -22,9 +25,9 @@ class ProductShelfLife(backboneelement.BackboneElement):
     container can be described using this class.
     """
 
-    resource_type = Field("ProductShelfLife", const=True)
+    resource_type: str = Field("ProductShelfLife", const=True)
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="Unique identifier for the packaged Medicinal Product",
@@ -33,7 +36,7 @@ class ProductShelfLife(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    period: fhirtypes.QuantityType = Field(
+    period: Quantity = Field(
         ...,
         alias="period",
         title=(
@@ -48,7 +51,7 @@ class ProductShelfLife(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    specialPrecautionsForStorage: typing.List[fhirtypes.CodeableConceptType] = Field(
+    specialPrecautionsForStorage: typing.List[CodeableConcept] = Field(
         None,
         alias="specialPrecautionsForStorage",
         title=(
@@ -61,7 +64,7 @@ class ProductShelfLife(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title=(

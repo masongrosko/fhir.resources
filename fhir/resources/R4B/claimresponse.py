@@ -13,6 +13,14 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .address import Address
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .money import Money
+from .period import Period
+from .quantity import Quantity
+from .reference import Reference
 
 
 class ClaimResponse(domainresource.DomainResource):
@@ -25,9 +33,9 @@ class ClaimResponse(domainresource.DomainResource):
     Claim resource.
     """
 
-    resource_type = Field("ClaimResponse", const=True)
+    resource_type: str = Field("ClaimResponse", const=True)
 
-    addItem: typing.List[fhirtypes.ClaimResponseAddItemType] = Field(
+    addItem: typing.List["ClaimResponseAddItem"] = Field(
         None,
         alias="addItem",
         title="Insurer added line items",
@@ -39,7 +47,7 @@ class ClaimResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    adjudication: typing.List[fhirtypes.ClaimResponseItemAdjudicationType] = Field(
+    adjudication: typing.List["ClaimResponseItemAdjudication"] = Field(
         None,
         alias="adjudication",
         title="Header-level adjudication",
@@ -51,7 +59,7 @@ class ClaimResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    communicationRequest: typing.List[fhirtypes.ReferenceType] = Field(
+    communicationRequest: typing.List[Reference] = Field(
         None,
         alias="communicationRequest",
         title="Request for additional information",
@@ -87,7 +95,7 @@ class ClaimResponse(domainresource.DomainResource):
         None, alias="_disposition", title="Extension field for ``disposition``."
     )
 
-    error: typing.List[fhirtypes.ClaimResponseErrorType] = Field(
+    error: typing.List["ClaimResponseError"] = Field(
         None,
         alias="error",
         title="Processing errors",
@@ -96,7 +104,7 @@ class ClaimResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    form: fhirtypes.AttachmentType = Field(
+    form: Attachment = Field(
         None,
         alias="form",
         title="Printed reference or actual form",
@@ -108,7 +116,7 @@ class ClaimResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    formCode: fhirtypes.CodeableConceptType = Field(
+    formCode: CodeableConcept = Field(
         None,
         alias="formCode",
         title="Printed form identifier",
@@ -117,7 +125,7 @@ class ClaimResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    fundsReserve: fhirtypes.CodeableConceptType = Field(
+    fundsReserve: CodeableConcept = Field(
         None,
         alias="fundsReserve",
         title="Funds reserved status",
@@ -129,7 +137,7 @@ class ClaimResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business Identifier for a claim response",
@@ -138,7 +146,7 @@ class ClaimResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    insurance: typing.List[fhirtypes.ClaimResponseInsuranceType] = Field(
+    insurance: typing.List["ClaimResponseInsurance"] = Field(
         None,
         alias="insurance",
         title="Patient insurance information",
@@ -150,7 +158,7 @@ class ClaimResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    insurer: fhirtypes.ReferenceType = Field(
+    insurer: Reference = Field(
         ...,
         alias="insurer",
         title="Party responsible for reimbursement",
@@ -164,7 +172,7 @@ class ClaimResponse(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    item: typing.List[fhirtypes.ClaimResponseItemType] = Field(
+    item: typing.List["ClaimResponseItem"] = Field(
         None,
         alias="item",
         title="Adjudication for claim line items",
@@ -195,7 +203,7 @@ class ClaimResponse(domainresource.DomainResource):
         None, alias="_outcome", title="Extension field for ``outcome``."
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         ...,
         alias="patient",
         title="The recipient of the products and services",
@@ -210,7 +218,7 @@ class ClaimResponse(domainresource.DomainResource):
         enum_reference_types=["Patient"],
     )
 
-    payeeType: fhirtypes.CodeableConceptType = Field(
+    payeeType: CodeableConcept = Field(
         None,
         alias="payeeType",
         title="Party to be paid any benefits payable",
@@ -219,7 +227,7 @@ class ClaimResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    payment: fhirtypes.ClaimResponsePaymentType = Field(
+    payment: "ClaimResponsePayment" = Field(
         None,
         alias="payment",
         title="Payment Details",
@@ -228,7 +236,7 @@ class ClaimResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    preAuthPeriod: fhirtypes.PeriodType = Field(
+    preAuthPeriod: Period = Field(
         None,
         alias="preAuthPeriod",
         title="Preauthorization reference effective period",
@@ -252,7 +260,7 @@ class ClaimResponse(domainresource.DomainResource):
         None, alias="_preAuthRef", title="Extension field for ``preAuthRef``."
     )
 
-    processNote: typing.List[fhirtypes.ClaimResponseProcessNoteType] = Field(
+    processNote: typing.List["ClaimResponseProcessNote"] = Field(
         None,
         alias="processNote",
         title="Note concerning adjudication",
@@ -264,7 +272,7 @@ class ClaimResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    request: fhirtypes.ReferenceType = Field(
+    request: Reference = Field(
         None,
         alias="request",
         title="Id of resource triggering adjudication",
@@ -275,7 +283,7 @@ class ClaimResponse(domainresource.DomainResource):
         enum_reference_types=["Claim"],
     )
 
-    requestor: fhirtypes.ReferenceType = Field(
+    requestor: Reference = Field(
         None,
         alias="requestor",
         title="Party responsible for the claim",
@@ -305,7 +313,7 @@ class ClaimResponse(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subType: fhirtypes.CodeableConceptType = Field(
+    subType: CodeableConcept = Field(
         None,
         alias="subType",
         title="More granular claim type",
@@ -318,7 +326,7 @@ class ClaimResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    total: typing.List[fhirtypes.ClaimResponseTotalType] = Field(
+    total: typing.List["ClaimResponseTotal"] = Field(
         None,
         alias="total",
         title="Adjudication totals",
@@ -327,7 +335,7 @@ class ClaimResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title="More granular claim type",
@@ -481,9 +489,9 @@ class ClaimResponseAddItem(backboneelement.BackboneElement):
     lines.
     """
 
-    resource_type = Field("ClaimResponseAddItem", const=True)
+    resource_type: str = Field("ClaimResponseAddItem", const=True)
 
-    adjudication: typing.List[fhirtypes.ClaimResponseItemAdjudicationType] = Field(
+    adjudication: typing.List["ClaimResponseItemAdjudication"] = Field(
         ...,
         alias="adjudication",
         title="Added items adjudication",
@@ -492,7 +500,7 @@ class ClaimResponseAddItem(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    bodySite: fhirtypes.CodeableConceptType = Field(
+    bodySite: CodeableConcept = Field(
         None,
         alias="bodySite",
         title="Anatomical location",
@@ -501,7 +509,7 @@ class ClaimResponseAddItem(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    detail: typing.List[fhirtypes.ClaimResponseAddItemDetailType] = Field(
+    detail: typing.List["ClaimResponseAddItemDetail"] = Field(
         None,
         alias="detail",
         title="Insurer added line details",
@@ -558,7 +566,7 @@ class ClaimResponseAddItem(backboneelement.BackboneElement):
         None, alias="_itemSequence", title="Extension field for ``itemSequence``."
     )
 
-    locationAddress: fhirtypes.AddressType = Field(
+    locationAddress: Address = Field(
         None,
         alias="locationAddress",
         title="Place of service or where product was supplied",
@@ -570,7 +578,7 @@ class ClaimResponseAddItem(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    locationCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    locationCodeableConcept: CodeableConcept = Field(
         None,
         alias="locationCodeableConcept",
         title="Place of service or where product was supplied",
@@ -582,7 +590,7 @@ class ClaimResponseAddItem(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    locationReference: fhirtypes.ReferenceType = Field(
+    locationReference: Reference = Field(
         None,
         alias="locationReference",
         title="Place of service or where product was supplied",
@@ -596,7 +604,7 @@ class ClaimResponseAddItem(backboneelement.BackboneElement):
         enum_reference_types=["Location"],
     )
 
-    modifier: typing.List[fhirtypes.CodeableConceptType] = Field(
+    modifier: typing.List[CodeableConcept] = Field(
         None,
         alias="modifier",
         title="Service/Product billing modifiers",
@@ -608,7 +616,7 @@ class ClaimResponseAddItem(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    net: fhirtypes.MoneyType = Field(
+    net: Money = Field(
         None,
         alias="net",
         title="Total item cost",
@@ -635,7 +643,7 @@ class ClaimResponseAddItem(backboneelement.BackboneElement):
         typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
     ] = Field(None, alias="_noteNumber", title="Extension field for ``noteNumber``.")
 
-    productOrService: fhirtypes.CodeableConceptType = Field(
+    productOrService: CodeableConcept = Field(
         ...,
         alias="productOrService",
         title="Billing, service, product, or drug code",
@@ -648,7 +656,7 @@ class ClaimResponseAddItem(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    programCode: typing.List[fhirtypes.CodeableConceptType] = Field(
+    programCode: typing.List[CodeableConcept] = Field(
         None,
         alias="programCode",
         title="Program the product or service is provided under",
@@ -657,7 +665,7 @@ class ClaimResponseAddItem(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    provider: typing.List[fhirtypes.ReferenceType] = Field(
+    provider: typing.List[Reference] = Field(
         None,
         alias="provider",
         title="Authorized providers",
@@ -671,7 +679,7 @@ class ClaimResponseAddItem(backboneelement.BackboneElement):
         enum_reference_types=["Practitioner", "PractitionerRole", "Organization"],
     )
 
-    quantity: fhirtypes.QuantityType = Field(
+    quantity: Quantity = Field(
         None,
         alias="quantity",
         title="Count of products or services",
@@ -698,7 +706,7 @@ class ClaimResponseAddItem(backboneelement.BackboneElement):
         None, alias="_servicedDate", title="Extension field for ``servicedDate``."
     )
 
-    servicedPeriod: fhirtypes.PeriodType = Field(
+    servicedPeriod: Period = Field(
         None,
         alias="servicedPeriod",
         title="Date or dates of service or product delivery",
@@ -713,7 +721,7 @@ class ClaimResponseAddItem(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    subSite: typing.List[fhirtypes.CodeableConceptType] = Field(
+    subSite: typing.List[CodeableConcept] = Field(
         None,
         alias="subSite",
         title="Anatomical sub-location",
@@ -744,7 +752,7 @@ class ClaimResponseAddItem(backboneelement.BackboneElement):
         title="Extension field for ``subdetailSequence``.",
     )
 
-    unitPrice: fhirtypes.MoneyType = Field(
+    unitPrice: Money = Field(
         None,
         alias="unitPrice",
         title="Fee, charge or cost per item",
@@ -845,9 +853,9 @@ class ClaimResponseAddItemDetail(backboneelement.BackboneElement):
     The second-tier service adjudications for payor added services.
     """
 
-    resource_type = Field("ClaimResponseAddItemDetail", const=True)
+    resource_type: str = Field("ClaimResponseAddItemDetail", const=True)
 
-    adjudication: typing.List[fhirtypes.ClaimResponseItemAdjudicationType] = Field(
+    adjudication: typing.List["ClaimResponseItemAdjudication"] = Field(
         ...,
         alias="adjudication",
         title="Added items detail adjudication",
@@ -873,7 +881,7 @@ class ClaimResponseAddItemDetail(backboneelement.BackboneElement):
         None, alias="_factor", title="Extension field for ``factor``."
     )
 
-    modifier: typing.List[fhirtypes.CodeableConceptType] = Field(
+    modifier: typing.List[CodeableConcept] = Field(
         None,
         alias="modifier",
         title="Service/Product billing modifiers",
@@ -885,7 +893,7 @@ class ClaimResponseAddItemDetail(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    net: fhirtypes.MoneyType = Field(
+    net: Money = Field(
         None,
         alias="net",
         title="Total item cost",
@@ -912,7 +920,7 @@ class ClaimResponseAddItemDetail(backboneelement.BackboneElement):
         typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
     ] = Field(None, alias="_noteNumber", title="Extension field for ``noteNumber``.")
 
-    productOrService: fhirtypes.CodeableConceptType = Field(
+    productOrService: CodeableConcept = Field(
         ...,
         alias="productOrService",
         title="Billing, service, product, or drug code",
@@ -925,7 +933,7 @@ class ClaimResponseAddItemDetail(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    quantity: fhirtypes.QuantityType = Field(
+    quantity: Quantity = Field(
         None,
         alias="quantity",
         title="Count of products or services",
@@ -934,7 +942,7 @@ class ClaimResponseAddItemDetail(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    subDetail: typing.List[fhirtypes.ClaimResponseAddItemDetailSubDetailType] = Field(
+    subDetail: typing.List["ClaimResponseAddItemDetailSubDetail"] = Field(
         None,
         alias="subDetail",
         title="Insurer added line items",
@@ -943,7 +951,7 @@ class ClaimResponseAddItemDetail(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    unitPrice: fhirtypes.MoneyType = Field(
+    unitPrice: Money = Field(
         None,
         alias="unitPrice",
         title="Fee, charge or cost per item",
@@ -987,9 +995,9 @@ class ClaimResponseAddItemDetailSubDetail(backboneelement.BackboneElement):
     The third-tier service adjudications for payor added services.
     """
 
-    resource_type = Field("ClaimResponseAddItemDetailSubDetail", const=True)
+    resource_type: str = Field("ClaimResponseAddItemDetailSubDetail", const=True)
 
-    adjudication: typing.List[fhirtypes.ClaimResponseItemAdjudicationType] = Field(
+    adjudication: typing.List["ClaimResponseItemAdjudication"] = Field(
         ...,
         alias="adjudication",
         title="Added items detail adjudication",
@@ -1015,7 +1023,7 @@ class ClaimResponseAddItemDetailSubDetail(backboneelement.BackboneElement):
         None, alias="_factor", title="Extension field for ``factor``."
     )
 
-    modifier: typing.List[fhirtypes.CodeableConceptType] = Field(
+    modifier: typing.List[CodeableConcept] = Field(
         None,
         alias="modifier",
         title="Service/Product billing modifiers",
@@ -1027,7 +1035,7 @@ class ClaimResponseAddItemDetailSubDetail(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    net: fhirtypes.MoneyType = Field(
+    net: Money = Field(
         None,
         alias="net",
         title="Total item cost",
@@ -1054,7 +1062,7 @@ class ClaimResponseAddItemDetailSubDetail(backboneelement.BackboneElement):
         typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
     ] = Field(None, alias="_noteNumber", title="Extension field for ``noteNumber``.")
 
-    productOrService: fhirtypes.CodeableConceptType = Field(
+    productOrService: CodeableConcept = Field(
         ...,
         alias="productOrService",
         title="Billing, service, product, or drug code",
@@ -1067,7 +1075,7 @@ class ClaimResponseAddItemDetailSubDetail(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    quantity: fhirtypes.QuantityType = Field(
+    quantity: Quantity = Field(
         None,
         alias="quantity",
         title="Count of products or services",
@@ -1076,7 +1084,7 @@ class ClaimResponseAddItemDetailSubDetail(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    unitPrice: fhirtypes.MoneyType = Field(
+    unitPrice: Money = Field(
         None,
         alias="unitPrice",
         title="Fee, charge or cost per item",
@@ -1119,9 +1127,9 @@ class ClaimResponseError(backboneelement.BackboneElement):
     Errors encountered during the processing of the adjudication.
     """
 
-    resource_type = Field("ClaimResponseError", const=True)
+    resource_type: str = Field("ClaimResponseError", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         ...,
         alias="code",
         title="Error code detailing processing issues",
@@ -1210,7 +1218,7 @@ class ClaimResponseInsurance(backboneelement.BackboneElement):
     services specified on the claim.
     """
 
-    resource_type = Field("ClaimResponseInsurance", const=True)
+    resource_type: str = Field("ClaimResponseInsurance", const=True)
 
     businessArrangement: fhirtypes.String = Field(
         None,
@@ -1229,7 +1237,7 @@ class ClaimResponseInsurance(backboneelement.BackboneElement):
         title="Extension field for ``businessArrangement``.",
     )
 
-    claimResponse: fhirtypes.ReferenceType = Field(
+    claimResponse: Reference = Field(
         None,
         alias="claimResponse",
         title="Adjudication results",
@@ -1243,7 +1251,7 @@ class ClaimResponseInsurance(backboneelement.BackboneElement):
         enum_reference_types=["ClaimResponse"],
     )
 
-    coverage: fhirtypes.ReferenceType = Field(
+    coverage: Reference = Field(
         ...,
         alias="coverage",
         title="Insurance information",
@@ -1378,9 +1386,9 @@ class ClaimResponseItem(backboneelement.BackboneElement):
     details which can also be a simple items or groups of sub-details.
     """
 
-    resource_type = Field("ClaimResponseItem", const=True)
+    resource_type: str = Field("ClaimResponseItem", const=True)
 
-    adjudication: typing.List[fhirtypes.ClaimResponseItemAdjudicationType] = Field(
+    adjudication: typing.List["ClaimResponseItemAdjudication"] = Field(
         ...,
         alias="adjudication",
         title="Adjudication details",
@@ -1393,7 +1401,7 @@ class ClaimResponseItem(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    detail: typing.List[fhirtypes.ClaimResponseItemDetailType] = Field(
+    detail: typing.List["ClaimResponseItemDetail"] = Field(
         None,
         alias="detail",
         title="Adjudication for claim details",
@@ -1520,9 +1528,9 @@ class ClaimResponseItemAdjudication(backboneelement.BackboneElement):
     service then this is the result of the adjudication of this item.
     """
 
-    resource_type = Field("ClaimResponseItemAdjudication", const=True)
+    resource_type: str = Field("ClaimResponseItemAdjudication", const=True)
 
-    amount: fhirtypes.MoneyType = Field(
+    amount: Money = Field(
         None,
         alias="amount",
         title="Monetary amount",
@@ -1531,7 +1539,7 @@ class ClaimResponseItemAdjudication(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    category: fhirtypes.CodeableConceptType = Field(
+    category: CodeableConcept = Field(
         ...,
         alias="category",
         title="Type of adjudication information",
@@ -1547,7 +1555,7 @@ class ClaimResponseItemAdjudication(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    reason: fhirtypes.CodeableConceptType = Field(
+    reason: CodeableConcept = Field(
         None,
         alias="reason",
         title="Explanation of adjudication outcome",
@@ -1601,9 +1609,9 @@ class ClaimResponseItemDetail(backboneelement.BackboneElement):
     details which are simple items.
     """
 
-    resource_type = Field("ClaimResponseItemDetail", const=True)
+    resource_type: str = Field("ClaimResponseItemDetail", const=True)
 
-    adjudication: typing.List[fhirtypes.ClaimResponseItemAdjudicationType] = Field(
+    adjudication: typing.List["ClaimResponseItemAdjudication"] = Field(
         ...,
         alias="adjudication",
         title="Detail level adjudication details",
@@ -1640,7 +1648,7 @@ class ClaimResponseItemDetail(backboneelement.BackboneElement):
         typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
     ] = Field(None, alias="_noteNumber", title="Extension field for ``noteNumber``.")
 
-    subDetail: typing.List[fhirtypes.ClaimResponseItemDetailSubDetailType] = Field(
+    subDetail: typing.List["ClaimResponseItemDetailSubDetail"] = Field(
         None,
         alias="subDetail",
         title="Adjudication for claim sub-details",
@@ -1734,9 +1742,9 @@ class ClaimResponseItemDetailSubDetail(backboneelement.BackboneElement):
     A sub-detail adjudication of a simple product or service.
     """
 
-    resource_type = Field("ClaimResponseItemDetailSubDetail", const=True)
+    resource_type: str = Field("ClaimResponseItemDetailSubDetail", const=True)
 
-    adjudication: typing.List[fhirtypes.ClaimResponseItemAdjudicationType] = Field(
+    adjudication: typing.List["ClaimResponseItemAdjudication"] = Field(
         None,
         alias="adjudication",
         title="Subdetail level adjudication details",
@@ -1859,9 +1867,9 @@ class ClaimResponsePayment(backboneelement.BackboneElement):
     Payment details for the adjudication of the claim.
     """
 
-    resource_type = Field("ClaimResponsePayment", const=True)
+    resource_type: str = Field("ClaimResponsePayment", const=True)
 
-    adjustment: fhirtypes.MoneyType = Field(
+    adjustment: Money = Field(
         None,
         alias="adjustment",
         title="Payment adjustment for non-claim issues",
@@ -1873,7 +1881,7 @@ class ClaimResponsePayment(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    adjustmentReason: fhirtypes.CodeableConceptType = Field(
+    adjustmentReason: CodeableConcept = Field(
         None,
         alias="adjustmentReason",
         title="Explanation for the adjustment",
@@ -1882,7 +1890,7 @@ class ClaimResponsePayment(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    amount: fhirtypes.MoneyType = Field(
+    amount: Money = Field(
         ...,
         alias="amount",
         title="Payable amount after adjustment",
@@ -1906,7 +1914,7 @@ class ClaimResponsePayment(backboneelement.BackboneElement):
         None, alias="_date", title="Extension field for ``date``."
     )
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="Business identifier for the payment",
@@ -1915,7 +1923,7 @@ class ClaimResponsePayment(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title="Partial or complete payment",
@@ -1956,9 +1964,9 @@ class ClaimResponseProcessNote(backboneelement.BackboneElement):
     form.
     """
 
-    resource_type = Field("ClaimResponseProcessNote", const=True)
+    resource_type: str = Field("ClaimResponseProcessNote", const=True)
 
-    language: fhirtypes.CodeableConceptType = Field(
+    language: CodeableConcept = Field(
         None,
         alias="language",
         title="Language of the text",
@@ -2092,9 +2100,9 @@ class ClaimResponseTotal(backboneelement.BackboneElement):
     Categorized monetary totals for the adjudication.
     """
 
-    resource_type = Field("ClaimResponseTotal", const=True)
+    resource_type: str = Field("ClaimResponseTotal", const=True)
 
-    amount: fhirtypes.MoneyType = Field(
+    amount: Money = Field(
         ...,
         alias="amount",
         title="Financial total for the category",
@@ -2103,7 +2111,7 @@ class ClaimResponseTotal(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    category: fhirtypes.CodeableConceptType = Field(
+    category: CodeableConcept = Field(
         ...,
         alias="category",
         title="Type of adjudication information",
@@ -2126,3 +2134,12 @@ class ClaimResponseTotal(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "category", "amount"]
+
+
+ClaimResponse.update_forward_refs()
+ClaimResponseAddItem.update_forward_refs()
+ClaimResponseAddItemDetail.update_forward_refs()
+ClaimResponseAddItemDetailSubDetail.update_forward_refs()
+ClaimResponseItem.update_forward_refs()
+ClaimResponseItemDetail.update_forward_refs()
+ClaimResponseItemDetailSubDetail.update_forward_refs()

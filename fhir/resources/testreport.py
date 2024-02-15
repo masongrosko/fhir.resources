@@ -13,6 +13,7 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .identifier import Identifier
 
 
 class TestReport(domainresource.DomainResource):
@@ -24,9 +25,9 @@ class TestReport(domainresource.DomainResource):
     A summary of information based on the results of executing a TestScript.
     """
 
-    resource_type = Field("TestReport", const=True)
+    resource_type: str = Field("TestReport", const=True)
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="External identifier",
@@ -62,7 +63,7 @@ class TestReport(domainresource.DomainResource):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    participant: typing.List[fhirtypes.TestReportParticipantType] = Field(
+    participant: typing.List["TestReportParticipant"] = Field(
         None,
         alias="participant",
         title=(
@@ -105,7 +106,7 @@ class TestReport(domainresource.DomainResource):
         None, alias="_score", title="Extension field for ``score``."
     )
 
-    setup: fhirtypes.TestReportSetupType = Field(
+    setup: "TestReportSetup" = Field(
         None,
         alias="setup",
         title=(
@@ -139,7 +140,7 @@ class TestReport(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    teardown: fhirtypes.TestReportTeardownType = Field(
+    teardown: "TestReportTeardown" = Field(
         None,
         alias="teardown",
         title="The results of running the series of required clean up steps",
@@ -151,7 +152,7 @@ class TestReport(domainresource.DomainResource):
         element_property=True,
     )
 
-    test: typing.List[fhirtypes.TestReportTestType] = Field(
+    test: typing.List["TestReportTest"] = Field(
         None,
         alias="test",
         title="A test executed from the test script",
@@ -295,7 +296,7 @@ class TestReportParticipant(backboneelement.BackboneElement):
     or a server.
     """
 
-    resource_type = Field("TestReportParticipant", const=True)
+    resource_type: str = Field("TestReportParticipant", const=True)
 
     display: fhirtypes.String = Field(
         None,
@@ -415,9 +416,9 @@ class TestReportSetup(backboneelement.BackboneElement):
     were executed.
     """
 
-    resource_type = Field("TestReportSetup", const=True)
+    resource_type: str = Field("TestReportSetup", const=True)
 
-    action: typing.List[fhirtypes.TestReportSetupActionType] = Field(
+    action: typing.List["TestReportSetupAction"] = Field(
         ...,
         alias="action",
         title="A setup operation or assert that was executed",
@@ -444,9 +445,9 @@ class TestReportSetupAction(backboneelement.BackboneElement):
     Action would contain either an operation or an assertion.
     """
 
-    resource_type = Field("TestReportSetupAction", const=True)
+    resource_type: str = Field("TestReportSetupAction", const=True)
 
-    assert_fhir: fhirtypes.TestReportSetupActionAssertType = Field(
+    assert_fhir: "TestReportSetupActionAssert" = Field(
         None,
         alias="assert",
         title="The assertion to perform",
@@ -455,7 +456,7 @@ class TestReportSetupAction(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    operation: fhirtypes.TestReportSetupActionOperationType = Field(
+    operation: "TestReportSetupActionOperation" = Field(
         None,
         alias="operation",
         title="The operation to perform",
@@ -482,7 +483,7 @@ class TestReportSetupActionAssert(backboneelement.BackboneElement):
     The results of the assertion performed on the previous operations.
     """
 
-    resource_type = Field("TestReportSetupActionAssert", const=True)
+    resource_type: str = Field("TestReportSetupActionAssert", const=True)
 
     detail: fhirtypes.String = Field(
         None,
@@ -508,9 +509,7 @@ class TestReportSetupActionAssert(backboneelement.BackboneElement):
         None, alias="_message", title="Extension field for ``message``."
     )
 
-    requirement: typing.List[
-        fhirtypes.TestReportSetupActionAssertRequirementType
-    ] = Field(
+    requirement: typing.List["TestReportSetupActionAssertRequirement"] = Field(
         None,
         alias="requirement",
         title="Links or references to the testing requirements",
@@ -624,7 +623,7 @@ class TestReportSetupActionAssertRequirement(backboneelement.BackboneElement):
     this assert.
     """
 
-    resource_type = Field("TestReportSetupActionAssertRequirement", const=True)
+    resource_type: str = Field("TestReportSetupActionAssertRequirement", const=True)
 
     linkCanonical: fhirtypes.Canonical = Field(
         None,
@@ -720,7 +719,7 @@ class TestReportSetupActionOperation(backboneelement.BackboneElement):
     The operation performed.
     """
 
-    resource_type = Field("TestReportSetupActionOperation", const=True)
+    resource_type: str = Field("TestReportSetupActionOperation", const=True)
 
     detail: fhirtypes.Uri = Field(
         None,
@@ -840,9 +839,9 @@ class TestReportTeardown(backboneelement.BackboneElement):
     tests were executed (successfully or otherwise).
     """
 
-    resource_type = Field("TestReportTeardown", const=True)
+    resource_type: str = Field("TestReportTeardown", const=True)
 
-    action: typing.List[fhirtypes.TestReportTeardownActionType] = Field(
+    action: typing.List["TestReportTeardownAction"] = Field(
         ...,
         alias="action",
         title="One or more teardown operations performed",
@@ -869,9 +868,9 @@ class TestReportTeardownAction(backboneelement.BackboneElement):
     The teardown action will only contain an operation.
     """
 
-    resource_type = Field("TestReportTeardownAction", const=True)
+    resource_type: str = Field("TestReportTeardownAction", const=True)
 
-    operation: fhirtypes.TestReportSetupActionOperationType = Field(
+    operation: "TestReportSetupActionOperation" = Field(
         ...,
         alias="operation",
         title="The teardown operation performed",
@@ -897,9 +896,9 @@ class TestReportTest(backboneelement.BackboneElement):
     A test executed from the test script.
     """
 
-    resource_type = Field("TestReportTest", const=True)
+    resource_type: str = Field("TestReportTest", const=True)
 
-    action: typing.List[fhirtypes.TestReportTestActionType] = Field(
+    action: typing.List["TestReportTestAction"] = Field(
         ...,
         alias="action",
         title="A test operation or assert that was performed",
@@ -956,9 +955,9 @@ class TestReportTestAction(backboneelement.BackboneElement):
     Action would contain either an operation or an assertion.
     """
 
-    resource_type = Field("TestReportTestAction", const=True)
+    resource_type: str = Field("TestReportTestAction", const=True)
 
-    assert_fhir: fhirtypes.TestReportSetupActionAssertType = Field(
+    assert_fhir: "TestReportSetupActionAssert" = Field(
         None,
         alias="assert",
         title="The assertion performed",
@@ -967,7 +966,7 @@ class TestReportTestAction(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    operation: fhirtypes.TestReportSetupActionOperationType = Field(
+    operation: "TestReportSetupActionOperation" = Field(
         None,
         alias="operation",
         title="The operation performed",
@@ -983,3 +982,13 @@ class TestReportTestAction(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "operation", "assert"]
+
+
+TestReport.update_forward_refs()
+TestReportSetup.update_forward_refs()
+TestReportSetupAction.update_forward_refs()
+TestReportSetupActionAssert.update_forward_refs()
+TestReportTeardown.update_forward_refs()
+TestReportTeardownAction.update_forward_refs()
+TestReportTest.update_forward_refs()
+TestReportTestAction.update_forward_refs()

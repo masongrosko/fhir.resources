@@ -10,8 +10,13 @@ from typing import List as ListType
 from pydantic.v1 import Field
 
 from . import fhirtypes
+from .address import Address
 from .backboneelement import BackboneElement
+from .codeableconcept import CodeableConcept
+from .contactpoint import ContactPoint
 from .domainresource import DomainResource
+from .identifier import Identifier
+from .reference import Reference
 
 
 class Location(DomainResource):
@@ -22,9 +27,9 @@ class Location(DomainResource):
     accommodated.
     """
 
-    resource_type = Field("Location", const=True)
+    resource_type: str = Field("Location", const=True)
 
-    address: fhirtypes.AddressType = Field(
+    address: Address = Field(
         None,
         alias="address",
         title="Type `Address` (represented as `dict` in JSON)",
@@ -41,14 +46,14 @@ class Location(DomainResource):
         ),
     )
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="List of `Identifier` items (represented as `dict` in JSON)",
         description="Unique code or number identifying the location to its users",
     )
 
-    managingOrganization: fhirtypes.ReferenceType = Field(
+    managingOrganization: Reference = Field(
         None,
         alias="managingOrganization",
         title=(
@@ -72,7 +77,7 @@ class Location(DomainResource):
         description="Name of the location as used by humans",
     )
 
-    partOf: fhirtypes.ReferenceType = Field(
+    partOf: Reference = Field(
         None,
         alias="partOf",
         title=(
@@ -81,14 +86,14 @@ class Location(DomainResource):
         description="Another Location this one is physically part of",
     )
 
-    physicalType: fhirtypes.CodeableConceptType = Field(
+    physicalType: CodeableConcept = Field(
         None,
         alias="physicalType",
         title="Type `CodeableConcept` (represented as `dict` in JSON)",
         description="Physical form of the location",
     )
 
-    position: fhirtypes.LocationPositionType = Field(
+    position: "LocationPosition" = Field(
         None,
         alias="position",
         title="Type `LocationPosition` (represented as `dict` in JSON)",
@@ -102,14 +107,14 @@ class Location(DomainResource):
         description="active | suspended | inactive",
     )
 
-    telecom: ListType[fhirtypes.ContactPointType] = Field(
+    telecom: ListType[ContactPoint] = Field(
         None,
         alias="telecom",
         title="List of `ContactPoint` items (represented as `dict` in JSON)",
         description="Contact details of the location",
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Type `CodeableConcept` (represented as `dict` in JSON)",
@@ -124,7 +129,7 @@ class LocationPosition(BackboneElement):
     datum (This is the same co-ordinate system used in KML).
     """
 
-    resource_type = Field("LocationPosition", const=True)
+    resource_type: str = Field("LocationPosition", const=True)
 
     altitude: fhirtypes.Decimal = Field(
         None,
@@ -146,3 +151,6 @@ class LocationPosition(BackboneElement):
         title="Type `Decimal` (represented as `dict` in JSON)",
         description="Longitude with WGS84 datum",
     )
+
+
+Location.update_forward_refs()

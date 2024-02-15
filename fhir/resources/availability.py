@@ -11,6 +11,7 @@ import typing
 from pydantic.v1 import Field
 
 from . import datatype, element, fhirtypes
+from .period import Period
 
 
 class Availability(datatype.DataType):
@@ -21,9 +22,9 @@ class Availability(datatype.DataType):
     Availability data for an {item}.
     """
 
-    resource_type = Field("Availability", const=True)
+    resource_type: str = Field("Availability", const=True)
 
-    availableTime: typing.List[fhirtypes.AvailabilityAvailableTimeType] = Field(
+    availableTime: typing.List["AvailabilityAvailableTime"] = Field(
         None,
         alias="availableTime",
         title="Times the {item} is available",
@@ -32,7 +33,7 @@ class Availability(datatype.DataType):
         element_property=True,
     )
 
-    notAvailableTime: typing.List[fhirtypes.AvailabilityNotAvailableTimeType] = Field(
+    notAvailableTime: typing.List["AvailabilityNotAvailableTime"] = Field(
         None,
         alias="notAvailableTime",
         title="Not available during this time due to provided reason",
@@ -58,7 +59,7 @@ class AvailabilityAvailableTime(element.Element):
     Times the {item} is available.
     """
 
-    resource_type = Field("AvailabilityAvailableTime", const=True)
+    resource_type: str = Field("AvailabilityAvailableTime", const=True)
 
     allDay: bool = Field(
         None,
@@ -139,7 +140,7 @@ class AvailabilityNotAvailableTime(element.Element):
     Not available during this time due to provided reason.
     """
 
-    resource_type = Field("AvailabilityNotAvailableTime", const=True)
+    resource_type: str = Field("AvailabilityNotAvailableTime", const=True)
 
     description: fhirtypes.String = Field(
         None,
@@ -153,7 +154,7 @@ class AvailabilityNotAvailableTime(element.Element):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    during: fhirtypes.PeriodType = Field(
+    during: Period = Field(
         None,
         alias="during",
         title="Service not available during this period",
@@ -169,3 +170,6 @@ class AvailabilityNotAvailableTime(element.Element):
         with preserving original sequence order.
         """
         return ["id", "extension", "description", "during"]
+
+
+Availability.update_forward_refs()

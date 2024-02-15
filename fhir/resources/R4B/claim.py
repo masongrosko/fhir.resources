@@ -13,6 +13,14 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .address import Address
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .money import Money
+from .period import Period
+from .quantity import Quantity
+from .reference import Reference
 
 
 class Claim(domainresource.DomainResource):
@@ -26,9 +34,9 @@ class Claim(domainresource.DomainResource):
     insurer for reimbursement.
     """
 
-    resource_type = Field("Claim", const=True)
+    resource_type: str = Field("Claim", const=True)
 
-    accident: fhirtypes.ClaimAccidentType = Field(
+    accident: "ClaimAccident" = Field(
         None,
         alias="accident",
         title="Details of the event",
@@ -40,7 +48,7 @@ class Claim(domainresource.DomainResource):
         element_property=True,
     )
 
-    billablePeriod: fhirtypes.PeriodType = Field(
+    billablePeriod: Period = Field(
         None,
         alias="billablePeriod",
         title="Relevant time frame for the claim",
@@ -49,7 +57,7 @@ class Claim(domainresource.DomainResource):
         element_property=True,
     )
 
-    careTeam: typing.List[fhirtypes.ClaimCareTeamType] = Field(
+    careTeam: typing.List["ClaimCareTeam"] = Field(
         None,
         alias="careTeam",
         title="Members of the care team",
@@ -71,7 +79,7 @@ class Claim(domainresource.DomainResource):
         None, alias="_created", title="Extension field for ``created``."
     )
 
-    diagnosis: typing.List[fhirtypes.ClaimDiagnosisType] = Field(
+    diagnosis: typing.List["ClaimDiagnosis"] = Field(
         None,
         alias="diagnosis",
         title="Pertinent diagnosis information",
@@ -80,7 +88,7 @@ class Claim(domainresource.DomainResource):
         element_property=True,
     )
 
-    enterer: fhirtypes.ReferenceType = Field(
+    enterer: Reference = Field(
         None,
         alias="enterer",
         title="Author of the claim",
@@ -93,7 +101,7 @@ class Claim(domainresource.DomainResource):
         enum_reference_types=["Practitioner", "PractitionerRole"],
     )
 
-    facility: fhirtypes.ReferenceType = Field(
+    facility: Reference = Field(
         None,
         alias="facility",
         title="Servicing facility",
@@ -104,7 +112,7 @@ class Claim(domainresource.DomainResource):
         enum_reference_types=["Location"],
     )
 
-    fundsReserve: fhirtypes.CodeableConceptType = Field(
+    fundsReserve: CodeableConcept = Field(
         None,
         alias="fundsReserve",
         title="For whom to reserve funds",
@@ -116,7 +124,7 @@ class Claim(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business Identifier for claim",
@@ -125,7 +133,7 @@ class Claim(domainresource.DomainResource):
         element_property=True,
     )
 
-    insurance: typing.List[fhirtypes.ClaimInsuranceType] = Field(
+    insurance: typing.List["ClaimInsurance"] = Field(
         ...,
         alias="insurance",
         title="Patient insurance information",
@@ -137,7 +145,7 @@ class Claim(domainresource.DomainResource):
         element_property=True,
     )
 
-    insurer: fhirtypes.ReferenceType = Field(
+    insurer: Reference = Field(
         None,
         alias="insurer",
         title="Target",
@@ -148,7 +156,7 @@ class Claim(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    item: typing.List[fhirtypes.ClaimItemType] = Field(
+    item: typing.List["ClaimItem"] = Field(
         None,
         alias="item",
         title="Product or service provided",
@@ -160,7 +168,7 @@ class Claim(domainresource.DomainResource):
         element_property=True,
     )
 
-    originalPrescription: fhirtypes.ReferenceType = Field(
+    originalPrescription: Reference = Field(
         None,
         alias="originalPrescription",
         title="Original prescription if superseded by fulfiller",
@@ -179,7 +187,7 @@ class Claim(domainresource.DomainResource):
         ],
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         ...,
         alias="patient",
         title="The recipient of the products and services",
@@ -194,7 +202,7 @@ class Claim(domainresource.DomainResource):
         enum_reference_types=["Patient"],
     )
 
-    payee: fhirtypes.ClaimPayeeType = Field(
+    payee: "ClaimPayee" = Field(
         None,
         alias="payee",
         title="Recipient of benefits payable",
@@ -206,7 +214,7 @@ class Claim(domainresource.DomainResource):
         element_property=True,
     )
 
-    prescription: fhirtypes.ReferenceType = Field(
+    prescription: Reference = Field(
         None,
         alias="prescription",
         title="Prescription authorizing services and products",
@@ -224,7 +232,7 @@ class Claim(domainresource.DomainResource):
         ],
     )
 
-    priority: fhirtypes.CodeableConceptType = Field(
+    priority: CodeableConcept = Field(
         ...,
         alias="priority",
         title="Desired processing ugency",
@@ -236,7 +244,7 @@ class Claim(domainresource.DomainResource):
         element_property=True,
     )
 
-    procedure: typing.List[fhirtypes.ClaimProcedureType] = Field(
+    procedure: typing.List["ClaimProcedure"] = Field(
         None,
         alias="procedure",
         title="Clinical procedures performed",
@@ -248,7 +256,7 @@ class Claim(domainresource.DomainResource):
         element_property=True,
     )
 
-    provider: fhirtypes.ReferenceType = Field(
+    provider: Reference = Field(
         ...,
         alias="provider",
         title="Party responsible for the claim",
@@ -262,7 +270,7 @@ class Claim(domainresource.DomainResource):
         enum_reference_types=["Practitioner", "PractitionerRole", "Organization"],
     )
 
-    referral: fhirtypes.ReferenceType = Field(
+    referral: Reference = Field(
         None,
         alias="referral",
         title="Treatment referral",
@@ -273,7 +281,7 @@ class Claim(domainresource.DomainResource):
         enum_reference_types=["ServiceRequest"],
     )
 
-    related: typing.List[fhirtypes.ClaimRelatedType] = Field(
+    related: typing.List["ClaimRelated"] = Field(
         None,
         alias="related",
         title="Prior or corollary claims",
@@ -301,7 +309,7 @@ class Claim(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subType: fhirtypes.CodeableConceptType = Field(
+    subType: CodeableConcept = Field(
         None,
         alias="subType",
         title="More granular claim type",
@@ -314,7 +322,7 @@ class Claim(domainresource.DomainResource):
         element_property=True,
     )
 
-    supportingInfo: typing.List[fhirtypes.ClaimSupportingInfoType] = Field(
+    supportingInfo: typing.List["ClaimSupportingInfo"] = Field(
         None,
         alias="supportingInfo",
         title="Supporting information",
@@ -326,7 +334,7 @@ class Claim(domainresource.DomainResource):
         element_property=True,
     )
 
-    total: fhirtypes.MoneyType = Field(
+    total: Money = Field(
         None,
         alias="total",
         title="Total claim cost",
@@ -335,7 +343,7 @@ class Claim(domainresource.DomainResource):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title="Category or discipline",
@@ -487,7 +495,7 @@ class ClaimAccident(backboneelement.BackboneElement):
     products and services listed in the claim.
     """
 
-    resource_type = Field("ClaimAccident", const=True)
+    resource_type: str = Field("ClaimAccident", const=True)
 
     date: fhirtypes.Date = Field(
         None,
@@ -505,7 +513,7 @@ class ClaimAccident(backboneelement.BackboneElement):
         None, alias="_date", title="Extension field for ``date``."
     )
 
-    locationAddress: fhirtypes.AddressType = Field(
+    locationAddress: Address = Field(
         None,
         alias="locationAddress",
         title="Where the event occurred",
@@ -517,7 +525,7 @@ class ClaimAccident(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    locationReference: fhirtypes.ReferenceType = Field(
+    locationReference: Reference = Field(
         None,
         alias="locationReference",
         title="Where the event occurred",
@@ -531,7 +539,7 @@ class ClaimAccident(backboneelement.BackboneElement):
         enum_reference_types=["Location"],
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="The nature of the accident",
@@ -667,9 +675,9 @@ class ClaimCareTeam(backboneelement.BackboneElement):
     The members of the team who provided the products and services.
     """
 
-    resource_type = Field("ClaimCareTeam", const=True)
+    resource_type: str = Field("ClaimCareTeam", const=True)
 
-    provider: fhirtypes.ReferenceType = Field(
+    provider: Reference = Field(
         ...,
         alias="provider",
         title="Practitioner or organization",
@@ -680,7 +688,7 @@ class ClaimCareTeam(backboneelement.BackboneElement):
         enum_reference_types=["Practitioner", "PractitionerRole", "Organization"],
     )
 
-    qualification: fhirtypes.CodeableConceptType = Field(
+    qualification: CodeableConcept = Field(
         None,
         alias="qualification",
         title="Practitioner credential or specialization",
@@ -707,7 +715,7 @@ class ClaimCareTeam(backboneelement.BackboneElement):
         None, alias="_responsible", title="Extension field for ``responsible``."
     )
 
-    role: fhirtypes.CodeableConceptType = Field(
+    role: CodeableConcept = Field(
         None,
         alias="role",
         title="Function within the team",
@@ -818,9 +826,9 @@ class ClaimDiagnosis(backboneelement.BackboneElement):
     Information about diagnoses relevant to the claim items.
     """
 
-    resource_type = Field("ClaimDiagnosis", const=True)
+    resource_type: str = Field("ClaimDiagnosis", const=True)
 
-    diagnosisCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    diagnosisCodeableConcept: CodeableConcept = Field(
         None,
         alias="diagnosisCodeableConcept",
         title="Nature of illness or problem",
@@ -835,7 +843,7 @@ class ClaimDiagnosis(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    diagnosisReference: fhirtypes.ReferenceType = Field(
+    diagnosisReference: Reference = Field(
         None,
         alias="diagnosisReference",
         title="Nature of illness or problem",
@@ -852,7 +860,7 @@ class ClaimDiagnosis(backboneelement.BackboneElement):
         enum_reference_types=["Condition"],
     )
 
-    onAdmission: fhirtypes.CodeableConceptType = Field(
+    onAdmission: CodeableConcept = Field(
         None,
         alias="onAdmission",
         title="Present on admission",
@@ -864,7 +872,7 @@ class ClaimDiagnosis(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    packageCode: fhirtypes.CodeableConceptType = Field(
+    packageCode: CodeableConcept = Field(
         None,
         alias="packageCode",
         title="Package billing code",
@@ -890,7 +898,7 @@ class ClaimDiagnosis(backboneelement.BackboneElement):
         None, alias="_sequence", title="Extension field for ``sequence``."
     )
 
-    type: typing.List[fhirtypes.CodeableConceptType] = Field(
+    type: typing.List[CodeableConcept] = Field(
         None,
         alias="type",
         title="Timing or nature of the diagnosis",
@@ -1027,7 +1035,7 @@ class ClaimInsurance(backboneelement.BackboneElement):
     services specified on the claim.
     """
 
-    resource_type = Field("ClaimInsurance", const=True)
+    resource_type: str = Field("ClaimInsurance", const=True)
 
     businessArrangement: fhirtypes.String = Field(
         None,
@@ -1046,7 +1054,7 @@ class ClaimInsurance(backboneelement.BackboneElement):
         title="Extension field for ``businessArrangement``.",
     )
 
-    claimResponse: fhirtypes.ReferenceType = Field(
+    claimResponse: Reference = Field(
         None,
         alias="claimResponse",
         title="Adjudication results",
@@ -1060,7 +1068,7 @@ class ClaimInsurance(backboneelement.BackboneElement):
         enum_reference_types=["ClaimResponse"],
     )
 
-    coverage: fhirtypes.ReferenceType = Field(
+    coverage: Reference = Field(
         ...,
         alias="coverage",
         title="Insurance information",
@@ -1092,7 +1100,7 @@ class ClaimInsurance(backboneelement.BackboneElement):
         None, alias="_focal", title="Extension field for ``focal``."
     )
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="Pre-assigned Claim number",
@@ -1225,9 +1233,9 @@ class ClaimItem(backboneelement.BackboneElement):
     which can each be a simple items or groups of sub-details.
     """
 
-    resource_type = Field("ClaimItem", const=True)
+    resource_type: str = Field("ClaimItem", const=True)
 
-    bodySite: fhirtypes.CodeableConceptType = Field(
+    bodySite: CodeableConcept = Field(
         None,
         alias="bodySite",
         title="Anatomical location",
@@ -1252,7 +1260,7 @@ class ClaimItem(backboneelement.BackboneElement):
         title="Extension field for ``careTeamSequence``.",
     )
 
-    category: fhirtypes.CodeableConceptType = Field(
+    category: CodeableConcept = Field(
         None,
         alias="category",
         title="Benefit classification",
@@ -1264,7 +1272,7 @@ class ClaimItem(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    detail: typing.List[fhirtypes.ClaimItemDetailType] = Field(
+    detail: typing.List["ClaimItemDetail"] = Field(
         None,
         alias="detail",
         title="Product or service provided",
@@ -1292,7 +1300,7 @@ class ClaimItem(backboneelement.BackboneElement):
         title="Extension field for ``diagnosisSequence``.",
     )
 
-    encounter: typing.List[fhirtypes.ReferenceType] = Field(
+    encounter: typing.List[Reference] = Field(
         None,
         alias="encounter",
         title="Encounters related to this billed item",
@@ -1342,7 +1350,7 @@ class ClaimItem(backboneelement.BackboneElement):
         title="Extension field for ``informationSequence``.",
     )
 
-    locationAddress: fhirtypes.AddressType = Field(
+    locationAddress: Address = Field(
         None,
         alias="locationAddress",
         title="Place of service or where product was supplied",
@@ -1354,7 +1362,7 @@ class ClaimItem(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    locationCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    locationCodeableConcept: CodeableConcept = Field(
         None,
         alias="locationCodeableConcept",
         title="Place of service or where product was supplied",
@@ -1366,7 +1374,7 @@ class ClaimItem(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    locationReference: fhirtypes.ReferenceType = Field(
+    locationReference: Reference = Field(
         None,
         alias="locationReference",
         title="Place of service or where product was supplied",
@@ -1380,7 +1388,7 @@ class ClaimItem(backboneelement.BackboneElement):
         enum_reference_types=["Location"],
     )
 
-    modifier: typing.List[fhirtypes.CodeableConceptType] = Field(
+    modifier: typing.List[CodeableConcept] = Field(
         None,
         alias="modifier",
         title="Product or service billing modifiers",
@@ -1392,7 +1400,7 @@ class ClaimItem(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    net: fhirtypes.MoneyType = Field(
+    net: Money = Field(
         None,
         alias="net",
         title="Total item cost",
@@ -1420,7 +1428,7 @@ class ClaimItem(backboneelement.BackboneElement):
         title="Extension field for ``procedureSequence``.",
     )
 
-    productOrService: fhirtypes.CodeableConceptType = Field(
+    productOrService: CodeableConcept = Field(
         ...,
         alias="productOrService",
         title="Billing, service, product, or drug code",
@@ -1433,7 +1441,7 @@ class ClaimItem(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    programCode: typing.List[fhirtypes.CodeableConceptType] = Field(
+    programCode: typing.List[CodeableConcept] = Field(
         None,
         alias="programCode",
         title="Program the product or service is provided under",
@@ -1442,7 +1450,7 @@ class ClaimItem(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    quantity: fhirtypes.QuantityType = Field(
+    quantity: Quantity = Field(
         None,
         alias="quantity",
         title="Count of products or services",
@@ -1451,7 +1459,7 @@ class ClaimItem(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    revenue: fhirtypes.CodeableConceptType = Field(
+    revenue: CodeableConcept = Field(
         None,
         alias="revenue",
         title="Revenue or cost center code",
@@ -1494,7 +1502,7 @@ class ClaimItem(backboneelement.BackboneElement):
         None, alias="_servicedDate", title="Extension field for ``servicedDate``."
     )
 
-    servicedPeriod: fhirtypes.PeriodType = Field(
+    servicedPeriod: Period = Field(
         None,
         alias="servicedPeriod",
         title="Date or dates of service or product delivery",
@@ -1509,7 +1517,7 @@ class ClaimItem(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    subSite: typing.List[fhirtypes.CodeableConceptType] = Field(
+    subSite: typing.List[CodeableConcept] = Field(
         None,
         alias="subSite",
         title="Anatomical sub-location",
@@ -1521,7 +1529,7 @@ class ClaimItem(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    udi: typing.List[fhirtypes.ReferenceType] = Field(
+    udi: typing.List[Reference] = Field(
         None,
         alias="udi",
         title="Unique device identifier",
@@ -1532,7 +1540,7 @@ class ClaimItem(backboneelement.BackboneElement):
         enum_reference_types=["Device"],
     )
 
-    unitPrice: fhirtypes.MoneyType = Field(
+    unitPrice: Money = Field(
         None,
         alias="unitPrice",
         title="Fee, charge or cost per item",
@@ -1696,9 +1704,9 @@ class ClaimItemDetail(backboneelement.BackboneElement):
     sub-details which are simple items.
     """
 
-    resource_type = Field("ClaimItemDetail", const=True)
+    resource_type: str = Field("ClaimItemDetail", const=True)
 
-    category: fhirtypes.CodeableConceptType = Field(
+    category: CodeableConcept = Field(
         None,
         alias="category",
         title="Benefit classification",
@@ -1727,7 +1735,7 @@ class ClaimItemDetail(backboneelement.BackboneElement):
         None, alias="_factor", title="Extension field for ``factor``."
     )
 
-    modifier: typing.List[fhirtypes.CodeableConceptType] = Field(
+    modifier: typing.List[CodeableConcept] = Field(
         None,
         alias="modifier",
         title="Service/Product billing modifiers",
@@ -1739,7 +1747,7 @@ class ClaimItemDetail(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    net: fhirtypes.MoneyType = Field(
+    net: Money = Field(
         None,
         alias="net",
         title="Total item cost",
@@ -1751,7 +1759,7 @@ class ClaimItemDetail(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    productOrService: fhirtypes.CodeableConceptType = Field(
+    productOrService: CodeableConcept = Field(
         ...,
         alias="productOrService",
         title="Billing, service, product, or drug code",
@@ -1764,7 +1772,7 @@ class ClaimItemDetail(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    programCode: typing.List[fhirtypes.CodeableConceptType] = Field(
+    programCode: typing.List[CodeableConcept] = Field(
         None,
         alias="programCode",
         title="Program the product or service is provided under",
@@ -1773,7 +1781,7 @@ class ClaimItemDetail(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    quantity: fhirtypes.QuantityType = Field(
+    quantity: Quantity = Field(
         None,
         alias="quantity",
         title="Count of products or services",
@@ -1782,7 +1790,7 @@ class ClaimItemDetail(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    revenue: fhirtypes.CodeableConceptType = Field(
+    revenue: CodeableConcept = Field(
         None,
         alias="revenue",
         title="Revenue or cost center code",
@@ -1807,7 +1815,7 @@ class ClaimItemDetail(backboneelement.BackboneElement):
         None, alias="_sequence", title="Extension field for ``sequence``."
     )
 
-    subDetail: typing.List[fhirtypes.ClaimItemDetailSubDetailType] = Field(
+    subDetail: typing.List["ClaimItemDetailSubDetail"] = Field(
         None,
         alias="subDetail",
         title="Product or service provided",
@@ -1819,7 +1827,7 @@ class ClaimItemDetail(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    udi: typing.List[fhirtypes.ReferenceType] = Field(
+    udi: typing.List[Reference] = Field(
         None,
         alias="udi",
         title="Unique device identifier",
@@ -1830,7 +1838,7 @@ class ClaimItemDetail(backboneelement.BackboneElement):
         enum_reference_types=["Device"],
     )
 
-    unitPrice: fhirtypes.MoneyType = Field(
+    unitPrice: Money = Field(
         None,
         alias="unitPrice",
         title="Fee, charge or cost per item",
@@ -1937,9 +1945,9 @@ class ClaimItemDetailSubDetail(backboneelement.BackboneElement):
     sub-details which are simple items.
     """
 
-    resource_type = Field("ClaimItemDetailSubDetail", const=True)
+    resource_type: str = Field("ClaimItemDetailSubDetail", const=True)
 
-    category: fhirtypes.CodeableConceptType = Field(
+    category: CodeableConcept = Field(
         None,
         alias="category",
         title="Benefit classification",
@@ -1968,7 +1976,7 @@ class ClaimItemDetailSubDetail(backboneelement.BackboneElement):
         None, alias="_factor", title="Extension field for ``factor``."
     )
 
-    modifier: typing.List[fhirtypes.CodeableConceptType] = Field(
+    modifier: typing.List[CodeableConcept] = Field(
         None,
         alias="modifier",
         title="Service/Product billing modifiers",
@@ -1980,7 +1988,7 @@ class ClaimItemDetailSubDetail(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    net: fhirtypes.MoneyType = Field(
+    net: Money = Field(
         None,
         alias="net",
         title="Total item cost",
@@ -1992,7 +2000,7 @@ class ClaimItemDetailSubDetail(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    productOrService: fhirtypes.CodeableConceptType = Field(
+    productOrService: CodeableConcept = Field(
         ...,
         alias="productOrService",
         title="Billing, service, product, or drug code",
@@ -2005,7 +2013,7 @@ class ClaimItemDetailSubDetail(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    programCode: typing.List[fhirtypes.CodeableConceptType] = Field(
+    programCode: typing.List[CodeableConcept] = Field(
         None,
         alias="programCode",
         title="Program the product or service is provided under",
@@ -2014,7 +2022,7 @@ class ClaimItemDetailSubDetail(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    quantity: fhirtypes.QuantityType = Field(
+    quantity: Quantity = Field(
         None,
         alias="quantity",
         title="Count of products or services",
@@ -2023,7 +2031,7 @@ class ClaimItemDetailSubDetail(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    revenue: fhirtypes.CodeableConceptType = Field(
+    revenue: CodeableConcept = Field(
         None,
         alias="revenue",
         title="Revenue or cost center code",
@@ -2048,7 +2056,7 @@ class ClaimItemDetailSubDetail(backboneelement.BackboneElement):
         None, alias="_sequence", title="Extension field for ``sequence``."
     )
 
-    udi: typing.List[fhirtypes.ReferenceType] = Field(
+    udi: typing.List[Reference] = Field(
         None,
         alias="udi",
         title="Unique device identifier",
@@ -2059,7 +2067,7 @@ class ClaimItemDetailSubDetail(backboneelement.BackboneElement):
         enum_reference_types=["Device"],
     )
 
-    unitPrice: fhirtypes.MoneyType = Field(
+    unitPrice: Money = Field(
         None,
         alias="unitPrice",
         title="Fee, charge or cost per item",
@@ -2165,9 +2173,9 @@ class ClaimPayee(backboneelement.BackboneElement):
     to the terms of the policy.
     """
 
-    resource_type = Field("ClaimPayee", const=True)
+    resource_type: str = Field("ClaimPayee", const=True)
 
-    party: fhirtypes.ReferenceType = Field(
+    party: Reference = Field(
         None,
         alias="party",
         title="Recipient reference",
@@ -2187,7 +2195,7 @@ class ClaimPayee(backboneelement.BackboneElement):
         ],
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title="Category of recipient",
@@ -2215,7 +2223,7 @@ class ClaimProcedure(backboneelement.BackboneElement):
     claim.
     """
 
-    resource_type = Field("ClaimProcedure", const=True)
+    resource_type: str = Field("ClaimProcedure", const=True)
 
     date: fhirtypes.DateTime = Field(
         None,
@@ -2229,7 +2237,7 @@ class ClaimProcedure(backboneelement.BackboneElement):
         None, alias="_date", title="Extension field for ``date``."
     )
 
-    procedureCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    procedureCodeableConcept: CodeableConcept = Field(
         None,
         alias="procedureCodeableConcept",
         title="Specific clinical procedure",
@@ -2244,7 +2252,7 @@ class ClaimProcedure(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    procedureReference: fhirtypes.ReferenceType = Field(
+    procedureReference: Reference = Field(
         None,
         alias="procedureReference",
         title="Specific clinical procedure",
@@ -2274,7 +2282,7 @@ class ClaimProcedure(backboneelement.BackboneElement):
         None, alias="_sequence", title="Extension field for ``sequence``."
     )
 
-    type: typing.List[fhirtypes.CodeableConceptType] = Field(
+    type: typing.List[CodeableConcept] = Field(
         None,
         alias="type",
         title="Category of Procedure",
@@ -2283,7 +2291,7 @@ class ClaimProcedure(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    udi: typing.List[fhirtypes.ReferenceType] = Field(
+    udi: typing.List[Reference] = Field(
         None,
         alias="udi",
         title="Unique device identifier",
@@ -2422,9 +2430,9 @@ class ClaimRelated(backboneelement.BackboneElement):
     claims for related services or for the same event.
     """
 
-    resource_type = Field("ClaimRelated", const=True)
+    resource_type: str = Field("ClaimRelated", const=True)
 
-    claim: fhirtypes.ReferenceType = Field(
+    claim: Reference = Field(
         None,
         alias="claim",
         title="Reference to the related claim",
@@ -2435,7 +2443,7 @@ class ClaimRelated(backboneelement.BackboneElement):
         enum_reference_types=["Claim"],
     )
 
-    reference: fhirtypes.IdentifierType = Field(
+    reference: Identifier = Field(
         None,
         alias="reference",
         title="File or case reference",
@@ -2447,7 +2455,7 @@ class ClaimRelated(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    relationship: fhirtypes.CodeableConceptType = Field(
+    relationship: CodeableConcept = Field(
         None,
         alias="relationship",
         title="How the reference claim is related",
@@ -2482,9 +2490,9 @@ class ClaimSupportingInfo(backboneelement.BackboneElement):
     the condition, situation, prior or concurrent issues.
     """
 
-    resource_type = Field("ClaimSupportingInfo", const=True)
+    resource_type: str = Field("ClaimSupportingInfo", const=True)
 
-    category: fhirtypes.CodeableConceptType = Field(
+    category: CodeableConcept = Field(
         ...,
         alias="category",
         title="Classification of the supplied information",
@@ -2496,7 +2504,7 @@ class ClaimSupportingInfo(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Type of information",
@@ -2509,7 +2517,7 @@ class ClaimSupportingInfo(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    reason: fhirtypes.CodeableConceptType = Field(
+    reason: CodeableConcept = Field(
         None,
         alias="reason",
         title="Explanation for the information",
@@ -2549,7 +2557,7 @@ class ClaimSupportingInfo(backboneelement.BackboneElement):
         None, alias="_timingDate", title="Extension field for ``timingDate``."
     )
 
-    timingPeriod: fhirtypes.PeriodType = Field(
+    timingPeriod: Period = Field(
         None,
         alias="timingPeriod",
         title="When it occurred",
@@ -2561,7 +2569,7 @@ class ClaimSupportingInfo(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    valueAttachment: fhirtypes.AttachmentType = Field(
+    valueAttachment: Attachment = Field(
         None,
         alias="valueAttachment",
         title="Data to be provided",
@@ -2596,7 +2604,7 @@ class ClaimSupportingInfo(backboneelement.BackboneElement):
         None, alias="_valueBoolean", title="Extension field for ``valueBoolean``."
     )
 
-    valueQuantity: fhirtypes.QuantityType = Field(
+    valueQuantity: Quantity = Field(
         None,
         alias="valueQuantity",
         title="Data to be provided",
@@ -2612,7 +2620,7 @@ class ClaimSupportingInfo(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    valueReference: fhirtypes.ReferenceType = Field(
+    valueReference: Reference = Field(
         None,
         alias="valueReference",
         title="Data to be provided",
@@ -2777,3 +2785,8 @@ class ClaimSupportingInfo(backboneelement.BackboneElement):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+Claim.update_forward_refs()
+ClaimItem.update_forward_refs()
+ClaimItemDetail.update_forward_refs()

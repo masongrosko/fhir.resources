@@ -13,6 +13,12 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class Consent(domainresource.DomainResource):
@@ -27,9 +33,9 @@ class Consent(domainresource.DomainResource):
     within a given policy context, for specific purposes and periods of time.
     """
 
-    resource_type = Field("Consent", const=True)
+    resource_type: str = Field("Consent", const=True)
 
-    action: typing.List[fhirtypes.CodeableConceptType] = Field(
+    action: typing.List[CodeableConcept] = Field(
         None,
         alias="action",
         title="Actions controlled by this consent",
@@ -38,7 +44,7 @@ class Consent(domainresource.DomainResource):
         element_property=True,
     )
 
-    actor: typing.List[fhirtypes.ConsentActorType] = Field(
+    actor: typing.List["ConsentActor"] = Field(
         None,
         alias="actor",
         title="Who|what controlled by this consent (or group, by role)",
@@ -50,7 +56,7 @@ class Consent(domainresource.DomainResource):
         element_property=True,
     )
 
-    category: typing.List[fhirtypes.CodeableConceptType] = Field(
+    category: typing.List[CodeableConcept] = Field(
         None,
         alias="category",
         title="Classification of the consent statement - for indexing/retrieval",
@@ -62,7 +68,7 @@ class Consent(domainresource.DomainResource):
         element_property=True,
     )
 
-    consentingParty: typing.List[fhirtypes.ReferenceType] = Field(
+    consentingParty: typing.List[Reference] = Field(
         None,
         alias="consentingParty",
         title="Who is agreeing to the policy and exceptions",
@@ -84,7 +90,7 @@ class Consent(domainresource.DomainResource):
         ],
     )
 
-    data: typing.List[fhirtypes.ConsentDataType] = Field(
+    data: typing.List["ConsentData"] = Field(
         None,
         alias="data",
         title="Data controlled by this consent",
@@ -96,7 +102,7 @@ class Consent(domainresource.DomainResource):
         element_property=True,
     )
 
-    dataPeriod: fhirtypes.PeriodType = Field(
+    dataPeriod: Period = Field(
         None,
         alias="dataPeriod",
         title="Timeframe for data controlled by this consent",
@@ -120,7 +126,7 @@ class Consent(domainresource.DomainResource):
         None, alias="_dateTime", title="Extension field for ``dateTime``."
     )
 
-    except_fhir: typing.List[fhirtypes.ConsentExceptType] = Field(
+    except_fhir: typing.List["ConsentExcept"] = Field(
         None,
         alias="except",
         title="Additional rule -  addition or removal of permissions",
@@ -132,7 +138,7 @@ class Consent(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="Identifier for this record (external references)",
@@ -141,7 +147,7 @@ class Consent(domainresource.DomainResource):
         element_property=True,
     )
 
-    organization: typing.List[fhirtypes.ReferenceType] = Field(
+    organization: typing.List[Reference] = Field(
         None,
         alias="organization",
         title="Custodian of the consent",
@@ -155,7 +161,7 @@ class Consent(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         ...,
         alias="patient",
         title="Who the consent applies to",
@@ -166,7 +172,7 @@ class Consent(domainresource.DomainResource):
         enum_reference_types=["Patient"],
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Period that this consent applies",
@@ -175,7 +181,7 @@ class Consent(domainresource.DomainResource):
         element_property=True,
     )
 
-    policy: typing.List[fhirtypes.ConsentPolicyType] = Field(
+    policy: typing.List["ConsentPolicy"] = Field(
         None,
         alias="policy",
         title="Policies covered by this consent",
@@ -200,7 +206,7 @@ class Consent(domainresource.DomainResource):
         None, alias="_policyRule", title="Extension field for ``policyRule``."
     )
 
-    purpose: typing.List[fhirtypes.CodingType] = Field(
+    purpose: typing.List[Coding] = Field(
         None,
         alias="purpose",
         title="Context of activities for which the agreement is made",
@@ -212,7 +218,7 @@ class Consent(domainresource.DomainResource):
         element_property=True,
     )
 
-    securityLabel: typing.List[fhirtypes.CodingType] = Field(
+    securityLabel: typing.List[Coding] = Field(
         None,
         alias="securityLabel",
         title="Security Labels that define affected resources",
@@ -225,7 +231,7 @@ class Consent(domainresource.DomainResource):
         element_property=True,
     )
 
-    sourceAttachment: fhirtypes.AttachmentType = Field(
+    sourceAttachment: Attachment = Field(
         None,
         alias="sourceAttachment",
         title="Source from which this consent is taken",
@@ -242,7 +248,7 @@ class Consent(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    sourceIdentifier: fhirtypes.IdentifierType = Field(
+    sourceIdentifier: Identifier = Field(
         None,
         alias="sourceIdentifier",
         title="Source from which this consent is taken",
@@ -259,7 +265,7 @@ class Consent(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    sourceReference: fhirtypes.ReferenceType = Field(
+    sourceReference: Reference = Field(
         None,
         alias="sourceReference",
         title="Source from which this consent is taken",
@@ -456,9 +462,9 @@ class ConsentActor(backboneelement.BackboneElement):
     actors by some property they share (e.g. 'admitting officers').
     """
 
-    resource_type = Field("ConsentActor", const=True)
+    resource_type: str = Field("ConsentActor", const=True)
 
-    reference: fhirtypes.ReferenceType = Field(
+    reference: Reference = Field(
         ...,
         alias="reference",
         title="Resource for the actor (or group, by role)",
@@ -481,7 +487,7 @@ class ConsentActor(backboneelement.BackboneElement):
         ],
     )
 
-    role: fhirtypes.CodeableConceptType = Field(
+    role: CodeableConcept = Field(
         ...,
         alias="role",
         title="How the actor is involved",
@@ -512,7 +518,7 @@ class ConsentData(backboneelement.BackboneElement):
     referenced.
     """
 
-    resource_type = Field("ConsentData", const=True)
+    resource_type: str = Field("ConsentData", const=True)
 
     meaning: fhirtypes.Code = Field(
         None,
@@ -533,7 +539,7 @@ class ConsentData(backboneelement.BackboneElement):
         None, alias="_meaning", title="Extension field for ``meaning``."
     )
 
-    reference: fhirtypes.ReferenceType = Field(
+    reference: Reference = Field(
         ...,
         alias="reference",
         title="The actual data reference",
@@ -625,9 +631,9 @@ class ConsentExcept(backboneelement.BackboneElement):
     addition or removal of access permissions.
     """
 
-    resource_type = Field("ConsentExcept", const=True)
+    resource_type: str = Field("ConsentExcept", const=True)
 
-    action: typing.List[fhirtypes.CodeableConceptType] = Field(
+    action: typing.List[CodeableConcept] = Field(
         None,
         alias="action",
         title="Actions controlled by this exception",
@@ -636,7 +642,7 @@ class ConsentExcept(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    actor: typing.List[fhirtypes.ConsentExceptActorType] = Field(
+    actor: typing.List["ConsentExceptActor"] = Field(
         None,
         alias="actor",
         title="Who|what controlled by this exception (or group, by role)",
@@ -648,7 +654,7 @@ class ConsentExcept(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    class_fhir: typing.List[fhirtypes.CodingType] = Field(
+    class_fhir: typing.List[Coding] = Field(
         None,
         alias="class",
         title="e.g. Resource Type, Profile, or CDA etc",
@@ -662,7 +668,7 @@ class ConsentExcept(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    code: typing.List[fhirtypes.CodingType] = Field(
+    code: typing.List[Coding] = Field(
         None,
         alias="code",
         title="e.g. LOINC or SNOMED CT code, etc in the content",
@@ -671,7 +677,7 @@ class ConsentExcept(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    data: typing.List[fhirtypes.ConsentExceptDataType] = Field(
+    data: typing.List["ConsentExceptData"] = Field(
         None,
         alias="data",
         title="Data controlled by this exception",
@@ -683,7 +689,7 @@ class ConsentExcept(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    dataPeriod: fhirtypes.PeriodType = Field(
+    dataPeriod: Period = Field(
         None,
         alias="dataPeriod",
         title="Timeframe for data controlled by this exception",
@@ -695,7 +701,7 @@ class ConsentExcept(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Timeframe for this exception",
@@ -704,7 +710,7 @@ class ConsentExcept(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    purpose: typing.List[fhirtypes.CodingType] = Field(
+    purpose: typing.List[Coding] = Field(
         None,
         alias="purpose",
         title="Context of activities covered by this exception",
@@ -716,7 +722,7 @@ class ConsentExcept(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    securityLabel: typing.List[fhirtypes.CodingType] = Field(
+    securityLabel: typing.List[Coding] = Field(
         None,
         alias="securityLabel",
         title="Security Labels that define affected resources",
@@ -840,9 +846,9 @@ class ConsentExceptActor(backboneelement.BackboneElement):
     actors by some property they share (e.g. 'admitting officers').
     """
 
-    resource_type = Field("ConsentExceptActor", const=True)
+    resource_type: str = Field("ConsentExceptActor", const=True)
 
-    reference: fhirtypes.ReferenceType = Field(
+    reference: Reference = Field(
         ...,
         alias="reference",
         title="Resource for the actor (or group, by role)",
@@ -865,7 +871,7 @@ class ConsentExceptActor(backboneelement.BackboneElement):
         ],
     )
 
-    role: fhirtypes.CodeableConceptType = Field(
+    role: CodeableConcept = Field(
         ...,
         alias="role",
         title="How the actor is involved",
@@ -896,7 +902,7 @@ class ConsentExceptData(backboneelement.BackboneElement):
     referenced.
     """
 
-    resource_type = Field("ConsentExceptData", const=True)
+    resource_type: str = Field("ConsentExceptData", const=True)
 
     meaning: fhirtypes.Code = Field(
         None,
@@ -917,7 +923,7 @@ class ConsentExceptData(backboneelement.BackboneElement):
         None, alias="_meaning", title="Extension field for ``meaning``."
     )
 
-    reference: fhirtypes.ReferenceType = Field(
+    reference: Reference = Field(
         ...,
         alias="reference",
         title="The actual data reference",
@@ -1010,7 +1016,7 @@ class ConsentPolicy(backboneelement.BackboneElement):
     in law.
     """
 
-    resource_type = Field("ConsentPolicy", const=True)
+    resource_type: str = Field("ConsentPolicy", const=True)
 
     authority: fhirtypes.Uri = Field(
         None,
@@ -1051,3 +1057,7 @@ class ConsentPolicy(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "authority", "uri"]
+
+
+Consent.update_forward_refs()
+ConsentExcept.update_forward_refs()

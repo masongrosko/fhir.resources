@@ -11,6 +11,10 @@ import typing
 from pydantic.v1 import Field, root_validator
 
 from . import element, fhirtypes
+from .codeableconcept import CodeableConcept
+from .duration import Duration
+from .period import Period
+from .range import Range
 
 
 class Timing(element.Element):
@@ -26,9 +30,9 @@ class Timing(element.Element):
     schedule to which past regular activities were carried out.
     """
 
-    resource_type = Field("Timing", const=True)
+    resource_type: str = Field("Timing", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="BID | TID | QID | AM | PM | QD | QOD | Q4H | Q6H +",
@@ -57,7 +61,7 @@ class Timing(element.Element):
         typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
     ] = Field(None, alias="_event", title="Extension field for ``event``.")
 
-    repeat: fhirtypes.TimingRepeatType = Field(
+    repeat: "TimingRepeat" = Field(
         None,
         alias="repeat",
         title="When the event is to occur",
@@ -84,9 +88,9 @@ class TimingRepeat(element.Element):
     A set of rules that describe when the event is scheduled.
     """
 
-    resource_type = Field("TimingRepeat", const=True)
+    resource_type: str = Field("TimingRepeat", const=True)
 
-    boundsDuration: fhirtypes.DurationType = Field(
+    boundsDuration: Duration = Field(
         None,
         alias="boundsDuration",
         title="Length/Range of lengths, or (Start and/or end) limits",
@@ -102,7 +106,7 @@ class TimingRepeat(element.Element):
         one_of_many_required=False,
     )
 
-    boundsPeriod: fhirtypes.PeriodType = Field(
+    boundsPeriod: Period = Field(
         None,
         alias="boundsPeriod",
         title="Length/Range of lengths, or (Start and/or end) limits",
@@ -118,7 +122,7 @@ class TimingRepeat(element.Element):
         one_of_many_required=False,
     )
 
-    boundsRange: fhirtypes.RangeType = Field(
+    boundsRange: Range = Field(
         None,
         alias="boundsRange",
         title="Length/Range of lengths, or (Start and/or end) limits",
@@ -332,9 +336,9 @@ class TimingRepeat(element.Element):
         # if property is element of this resource.
         element_property=True,
     )
-    when__ext: typing.List[
-        typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
-    ] = Field(None, alias="_when", title="Extension field for ``when``.")
+    when__ext: typing.List[typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]] = (
+        Field(None, alias="_when", title="Extension field for ``when``.")
+    )
 
     @classmethod
     def elements_sequence(cls):
@@ -403,3 +407,6 @@ class TimingRepeat(element.Element):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+Timing.update_forward_refs()

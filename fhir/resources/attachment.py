@@ -20,7 +20,7 @@ class Attachment(datatype.DataType):
     For referring to data content defined in other formats.
     """
 
-    resource_type = Field("Attachment", const=True)
+    resource_type: str = Field("Attachment", const=True)
 
     contentType: fhirtypes.Code = Field(
         None,

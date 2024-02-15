@@ -13,6 +13,9 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .contactdetail import ContactDetail
+from .usagecontext import UsageContext
 
 
 class OperationDefinition(domainresource.DomainResource):
@@ -25,7 +28,7 @@ class OperationDefinition(domainresource.DomainResource):
     or a named query (using the search interaction).
     """
 
-    resource_type = Field("OperationDefinition", const=True)
+    resource_type: str = Field("OperationDefinition", const=True)
 
     affectsState: bool = Field(
         None,
@@ -84,7 +87,7 @@ class OperationDefinition(domainresource.DomainResource):
         None, alias="_comment", title="Extension field for ``comment``."
     )
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -179,7 +182,7 @@ class OperationDefinition(domainresource.DomainResource):
         None, alias="_instance", title="Extension field for ``instance``."
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction for operation definition (if applicable)",
@@ -242,7 +245,7 @@ class OperationDefinition(domainresource.DomainResource):
         None, alias="_outputProfile", title="Extension field for ``outputProfile``."
     )
 
-    overload: typing.List[fhirtypes.OperationDefinitionOverloadType] = Field(
+    overload: typing.List["OperationDefinitionOverload"] = Field(
         None,
         alias="overload",
         title="Define overloaded variants for when  generating code",
@@ -255,7 +258,7 @@ class OperationDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    parameter: typing.List[fhirtypes.OperationDefinitionParameterType] = Field(
+    parameter: typing.List["OperationDefinitionParameter"] = Field(
         None,
         alias="parameter",
         title="Parameters for the operation/query",
@@ -397,7 +400,7 @@ class OperationDefinition(domainresource.DomainResource):
         None, alias="_url", title="Extension field for ``url``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="The context that the content is intended to support",
@@ -554,7 +557,7 @@ class OperationDefinitionOverload(backboneelement.BackboneElement):
     sets for this operation.
     """
 
-    resource_type = Field("OperationDefinitionOverload", const=True)
+    resource_type: str = Field("OperationDefinitionOverload", const=True)
 
     comment: fhirtypes.String = Field(
         None,
@@ -600,9 +603,9 @@ class OperationDefinitionParameter(backboneelement.BackboneElement):
     The parameters for the operation/query.
     """
 
-    resource_type = Field("OperationDefinitionParameter", const=True)
+    resource_type: str = Field("OperationDefinitionParameter", const=True)
 
-    binding: fhirtypes.OperationDefinitionParameterBindingType = Field(
+    binding: "OperationDefinitionParameterBinding" = Field(
         None,
         alias="binding",
         title="ValueSet details if this is coded",
@@ -671,7 +674,7 @@ class OperationDefinitionParameter(backboneelement.BackboneElement):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    part: typing.List[fhirtypes.OperationDefinitionParameterType] = Field(
+    part: typing.List["OperationDefinitionParameter"] = Field(
         None,
         alias="part",
         title="Parts of a nested Parameter",
@@ -680,9 +683,7 @@ class OperationDefinitionParameter(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    referencedFrom: typing.List[
-        fhirtypes.OperationDefinitionParameterReferencedFromType
-    ] = Field(
+    referencedFrom: typing.List["OperationDefinitionParameterReferencedFrom"] = Field(
         None,
         alias="referencedFrom",
         title="References to this parameter",
@@ -877,7 +878,7 @@ class OperationDefinitionParameterBinding(backboneelement.BackboneElement):
     CodeableConcept).
     """
 
-    resource_type = Field("OperationDefinitionParameterBinding", const=True)
+    resource_type: str = Field("OperationDefinitionParameterBinding", const=True)
 
     strength: fhirtypes.Code = Field(
         None,
@@ -995,7 +996,7 @@ class OperationDefinitionParameterReferencedFrom(backboneelement.BackboneElement
     are expected to resolve to this resource.
     """
 
-    resource_type = Field("OperationDefinitionParameterReferencedFrom", const=True)
+    resource_type: str = Field("OperationDefinitionParameterReferencedFrom", const=True)
 
     source: fhirtypes.String = Field(
         None,
@@ -1095,3 +1096,7 @@ class OperationDefinitionParameterReferencedFrom(backboneelement.BackboneElement
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+OperationDefinition.update_forward_refs()
+OperationDefinitionParameter.update_forward_refs()

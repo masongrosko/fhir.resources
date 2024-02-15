@@ -13,6 +13,8 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .identifier import Identifier
+from .reference import Reference
 
 
 class ImagingManifest(domainresource.DomainResource):
@@ -25,9 +27,9 @@ class ImagingManifest(domainresource.DomainResource):
     ImagingManifest; or the reason for, or significance of, the selection.
     """
 
-    resource_type = Field("ImagingManifest", const=True)
+    resource_type: str = Field("ImagingManifest", const=True)
 
-    author: fhirtypes.ReferenceType = Field(
+    author: Reference = Field(
         None,
         alias="author",
         title="Author (human or machine)",
@@ -87,7 +89,7 @@ class ImagingManifest(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="SOP Instance UID",
@@ -99,7 +101,7 @@ class ImagingManifest(domainresource.DomainResource):
         element_property=True,
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         ...,
         alias="patient",
         title="Patient of the selected objects",
@@ -113,7 +115,7 @@ class ImagingManifest(domainresource.DomainResource):
         enum_reference_types=["Patient"],
     )
 
-    study: typing.List[fhirtypes.ImagingManifestStudyType] = Field(
+    study: typing.List["ImagingManifestStudy"] = Field(
         ...,
         alias="study",
         title="Study identity of the selected instances",
@@ -159,9 +161,9 @@ class ImagingManifestStudy(backboneelement.BackboneElement):
     selection.
     """
 
-    resource_type = Field("ImagingManifestStudy", const=True)
+    resource_type: str = Field("ImagingManifestStudy", const=True)
 
-    endpoint: typing.List[fhirtypes.ReferenceType] = Field(
+    endpoint: typing.List[Reference] = Field(
         None,
         alias="endpoint",
         title="Study access service endpoint",
@@ -178,7 +180,7 @@ class ImagingManifestStudy(backboneelement.BackboneElement):
         enum_reference_types=["Endpoint"],
     )
 
-    imagingStudy: fhirtypes.ReferenceType = Field(
+    imagingStudy: Reference = Field(
         None,
         alias="imagingStudy",
         title="Reference to ImagingStudy",
@@ -189,7 +191,7 @@ class ImagingManifestStudy(backboneelement.BackboneElement):
         enum_reference_types=["ImagingStudy"],
     )
 
-    series: typing.List[fhirtypes.ImagingManifestStudySeriesType] = Field(
+    series: typing.List["ImagingManifestStudySeries"] = Field(
         ...,
         alias="series",
         title="Series identity of the selected instances",
@@ -300,9 +302,9 @@ class ImagingManifestStudySeries(backboneelement.BackboneElement):
     selection.
     """
 
-    resource_type = Field("ImagingManifestStudySeries", const=True)
+    resource_type: str = Field("ImagingManifestStudySeries", const=True)
 
-    endpoint: typing.List[fhirtypes.ReferenceType] = Field(
+    endpoint: typing.List[Reference] = Field(
         None,
         alias="endpoint",
         title="Series access endpoint",
@@ -318,7 +320,7 @@ class ImagingManifestStudySeries(backboneelement.BackboneElement):
         enum_reference_types=["Endpoint"],
     )
 
-    instance: typing.List[fhirtypes.ImagingManifestStudySeriesInstanceType] = Field(
+    instance: typing.List["ImagingManifestStudySeriesInstance"] = Field(
         ...,
         alias="instance",
         title="The selected instance",
@@ -417,7 +419,7 @@ class ImagingManifestStudySeriesInstance(backboneelement.BackboneElement):
     Identity and locating information of the selected DICOM SOP instances.
     """
 
-    resource_type = Field("ImagingManifestStudySeriesInstance", const=True)
+    resource_type: str = Field("ImagingManifestStudySeriesInstance", const=True)
 
     sopClass: fhirtypes.Oid = Field(
         None,
@@ -511,3 +513,8 @@ class ImagingManifestStudySeriesInstance(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+ImagingManifest.update_forward_refs()
+ImagingManifestStudy.update_forward_refs()
+ImagingManifestStudySeries.update_forward_refs()

@@ -13,6 +13,12 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .annotation import Annotation
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class CommunicationRequest(domainresource.DomainResource):
@@ -26,7 +32,7 @@ class CommunicationRequest(domainresource.DomainResource):
     health agency be notified about a reportable condition.
     """
 
-    resource_type = Field("CommunicationRequest", const=True)
+    resource_type: str = Field("CommunicationRequest", const=True)
 
     authoredOn: fhirtypes.DateTime = Field(
         None,
@@ -43,7 +49,7 @@ class CommunicationRequest(domainresource.DomainResource):
         None, alias="_authoredOn", title="Extension field for ``authoredOn``."
     )
 
-    basedOn: typing.List[fhirtypes.ReferenceType] = Field(
+    basedOn: typing.List[Reference] = Field(
         None,
         alias="basedOn",
         title="Fulfills plan or proposal",
@@ -57,7 +63,7 @@ class CommunicationRequest(domainresource.DomainResource):
         enum_reference_types=["Resource"],
     )
 
-    category: typing.List[fhirtypes.CodeableConceptType] = Field(
+    category: typing.List[CodeableConcept] = Field(
         None,
         alias="category",
         title="Message category",
@@ -69,7 +75,7 @@ class CommunicationRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    context: fhirtypes.ReferenceType = Field(
+    context: Reference = Field(
         None,
         alias="context",
         title="Encounter or episode leading to message",
@@ -83,7 +89,7 @@ class CommunicationRequest(domainresource.DomainResource):
         enum_reference_types=["Encounter", "EpisodeOfCare"],
     )
 
-    groupIdentifier: fhirtypes.IdentifierType = Field(
+    groupIdentifier: Identifier = Field(
         None,
         alias="groupIdentifier",
         title="Composite request this is part of",
@@ -96,7 +102,7 @@ class CommunicationRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Unique identifier",
@@ -110,7 +116,7 @@ class CommunicationRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    medium: typing.List[fhirtypes.CodeableConceptType] = Field(
+    medium: typing.List[CodeableConcept] = Field(
         None,
         alias="medium",
         title="A channel of communication",
@@ -119,7 +125,7 @@ class CommunicationRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Comments made about communication request",
@@ -148,7 +154,7 @@ class CommunicationRequest(domainresource.DomainResource):
         title="Extension field for ``occurrenceDateTime``.",
     )
 
-    occurrencePeriod: fhirtypes.PeriodType = Field(
+    occurrencePeriod: Period = Field(
         None,
         alias="occurrencePeriod",
         title="When scheduled",
@@ -160,7 +166,7 @@ class CommunicationRequest(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    payload: typing.List[fhirtypes.CommunicationRequestPayloadType] = Field(
+    payload: typing.List["CommunicationRequestPayload"] = Field(
         None,
         alias="payload",
         title="Message payload",
@@ -187,7 +193,7 @@ class CommunicationRequest(domainresource.DomainResource):
         None, alias="_priority", title="Extension field for ``priority``."
     )
 
-    reasonCode: typing.List[fhirtypes.CodeableConceptType] = Field(
+    reasonCode: typing.List[CodeableConcept] = Field(
         None,
         alias="reasonCode",
         title="Why is communication needed?",
@@ -196,7 +202,7 @@ class CommunicationRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    reasonReference: typing.List[fhirtypes.ReferenceType] = Field(
+    reasonReference: typing.List[Reference] = Field(
         None,
         alias="reasonReference",
         title="Why is communication needed?",
@@ -207,7 +213,7 @@ class CommunicationRequest(domainresource.DomainResource):
         enum_reference_types=["Condition", "Observation"],
     )
 
-    recipient: typing.List[fhirtypes.ReferenceType] = Field(
+    recipient: typing.List[Reference] = Field(
         None,
         alias="recipient",
         title="Message recipient",
@@ -230,7 +236,7 @@ class CommunicationRequest(domainresource.DomainResource):
         ],
     )
 
-    replaces: typing.List[fhirtypes.ReferenceType] = Field(
+    replaces: typing.List[Reference] = Field(
         None,
         alias="replaces",
         title="Request(s) replaced by this request",
@@ -244,7 +250,7 @@ class CommunicationRequest(domainresource.DomainResource):
         enum_reference_types=["CommunicationRequest"],
     )
 
-    requester: fhirtypes.CommunicationRequestRequesterType = Field(
+    requester: "CommunicationRequestRequester" = Field(
         None,
         alias="requester",
         title="Who/what is requesting service",
@@ -256,7 +262,7 @@ class CommunicationRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    sender: fhirtypes.ReferenceType = Field(
+    sender: Reference = Field(
         None,
         alias="sender",
         title="Message sender",
@@ -303,7 +309,7 @@ class CommunicationRequest(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title="Focus of message",
@@ -314,7 +320,7 @@ class CommunicationRequest(domainresource.DomainResource):
         enum_reference_types=["Patient", "Group"],
     )
 
-    topic: typing.List[fhirtypes.ReferenceType] = Field(
+    topic: typing.List[Reference] = Field(
         None,
         alias="topic",
         title="Focal resources",
@@ -473,9 +479,9 @@ class CommunicationRequestPayload(backboneelement.BackboneElement):
     Text, attachment(s), or resource(s) to be communicated to the recipient.
     """
 
-    resource_type = Field("CommunicationRequestPayload", const=True)
+    resource_type: str = Field("CommunicationRequestPayload", const=True)
 
-    contentAttachment: fhirtypes.AttachmentType = Field(
+    contentAttachment: Attachment = Field(
         None,
         alias="contentAttachment",
         title="Message part content",
@@ -490,7 +496,7 @@ class CommunicationRequestPayload(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    contentReference: fhirtypes.ReferenceType = Field(
+    contentReference: Reference = Field(
         None,
         alias="contentReference",
         title="Message part content",
@@ -591,9 +597,9 @@ class CommunicationRequestRequester(backboneelement.BackboneElement):
     activation.
     """
 
-    resource_type = Field("CommunicationRequestRequester", const=True)
+    resource_type: str = Field("CommunicationRequestRequester", const=True)
 
-    agent: fhirtypes.ReferenceType = Field(
+    agent: Reference = Field(
         ...,
         alias="agent",
         title="Individual making the request",
@@ -610,7 +616,7 @@ class CommunicationRequestRequester(backboneelement.BackboneElement):
         ],
     )
 
-    onBehalfOf: fhirtypes.ReferenceType = Field(
+    onBehalfOf: Reference = Field(
         None,
         alias="onBehalfOf",
         title="Organization agent is acting for",
@@ -628,3 +634,6 @@ class CommunicationRequestRequester(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "agent", "onBehalfOf"]
+
+
+CommunicationRequest.update_forward_refs()

@@ -19,7 +19,7 @@ class BackboneElement(Element):
     not those in a data type.
     """
 
-    resource_type = Field("BackboneElement", const=True)
+    resource_type: str = Field("BackboneElement", const=True)
 
     modifierExtension: ListType[fhirtypes.ExtensionType] = Field(
         None,

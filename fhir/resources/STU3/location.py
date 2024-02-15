@@ -13,6 +13,12 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .address import Address
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .contactpoint import ContactPoint
+from .identifier import Identifier
+from .reference import Reference
 
 
 class Location(domainresource.DomainResource):
@@ -26,9 +32,9 @@ class Location(domainresource.DomainResource):
     accommodated.
     """
 
-    resource_type = Field("Location", const=True)
+    resource_type: str = Field("Location", const=True)
 
-    address: fhirtypes.AddressType = Field(
+    address: Address = Field(
         None,
         alias="address",
         title="Physical location",
@@ -70,7 +76,7 @@ class Location(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    endpoint: typing.List[fhirtypes.ReferenceType] = Field(
+    endpoint: typing.List[Reference] = Field(
         None,
         alias="endpoint",
         title=(
@@ -84,7 +90,7 @@ class Location(domainresource.DomainResource):
         enum_reference_types=["Endpoint"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Unique code or number identifying the location to its users",
@@ -93,7 +99,7 @@ class Location(domainresource.DomainResource):
         element_property=True,
     )
 
-    managingOrganization: fhirtypes.ReferenceType = Field(
+    managingOrganization: Reference = Field(
         None,
         alias="managingOrganization",
         title="Organization responsible for provisioning and upkeep",
@@ -137,7 +143,7 @@ class Location(domainresource.DomainResource):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    operationalStatus: fhirtypes.CodingType = Field(
+    operationalStatus: Coding = Field(
         None,
         alias="operationalStatus",
         title="The Operational status of the location (typically only for a bed/room)",
@@ -151,7 +157,7 @@ class Location(domainresource.DomainResource):
         element_property=True,
     )
 
-    partOf: fhirtypes.ReferenceType = Field(
+    partOf: Reference = Field(
         None,
         alias="partOf",
         title="Another Location this one is physically part of",
@@ -162,7 +168,7 @@ class Location(domainresource.DomainResource):
         enum_reference_types=["Location"],
     )
 
-    physicalType: fhirtypes.CodeableConceptType = Field(
+    physicalType: CodeableConcept = Field(
         None,
         alias="physicalType",
         title="Physical form of the location",
@@ -171,7 +177,7 @@ class Location(domainresource.DomainResource):
         element_property=True,
     )
 
-    position: fhirtypes.LocationPositionType = Field(
+    position: "LocationPosition" = Field(
         None,
         alias="position",
         title="The absolute geographic location",
@@ -202,7 +208,7 @@ class Location(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    telecom: typing.List[fhirtypes.ContactPointType] = Field(
+    telecom: typing.List[ContactPoint] = Field(
         None,
         alias="telecom",
         title="Contact details of the location",
@@ -215,7 +221,7 @@ class Location(domainresource.DomainResource):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Type of function performed",
@@ -267,7 +273,7 @@ class LocationPosition(backboneelement.BackboneElement):
     datum (This is the same co-ordinate system used in KML).
     """
 
-    resource_type = Field("LocationPosition", const=True)
+    resource_type: str = Field("LocationPosition", const=True)
 
     altitude: fhirtypes.Decimal = Field(
         None,
@@ -392,3 +398,6 @@ class LocationPosition(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+Location.update_forward_refs()

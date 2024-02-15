@@ -13,6 +13,13 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .quantity import Quantity
+from .ratio import Ratio
+from .reference import Reference
+from .timing import Timing
 
 
 class NutritionOrder(domainresource.DomainResource):
@@ -25,9 +32,9 @@ class NutritionOrder(domainresource.DomainResource):
     supplement to a patient/resident.
     """
 
-    resource_type = Field("NutritionOrder", const=True)
+    resource_type: str = Field("NutritionOrder", const=True)
 
-    allergyIntolerance: typing.List[fhirtypes.ReferenceType] = Field(
+    allergyIntolerance: typing.List[Reference] = Field(
         None,
         alias="allergyIntolerance",
         title=(
@@ -57,7 +64,7 @@ class NutritionOrder(domainresource.DomainResource):
         None, alias="_dateTime", title="Extension field for ``dateTime``."
     )
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title="The encounter associated with this nutrition order",
@@ -71,7 +78,7 @@ class NutritionOrder(domainresource.DomainResource):
         enum_reference_types=["Encounter"],
     )
 
-    enteralFormula: fhirtypes.NutritionOrderEnteralFormulaType = Field(
+    enteralFormula: "NutritionOrderEnteralFormula" = Field(
         None,
         alias="enteralFormula",
         title="Enteral formula components",
@@ -83,7 +90,7 @@ class NutritionOrder(domainresource.DomainResource):
         element_property=True,
     )
 
-    excludeFoodModifier: typing.List[fhirtypes.CodeableConceptType] = Field(
+    excludeFoodModifier: typing.List[CodeableConcept] = Field(
         None,
         alias="excludeFoodModifier",
         title=(
@@ -106,7 +113,7 @@ class NutritionOrder(domainresource.DomainResource):
         element_property=True,
     )
 
-    foodPreferenceModifier: typing.List[fhirtypes.CodeableConceptType] = Field(
+    foodPreferenceModifier: typing.List[CodeableConcept] = Field(
         None,
         alias="foodPreferenceModifier",
         title="Order-specific modifier about the type of food that should be given",
@@ -122,7 +129,7 @@ class NutritionOrder(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Identifiers assigned to this order",
@@ -224,7 +231,7 @@ class NutritionOrder(domainresource.DomainResource):
         None, alias="_intent", title="Extension field for ``intent``."
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Comments",
@@ -236,7 +243,7 @@ class NutritionOrder(domainresource.DomainResource):
         element_property=True,
     )
 
-    oralDiet: fhirtypes.NutritionOrderOralDietType = Field(
+    oralDiet: "NutritionOrderOralDiet" = Field(
         None,
         alias="oralDiet",
         title="Oral diet components",
@@ -245,7 +252,7 @@ class NutritionOrder(domainresource.DomainResource):
         element_property=True,
     )
 
-    orderer: fhirtypes.ReferenceType = Field(
+    orderer: Reference = Field(
         None,
         alias="orderer",
         title="Who ordered the diet, formula or nutritional supplement",
@@ -259,7 +266,7 @@ class NutritionOrder(domainresource.DomainResource):
         enum_reference_types=["Practitioner", "PractitionerRole"],
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         ...,
         alias="patient",
         title="The person who requires the diet, formula or nutritional supplement",
@@ -300,7 +307,7 @@ class NutritionOrder(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    supplement: typing.List[fhirtypes.NutritionOrderSupplementType] = Field(
+    supplement: typing.List["NutritionOrderSupplement"] = Field(
         None,
         alias="supplement",
         title="Supplement components",
@@ -420,7 +427,7 @@ class NutritionOrderEnteralFormula(backboneelement.BackboneElement):
     or stoma that delivers nutrition distal to the oral cavity.
     """
 
-    resource_type = Field("NutritionOrderEnteralFormula", const=True)
+    resource_type: str = Field("NutritionOrderEnteralFormula", const=True)
 
     additiveProductName: fhirtypes.String = Field(
         None,
@@ -439,7 +446,7 @@ class NutritionOrderEnteralFormula(backboneelement.BackboneElement):
         title="Extension field for ``additiveProductName``.",
     )
 
-    additiveType: fhirtypes.CodeableConceptType = Field(
+    additiveType: CodeableConcept = Field(
         None,
         alias="additiveType",
         title="Type of modular component to add to the feeding",
@@ -452,9 +459,7 @@ class NutritionOrderEnteralFormula(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    administration: typing.List[
-        fhirtypes.NutritionOrderEnteralFormulaAdministrationType
-    ] = Field(
+    administration: typing.List["NutritionOrderEnteralFormulaAdministration"] = Field(
         None,
         alias="administration",
         title="Formula feeding instruction as structured data",
@@ -503,7 +508,7 @@ class NutritionOrderEnteralFormula(backboneelement.BackboneElement):
         title="Extension field for ``baseFormulaProductName``.",
     )
 
-    baseFormulaType: fhirtypes.CodeableConceptType = Field(
+    baseFormulaType: CodeableConcept = Field(
         None,
         alias="baseFormulaType",
         title="Type of enteral or infant formula",
@@ -515,7 +520,7 @@ class NutritionOrderEnteralFormula(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    caloricDensity: fhirtypes.QuantityType = Field(
+    caloricDensity: Quantity = Field(
         None,
         alias="caloricDensity",
         title="Amount of energy per specified volume that is required",
@@ -530,7 +535,7 @@ class NutritionOrderEnteralFormula(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    maxVolumeToDeliver: fhirtypes.QuantityType = Field(
+    maxVolumeToDeliver: Quantity = Field(
         None,
         alias="maxVolumeToDeliver",
         title="Upper limit on formula volume per unit of time",
@@ -542,7 +547,7 @@ class NutritionOrderEnteralFormula(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    routeofAdministration: fhirtypes.CodeableConceptType = Field(
+    routeofAdministration: CodeableConcept = Field(
         None,
         alias="routeofAdministration",
         title="How the formula should enter the patient's gastrointestinal tract",
@@ -589,9 +594,9 @@ class NutritionOrderEnteralFormulaAdministration(backboneelement.BackboneElement
     instruction to increase the rate of continuous feeding every 2 hours.
     """
 
-    resource_type = Field("NutritionOrderEnteralFormulaAdministration", const=True)
+    resource_type: str = Field("NutritionOrderEnteralFormulaAdministration", const=True)
 
-    quantity: fhirtypes.QuantityType = Field(
+    quantity: Quantity = Field(
         None,
         alias="quantity",
         title="The volume of formula to provide",
@@ -603,7 +608,7 @@ class NutritionOrderEnteralFormulaAdministration(backboneelement.BackboneElement
         element_property=True,
     )
 
-    rateQuantity: fhirtypes.QuantityType = Field(
+    rateQuantity: Quantity = Field(
         None,
         alias="rateQuantity",
         title="Speed with which the formula is provided per period of time",
@@ -618,7 +623,7 @@ class NutritionOrderEnteralFormulaAdministration(backboneelement.BackboneElement
         one_of_many_required=False,
     )
 
-    rateRatio: fhirtypes.RatioType = Field(
+    rateRatio: Ratio = Field(
         None,
         alias="rateRatio",
         title="Speed with which the formula is provided per period of time",
@@ -633,7 +638,7 @@ class NutritionOrderEnteralFormulaAdministration(backboneelement.BackboneElement
         one_of_many_required=False,
     )
 
-    schedule: fhirtypes.TimingType = Field(
+    schedule: Timing = Field(
         None,
         alias="schedule",
         title="Scheduled frequency of enteral feeding",
@@ -709,9 +714,9 @@ class NutritionOrderOralDiet(backboneelement.BackboneElement):
     Diet given orally in contrast to enteral (tube) feeding.
     """
 
-    resource_type = Field("NutritionOrderOralDiet", const=True)
+    resource_type: str = Field("NutritionOrderOralDiet", const=True)
 
-    fluidConsistencyType: typing.List[fhirtypes.CodeableConceptType] = Field(
+    fluidConsistencyType: typing.List[CodeableConcept] = Field(
         None,
         alias="fluidConsistencyType",
         title="The required consistency of fluids and liquids provided to the patient",
@@ -738,7 +743,7 @@ class NutritionOrderOralDiet(backboneelement.BackboneElement):
         None, alias="_instruction", title="Extension field for ``instruction``."
     )
 
-    nutrient: typing.List[fhirtypes.NutritionOrderOralDietNutrientType] = Field(
+    nutrient: typing.List["NutritionOrderOralDietNutrient"] = Field(
         None,
         alias="nutrient",
         title="Required  nutrient modifications",
@@ -751,7 +756,7 @@ class NutritionOrderOralDiet(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    schedule: typing.List[fhirtypes.TimingType] = Field(
+    schedule: typing.List[Timing] = Field(
         None,
         alias="schedule",
         title="Scheduled frequency of diet",
@@ -764,7 +769,7 @@ class NutritionOrderOralDiet(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    texture: typing.List[fhirtypes.NutritionOrderOralDietTextureType] = Field(
+    texture: typing.List["NutritionOrderOralDietTexture"] = Field(
         None,
         alias="texture",
         title="Required  texture modifications",
@@ -776,7 +781,7 @@ class NutritionOrderOralDiet(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    type: typing.List[fhirtypes.CodeableConceptType] = Field(
+    type: typing.List[CodeableConcept] = Field(
         None,
         alias="type",
         title=(
@@ -820,9 +825,9 @@ class NutritionOrderOralDietNutrient(backboneelement.BackboneElement):
     example carbohydrate, fiber or sodium) required for the oral diet.
     """
 
-    resource_type = Field("NutritionOrderOralDietNutrient", const=True)
+    resource_type: str = Field("NutritionOrderOralDietNutrient", const=True)
 
-    amount: fhirtypes.QuantityType = Field(
+    amount: Quantity = Field(
         None,
         alias="amount",
         title="Quantity of the specified nutrient",
@@ -831,7 +836,7 @@ class NutritionOrderOralDietNutrient(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    modifier: fhirtypes.CodeableConceptType = Field(
+    modifier: CodeableConcept = Field(
         None,
         alias="modifier",
         title="Type of nutrient that is being modified",
@@ -859,9 +864,9 @@ class NutritionOrderOralDietTexture(backboneelement.BackboneElement):
     safely consume various types of solid foods.
     """
 
-    resource_type = Field("NutritionOrderOralDietTexture", const=True)
+    resource_type: str = Field("NutritionOrderOralDietTexture", const=True)
 
-    foodType: fhirtypes.CodeableConceptType = Field(
+    foodType: CodeableConcept = Field(
         None,
         alias="foodType",
         title=(
@@ -876,7 +881,7 @@ class NutritionOrderOralDietTexture(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    modifier: fhirtypes.CodeableConceptType = Field(
+    modifier: CodeableConcept = Field(
         None,
         alias="modifier",
         title="Code to indicate how to alter the texture of the foods, e.g. pureed",
@@ -907,7 +912,7 @@ class NutritionOrderSupplement(backboneelement.BackboneElement):
     to the patient's diet.
     """
 
-    resource_type = Field("NutritionOrderSupplement", const=True)
+    resource_type: str = Field("NutritionOrderSupplement", const=True)
 
     instruction: fhirtypes.String = Field(
         None,
@@ -939,7 +944,7 @@ class NutritionOrderSupplement(backboneelement.BackboneElement):
         None, alias="_productName", title="Extension field for ``productName``."
     )
 
-    quantity: fhirtypes.QuantityType = Field(
+    quantity: Quantity = Field(
         None,
         alias="quantity",
         title="Amount of the nutritional supplement",
@@ -948,7 +953,7 @@ class NutritionOrderSupplement(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    schedule: typing.List[fhirtypes.TimingType] = Field(
+    schedule: typing.List[Timing] = Field(
         None,
         alias="schedule",
         title="Scheduled frequency of supplement",
@@ -961,7 +966,7 @@ class NutritionOrderSupplement(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Type of supplement product requested",
@@ -989,3 +994,8 @@ class NutritionOrderSupplement(backboneelement.BackboneElement):
             "quantity",
             "instruction",
         ]
+
+
+NutritionOrder.update_forward_refs()
+NutritionOrderEnteralFormula.update_forward_refs()
+NutritionOrderOralDiet.update_forward_refs()

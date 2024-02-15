@@ -13,6 +13,10 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .coding import Coding
+from .contactpoint import ContactPoint
+from .identifier import Identifier
+from .reference import Reference
 
 
 class Subscription(domainresource.DomainResource):
@@ -25,9 +29,9 @@ class Subscription(domainresource.DomainResource):
     notified about a SubscriptionTopic.
     """
 
-    resource_type = Field("Subscription", const=True)
+    resource_type: str = Field("Subscription", const=True)
 
-    channelType: fhirtypes.CodingType = Field(
+    channelType: Coding = Field(
         ...,
         alias="channelType",
         title="Channel type for notifications",
@@ -36,7 +40,7 @@ class Subscription(domainresource.DomainResource):
         element_property=True,
     )
 
-    contact: typing.List[fhirtypes.ContactPointType] = Field(
+    contact: typing.List[ContactPoint] = Field(
         None,
         alias="contact",
         title="Contact details for source (e.g. troubleshooting)",
@@ -111,7 +115,7 @@ class Subscription(domainresource.DomainResource):
         None, alias="_endpoint", title="Extension field for ``endpoint``."
     )
 
-    filterBy: typing.List[fhirtypes.SubscriptionFilterByType] = Field(
+    filterBy: typing.List["SubscriptionFilterBy"] = Field(
         None,
         alias="filterBy",
         title="Criteria for narrowing the subscription topic stream",
@@ -141,7 +145,7 @@ class Subscription(domainresource.DomainResource):
         None, alias="_heartbeatPeriod", title="Extension field for ``heartbeatPeriod``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Additional identifiers (business identifier)",
@@ -154,7 +158,7 @@ class Subscription(domainresource.DomainResource):
         element_property=True,
     )
 
-    managingEntity: fhirtypes.ReferenceType = Field(
+    managingEntity: Reference = Field(
         None,
         alias="managingEntity",
         title="Entity responsible for Subscription changes",
@@ -205,7 +209,7 @@ class Subscription(domainresource.DomainResource):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    parameter: typing.List[fhirtypes.SubscriptionParameterType] = Field(
+    parameter: typing.List["SubscriptionParameter"] = Field(
         None,
         alias="parameter",
         title="Channel type",
@@ -384,7 +388,7 @@ class SubscriptionFilterBy(backboneelement.BackboneElement):
     (i.e., logical AND).
     """
 
-    resource_type = Field("SubscriptionFilterBy", const=True)
+    resource_type: str = Field("SubscriptionFilterBy", const=True)
 
     comparator: fhirtypes.Code = Field(
         None,
@@ -576,7 +580,7 @@ class SubscriptionParameter(backboneelement.BackboneElement):
     HTTP Headers).
     """
 
-    resource_type = Field("SubscriptionParameter", const=True)
+    resource_type: str = Field("SubscriptionParameter", const=True)
 
     name: fhirtypes.String = Field(
         None,
@@ -678,3 +682,6 @@ class SubscriptionParameter(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+Subscription.update_forward_refs()

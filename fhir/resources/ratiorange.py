@@ -8,7 +8,8 @@ Last updated: 2023-03-26T15:21:02.749+11:00
 """
 from pydantic.v1 import Field
 
-from . import datatype, fhirtypes
+from . import datatype
+from .quantity import Quantity
 
 
 class RatioRange(datatype.DataType):
@@ -20,9 +21,9 @@ class RatioRange(datatype.DataType):
     A range of ratios expressed as a low and high numerator and a denominator.
     """
 
-    resource_type = Field("RatioRange", const=True)
+    resource_type: str = Field("RatioRange", const=True)
 
-    denominator: fhirtypes.QuantityType = Field(
+    denominator: Quantity = Field(
         None,
         alias="denominator",
         title="Denominator value",
@@ -31,7 +32,7 @@ class RatioRange(datatype.DataType):
         element_property=True,
     )
 
-    highNumerator: fhirtypes.QuantityType = Field(
+    highNumerator: Quantity = Field(
         None,
         alias="highNumerator",
         title="High Numerator limit",
@@ -40,7 +41,7 @@ class RatioRange(datatype.DataType):
         element_property=True,
     )
 
-    lowNumerator: fhirtypes.QuantityType = Field(
+    lowNumerator: Quantity = Field(
         None,
         alias="lowNumerator",
         title="Low Numerator limit",

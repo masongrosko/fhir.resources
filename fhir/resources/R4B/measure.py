@@ -13,6 +13,14 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .contactdetail import ContactDetail
+from .expression import Expression
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
+from .relatedartifact import RelatedArtifact
+from .usagecontext import UsageContext
 
 
 class Measure(domainresource.DomainResource):
@@ -24,7 +32,7 @@ class Measure(domainresource.DomainResource):
     The Measure resource provides the definition of a quality measure.
     """
 
-    resource_type = Field("Measure", const=True)
+    resource_type: str = Field("Measure", const=True)
 
     approvalDate: fhirtypes.Date = Field(
         None,
@@ -42,7 +50,7 @@ class Measure(domainresource.DomainResource):
         None, alias="_approvalDate", title="Extension field for ``approvalDate``."
     )
 
-    author: typing.List[fhirtypes.ContactDetailType] = Field(
+    author: typing.List[ContactDetail] = Field(
         None,
         alias="author",
         title="Who authored the content",
@@ -71,7 +79,7 @@ class Measure(domainresource.DomainResource):
         title="Extension field for ``clinicalRecommendationStatement``.",
     )
 
-    compositeScoring: fhirtypes.CodeableConceptType = Field(
+    compositeScoring: CodeableConcept = Field(
         None,
         alias="compositeScoring",
         title="opportunity | all-or-nothing | linear | weighted",
@@ -83,7 +91,7 @@ class Measure(domainresource.DomainResource):
         element_property=True,
     )
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -171,7 +179,7 @@ class Measure(domainresource.DomainResource):
         None, alias="_disclaimer", title="Extension field for ``disclaimer``."
     )
 
-    editor: typing.List[fhirtypes.ContactDetailType] = Field(
+    editor: typing.List[ContactDetail] = Field(
         None,
         alias="editor",
         title="Who edited the content",
@@ -183,7 +191,7 @@ class Measure(domainresource.DomainResource):
         element_property=True,
     )
 
-    effectivePeriod: fhirtypes.PeriodType = Field(
+    effectivePeriod: Period = Field(
         None,
         alias="effectivePeriod",
         title="When the measure is expected to be used",
@@ -195,7 +203,7 @@ class Measure(domainresource.DomainResource):
         element_property=True,
     )
 
-    endorser: typing.List[fhirtypes.ContactDetailType] = Field(
+    endorser: typing.List[ContactDetail] = Field(
         None,
         alias="endorser",
         title="Who endorsed the content",
@@ -223,7 +231,7 @@ class Measure(domainresource.DomainResource):
         None, alias="_experimental", title="Extension field for ``experimental``."
     )
 
-    group: typing.List[fhirtypes.MeasureGroupType] = Field(
+    group: typing.List["MeasureGroup"] = Field(
         None,
         alias="group",
         title="Population criteria group",
@@ -247,7 +255,7 @@ class Measure(domainresource.DomainResource):
         None, alias="_guidance", title="Extension field for ``guidance``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Additional identifier for the measure",
@@ -260,7 +268,7 @@ class Measure(domainresource.DomainResource):
         element_property=True,
     )
 
-    improvementNotation: fhirtypes.CodeableConceptType = Field(
+    improvementNotation: CodeableConcept = Field(
         None,
         alias="improvementNotation",
         title="increase | decrease",
@@ -273,7 +281,7 @@ class Measure(domainresource.DomainResource):
         element_property=True,
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction for measure (if applicable)",
@@ -392,7 +400,7 @@ class Measure(domainresource.DomainResource):
         None, alias="_rationale", title="Extension field for ``rationale``."
     )
 
-    relatedArtifact: typing.List[fhirtypes.RelatedArtifactType] = Field(
+    relatedArtifact: typing.List[RelatedArtifact] = Field(
         None,
         alias="relatedArtifact",
         title="Additional documentation, citations, etc.",
@@ -404,7 +412,7 @@ class Measure(domainresource.DomainResource):
         element_property=True,
     )
 
-    reviewer: typing.List[fhirtypes.ContactDetailType] = Field(
+    reviewer: typing.List[ContactDetail] = Field(
         None,
         alias="reviewer",
         title="Who reviewed the content",
@@ -432,7 +440,7 @@ class Measure(domainresource.DomainResource):
         None, alias="_riskAdjustment", title="Extension field for ``riskAdjustment``."
     )
 
-    scoring: fhirtypes.CodeableConceptType = Field(
+    scoring: CodeableConcept = Field(
         None,
         alias="scoring",
         title="proportion | ratio | continuous-variable | cohort",
@@ -465,7 +473,7 @@ class Measure(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subjectCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    subjectCodeableConcept: CodeableConcept = Field(
         None,
         alias="subjectCodeableConcept",
         title=(
@@ -484,7 +492,7 @@ class Measure(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    subjectReference: fhirtypes.ReferenceType = Field(
+    subjectReference: Reference = Field(
         None,
         alias="subjectReference",
         title=(
@@ -520,7 +528,7 @@ class Measure(domainresource.DomainResource):
         None, alias="_subtitle", title="Extension field for ``subtitle``."
     )
 
-    supplementalData: typing.List[fhirtypes.MeasureSupplementalDataType] = Field(
+    supplementalData: typing.List["MeasureSupplementalData"] = Field(
         None,
         alias="supplementalData",
         title="What other data should be reported with the measure",
@@ -545,7 +553,7 @@ class Measure(domainresource.DomainResource):
         None, alias="_title", title="Extension field for ``title``."
     )
 
-    topic: typing.List[fhirtypes.CodeableConceptType] = Field(
+    topic: typing.List[CodeableConcept] = Field(
         None,
         alias="topic",
         title=(
@@ -561,7 +569,7 @@ class Measure(domainresource.DomainResource):
         element_property=True,
     )
 
-    type: typing.List[fhirtypes.CodeableConceptType] = Field(
+    type: typing.List[CodeableConcept] = Field(
         None,
         alias="type",
         title="process | outcome | structure | patient-reported-outcome | composite",
@@ -612,7 +620,7 @@ class Measure(domainresource.DomainResource):
         None, alias="_usage", title="Extension field for ``usage``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="The context that the content is intended to support",
@@ -817,9 +825,9 @@ class MeasureGroup(backboneelement.BackboneElement):
     A group of population criteria for the measure.
     """
 
-    resource_type = Field("MeasureGroup", const=True)
+    resource_type: str = Field("MeasureGroup", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Meaning of the group",
@@ -845,7 +853,7 @@ class MeasureGroup(backboneelement.BackboneElement):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    population: typing.List[fhirtypes.MeasureGroupPopulationType] = Field(
+    population: typing.List["MeasureGroupPopulation"] = Field(
         None,
         alias="population",
         title="Population criteria",
@@ -854,7 +862,7 @@ class MeasureGroup(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    stratifier: typing.List[fhirtypes.MeasureGroupStratifierType] = Field(
+    stratifier: typing.List["MeasureGroupStratifier"] = Field(
         None,
         alias="stratifier",
         title="Stratifier criteria for the measure",
@@ -893,9 +901,9 @@ class MeasureGroupPopulation(backboneelement.BackboneElement):
     A population criteria for the measure.
     """
 
-    resource_type = Field("MeasureGroupPopulation", const=True)
+    resource_type: str = Field("MeasureGroupPopulation", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title=(
@@ -908,7 +916,7 @@ class MeasureGroupPopulation(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    criteria: fhirtypes.ExpressionType = Field(
+    criteria: Expression = Field(
         ...,
         alias="criteria",
         title="The criteria that defines this population",
@@ -959,9 +967,9 @@ class MeasureGroupStratifier(backboneelement.BackboneElement):
     valid FHIR Resource Path.
     """
 
-    resource_type = Field("MeasureGroupStratifier", const=True)
+    resource_type: str = Field("MeasureGroupStratifier", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Meaning of the stratifier",
@@ -975,7 +983,7 @@ class MeasureGroupStratifier(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    component: typing.List[fhirtypes.MeasureGroupStratifierComponentType] = Field(
+    component: typing.List["MeasureGroupStratifierComponent"] = Field(
         None,
         alias="component",
         title="Stratifier criteria component for the measure",
@@ -988,7 +996,7 @@ class MeasureGroupStratifier(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    criteria: fhirtypes.ExpressionType = Field(
+    criteria: Expression = Field(
         None,
         alias="criteria",
         title="How the measure should be stratified",
@@ -1041,9 +1049,9 @@ class MeasureGroupStratifierComponent(backboneelement.BackboneElement):
     library or a valid FHIR Resource Path.
     """
 
-    resource_type = Field("MeasureGroupStratifierComponent", const=True)
+    resource_type: str = Field("MeasureGroupStratifierComponent", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Meaning of the stratifier component",
@@ -1057,7 +1065,7 @@ class MeasureGroupStratifierComponent(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    criteria: fhirtypes.ExpressionType = Field(
+    criteria: Expression = Field(
         ...,
         alias="criteria",
         title="Component of how the measure should be stratified",
@@ -1110,9 +1118,9 @@ class MeasureSupplementalData(backboneelement.BackboneElement):
     FHIR Resource Path.
     """
 
-    resource_type = Field("MeasureSupplementalData", const=True)
+    resource_type: str = Field("MeasureSupplementalData", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Meaning of the supplemental data",
@@ -1126,7 +1134,7 @@ class MeasureSupplementalData(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    criteria: fhirtypes.ExpressionType = Field(
+    criteria: Expression = Field(
         ...,
         alias="criteria",
         title="Expression describing additional data to be reported",
@@ -1152,7 +1160,7 @@ class MeasureSupplementalData(backboneelement.BackboneElement):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    usage: typing.List[fhirtypes.CodeableConceptType] = Field(
+    usage: typing.List[CodeableConcept] = Field(
         None,
         alias="usage",
         title="supplemental-data | risk-adjustment-factor",
@@ -1183,3 +1191,8 @@ class MeasureSupplementalData(backboneelement.BackboneElement):
             "description",
             "criteria",
         ]
+
+
+Measure.update_forward_refs()
+MeasureGroup.update_forward_refs()
+MeasureGroupStratifier.update_forward_refs()

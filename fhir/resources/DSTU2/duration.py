@@ -16,4 +16,4 @@ class Duration(Quantity):
     time.  If system is present, it SHALL be UCUM.
     """
 
-    resource_type = Field("Duration", const=True)
+    resource_type: str = Field("Duration", const=True)

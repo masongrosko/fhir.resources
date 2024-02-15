@@ -11,7 +11,11 @@ from typing import List as ListType
 from pydantic.v1 import Field
 
 from . import fhirtypes
+from .coding import Coding
 from .domainresource import DomainResource
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class Coverage(DomainResource):
@@ -21,9 +25,9 @@ class Coverage(DomainResource):
     products and services.
     """
 
-    resource_type = Field("Coverage", const=True)
+    resource_type: str = Field("Coverage", const=True)
 
-    bin: fhirtypes.IdentifierType = Field(
+    bin: Identifier = Field(
         None,
         alias="bin",
         title="BIN Number.",
@@ -31,7 +35,7 @@ class Coverage(DomainResource):
         # if property is element of this resource.
         element_property=True,
     )
-    contract: ListType[fhirtypes.ReferenceType] = Field(
+    contract: ListType[Reference] = Field(
         None,
         alias="contract",
         title="BIN Number.",
@@ -61,7 +65,7 @@ class Coverage(DomainResource):
         element_property=True,
     )
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="The primary coverage ID.",
@@ -70,7 +74,7 @@ class Coverage(DomainResource):
         element_property=True,
     )
 
-    issuer: fhirtypes.ReferenceType = Field(
+    issuer: Reference = Field(
         None,
         alias="issuer",
         title="An identifier for the plan issuer.",
@@ -82,7 +86,7 @@ class Coverage(DomainResource):
         element_property=True,
     )
 
-    network: fhirtypes.IdentifierType = Field(
+    network: Identifier = Field(
         None,
         alias="network",
         title="Insurer network.",
@@ -90,7 +94,7 @@ class Coverage(DomainResource):
         # if property is element of this resource.
         element_property=True,
     )
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Coverage start and end dates.",
@@ -125,7 +129,7 @@ class Coverage(DomainResource):
         element_property=True,
     )
 
-    subscriberId: fhirtypes.IdentifierType = Field(
+    subscriberId: Identifier = Field(
         None,
         alias="subscriberId",
         title="Subscriber ID.",
@@ -134,7 +138,7 @@ class Coverage(DomainResource):
         element_property=True,
     )
 
-    type: fhirtypes.CodingType = Field(
+    type: Coding = Field(
         None,
         alias="type",
         title="Type of coverage.",
@@ -143,7 +147,7 @@ class Coverage(DomainResource):
         element_property=True,
     )
 
-    subscriber: fhirtypes.ReferenceType = Field(
+    subscriber: Reference = Field(
         None,
         alias="subscriber",
         title="Plan holder information.",

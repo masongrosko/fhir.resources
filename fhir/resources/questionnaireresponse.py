@@ -13,6 +13,11 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .attachment import Attachment
+from .coding import Coding
+from .identifier import Identifier
+from .quantity import Quantity
+from .reference import Reference
 
 
 class QuestionnaireResponse(domainresource.DomainResource):
@@ -26,9 +31,9 @@ class QuestionnaireResponse(domainresource.DomainResource):
     grouping of the questionnaire being responded to.
     """
 
-    resource_type = Field("QuestionnaireResponse", const=True)
+    resource_type: str = Field("QuestionnaireResponse", const=True)
 
-    author: fhirtypes.ReferenceType = Field(
+    author: Reference = Field(
         None,
         alias="author",
         title="The individual or device that received and recorded the answers",
@@ -64,7 +69,7 @@ class QuestionnaireResponse(domainresource.DomainResource):
         None, alias="_authored", title="Extension field for ``authored``."
     )
 
-    basedOn: typing.List[fhirtypes.ReferenceType] = Field(
+    basedOn: typing.List[Reference] = Field(
         None,
         alias="basedOn",
         title="Request fulfilled by this QuestionnaireResponse",
@@ -80,7 +85,7 @@ class QuestionnaireResponse(domainresource.DomainResource):
         enum_reference_types=["CarePlan", "ServiceRequest"],
     )
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title="Encounter the questionnaire response is part of",
@@ -94,7 +99,7 @@ class QuestionnaireResponse(domainresource.DomainResource):
         enum_reference_types=["Encounter"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business identifier for this set of answers",
@@ -107,7 +112,7 @@ class QuestionnaireResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    item: typing.List[fhirtypes.QuestionnaireResponseItemType] = Field(
+    item: typing.List["QuestionnaireResponseItem"] = Field(
         None,
         alias="item",
         title="Groups and questions",
@@ -119,7 +124,7 @@ class QuestionnaireResponse(domainresource.DomainResource):
         element_property=True,
     )
 
-    partOf: typing.List[fhirtypes.ReferenceType] = Field(
+    partOf: typing.List[Reference] = Field(
         None,
         alias="partOf",
         title="Part of referenced event",
@@ -152,7 +157,7 @@ class QuestionnaireResponse(domainresource.DomainResource):
         None, alias="_questionnaire", title="Extension field for ``questionnaire``."
     )
 
-    source: fhirtypes.ReferenceType = Field(
+    source: Reference = Field(
         None,
         alias="source",
         title="The individual or device that answered the questions",
@@ -194,7 +199,7 @@ class QuestionnaireResponse(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title="The subject of the questions",
@@ -310,9 +315,9 @@ class QuestionnaireResponseItem(backboneelement.BackboneElement):
     are provided.
     """
 
-    resource_type = Field("QuestionnaireResponseItem", const=True)
+    resource_type: str = Field("QuestionnaireResponseItem", const=True)
 
-    answer: typing.List[fhirtypes.QuestionnaireResponseItemAnswerType] = Field(
+    answer: typing.List["QuestionnaireResponseItemAnswer"] = Field(
         None,
         alias="answer",
         title="The response(s) to the question",
@@ -336,7 +341,7 @@ class QuestionnaireResponseItem(backboneelement.BackboneElement):
         None, alias="_definition", title="Extension field for ``definition``."
     )
 
-    item: typing.List[fhirtypes.QuestionnaireResponseItemType] = Field(
+    item: typing.List["QuestionnaireResponseItem"] = Field(
         None,
         alias="item",
         title="Child items of group item",
@@ -462,9 +467,9 @@ class QuestionnaireResponseItemAnswer(backboneelement.BackboneElement):
     The respondent's answer(s) to the question.
     """
 
-    resource_type = Field("QuestionnaireResponseItemAnswer", const=True)
+    resource_type: str = Field("QuestionnaireResponseItemAnswer", const=True)
 
-    item: typing.List[fhirtypes.QuestionnaireResponseItemType] = Field(
+    item: typing.List["QuestionnaireResponseItem"] = Field(
         None,
         alias="item",
         title="Child items of question",
@@ -473,7 +478,7 @@ class QuestionnaireResponseItemAnswer(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    valueAttachment: fhirtypes.AttachmentType = Field(
+    valueAttachment: Attachment = Field(
         None,
         alias="valueAttachment",
         title="Single-valued answer to the question",
@@ -506,7 +511,7 @@ class QuestionnaireResponseItemAnswer(backboneelement.BackboneElement):
         None, alias="_valueBoolean", title="Extension field for ``valueBoolean``."
     )
 
-    valueCoding: fhirtypes.CodingType = Field(
+    valueCoding: Coding = Field(
         None,
         alias="valueCoding",
         title="Single-valued answer to the question",
@@ -593,7 +598,7 @@ class QuestionnaireResponseItemAnswer(backboneelement.BackboneElement):
         None, alias="_valueInteger", title="Extension field for ``valueInteger``."
     )
 
-    valueQuantity: fhirtypes.QuantityType = Field(
+    valueQuantity: Quantity = Field(
         None,
         alias="valueQuantity",
         title="Single-valued answer to the question",
@@ -608,7 +613,7 @@ class QuestionnaireResponseItemAnswer(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueReference: fhirtypes.ReferenceType = Field(
+    valueReference: Reference = Field(
         None,
         alias="valueReference",
         title="Single-valued answer to the question",
@@ -756,3 +761,8 @@ class QuestionnaireResponseItemAnswer(backboneelement.BackboneElement):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+QuestionnaireResponse.update_forward_refs()
+QuestionnaireResponseItem.update_forward_refs()
+QuestionnaireResponseItemAnswer.update_forward_refs()

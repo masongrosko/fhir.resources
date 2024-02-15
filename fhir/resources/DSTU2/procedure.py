@@ -11,8 +11,13 @@ from typing import List as ListType
 from pydantic.v1 import Field, root_validator
 
 from . import fhirtypes
+from .annotation import Annotation
 from .backboneelement import BackboneElement
+from .codeableconcept import CodeableConcept
 from .domainresource import DomainResource
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class Procedure(DomainResource):
@@ -23,7 +28,7 @@ class Procedure(DomainResource):
     hypnotherapy.
     """
 
-    resource_type = Field("Procedure", const=True)
+    resource_type: str = Field("Procedure", const=True)
 
     status: fhirtypes.Code = Field(
         ...,
@@ -38,7 +43,7 @@ class Procedure(DomainResource):
         description="True if procedure was not performed as scheduled.",
     )
 
-    request: fhirtypes.ReferenceType = Field(
+    request: Reference = Field(
         None,
         alias="request",
         title=(
@@ -48,7 +53,7 @@ class Procedure(DomainResource):
         description="A request for this procedure.",
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         ...,
         alias="subject",
         title=(
@@ -57,14 +62,14 @@ class Procedure(DomainResource):
         ),
         description="Who the procedure was performed on",
     )
-    location: fhirtypes.ReferenceType = Field(
+    location: Reference = Field(
         None,
         alias="location",
         title="Type `Reference` referencing `Location` (represented as `dict` in JSON).",
         description="Where the procedure happened.",
     )
 
-    outcome: fhirtypes.CodeableConceptType = Field(
+    outcome: CodeableConcept = Field(
         None,
         alias="outcome",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -80,7 +85,7 @@ class Procedure(DomainResource):
         one_of_many_required=False,
     )
 
-    performedPeriod: fhirtypes.PeriodType = Field(
+    performedPeriod: Period = Field(
         None,
         alias="performedPeriod",
         title="Type `Period` (represented as `dict` in JSON).",
@@ -89,83 +94,83 @@ class Procedure(DomainResource):
         one_of_many_required=False,
     )
 
-    bodySite: ListType[fhirtypes.CodeableConceptType] = Field(
+    bodySite: ListType[CodeableConcept] = Field(
         None,
         alias="bodySite",
         title="List of `CodeableConcept` items (represented as `dict` in JSON).",
         description="Target body sites.",
     )
 
-    category: ListType[fhirtypes.CodeableConceptType] = Field(
+    category: ListType[CodeableConcept] = Field(
         None,
         alias="category",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="Classification of the procedure.",
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         ...,
         alias="code",
         title="List of `CodeableConcept` items (represented as `dict` in JSON).",
         description="Identification of the procedure.",
     )
 
-    complication: ListType[fhirtypes.CodeableConceptType] = Field(
+    complication: ListType[CodeableConcept] = Field(
         None,
         alias="complication",
         title="List of `CodeableConcept` items (represented as `dict` in JSON).",
         description="Complication following the procedure.",
     )
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="location",
         title="Type `Reference` referencing `Encounter` (represented as `dict` in JSON).",
         description="The encounter associated with the procedure.",
     )
 
-    focalDevice: ListType[fhirtypes.ProcedureFocalDeviceType] = Field(
+    focalDevice: ListType["ProcedureFocalDevice"] = Field(
         None,
         alias="focalDevice",
         title="List of `ProcedureFocalDevice` items (represented as `dict` in JSON).",
         description="Device changed in procedure.",
     )
 
-    followUp: ListType[fhirtypes.CodeableConceptType] = Field(
+    followUp: ListType[CodeableConcept] = Field(
         None,
         alias="followUp",
         title="List of `CodeableConcept` items (represented as `dict` in JSON).",
         description="Instructions for follow up.",
     )
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="List of `Identifier` items (represented as `dict` in JSON).",
         description="External Identifiers for this procedure.",
     )
 
-    notes: ListType[fhirtypes.AnnotationType] = Field(
+    notes: ListType[Annotation] = Field(
         None,
         alias="notes",
         title="List of `Annotation` items (represented as `dict` in JSON).",
         description="Additional information about the procedure.",
     )
 
-    performer: ListType[fhirtypes.ProcedurePerformerType] = Field(
+    performer: ListType["ProcedurePerformer"] = Field(
         None,
         alias="performer",
         title="List of `ProcedurePerformer` items (represented as `dict` in JSON).",
         description="The people who performed the procedure.",
     )
 
-    reasonNotPerformed: ListType[fhirtypes.CodeableConceptType] = Field(
+    reasonNotPerformed: ListType[CodeableConcept] = Field(
         None,
         alias="reasonNotPerformed",
         title="List of `CodeableConcept` items (represented as `dict` in JSON).",
         description="Reason procedure was not performed.",
     )
 
-    reasonCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    reasonCodeableConcept: CodeableConcept = Field(
         None,
         alias="reasonCodeableConcept",
         title="Type `CodeableConcept`  (represented as `dict` in JSON).",
@@ -173,7 +178,7 @@ class Procedure(DomainResource):
         one_of_many="reason",  # Choice of Data Types. i.e reason[x]
         one_of_many_required=False,
     )
-    reasonReference: fhirtypes.ReferenceType = Field(
+    reasonReference: Reference = Field(
         None,
         alias="reasonReference",
         title="Type `Reference` referencing `Condition` (represented as `dict` in JSON).",
@@ -182,7 +187,7 @@ class Procedure(DomainResource):
         one_of_many_required=False,
     )
 
-    report: ListType[fhirtypes.ReferenceType] = Field(
+    report: ListType[Reference] = Field(
         None,
         alias="report",
         title=(
@@ -191,7 +196,7 @@ class Procedure(DomainResource):
         ),
         description="Any report resulting from the procedure.",
     )
-    used: ListType[fhirtypes.ReferenceType] = Field(
+    used: ListType[Reference] = Field(
         None,
         alias="used",
         title=(
@@ -249,15 +254,15 @@ class ProcedureFocalDevice(BackboneElement):
     a focal portion of the Procedure.
     """
 
-    resource_type = Field("ProcedureFocalDevice", const=True)
+    resource_type: str = Field("ProcedureFocalDevice", const=True)
 
-    action: fhirtypes.CodeableConceptType = Field(
+    action: CodeableConcept = Field(
         None,
         alias="action",
         title="Type `CodeableConcept`  (represented as `dict` in JSON).",
         description="Kind of change to device.",
     )
-    manipulated: fhirtypes.ReferenceType = Field(
+    manipulated: Reference = Field(
         ...,
         alias="manipulated",
         title="Type `Reference` referencing `Device` (represented as `dict` in JSON).",
@@ -271,15 +276,15 @@ class ProcedurePerformer(BackboneElement):
     Limited to 'real' people rather than equipment.
     """
 
-    resource_type = Field("ProcedurePerformer", const=True)
+    resource_type: str = Field("ProcedurePerformer", const=True)
 
-    role: fhirtypes.CodeableConceptType = Field(
+    role: CodeableConcept = Field(
         None,
         alias="role",
         title="Type `CodeableConcept`  (represented as `dict` in JSON).",
         description="The role the actor was in.",
     )
-    actor: fhirtypes.ReferenceType = Field(
+    actor: Reference = Field(
         None,
         alias="actor",
         title=(
@@ -288,3 +293,6 @@ class ProcedurePerformer(BackboneElement):
         ),
         description="The reference to the practitioner.",
     )
+
+
+Procedure.update_forward_refs()

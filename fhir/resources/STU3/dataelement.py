@@ -13,6 +13,11 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .contactdetail import ContactDetail
+from .elementdefinition import ElementDefinition
+from .identifier import Identifier
+from .usagecontext import UsageContext
 
 
 class DataElement(domainresource.DomainResource):
@@ -25,9 +30,9 @@ class DataElement(domainresource.DomainResource):
     gathered and reported.
     """
 
-    resource_type = Field("DataElement", const=True)
+    resource_type: str = Field("DataElement", const=True)
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -72,7 +77,7 @@ class DataElement(domainresource.DomainResource):
         None, alias="_date", title="Extension field for ``date``."
     )
 
-    element: typing.List[fhirtypes.ElementDefinitionType] = Field(
+    element: typing.List[ElementDefinition] = Field(
         ...,
         alias="element",
         title="Definition of element",
@@ -100,7 +105,7 @@ class DataElement(domainresource.DomainResource):
         None, alias="_experimental", title="Extension field for ``experimental``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Additional identifier for the data element",
@@ -113,7 +118,7 @@ class DataElement(domainresource.DomainResource):
         element_property=True,
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction for data element (if applicable)",
@@ -125,7 +130,7 @@ class DataElement(domainresource.DomainResource):
         element_property=True,
     )
 
-    mapping: typing.List[fhirtypes.DataElementMappingType] = Field(
+    mapping: typing.List["DataElementMapping"] = Field(
         None,
         alias="mapping",
         title="External specification mapped to",
@@ -243,7 +248,7 @@ class DataElement(domainresource.DomainResource):
         None, alias="_url", title="Extension field for ``url``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="Context the content is intended to support",
@@ -379,7 +384,7 @@ class DataElementMapping(backboneelement.BackboneElement):
     which make up the DataElement have some correspondence with.
     """
 
-    resource_type = Field("DataElementMapping", const=True)
+    resource_type: str = Field("DataElementMapping", const=True)
 
     comment: fhirtypes.String = Field(
         None,
@@ -513,3 +518,6 @@ class DataElementMapping(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+DataElement.update_forward_refs()

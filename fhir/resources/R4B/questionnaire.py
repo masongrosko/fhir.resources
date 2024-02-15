@@ -13,6 +13,15 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .contactdetail import ContactDetail
+from .identifier import Identifier
+from .period import Period
+from .quantity import Quantity
+from .reference import Reference
+from .usagecontext import UsageContext
 
 
 class Questionnaire(domainresource.DomainResource):
@@ -27,7 +36,7 @@ class Questionnaire(domainresource.DomainResource):
     collection.
     """
 
-    resource_type = Field("Questionnaire", const=True)
+    resource_type: str = Field("Questionnaire", const=True)
 
     approvalDate: fhirtypes.Date = Field(
         None,
@@ -45,7 +54,7 @@ class Questionnaire(domainresource.DomainResource):
         None, alias="_approvalDate", title="Extension field for ``approvalDate``."
     )
 
-    code: typing.List[fhirtypes.CodingType] = Field(
+    code: typing.List[Coding] = Field(
         None,
         alias="code",
         title="Concept that represents the overall questionnaire",
@@ -57,7 +66,7 @@ class Questionnaire(domainresource.DomainResource):
         element_property=True,
     )
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -131,7 +140,7 @@ class Questionnaire(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    effectivePeriod: fhirtypes.PeriodType = Field(
+    effectivePeriod: Period = Field(
         None,
         alias="effectivePeriod",
         title="When the questionnaire is expected to be used",
@@ -159,7 +168,7 @@ class Questionnaire(domainresource.DomainResource):
         None, alias="_experimental", title="Extension field for ``experimental``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Additional identifier for the questionnaire",
@@ -172,7 +181,7 @@ class Questionnaire(domainresource.DomainResource):
         element_property=True,
     )
 
-    item: typing.List[fhirtypes.QuestionnaireItemType] = Field(
+    item: typing.List["QuestionnaireItem"] = Field(
         None,
         alias="item",
         title="Questions and sections within the Questionnaire",
@@ -184,7 +193,7 @@ class Questionnaire(domainresource.DomainResource):
         element_property=True,
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction for questionnaire (if applicable)",
@@ -327,7 +336,7 @@ class Questionnaire(domainresource.DomainResource):
         None, alias="_url", title="Extension field for ``url``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="The context that the content is intended to support",
@@ -471,9 +480,9 @@ class QuestionnaireItem(backboneelement.BackboneElement):
     the questionnaire.
     """
 
-    resource_type = Field("QuestionnaireItem", const=True)
+    resource_type: str = Field("QuestionnaireItem", const=True)
 
-    answerOption: typing.List[fhirtypes.QuestionnaireItemAnswerOptionType] = Field(
+    answerOption: typing.List["QuestionnaireItemAnswerOption"] = Field(
         None,
         alias="answerOption",
         title="Permitted answer",
@@ -499,7 +508,7 @@ class QuestionnaireItem(backboneelement.BackboneElement):
         None, alias="_answerValueSet", title="Extension field for ``answerValueSet``."
     )
 
-    code: typing.List[fhirtypes.CodingType] = Field(
+    code: typing.List[Coding] = Field(
         None,
         alias="code",
         title="Corresponding concept for this item in a terminology",
@@ -554,7 +563,7 @@ class QuestionnaireItem(backboneelement.BackboneElement):
         None, alias="_enableBehavior", title="Extension field for ``enableBehavior``."
     )
 
-    enableWhen: typing.List[fhirtypes.QuestionnaireItemEnableWhenType] = Field(
+    enableWhen: typing.List["QuestionnaireItemEnableWhen"] = Field(
         None,
         alias="enableWhen",
         title="Only allow data when",
@@ -567,7 +576,7 @@ class QuestionnaireItem(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    initial: typing.List[fhirtypes.QuestionnaireItemInitialType] = Field(
+    initial: typing.List["QuestionnaireItemInitial"] = Field(
         None,
         alias="initial",
         title="Initial value(s) when item is first rendered",
@@ -579,7 +588,7 @@ class QuestionnaireItem(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    item: typing.List[fhirtypes.QuestionnaireItemType] = Field(
+    item: typing.List["QuestionnaireItem"] = Field(
         None,
         alias="item",
         title="Nested questionnaire items",
@@ -826,7 +835,7 @@ class QuestionnaireItemAnswerOption(backboneelement.BackboneElement):
     One of the permitted answers for a "choice" or "open-choice" question.
     """
 
-    resource_type = Field("QuestionnaireItemAnswerOption", const=True)
+    resource_type: str = Field("QuestionnaireItemAnswerOption", const=True)
 
     initialSelected: bool = Field(
         None,
@@ -843,7 +852,7 @@ class QuestionnaireItemAnswerOption(backboneelement.BackboneElement):
         None, alias="_initialSelected", title="Extension field for ``initialSelected``."
     )
 
-    valueCoding: fhirtypes.CodingType = Field(
+    valueCoding: Coding = Field(
         None,
         alias="valueCoding",
         title="Answer value",
@@ -885,7 +894,7 @@ class QuestionnaireItemAnswerOption(backboneelement.BackboneElement):
         None, alias="_valueInteger", title="Extension field for ``valueInteger``."
     )
 
-    valueReference: fhirtypes.ReferenceType = Field(
+    valueReference: Reference = Field(
         None,
         alias="valueReference",
         title="Answer value",
@@ -1007,7 +1016,7 @@ class QuestionnaireItemEnableWhen(backboneelement.BackboneElement):
     true.
     """
 
-    resource_type = Field("QuestionnaireItemEnableWhen", const=True)
+    resource_type: str = Field("QuestionnaireItemEnableWhen", const=True)
 
     answerBoolean: bool = Field(
         None,
@@ -1027,7 +1036,7 @@ class QuestionnaireItemEnableWhen(backboneelement.BackboneElement):
         None, alias="_answerBoolean", title="Extension field for ``answerBoolean``."
     )
 
-    answerCoding: fhirtypes.CodingType = Field(
+    answerCoding: Coding = Field(
         None,
         alias="answerCoding",
         title="Value for question comparison based on operator",
@@ -1114,7 +1123,7 @@ class QuestionnaireItemEnableWhen(backboneelement.BackboneElement):
         None, alias="_answerInteger", title="Extension field for ``answerInteger``."
     )
 
-    answerQuantity: fhirtypes.QuantityType = Field(
+    answerQuantity: Quantity = Field(
         None,
         alias="answerQuantity",
         title="Value for question comparison based on operator",
@@ -1129,7 +1138,7 @@ class QuestionnaireItemEnableWhen(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    answerReference: fhirtypes.ReferenceType = Field(
+    answerReference: Reference = Field(
         None,
         alias="answerReference",
         title="Value for question comparison based on operator",
@@ -1359,9 +1368,9 @@ class QuestionnaireItemInitial(backboneelement.BackboneElement):
     initially rendering the questionnaire for user input.
     """
 
-    resource_type = Field("QuestionnaireItemInitial", const=True)
+    resource_type: str = Field("QuestionnaireItemInitial", const=True)
 
-    valueAttachment: fhirtypes.AttachmentType = Field(
+    valueAttachment: Attachment = Field(
         None,
         alias="valueAttachment",
         title="Actual value for initializing the question",
@@ -1388,7 +1397,7 @@ class QuestionnaireItemInitial(backboneelement.BackboneElement):
         None, alias="_valueBoolean", title="Extension field for ``valueBoolean``."
     )
 
-    valueCoding: fhirtypes.CodingType = Field(
+    valueCoding: Coding = Field(
         None,
         alias="valueCoding",
         title="Actual value for initializing the question",
@@ -1460,7 +1469,7 @@ class QuestionnaireItemInitial(backboneelement.BackboneElement):
         None, alias="_valueInteger", title="Extension field for ``valueInteger``."
     )
 
-    valueQuantity: fhirtypes.QuantityType = Field(
+    valueQuantity: Quantity = Field(
         None,
         alias="valueQuantity",
         title="Actual value for initializing the question",
@@ -1472,7 +1481,7 @@ class QuestionnaireItemInitial(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueReference: fhirtypes.ReferenceType = Field(
+    valueReference: Reference = Field(
         None,
         alias="valueReference",
         title="Actual value for initializing the question",
@@ -1607,3 +1616,7 @@ class QuestionnaireItemInitial(backboneelement.BackboneElement):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+Questionnaire.update_forward_refs()
+QuestionnaireItem.update_forward_refs()

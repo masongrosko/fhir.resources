@@ -13,6 +13,14 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .codeablereference import CodeableReference
+from .coding import Coding
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
+from .virtualservicedetail import VirtualServiceDetail
 
 
 class Appointment(domainresource.DomainResource):
@@ -25,9 +33,9 @@ class Appointment(domainresource.DomainResource):
     or more Encounter(s).
     """
 
-    resource_type = Field("Appointment", const=True)
+    resource_type: str = Field("Appointment", const=True)
 
-    account: typing.List[fhirtypes.ReferenceType] = Field(
+    account: typing.List[Reference] = Field(
         None,
         alias="account",
         title="The set of accounts that may be used for billing for this Appointment",
@@ -41,7 +49,7 @@ class Appointment(domainresource.DomainResource):
         enum_reference_types=["Account"],
     )
 
-    appointmentType: fhirtypes.CodeableConceptType = Field(
+    appointmentType: CodeableConcept = Field(
         None,
         alias="appointmentType",
         title=(
@@ -53,7 +61,7 @@ class Appointment(domainresource.DomainResource):
         element_property=True,
     )
 
-    basedOn: typing.List[fhirtypes.ReferenceType] = Field(
+    basedOn: typing.List[Reference] = Field(
         None,
         alias="basedOn",
         title="The request this appointment is allocated to assess",
@@ -86,7 +94,7 @@ class Appointment(domainresource.DomainResource):
         title="Extension field for ``cancellationDate``.",
     )
 
-    cancellationReason: fhirtypes.CodeableConceptType = Field(
+    cancellationReason: CodeableConcept = Field(
         None,
         alias="cancellationReason",
         title="The coded reason for the appointment being cancelled",
@@ -99,7 +107,7 @@ class Appointment(domainresource.DomainResource):
         element_property=True,
     )
 
-    class_fhir: typing.List[fhirtypes.CodeableConceptType] = Field(
+    class_fhir: typing.List[CodeableConcept] = Field(
         None,
         alias="class",
         title="Classification when becoming an encounter",
@@ -157,7 +165,7 @@ class Appointment(domainresource.DomainResource):
         None, alias="_end", title="Extension field for ``end``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="External Ids for this item",
@@ -191,7 +199,7 @@ class Appointment(domainresource.DomainResource):
         None, alias="_minutesDuration", title="Extension field for ``minutesDuration``."
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Additional comments",
@@ -214,7 +222,7 @@ class Appointment(domainresource.DomainResource):
         title="Extension field for ``occurrenceChanged``.",
     )
 
-    originatingAppointment: fhirtypes.ReferenceType = Field(
+    originatingAppointment: Reference = Field(
         None,
         alias="originatingAppointment",
         title="The originating appointment in a recurring set of appointments",
@@ -227,7 +235,7 @@ class Appointment(domainresource.DomainResource):
         enum_reference_types=["Appointment"],
     )
 
-    participant: typing.List[fhirtypes.AppointmentParticipantType] = Field(
+    participant: typing.List["AppointmentParticipant"] = Field(
         ...,
         alias="participant",
         title="Participants involved in appointment",
@@ -236,7 +244,7 @@ class Appointment(domainresource.DomainResource):
         element_property=True,
     )
 
-    patientInstruction: typing.List[fhirtypes.CodeableReferenceType] = Field(
+    patientInstruction: typing.List[CodeableReference] = Field(
         None,
         alias="patientInstruction",
         title="Detailed information and instructions for the patient",
@@ -252,7 +260,7 @@ class Appointment(domainresource.DomainResource):
         enum_reference_types=["DocumentReference", "Binary", "Communication"],
     )
 
-    previousAppointment: fhirtypes.ReferenceType = Field(
+    previousAppointment: Reference = Field(
         None,
         alias="previousAppointment",
         title="The previous appointment in a series",
@@ -263,7 +271,7 @@ class Appointment(domainresource.DomainResource):
         enum_reference_types=["Appointment"],
     )
 
-    priority: fhirtypes.CodeableConceptType = Field(
+    priority: CodeableConcept = Field(
         None,
         alias="priority",
         title="Used to make informed decisions if needing to re-prioritize",
@@ -276,7 +284,7 @@ class Appointment(domainresource.DomainResource):
         element_property=True,
     )
 
-    reason: typing.List[fhirtypes.CodeableReferenceType] = Field(
+    reason: typing.List[CodeableReference] = Field(
         None,
         alias="reason",
         title="Reason this appointment is scheduled",
@@ -314,9 +322,7 @@ class Appointment(domainresource.DomainResource):
         None, alias="_recurrenceId", title="Extension field for ``recurrenceId``."
     )
 
-    recurrenceTemplate: typing.List[
-        fhirtypes.AppointmentRecurrenceTemplateType
-    ] = Field(
+    recurrenceTemplate: typing.List["AppointmentRecurrenceTemplate"] = Field(
         None,
         alias="recurrenceTemplate",
         title=(
@@ -330,7 +336,7 @@ class Appointment(domainresource.DomainResource):
         element_property=True,
     )
 
-    replaces: typing.List[fhirtypes.ReferenceType] = Field(
+    replaces: typing.List[Reference] = Field(
         None,
         alias="replaces",
         title="Appointment replaced by this Appointment",
@@ -345,7 +351,7 @@ class Appointment(domainresource.DomainResource):
         enum_reference_types=["Appointment"],
     )
 
-    requestedPeriod: typing.List[fhirtypes.PeriodType] = Field(
+    requestedPeriod: typing.List[Period] = Field(
         None,
         alias="requestedPeriod",
         title=(
@@ -364,7 +370,7 @@ class Appointment(domainresource.DomainResource):
         element_property=True,
     )
 
-    serviceCategory: typing.List[fhirtypes.CodeableConceptType] = Field(
+    serviceCategory: typing.List[CodeableConcept] = Field(
         None,
         alias="serviceCategory",
         title=(
@@ -376,7 +382,7 @@ class Appointment(domainresource.DomainResource):
         element_property=True,
     )
 
-    serviceType: typing.List[fhirtypes.CodeableReferenceType] = Field(
+    serviceType: typing.List[CodeableReference] = Field(
         None,
         alias="serviceType",
         title="The specific service that is to be performed during this appointment",
@@ -387,7 +393,7 @@ class Appointment(domainresource.DomainResource):
         enum_reference_types=["HealthcareService"],
     )
 
-    slot: typing.List[fhirtypes.ReferenceType] = Field(
+    slot: typing.List[Reference] = Field(
         None,
         alias="slot",
         title="The slots that this appointment is filling",
@@ -401,7 +407,7 @@ class Appointment(domainresource.DomainResource):
         enum_reference_types=["Slot"],
     )
 
-    specialty: typing.List[fhirtypes.CodeableConceptType] = Field(
+    specialty: typing.List[CodeableConcept] = Field(
         None,
         alias="specialty",
         title=(
@@ -459,7 +465,7 @@ class Appointment(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title="The patient or group associated with the appointment",
@@ -474,7 +480,7 @@ class Appointment(domainresource.DomainResource):
         enum_reference_types=["Patient", "Group"],
     )
 
-    supportingInformation: typing.List[fhirtypes.ReferenceType] = Field(
+    supportingInformation: typing.List[Reference] = Field(
         None,
         alias="supportingInformation",
         title="Additional information to support the appointment",
@@ -488,7 +494,7 @@ class Appointment(domainresource.DomainResource):
         enum_reference_types=["Resource"],
     )
 
-    virtualService: typing.List[fhirtypes.VirtualServiceDetailType] = Field(
+    virtualService: typing.List[VirtualServiceDetail] = Field(
         None,
         alias="virtualService",
         title="Connection details of a virtual service (e.g. conference call)",
@@ -615,9 +621,9 @@ class AppointmentParticipant(backboneelement.BackboneElement):
     List of participants involved in the appointment.
     """
 
-    resource_type = Field("AppointmentParticipant", const=True)
+    resource_type: str = Field("AppointmentParticipant", const=True)
 
-    actor: fhirtypes.ReferenceType = Field(
+    actor: Reference = Field(
         None,
         alias="actor",
         title=(
@@ -641,7 +647,7 @@ class AppointmentParticipant(backboneelement.BackboneElement):
         ],
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Participation period of the actor",
@@ -681,7 +687,7 @@ class AppointmentParticipant(backboneelement.BackboneElement):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    type: typing.List[fhirtypes.CodeableConceptType] = Field(
+    type: typing.List[CodeableConcept] = Field(
         None,
         alias="type",
         title="Role of participant in the appointment",
@@ -777,7 +783,7 @@ class AppointmentRecurrenceTemplate(backboneelement.BackboneElement):
     recurring appointments.
     """
 
-    resource_type = Field("AppointmentRecurrenceTemplate", const=True)
+    resource_type: str = Field("AppointmentRecurrenceTemplate", const=True)
 
     excludingDate: typing.List[typing.Optional[fhirtypes.Date]] = Field(
         None,
@@ -829,7 +835,7 @@ class AppointmentRecurrenceTemplate(backboneelement.BackboneElement):
         title="Extension field for ``lastOccurrenceDate``.",
     )
 
-    monthlyTemplate: fhirtypes.AppointmentRecurrenceTemplateMonthlyTemplateType = Field(
+    monthlyTemplate: "AppointmentRecurrenceTemplateMonthlyTemplate" = Field(
         None,
         alias="monthlyTemplate",
         title="Information about monthly recurring appointments",
@@ -864,7 +870,7 @@ class AppointmentRecurrenceTemplate(backboneelement.BackboneElement):
         None, alias="_occurrenceDate", title="Extension field for ``occurrenceDate``."
     )
 
-    recurrenceType: fhirtypes.CodeableConceptType = Field(
+    recurrenceType: CodeableConcept = Field(
         ...,
         alias="recurrenceType",
         title="The frequency of the recurrence",
@@ -873,7 +879,7 @@ class AppointmentRecurrenceTemplate(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    timezone: fhirtypes.CodeableConceptType = Field(
+    timezone: CodeableConcept = Field(
         None,
         alias="timezone",
         title="The timezone of the occurrences",
@@ -882,7 +888,7 @@ class AppointmentRecurrenceTemplate(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    weeklyTemplate: fhirtypes.AppointmentRecurrenceTemplateWeeklyTemplateType = Field(
+    weeklyTemplate: "AppointmentRecurrenceTemplateWeeklyTemplate" = Field(
         None,
         alias="weeklyTemplate",
         title="Information about weekly recurring appointments",
@@ -891,7 +897,7 @@ class AppointmentRecurrenceTemplate(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    yearlyTemplate: fhirtypes.AppointmentRecurrenceTemplateYearlyTemplateType = Field(
+    yearlyTemplate: "AppointmentRecurrenceTemplateYearlyTemplate" = Field(
         None,
         alias="yearlyTemplate",
         title="Information about yearly recurring appointments",
@@ -931,7 +937,9 @@ class AppointmentRecurrenceTemplateMonthlyTemplate(backboneelement.BackboneEleme
     Information about monthly recurring appointments.
     """
 
-    resource_type = Field("AppointmentRecurrenceTemplateMonthlyTemplate", const=True)
+    resource_type: str = Field(
+        "AppointmentRecurrenceTemplateMonthlyTemplate", const=True
+    )
 
     dayOfMonth: fhirtypes.PositiveInt = Field(
         None,
@@ -948,7 +956,7 @@ class AppointmentRecurrenceTemplateMonthlyTemplate(backboneelement.BackboneEleme
         None, alias="_dayOfMonth", title="Extension field for ``dayOfMonth``."
     )
 
-    dayOfWeek: fhirtypes.CodingType = Field(
+    dayOfWeek: Coding = Field(
         None,
         alias="dayOfWeek",
         title="Indicates which day of the week the appointment should occur",
@@ -973,7 +981,7 @@ class AppointmentRecurrenceTemplateMonthlyTemplate(backboneelement.BackboneEleme
         None, alias="_monthInterval", title="Extension field for ``monthInterval``."
     )
 
-    nthWeekOfMonth: fhirtypes.CodingType = Field(
+    nthWeekOfMonth: Coding = Field(
         None,
         alias="nthWeekOfMonth",
         title="Indicates which week of the month the appointment should occur",
@@ -1069,7 +1077,9 @@ class AppointmentRecurrenceTemplateWeeklyTemplate(backboneelement.BackboneElemen
     Information about weekly recurring appointments.
     """
 
-    resource_type = Field("AppointmentRecurrenceTemplateWeeklyTemplate", const=True)
+    resource_type: str = Field(
+        "AppointmentRecurrenceTemplateWeeklyTemplate", const=True
+    )
 
     friday: bool = Field(
         None,
@@ -1201,7 +1211,9 @@ class AppointmentRecurrenceTemplateYearlyTemplate(backboneelement.BackboneElemen
     Information about yearly recurring appointments.
     """
 
-    resource_type = Field("AppointmentRecurrenceTemplateYearlyTemplate", const=True)
+    resource_type: str = Field(
+        "AppointmentRecurrenceTemplateYearlyTemplate", const=True
+    )
 
     yearInterval: fhirtypes.PositiveInt = Field(
         None,
@@ -1282,3 +1294,7 @@ class AppointmentRecurrenceTemplateYearlyTemplate(backboneelement.BackboneElemen
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+Appointment.update_forward_refs()
+AppointmentRecurrenceTemplate.update_forward_refs()

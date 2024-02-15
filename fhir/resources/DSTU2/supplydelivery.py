@@ -10,6 +10,11 @@ from typing import List as ListType
 from pydantic.v1 import Field
 
 from . import domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .period import Period
+from .quantity import Quantity
+from .reference import Reference
 
 
 class SupplyDelivery(domainresource.DomainResource):
@@ -17,9 +22,9 @@ class SupplyDelivery(domainresource.DomainResource):
     Record of delivery of what is supplied.
     """
 
-    resource_type = Field("SupplyDelivery", const=True)
+    resource_type: str = Field("SupplyDelivery", const=True)
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="External identifier",
@@ -41,7 +46,7 @@ class SupplyDelivery(domainresource.DomainResource):
         element_property=True,
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         None,
         alias="patient",
         title="Type 'Reference' referencing 'Patient' (represented as 'dict' in JSON).",
@@ -51,7 +56,7 @@ class SupplyDelivery(domainresource.DomainResource):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -59,7 +64,7 @@ class SupplyDelivery(domainresource.DomainResource):
         element_property=True,
     )
 
-    quantity: fhirtypes.QuantityType = Field(
+    quantity: Quantity = Field(
         None,
         alias="quantity",
         title=(
@@ -70,7 +75,7 @@ class SupplyDelivery(domainresource.DomainResource):
         element_property=True,
     )
 
-    suppliedItem: fhirtypes.ReferenceType = Field(
+    suppliedItem: Reference = Field(
         None,
         alias="suppliedItem",
         title=(
@@ -83,7 +88,7 @@ class SupplyDelivery(domainresource.DomainResource):
         element_property=True,
     )
 
-    supplier: fhirtypes.ReferenceType = Field(
+    supplier: Reference = Field(
         None,
         alias="supplier",
         title=(
@@ -95,7 +100,7 @@ class SupplyDelivery(domainresource.DomainResource):
         element_property=True,
     )
 
-    whenPrepared: fhirtypes.PeriodType = Field(
+    whenPrepared: Period = Field(
         None,
         alias="whenPrepared",
         title="collectedPeriod",
@@ -111,7 +116,7 @@ class SupplyDelivery(domainresource.DomainResource):
         element_property=True,
     )
 
-    destination: fhirtypes.ReferenceType = Field(
+    destination: Reference = Field(
         None,
         alias="destination",
         title="Type `Reference` referencing `Location` (represented as `dict` in JSON).",
@@ -119,7 +124,7 @@ class SupplyDelivery(domainresource.DomainResource):
         element_property=True,
     )
 
-    receiver: ListType[fhirtypes.ReferenceType] = Field(
+    receiver: ListType[Reference] = Field(
         None,
         alias="receiver",
         title=(

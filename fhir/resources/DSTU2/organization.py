@@ -10,8 +10,14 @@ from typing import List as ListType
 from pydantic.v1 import Field
 
 from . import fhirtypes
+from .address import Address
 from .backboneelement import BackboneElement
+from .codeableconcept import CodeableConcept
+from .contactpoint import ContactPoint
 from .domainresource import DomainResource
+from .humanname import HumanName
+from .identifier import Identifier
+from .reference import Reference
 
 
 class Organization(DomainResource):
@@ -23,7 +29,7 @@ class Organization(DomainResource):
     groups, healthcare practice groups, etc.
     """
 
-    resource_type = Field("Organization", const=True)
+    resource_type: str = Field("Organization", const=True)
 
     active: bool = Field(
         None,
@@ -31,21 +37,21 @@ class Organization(DomainResource):
         title="Type `bool`.",
         description="Whether the organization's record is still in active use.",
     )
-    address: ListType[fhirtypes.AddressType] = Field(
+    address: ListType[Address] = Field(
         None,
         alias="address",
         title="List of `Address` items (represented as `dict` in JSON).",
         description="An address for the organization.",
     )
 
-    contact: ListType[fhirtypes.OrganizationContactType] = Field(
+    contact: ListType["OrganizationContact"] = Field(
         None,
         alias="contact",
         title="List of `OrganizationContact` items (represented as `dict` in JSON).",
         description="Contact for the organization for a certain purpose.",
     )
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="List of `Identifier` items (represented as `dict` in JSON).",
@@ -58,21 +64,21 @@ class Organization(DomainResource):
         title="Type `String`.",
         description="Name used for the organization.",
     )
-    partOf: fhirtypes.ReferenceType = Field(
+    partOf: Reference = Field(
         None,
         alias="partOf",
         title="Type `Reference` referencing `Organization` (represented as `dict` in JSON).",
         description="The organization of which this organization forms a part.",
     )
 
-    telecom: ListType[fhirtypes.ContactPointType] = Field(
+    telecom: ListType[ContactPoint] = Field(
         None,
         alias="telecom",
         title="List of `ContactPoint` items (represented as `dict` in JSON).",
         description="A contact detail for the organization.",
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -83,32 +89,35 @@ class Organization(DomainResource):
 class OrganizationContact(BackboneElement):
     """Contact for the organization for a certain purpose."""
 
-    resource_type = Field("OrganizationContact", const=True)
+    resource_type: str = Field("OrganizationContact", const=True)
 
-    address: fhirtypes.AddressType = Field(
+    address: Address = Field(
         None,
         alias="address",
         title="Type `Address` (represented as `dict` in JSON).",
         description="Visiting or postal addresses for the contact.",
     )
 
-    name: fhirtypes.HumanNameType = Field(
+    name: HumanName = Field(
         None,
         alias="name",
         title="Type `HumanName` (represented as `dict` in JSON).",
         description="A name associated with the contact.",
     )
 
-    purpose: fhirtypes.CodeableConceptType = Field(
+    purpose: CodeableConcept = Field(
         None,
         alias="purpose",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="The type of contact.",
     )
 
-    telecom: ListType[fhirtypes.ContactPointType] = Field(
+    telecom: ListType[ContactPoint] = Field(
         None,
         alias="telecom",
         title="List of `ContactPoint` items (represented as `dict` in JSON).",
         description="Contact details (telephone, email, etc.)  for a contact.",
     )
+
+
+Organization.update_forward_refs()

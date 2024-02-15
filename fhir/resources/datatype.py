@@ -21,7 +21,7 @@ class DataType(element.Element):
     Specification.
     """
 
-    resource_type = Field("DataType", const=True)
+    resource_type: str = Field("DataType", const=True)
 
     @classmethod
     def elements_sequence(cls):

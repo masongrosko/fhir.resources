@@ -13,6 +13,12 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .contactpoint import ContactPoint
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class Endpoint(domainresource.DomainResource):
@@ -27,7 +33,7 @@ class Endpoint(domainresource.DomainResource):
     another FHIR server. This may include any security context information.
     """
 
-    resource_type = Field("Endpoint", const=True)
+    resource_type: str = Field("Endpoint", const=True)
 
     address: fhirtypes.Uri = Field(
         None,
@@ -42,7 +48,7 @@ class Endpoint(domainresource.DomainResource):
         None, alias="_address", title="Extension field for ``address``."
     )
 
-    connectionType: fhirtypes.CodingType = Field(
+    connectionType: Coding = Field(
         ...,
         alias="connectionType",
         title="Protocol/Profile/Standard to be used with this endpoint connection",
@@ -55,7 +61,7 @@ class Endpoint(domainresource.DomainResource):
         element_property=True,
     )
 
-    contact: typing.List[fhirtypes.ContactPointType] = Field(
+    contact: typing.List[ContactPoint] = Field(
         None,
         alias="contact",
         title="Contact details for source (e.g. troubleshooting)",
@@ -79,7 +85,7 @@ class Endpoint(domainresource.DomainResource):
         typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
     ] = Field(None, alias="_header", title="Extension field for ``header``.")
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Identifies this endpoint across multiple systems",
@@ -91,7 +97,7 @@ class Endpoint(domainresource.DomainResource):
         element_property=True,
     )
 
-    managingOrganization: fhirtypes.ReferenceType = Field(
+    managingOrganization: Reference = Field(
         None,
         alias="managingOrganization",
         title=(
@@ -143,7 +149,7 @@ class Endpoint(domainresource.DomainResource):
         None, alias="_payloadMimeType", title="Extension field for ``payloadMimeType``."
     )
 
-    payloadType: typing.List[fhirtypes.CodeableConceptType] = Field(
+    payloadType: typing.List[CodeableConcept] = Field(
         ...,
         alias="payloadType",
         title=(
@@ -158,7 +164,7 @@ class Endpoint(domainresource.DomainResource):
         element_property=True,
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Interval the endpoint is expected to be operational",

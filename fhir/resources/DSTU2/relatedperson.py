@@ -10,7 +10,14 @@ from typing import List as ListType
 from pydantic.v1 import Field
 
 from . import fhirtypes
+from .address import Address
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
 from .domainresource import DomainResource
+from .humanname import HumanName
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class RelatedPerson(DomainResource):
@@ -22,9 +29,9 @@ class RelatedPerson(DomainResource):
     care process.
     """
 
-    resource_type = Field("RelatedPerson", const=True)
+    resource_type: str = Field("RelatedPerson", const=True)
 
-    address: ListType[fhirtypes.AddressType] = Field(
+    address: ListType[Address] = Field(
         None,
         alias="address",
         title="List of `Address` items (represented as `dict` in JSON).",
@@ -44,49 +51,49 @@ class RelatedPerson(DomainResource):
         description="male | female | other | unknown.",
     )
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="List of `Identifier` items (represented as `dict` in JSON).",
         description="A human identifier for this person.",
     )
 
-    name: fhirtypes.HumanNameType = Field(
+    name: HumanName = Field(
         None,
         alias="name",
         title="Type `HumanName` (represented as `dict` in JSON).",
         description="A name associated with the person.",
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         None,
         alias="patient",
         title="Type `Reference` referencing `Patient` (represented as `dict` in JSON).",
         description="The patient this person is related to.",
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Type `Period`  (represented as `dict` in JSON).",
         description="Period of time that this relationship is considered valid.",
     )
 
-    relationship: fhirtypes.CodeableConceptType = Field(
+    relationship: CodeableConcept = Field(
         None,
         alias="relationship",
         title="Type `CodeableConcept`  (represented as `dict` in JSON).",
         description="The nature of the relationship.",
     )
 
-    photo: ListType[fhirtypes.AttachmentType] = Field(
+    photo: ListType[Attachment] = Field(
         None,
         alias="photo",
         title="List of `Attachment` items (represented as `dict` in JSON).",
         description="Image of the person.",
     )
 
-    telecom: ListType[fhirtypes.AttachmentType] = Field(
+    telecom: ListType[Attachment] = Field(
         None,
         alias="telecom",
         title="List of `ContactPoint` items (represented as `dict` in JSON).",

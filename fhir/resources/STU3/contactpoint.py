@@ -9,6 +9,7 @@ Last updated: 2019-10-24T11:53:00+11:00
 from pydantic.v1 import Field
 
 from . import element, fhirtypes
+from .period import Period
 
 
 class ContactPoint(element.Element):
@@ -21,9 +22,9 @@ class ContactPoint(element.Element):
     organization, including telephone, email, etc.
     """
 
-    resource_type = Field("ContactPoint", const=True)
+    resource_type: str = Field("ContactPoint", const=True)
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Time period when the contact point was/is in use",

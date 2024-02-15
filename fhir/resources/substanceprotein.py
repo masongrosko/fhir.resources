@@ -11,6 +11,9 @@ import typing
 from pydantic.v1 import Field
 
 from . import backboneelement, domainresource, fhirtypes
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
 
 
 class SubstanceProtein(domainresource.DomainResource):
@@ -28,7 +31,7 @@ class SubstanceProtein(domainresource.DomainResource):
     recombinant vaccines, and immunomodulators.
     """
 
-    resource_type = Field("SubstanceProtein", const=True)
+    resource_type: str = Field("SubstanceProtein", const=True)
 
     disulfideLinkage: typing.List[typing.Optional[fhirtypes.String]] = Field(
         None,
@@ -73,7 +76,7 @@ class SubstanceProtein(domainresource.DomainResource):
         title="Extension field for ``numberOfSubunits``.",
     )
 
-    sequenceType: fhirtypes.CodeableConceptType = Field(
+    sequenceType: CodeableConcept = Field(
         None,
         alias="sequenceType",
         title=(
@@ -86,7 +89,7 @@ class SubstanceProtein(domainresource.DomainResource):
         element_property=True,
     )
 
-    subunit: typing.List[fhirtypes.SubstanceProteinSubunitType] = Field(
+    subunit: typing.List["SubstanceProteinSubunit"] = Field(
         None,
         alias="subunit",
         title=(
@@ -141,7 +144,7 @@ class SubstanceProteinSubunit(backboneelement.BackboneElement):
     be repeated multiple times.
     """
 
-    resource_type = Field("SubstanceProteinSubunit", const=True)
+    resource_type: str = Field("SubstanceProteinSubunit", const=True)
 
     cTerminalModification: fhirtypes.String = Field(
         None,
@@ -157,7 +160,7 @@ class SubstanceProteinSubunit(backboneelement.BackboneElement):
         title="Extension field for ``cTerminalModification``.",
     )
 
-    cTerminalModificationId: fhirtypes.IdentifierType = Field(
+    cTerminalModificationId: Identifier = Field(
         None,
         alias="cTerminalModificationId",
         title=(
@@ -198,7 +201,7 @@ class SubstanceProteinSubunit(backboneelement.BackboneElement):
         title="Extension field for ``nTerminalModification``.",
     )
 
-    nTerminalModificationId: fhirtypes.IdentifierType = Field(
+    nTerminalModificationId: Identifier = Field(
         None,
         alias="nTerminalModificationId",
         title=(
@@ -231,7 +234,7 @@ class SubstanceProteinSubunit(backboneelement.BackboneElement):
         None, alias="_sequence", title="Extension field for ``sequence``."
     )
 
-    sequenceAttachment: fhirtypes.AttachmentType = Field(
+    sequenceAttachment: Attachment = Field(
         None,
         alias="sequenceAttachment",
         title=(
@@ -285,3 +288,6 @@ class SubstanceProteinSubunit(backboneelement.BackboneElement):
             "cTerminalModificationId",
             "cTerminalModification",
         ]
+
+
+SubstanceProtein.update_forward_refs()

@@ -11,6 +11,12 @@ import typing
 from pydantic.v1 import Field, root_validator
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .period import Period
+from .quantity import Quantity
+from .reference import Reference
+from .timing import Timing
 
 
 class SupplyRequest(domainresource.DomainResource):
@@ -23,7 +29,7 @@ class SupplyRequest(domainresource.DomainResource):
     healthcare setting.
     """
 
-    resource_type = Field("SupplyRequest", const=True)
+    resource_type: str = Field("SupplyRequest", const=True)
 
     authoredOn: fhirtypes.DateTime = Field(
         None,
@@ -37,7 +43,7 @@ class SupplyRequest(domainresource.DomainResource):
         None, alias="_authoredOn", title="Extension field for ``authoredOn``."
     )
 
-    category: fhirtypes.CodeableConceptType = Field(
+    category: CodeableConcept = Field(
         None,
         alias="category",
         title="The kind of supply (central, non-stock, etc.)",
@@ -49,7 +55,7 @@ class SupplyRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    deliverFrom: fhirtypes.ReferenceType = Field(
+    deliverFrom: Reference = Field(
         None,
         alias="deliverFrom",
         title="The origin of the supply",
@@ -60,7 +66,7 @@ class SupplyRequest(domainresource.DomainResource):
         enum_reference_types=["Organization", "Location"],
     )
 
-    deliverTo: fhirtypes.ReferenceType = Field(
+    deliverTo: Reference = Field(
         None,
         alias="deliverTo",
         title="The destination of the supply",
@@ -71,7 +77,7 @@ class SupplyRequest(domainresource.DomainResource):
         enum_reference_types=["Organization", "Location", "Patient"],
     )
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="Unique identifier",
@@ -97,7 +103,7 @@ class SupplyRequest(domainresource.DomainResource):
         title="Extension field for ``occurrenceDateTime``.",
     )
 
-    occurrencePeriod: fhirtypes.PeriodType = Field(
+    occurrencePeriod: Period = Field(
         None,
         alias="occurrencePeriod",
         title="When the request should be fulfilled",
@@ -109,7 +115,7 @@ class SupplyRequest(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    occurrenceTiming: fhirtypes.TimingType = Field(
+    occurrenceTiming: Timing = Field(
         None,
         alias="occurrenceTiming",
         title="When the request should be fulfilled",
@@ -121,7 +127,7 @@ class SupplyRequest(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    orderedItem: fhirtypes.SupplyRequestOrderedItemType = Field(
+    orderedItem: "SupplyRequestOrderedItem" = Field(
         None,
         alias="orderedItem",
         title="The item being requested",
@@ -148,7 +154,7 @@ class SupplyRequest(domainresource.DomainResource):
         None, alias="_priority", title="Extension field for ``priority``."
     )
 
-    reasonCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    reasonCodeableConcept: CodeableConcept = Field(
         None,
         alias="reasonCodeableConcept",
         title="Why the supply item was requested",
@@ -160,7 +166,7 @@ class SupplyRequest(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    reasonReference: fhirtypes.ReferenceType = Field(
+    reasonReference: Reference = Field(
         None,
         alias="reasonReference",
         title="Why the supply item was requested",
@@ -174,7 +180,7 @@ class SupplyRequest(domainresource.DomainResource):
         enum_reference_types=["Resource"],
     )
 
-    requester: fhirtypes.SupplyRequestRequesterType = Field(
+    requester: "SupplyRequestRequester" = Field(
         None,
         alias="requester",
         title="Who/what is requesting service",
@@ -201,7 +207,7 @@ class SupplyRequest(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    supplier: typing.List[fhirtypes.ReferenceType] = Field(
+    supplier: typing.List[Reference] = Field(
         None,
         alias="supplier",
         title="Who is intended to fulfill the request",
@@ -298,9 +304,9 @@ class SupplyRequestOrderedItem(backboneelement.BackboneElement):
     The item being requested.
     """
 
-    resource_type = Field("SupplyRequestOrderedItem", const=True)
+    resource_type: str = Field("SupplyRequestOrderedItem", const=True)
 
-    itemCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    itemCodeableConcept: CodeableConcept = Field(
         None,
         alias="itemCodeableConcept",
         title="Medication, Substance, or Device requested to be supplied",
@@ -316,7 +322,7 @@ class SupplyRequestOrderedItem(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    itemReference: fhirtypes.ReferenceType = Field(
+    itemReference: Reference = Field(
         None,
         alias="itemReference",
         title="Medication, Substance, or Device requested to be supplied",
@@ -334,7 +340,7 @@ class SupplyRequestOrderedItem(backboneelement.BackboneElement):
         enum_reference_types=["Medication", "Substance", "Device"],
     )
 
-    quantity: fhirtypes.QuantityType = Field(
+    quantity: Quantity = Field(
         ...,
         alias="quantity",
         title="The requested amount of the item indicated",
@@ -409,9 +415,9 @@ class SupplyRequestRequester(backboneelement.BackboneElement):
     activation.
     """
 
-    resource_type = Field("SupplyRequestRequester", const=True)
+    resource_type: str = Field("SupplyRequestRequester", const=True)
 
-    agent: fhirtypes.ReferenceType = Field(
+    agent: Reference = Field(
         ...,
         alias="agent",
         title="Individual making the request",
@@ -428,7 +434,7 @@ class SupplyRequestRequester(backboneelement.BackboneElement):
         ],
     )
 
-    onBehalfOf: fhirtypes.ReferenceType = Field(
+    onBehalfOf: Reference = Field(
         None,
         alias="onBehalfOf",
         title="Organization agent is acting for",
@@ -446,3 +452,6 @@ class SupplyRequestRequester(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "agent", "onBehalfOf"]
+
+
+SupplyRequest.update_forward_refs()

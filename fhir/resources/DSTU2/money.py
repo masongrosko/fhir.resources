@@ -19,4 +19,4 @@ class Money(Quantity):
     "urn:iso:std:iso:4217" - currency).
     """
 
-    resource_type = Field("Money", const=True)
+    resource_type: str = Field("Money", const=True)

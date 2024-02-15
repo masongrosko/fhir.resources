@@ -13,6 +13,9 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import element, fhirtypes
+from .datarequirement import DataRequirement
+from .reference import Reference
+from .timing import Timing
 
 
 class TriggerDefinition(element.Element):
@@ -24,9 +27,9 @@ class TriggerDefinition(element.Element):
     A description of a triggering event.
     """
 
-    resource_type = Field("TriggerDefinition", const=True)
+    resource_type: str = Field("TriggerDefinition", const=True)
 
-    eventData: fhirtypes.DataRequirementType = Field(
+    eventData: DataRequirement = Field(
         None,
         alias="eventData",
         title="Triggering data of the event",
@@ -79,7 +82,7 @@ class TriggerDefinition(element.Element):
         title="Extension field for ``eventTimingDateTime``.",
     )
 
-    eventTimingReference: fhirtypes.ReferenceType = Field(
+    eventTimingReference: Reference = Field(
         None,
         alias="eventTimingReference",
         title="Timing of the event",
@@ -93,7 +96,7 @@ class TriggerDefinition(element.Element):
         enum_reference_types=["Schedule"],
     )
 
-    eventTimingTiming: fhirtypes.TimingType = Field(
+    eventTimingTiming: Timing = Field(
         None,
         alias="eventTimingTiming",
         title="Timing of the event",

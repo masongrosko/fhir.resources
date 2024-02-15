@@ -13,6 +13,17 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .contactdetail import ContactDetail
+from .datarequirement import DataRequirement
+from .duration import Duration
+from .expression import Expression
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
+from .relatedartifact import RelatedArtifact
+from .timing import Timing
+from .usagecontext import UsageContext
 
 
 class ResearchElementDefinition(domainresource.DomainResource):
@@ -25,7 +36,7 @@ class ResearchElementDefinition(domainresource.DomainResource):
     knowledge (evidence, assertion, recommendation) is about.
     """
 
-    resource_type = Field("ResearchElementDefinition", const=True)
+    resource_type: str = Field("ResearchElementDefinition", const=True)
 
     approvalDate: fhirtypes.Date = Field(
         None,
@@ -43,7 +54,7 @@ class ResearchElementDefinition(domainresource.DomainResource):
         None, alias="_approvalDate", title="Extension field for ``approvalDate``."
     )
 
-    author: typing.List[fhirtypes.ContactDetailType] = Field(
+    author: typing.List[ContactDetail] = Field(
         None,
         alias="author",
         title="Who authored the content",
@@ -55,9 +66,7 @@ class ResearchElementDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    characteristic: typing.List[
-        fhirtypes.ResearchElementDefinitionCharacteristicType
-    ] = Field(
+    characteristic: typing.List["ResearchElementDefinitionCharacteristic"] = Field(
         ...,
         alias="characteristic",
         title="What defines the members of the research element",
@@ -84,7 +93,7 @@ class ResearchElementDefinition(domainresource.DomainResource):
         typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
     ] = Field(None, alias="_comment", title="Extension field for ``comment``.")
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -146,7 +155,7 @@ class ResearchElementDefinition(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    editor: typing.List[fhirtypes.ContactDetailType] = Field(
+    editor: typing.List[ContactDetail] = Field(
         None,
         alias="editor",
         title="Who edited the content",
@@ -158,7 +167,7 @@ class ResearchElementDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    effectivePeriod: fhirtypes.PeriodType = Field(
+    effectivePeriod: Period = Field(
         None,
         alias="effectivePeriod",
         title="When the research element definition is expected to be used",
@@ -170,7 +179,7 @@ class ResearchElementDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    endorser: typing.List[fhirtypes.ContactDetailType] = Field(
+    endorser: typing.List[ContactDetail] = Field(
         None,
         alias="endorser",
         title="Who endorsed the content",
@@ -198,7 +207,7 @@ class ResearchElementDefinition(domainresource.DomainResource):
         None, alias="_experimental", title="Extension field for ``experimental``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Additional identifier for the research element definition",
@@ -211,7 +220,7 @@ class ResearchElementDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction for research element definition (if applicable)",
@@ -302,7 +311,7 @@ class ResearchElementDefinition(domainresource.DomainResource):
         None, alias="_purpose", title="Extension field for ``purpose``."
     )
 
-    relatedArtifact: typing.List[fhirtypes.RelatedArtifactType] = Field(
+    relatedArtifact: typing.List[RelatedArtifact] = Field(
         None,
         alias="relatedArtifact",
         title="Additional documentation, citations, etc.",
@@ -314,7 +323,7 @@ class ResearchElementDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    reviewer: typing.List[fhirtypes.ContactDetailType] = Field(
+    reviewer: typing.List[ContactDetail] = Field(
         None,
         alias="reviewer",
         title="Who reviewed the content",
@@ -360,7 +369,7 @@ class ResearchElementDefinition(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subjectCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    subjectCodeableConcept: CodeableConcept = Field(
         None,
         alias="subjectCodeableConcept",
         title=(
@@ -379,7 +388,7 @@ class ResearchElementDefinition(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    subjectReference: fhirtypes.ReferenceType = Field(
+    subjectReference: Reference = Field(
         None,
         alias="subjectReference",
         title=(
@@ -430,7 +439,7 @@ class ResearchElementDefinition(domainresource.DomainResource):
         None, alias="_title", title="Extension field for ``title``."
     )
 
-    topic: typing.List[fhirtypes.CodeableConceptType] = Field(
+    topic: typing.List[CodeableConcept] = Field(
         None,
         alias="topic",
         title=(
@@ -504,7 +513,7 @@ class ResearchElementDefinition(domainresource.DomainResource):
         None, alias="_usage", title="Extension field for ``usage``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="The context that the content is intended to support",
@@ -721,7 +730,7 @@ class ResearchElementDefinitionCharacteristic(backboneelement.BackboneElement):
     characteristics are applied with "and" semantics.
     """
 
-    resource_type = Field("ResearchElementDefinitionCharacteristic", const=True)
+    resource_type: str = Field("ResearchElementDefinitionCharacteristic", const=True)
 
     definitionCanonical: fhirtypes.Canonical = Field(
         None,
@@ -747,7 +756,7 @@ class ResearchElementDefinitionCharacteristic(backboneelement.BackboneElement):
         title="Extension field for ``definitionCanonical``.",
     )
 
-    definitionCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    definitionCodeableConcept: CodeableConcept = Field(
         None,
         alias="definitionCodeableConcept",
         title="What code or expression defines members?",
@@ -764,7 +773,7 @@ class ResearchElementDefinitionCharacteristic(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    definitionDataRequirement: fhirtypes.DataRequirementType = Field(
+    definitionDataRequirement: DataRequirement = Field(
         None,
         alias="definitionDataRequirement",
         title="What code or expression defines members?",
@@ -781,7 +790,7 @@ class ResearchElementDefinitionCharacteristic(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    definitionExpression: fhirtypes.ExpressionType = Field(
+    definitionExpression: Expression = Field(
         None,
         alias="definitionExpression",
         title="What code or expression defines members?",
@@ -844,7 +853,7 @@ class ResearchElementDefinitionCharacteristic(backboneelement.BackboneElement):
         title="Extension field for ``participantEffectiveDescription``.",
     )
 
-    participantEffectiveDuration: fhirtypes.DurationType = Field(
+    participantEffectiveDuration: Duration = Field(
         None,
         alias="participantEffectiveDuration",
         title="What time period do participants cover",
@@ -886,7 +895,7 @@ class ResearchElementDefinitionCharacteristic(backboneelement.BackboneElement):
         title="Extension field for ``participantEffectiveGroupMeasure``.",
     )
 
-    participantEffectivePeriod: fhirtypes.PeriodType = Field(
+    participantEffectivePeriod: Period = Field(
         None,
         alias="participantEffectivePeriod",
         title="What time period do participants cover",
@@ -898,7 +907,7 @@ class ResearchElementDefinitionCharacteristic(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    participantEffectiveTimeFromStart: fhirtypes.DurationType = Field(
+    participantEffectiveTimeFromStart: Duration = Field(
         None,
         alias="participantEffectiveTimeFromStart",
         title="Observation time from study start",
@@ -907,7 +916,7 @@ class ResearchElementDefinitionCharacteristic(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    participantEffectiveTiming: fhirtypes.TimingType = Field(
+    participantEffectiveTiming: Timing = Field(
         None,
         alias="participantEffectiveTiming",
         title="What time period do participants cover",
@@ -950,7 +959,7 @@ class ResearchElementDefinitionCharacteristic(backboneelement.BackboneElement):
         title="Extension field for ``studyEffectiveDescription``.",
     )
 
-    studyEffectiveDuration: fhirtypes.DurationType = Field(
+    studyEffectiveDuration: Duration = Field(
         None,
         alias="studyEffectiveDuration",
         title="What time period does the study cover",
@@ -992,7 +1001,7 @@ class ResearchElementDefinitionCharacteristic(backboneelement.BackboneElement):
         title="Extension field for ``studyEffectiveGroupMeasure``.",
     )
 
-    studyEffectivePeriod: fhirtypes.PeriodType = Field(
+    studyEffectivePeriod: Period = Field(
         None,
         alias="studyEffectivePeriod",
         title="What time period does the study cover",
@@ -1004,7 +1013,7 @@ class ResearchElementDefinitionCharacteristic(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    studyEffectiveTimeFromStart: fhirtypes.DurationType = Field(
+    studyEffectiveTimeFromStart: Duration = Field(
         None,
         alias="studyEffectiveTimeFromStart",
         title="Observation time from study start",
@@ -1013,7 +1022,7 @@ class ResearchElementDefinitionCharacteristic(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    studyEffectiveTiming: fhirtypes.TimingType = Field(
+    studyEffectiveTiming: Timing = Field(
         None,
         alias="studyEffectiveTiming",
         title="What time period does the study cover",
@@ -1025,7 +1034,7 @@ class ResearchElementDefinitionCharacteristic(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    unitOfMeasure: fhirtypes.CodeableConceptType = Field(
+    unitOfMeasure: CodeableConcept = Field(
         None,
         alias="unitOfMeasure",
         title="What unit is the outcome described in?",
@@ -1034,7 +1043,7 @@ class ResearchElementDefinitionCharacteristic(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    usageContext: typing.List[fhirtypes.UsageContextType] = Field(
+    usageContext: typing.List[UsageContext] = Field(
         None,
         alias="usageContext",
         title="What code/value pairs define members?",
@@ -1135,3 +1144,6 @@ class ResearchElementDefinitionCharacteristic(backboneelement.BackboneElement):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+ResearchElementDefinition.update_forward_refs()

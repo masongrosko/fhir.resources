@@ -13,6 +13,13 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .contactdetail import ContactDetail
+from .identifier import Identifier
+from .period import Period
+from .relatedartifact import RelatedArtifact
+from .usagecontext import UsageContext
 
 
 class ValueSet(domainresource.DomainResource):
@@ -27,7 +34,7 @@ class ValueSet(domainresource.DomainResource):
     [coded elements](terminologies.html).
     """
 
-    resource_type = Field("ValueSet", const=True)
+    resource_type: str = Field("ValueSet", const=True)
 
     approvalDate: fhirtypes.Date = Field(
         None,
@@ -45,7 +52,7 @@ class ValueSet(domainresource.DomainResource):
         None, alias="_approvalDate", title="Extension field for ``approvalDate``."
     )
 
-    author: typing.List[fhirtypes.ContactDetailType] = Field(
+    author: typing.List[ContactDetail] = Field(
         None,
         alias="author",
         title="Who authored the ValueSet",
@@ -57,7 +64,7 @@ class ValueSet(domainresource.DomainResource):
         element_property=True,
     )
 
-    compose: fhirtypes.ValueSetComposeType = Field(
+    compose: "ValueSetCompose" = Field(
         None,
         alias="compose",
         title="Content logical definition of the value set (CLD)",
@@ -71,7 +78,7 @@ class ValueSet(domainresource.DomainResource):
         element_property=True,
     )
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -149,7 +156,7 @@ class ValueSet(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    editor: typing.List[fhirtypes.ContactDetailType] = Field(
+    editor: typing.List[ContactDetail] = Field(
         None,
         alias="editor",
         title="Who edited the ValueSet",
@@ -161,7 +168,7 @@ class ValueSet(domainresource.DomainResource):
         element_property=True,
     )
 
-    effectivePeriod: fhirtypes.PeriodType = Field(
+    effectivePeriod: Period = Field(
         None,
         alias="effectivePeriod",
         title="When the ValueSet is expected to be used",
@@ -173,7 +180,7 @@ class ValueSet(domainresource.DomainResource):
         element_property=True,
     )
 
-    endorser: typing.List[fhirtypes.ContactDetailType] = Field(
+    endorser: typing.List[ContactDetail] = Field(
         None,
         alias="endorser",
         title="Who endorsed the ValueSet",
@@ -186,7 +193,7 @@ class ValueSet(domainresource.DomainResource):
         element_property=True,
     )
 
-    expansion: fhirtypes.ValueSetExpansionType = Field(
+    expansion: "ValueSetExpansion" = Field(
         None,
         alias="expansion",
         title='Used when the value set is "expanded"',
@@ -215,7 +222,7 @@ class ValueSet(domainresource.DomainResource):
         None, alias="_experimental", title="Extension field for ``experimental``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Additional identifier for the value set (business identifier)",
@@ -246,7 +253,7 @@ class ValueSet(domainresource.DomainResource):
         None, alias="_immutable", title="Extension field for ``immutable``."
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction for value set (if applicable)",
@@ -320,7 +327,7 @@ class ValueSet(domainresource.DomainResource):
         None, alias="_purpose", title="Extension field for ``purpose``."
     )
 
-    relatedArtifact: typing.List[fhirtypes.RelatedArtifactType] = Field(
+    relatedArtifact: typing.List[RelatedArtifact] = Field(
         None,
         alias="relatedArtifact",
         title="Additional documentation, citations, etc",
@@ -333,7 +340,7 @@ class ValueSet(domainresource.DomainResource):
         element_property=True,
     )
 
-    reviewer: typing.List[fhirtypes.ContactDetailType] = Field(
+    reviewer: typing.List[ContactDetail] = Field(
         None,
         alias="reviewer",
         title="Who reviewed the ValueSet",
@@ -345,7 +352,7 @@ class ValueSet(domainresource.DomainResource):
         element_property=True,
     )
 
-    scope: fhirtypes.ValueSetScopeType = Field(
+    scope: "ValueSetScope" = Field(
         None,
         alias="scope",
         title=(
@@ -390,7 +397,7 @@ class ValueSet(domainresource.DomainResource):
         None, alias="_title", title="Extension field for ``title``."
     )
 
-    topic: typing.List[fhirtypes.CodeableConceptType] = Field(
+    topic: typing.List[CodeableConcept] = Field(
         None,
         alias="topic",
         title="E.g. Education, Treatment, Assessment, etc",
@@ -426,7 +433,7 @@ class ValueSet(domainresource.DomainResource):
         None, alias="_url", title="Extension field for ``url``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="The context that the content is intended to support",
@@ -461,7 +468,7 @@ class ValueSet(domainresource.DomainResource):
         None, alias="_version", title="Extension field for ``version``."
     )
 
-    versionAlgorithmCoding: fhirtypes.CodingType = Field(
+    versionAlgorithmCoding: Coding = Field(
         None,
         alias="versionAlgorithmCoding",
         title="How to compare versions",
@@ -655,9 +662,9 @@ class ValueSetCompose(backboneelement.BackboneElement):
     set draws from. This is also known as the Content Logical Definition (CLD).
     """
 
-    resource_type = Field("ValueSetCompose", const=True)
+    resource_type: str = Field("ValueSetCompose", const=True)
 
-    exclude: typing.List[fhirtypes.ValueSetComposeIncludeType] = Field(
+    exclude: typing.List["ValueSetComposeInclude"] = Field(
         None,
         alias="exclude",
         title="Explicitly exclude codes from a code system or other value sets",
@@ -689,7 +696,7 @@ class ValueSetCompose(backboneelement.BackboneElement):
         None, alias="_inactive", title="Extension field for ``inactive``."
     )
 
-    include: typing.List[fhirtypes.ValueSetComposeIncludeType] = Field(
+    include: typing.List["ValueSetComposeInclude"] = Field(
         ...,
         alias="include",
         title="Include one or more codes from a code system or other value set(s)",
@@ -759,9 +766,9 @@ class ValueSetComposeInclude(backboneelement.BackboneElement):
     Include one or more codes from a code system or other value set(s).
     """
 
-    resource_type = Field("ValueSetComposeInclude", const=True)
+    resource_type: str = Field("ValueSetComposeInclude", const=True)
 
-    concept: typing.List[fhirtypes.ValueSetComposeIncludeConceptType] = Field(
+    concept: typing.List["ValueSetComposeIncludeConcept"] = Field(
         None,
         alias="concept",
         title="A concept defined in the system",
@@ -791,7 +798,7 @@ class ValueSetComposeInclude(backboneelement.BackboneElement):
         None, alias="_copyright", title="Extension field for ``copyright``."
     )
 
-    filter: typing.List[fhirtypes.ValueSetComposeIncludeFilterType] = Field(
+    filter: typing.List["ValueSetComposeIncludeFilter"] = Field(
         None,
         alias="filter",
         title="Select codes/concepts by their properties (including relationships)",
@@ -882,7 +889,7 @@ class ValueSetComposeIncludeConcept(backboneelement.BackboneElement):
     Specifies a concept to be included or excluded.
     """
 
-    resource_type = Field("ValueSetComposeIncludeConcept", const=True)
+    resource_type: str = Field("ValueSetComposeIncludeConcept", const=True)
 
     code: fhirtypes.Code = Field(
         None,
@@ -897,9 +904,7 @@ class ValueSetComposeIncludeConcept(backboneelement.BackboneElement):
         None, alias="_code", title="Extension field for ``code``."
     )
 
-    designation: typing.List[
-        fhirtypes.ValueSetComposeIncludeConceptDesignationType
-    ] = Field(
+    designation: typing.List["ValueSetComposeIncludeConceptDesignation"] = Field(
         None,
         alias="designation",
         title="Additional representations for this concept",
@@ -1014,9 +1019,9 @@ class ValueSetComposeIncludeConceptDesignation(backboneelement.BackboneElement):
     purposes, etc.
     """
 
-    resource_type = Field("ValueSetComposeIncludeConceptDesignation", const=True)
+    resource_type: str = Field("ValueSetComposeIncludeConceptDesignation", const=True)
 
-    additionalUse: typing.List[fhirtypes.CodingType] = Field(
+    additionalUse: typing.List[Coding] = Field(
         None,
         alias="additionalUse",
         title="Additional ways how this designation would be used",
@@ -1040,7 +1045,7 @@ class ValueSetComposeIncludeConceptDesignation(backboneelement.BackboneElement):
         None, alias="_language", title="Extension field for ``language``."
     )
 
-    use: fhirtypes.CodingType = Field(
+    use: Coding = Field(
         None,
         alias="use",
         title="Types of uses of designations",
@@ -1150,7 +1155,7 @@ class ValueSetComposeIncludeFilter(backboneelement.BackboneElement):
     SHALL all be true.
     """
 
-    resource_type = Field("ValueSetComposeIncludeFilter", const=True)
+    resource_type: str = Field("ValueSetComposeIncludeFilter", const=True)
 
     op: fhirtypes.Code = Field(
         None,
@@ -1302,9 +1307,9 @@ class ValueSetExpansion(backboneelement.BackboneElement):
     it has been performed.
     """
 
-    resource_type = Field("ValueSetExpansion", const=True)
+    resource_type: str = Field("ValueSetExpansion", const=True)
 
-    contains: typing.List[fhirtypes.ValueSetExpansionContainsType] = Field(
+    contains: typing.List["ValueSetExpansionContains"] = Field(
         None,
         alias="contains",
         title="Codes in the value set",
@@ -1363,7 +1368,7 @@ class ValueSetExpansion(backboneelement.BackboneElement):
         None, alias="_offset", title="Extension field for ``offset``."
     )
 
-    parameter: typing.List[fhirtypes.ValueSetExpansionParameterType] = Field(
+    parameter: typing.List["ValueSetExpansionParameter"] = Field(
         None,
         alias="parameter",
         title="Parameter that controlled the expansion process",
@@ -1377,7 +1382,7 @@ class ValueSetExpansion(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    property: typing.List[fhirtypes.ValueSetExpansionPropertyType] = Field(
+    property: typing.List["ValueSetExpansionProperty"] = Field(
         None,
         alias="property",
         title="Additional information supplied about each concept",
@@ -1507,7 +1512,7 @@ class ValueSetExpansionContains(backboneelement.BackboneElement):
     The codes that are contained in the value set expansion.
     """
 
-    resource_type = Field("ValueSetExpansionContains", const=True)
+    resource_type: str = Field("ValueSetExpansionContains", const=True)
 
     abstract: bool = Field(
         None,
@@ -1541,7 +1546,7 @@ class ValueSetExpansionContains(backboneelement.BackboneElement):
         None, alias="_code", title="Extension field for ``code``."
     )
 
-    contains: typing.List[fhirtypes.ValueSetExpansionContainsType] = Field(
+    contains: typing.List["ValueSetExpansionContains"] = Field(
         None,
         alias="contains",
         title="Codes contained under this entry",
@@ -1550,9 +1555,7 @@ class ValueSetExpansionContains(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    designation: typing.List[
-        fhirtypes.ValueSetComposeIncludeConceptDesignationType
-    ] = Field(
+    designation: typing.List["ValueSetComposeIncludeConceptDesignation"] = Field(
         None,
         alias="designation",
         title="Additional representations for this item",
@@ -1596,7 +1599,7 @@ class ValueSetExpansionContains(backboneelement.BackboneElement):
         None, alias="_inactive", title="Extension field for ``inactive``."
     )
 
-    property: typing.List[fhirtypes.ValueSetExpansionContainsPropertyType] = Field(
+    property: typing.List["ValueSetExpansionContainsProperty"] = Field(
         None,
         alias="property",
         title="Property value for the concept",
@@ -1669,7 +1672,7 @@ class ValueSetExpansionContainsProperty(backboneelement.BackboneElement):
     A property value for this concept.
     """
 
-    resource_type = Field("ValueSetExpansionContainsProperty", const=True)
+    resource_type: str = Field("ValueSetExpansionContainsProperty", const=True)
 
     code: fhirtypes.Code = Field(
         None,
@@ -1684,9 +1687,7 @@ class ValueSetExpansionContainsProperty(backboneelement.BackboneElement):
         None, alias="_code", title="Extension field for ``code``."
     )
 
-    subProperty: typing.List[
-        fhirtypes.ValueSetExpansionContainsPropertySubPropertyType
-    ] = Field(
+    subProperty: typing.List["ValueSetExpansionContainsPropertySubProperty"] = Field(
         None,
         alias="subProperty",
         title="SubProperty value for the concept",
@@ -1725,7 +1726,7 @@ class ValueSetExpansionContainsProperty(backboneelement.BackboneElement):
         None, alias="_valueCode", title="Extension field for ``valueCode``."
     )
 
-    valueCoding: fhirtypes.CodingType = Field(
+    valueCoding: Coding = Field(
         None,
         alias="valueCoding",
         title="Value of the property for this concept",
@@ -1935,7 +1936,9 @@ class ValueSetExpansionContainsPropertySubProperty(backboneelement.BackboneEleme
     A subproperty value for this concept.
     """
 
-    resource_type = Field("ValueSetExpansionContainsPropertySubProperty", const=True)
+    resource_type: str = Field(
+        "ValueSetExpansionContainsPropertySubProperty", const=True
+    )
 
     code: fhirtypes.Code = Field(
         None,
@@ -1980,7 +1983,7 @@ class ValueSetExpansionContainsPropertySubProperty(backboneelement.BackboneEleme
         None, alias="_valueCode", title="Extension field for ``valueCode``."
     )
 
-    valueCoding: fhirtypes.CodingType = Field(
+    valueCoding: Coding = Field(
         None,
         alias="valueCoding",
         title="Value of the subproperty for this concept",
@@ -2191,7 +2194,7 @@ class ValueSetExpansionParameter(backboneelement.BackboneElement):
     suitable for a particular purpose, or to pick the correct expansion.
     """
 
-    resource_type = Field("ValueSetExpansionParameter", const=True)
+    resource_type: str = Field("ValueSetExpansionParameter", const=True)
 
     name: fhirtypes.String = Field(
         None,
@@ -2453,7 +2456,7 @@ class ValueSetExpansionProperty(backboneelement.BackboneElement):
     can be provided about a concept.
     """
 
-    resource_type = Field("ValueSetExpansionProperty", const=True)
+    resource_type: str = Field("ValueSetExpansionProperty", const=True)
 
     code: fhirtypes.Code = Field(
         None,
@@ -2567,7 +2570,7 @@ class ValueSetScope(backboneelement.BackboneElement):
     cover and should further clarify the text in ValueSet.description.
     """
 
-    resource_type = Field("ValueSetScope", const=True)
+    resource_type: str = Field("ValueSetScope", const=True)
 
     exclusionCriteria: fhirtypes.String = Field(
         None,
@@ -2610,3 +2613,12 @@ class ValueSetScope(backboneelement.BackboneElement):
             "inclusionCriteria",
             "exclusionCriteria",
         ]
+
+
+ValueSet.update_forward_refs()
+ValueSetCompose.update_forward_refs()
+ValueSetComposeInclude.update_forward_refs()
+ValueSetComposeIncludeConcept.update_forward_refs()
+ValueSetExpansion.update_forward_refs()
+ValueSetExpansionContains.update_forward_refs()
+ValueSetExpansionContainsProperty.update_forward_refs()

@@ -11,6 +11,8 @@ import typing
 from pydantic.v1 import Field
 
 from . import datatype, fhirtypes
+from .coding import Coding
+from .reference import Reference
 
 
 class Signature(datatype.DataType):
@@ -26,7 +28,7 @@ class Signature(datatype.DataType):
     ceremony Different signature approaches have different utilities.
     """
 
-    resource_type = Field("Signature", const=True)
+    resource_type: str = Field("Signature", const=True)
 
     data: fhirtypes.Base64Binary = Field(
         None,
@@ -43,7 +45,7 @@ class Signature(datatype.DataType):
         None, alias="_data", title="Extension field for ``data``."
     )
 
-    onBehalfOf: fhirtypes.ReferenceType = Field(
+    onBehalfOf: Reference = Field(
         None,
         alias="onBehalfOf",
         title="The party represented",
@@ -96,7 +98,7 @@ class Signature(datatype.DataType):
         None, alias="_targetFormat", title="Extension field for ``targetFormat``."
     )
 
-    type: typing.List[fhirtypes.CodingType] = Field(
+    type: typing.List[Coding] = Field(
         None,
         alias="type",
         title="Indication of the reason the entity signed the object(s)",
@@ -122,7 +124,7 @@ class Signature(datatype.DataType):
         None, alias="_when", title="Extension field for ``when``."
     )
 
-    who: fhirtypes.ReferenceType = Field(
+    who: Reference = Field(
         None,
         alias="who",
         title="Who signed",

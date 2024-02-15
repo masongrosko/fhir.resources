@@ -13,6 +13,11 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .money import Money
+from .period import Period
+from .reference import Reference
 
 
 class PaymentReconciliation(domainresource.DomainResource):
@@ -25,7 +30,7 @@ class PaymentReconciliation(domainresource.DomainResource):
     allocates the payment items being paid.
     """
 
-    resource_type = Field("PaymentReconciliation", const=True)
+    resource_type: str = Field("PaymentReconciliation", const=True)
 
     accountNumber: fhirtypes.String = Field(
         None,
@@ -42,7 +47,7 @@ class PaymentReconciliation(domainresource.DomainResource):
         None, alias="_accountNumber", title="Extension field for ``accountNumber``."
     )
 
-    allocation: typing.List[fhirtypes.PaymentReconciliationAllocationType] = Field(
+    allocation: typing.List["PaymentReconciliationAllocation"] = Field(
         None,
         alias="allocation",
         title="Settlement particulars",
@@ -54,7 +59,7 @@ class PaymentReconciliation(domainresource.DomainResource):
         element_property=True,
     )
 
-    amount: fhirtypes.MoneyType = Field(
+    amount: Money = Field(
         ...,
         alias="amount",
         title="Total amount of Payment",
@@ -134,7 +139,7 @@ class PaymentReconciliation(domainresource.DomainResource):
         None, alias="_disposition", title="Extension field for ``disposition``."
     )
 
-    enterer: fhirtypes.ReferenceType = Field(
+    enterer: Reference = Field(
         None,
         alias="enterer",
         title="Who entered the payment",
@@ -160,7 +165,7 @@ class PaymentReconciliation(domainresource.DomainResource):
         None, alias="_expirationDate", title="Extension field for ``expirationDate``."
     )
 
-    formCode: fhirtypes.CodeableConceptType = Field(
+    formCode: CodeableConcept = Field(
         None,
         alias="formCode",
         title="Printed form identifier",
@@ -169,7 +174,7 @@ class PaymentReconciliation(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business Identifier for a payment reconciliation",
@@ -178,7 +183,7 @@ class PaymentReconciliation(domainresource.DomainResource):
         element_property=True,
     )
 
-    issuerType: fhirtypes.CodeableConceptType = Field(
+    issuerType: CodeableConcept = Field(
         None,
         alias="issuerType",
         title="Nature of the source",
@@ -187,7 +192,7 @@ class PaymentReconciliation(domainresource.DomainResource):
         element_property=True,
     )
 
-    kind: fhirtypes.CodeableConceptType = Field(
+    kind: CodeableConcept = Field(
         None,
         alias="kind",
         title="Workflow originating payment",
@@ -200,7 +205,7 @@ class PaymentReconciliation(domainresource.DomainResource):
         element_property=True,
     )
 
-    location: fhirtypes.ReferenceType = Field(
+    location: Reference = Field(
         None,
         alias="location",
         title="Where payment collected",
@@ -214,7 +219,7 @@ class PaymentReconciliation(domainresource.DomainResource):
         enum_reference_types=["Location"],
     )
 
-    method: fhirtypes.CodeableConceptType = Field(
+    method: CodeableConcept = Field(
         None,
         alias="method",
         title="Payment instrument",
@@ -241,7 +246,7 @@ class PaymentReconciliation(domainresource.DomainResource):
         None, alias="_outcome", title="Extension field for ``outcome``."
     )
 
-    paymentIdentifier: fhirtypes.IdentifierType = Field(
+    paymentIdentifier: Identifier = Field(
         None,
         alias="paymentIdentifier",
         title="Business identifier for the payment",
@@ -250,7 +255,7 @@ class PaymentReconciliation(domainresource.DomainResource):
         element_property=True,
     )
 
-    paymentIssuer: fhirtypes.ReferenceType = Field(
+    paymentIssuer: Reference = Field(
         None,
         alias="paymentIssuer",
         title="Party generating payment",
@@ -261,7 +266,7 @@ class PaymentReconciliation(domainresource.DomainResource):
         enum_reference_types=["Organization", "Patient", "RelatedPerson"],
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Period covered",
@@ -273,7 +278,7 @@ class PaymentReconciliation(domainresource.DomainResource):
         element_property=True,
     )
 
-    processNote: typing.List[fhirtypes.PaymentReconciliationProcessNoteType] = Field(
+    processNote: typing.List["PaymentReconciliationProcessNote"] = Field(
         None,
         alias="processNote",
         title="Note concerning processing",
@@ -309,7 +314,7 @@ class PaymentReconciliation(domainresource.DomainResource):
         None, alias="_referenceNumber", title="Extension field for ``referenceNumber``."
     )
 
-    request: fhirtypes.ReferenceType = Field(
+    request: Reference = Field(
         None,
         alias="request",
         title="Reference to requesting resource",
@@ -320,7 +325,7 @@ class PaymentReconciliation(domainresource.DomainResource):
         enum_reference_types=["Task"],
     )
 
-    requestor: fhirtypes.ReferenceType = Field(
+    requestor: Reference = Field(
         None,
         alias="requestor",
         title="Responsible practitioner",
@@ -334,7 +339,7 @@ class PaymentReconciliation(domainresource.DomainResource):
         enum_reference_types=["Practitioner", "PractitionerRole", "Organization"],
     )
 
-    returnedAmount: fhirtypes.MoneyType = Field(
+    returnedAmount: Money = Field(
         None,
         alias="returnedAmount",
         title="Amount returned by the receiver",
@@ -362,7 +367,7 @@ class PaymentReconciliation(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    tenderedAmount: fhirtypes.MoneyType = Field(
+    tenderedAmount: Money = Field(
         None,
         alias="tenderedAmount",
         title="Amount offered by the issuer",
@@ -375,7 +380,7 @@ class PaymentReconciliation(domainresource.DomainResource):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title="Category of payment",
@@ -505,9 +510,9 @@ class PaymentReconciliationAllocation(backboneelement.BackboneElement):
     Distribution of the payment amount for a previously acknowledged payable.
     """
 
-    resource_type = Field("PaymentReconciliationAllocation", const=True)
+    resource_type: str = Field("PaymentReconciliationAllocation", const=True)
 
-    account: fhirtypes.ReferenceType = Field(
+    account: Reference = Field(
         None,
         alias="account",
         title="Applied-to account",
@@ -521,7 +526,7 @@ class PaymentReconciliationAllocation(backboneelement.BackboneElement):
         enum_reference_types=["Account"],
     )
 
-    amount: fhirtypes.MoneyType = Field(
+    amount: Money = Field(
         None,
         alias="amount",
         title="Amount allocated to this payable",
@@ -542,7 +547,7 @@ class PaymentReconciliationAllocation(backboneelement.BackboneElement):
         None, alias="_date", title="Extension field for ``date``."
     )
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title="Applied-to encounter",
@@ -556,7 +561,7 @@ class PaymentReconciliationAllocation(backboneelement.BackboneElement):
         enum_reference_types=["Encounter"],
     )
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="Business identifier of the payment detail",
@@ -568,7 +573,7 @@ class PaymentReconciliationAllocation(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    payee: fhirtypes.ReferenceType = Field(
+    payee: Reference = Field(
         None,
         alias="payee",
         title="Recipient of the payment",
@@ -579,7 +584,7 @@ class PaymentReconciliationAllocation(backboneelement.BackboneElement):
         enum_reference_types=["Practitioner", "PractitionerRole", "Organization"],
     )
 
-    predecessor: fhirtypes.IdentifierType = Field(
+    predecessor: Identifier = Field(
         None,
         alias="predecessor",
         title="Business identifier of the prior payment detail",
@@ -591,7 +596,7 @@ class PaymentReconciliationAllocation(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    response: fhirtypes.ReferenceType = Field(
+    response: Reference = Field(
         None,
         alias="response",
         title="Response committing to a payment",
@@ -605,7 +610,7 @@ class PaymentReconciliationAllocation(backboneelement.BackboneElement):
         enum_reference_types=["ClaimResponse"],
     )
 
-    responsible: fhirtypes.ReferenceType = Field(
+    responsible: Reference = Field(
         None,
         alias="responsible",
         title="Contact for the response",
@@ -619,7 +624,7 @@ class PaymentReconciliationAllocation(backboneelement.BackboneElement):
         enum_reference_types=["PractitionerRole"],
     )
 
-    submitter: fhirtypes.ReferenceType = Field(
+    submitter: Reference = Field(
         None,
         alias="submitter",
         title="Submitter of the request",
@@ -630,7 +635,7 @@ class PaymentReconciliationAllocation(backboneelement.BackboneElement):
         enum_reference_types=["Practitioner", "PractitionerRole", "Organization"],
     )
 
-    target: fhirtypes.ReferenceType = Field(
+    target: Reference = Field(
         None,
         alias="target",
         title="Subject of the payment",
@@ -648,7 +653,7 @@ class PaymentReconciliationAllocation(backboneelement.BackboneElement):
         ],
     )
 
-    targetItemIdentifier: fhirtypes.IdentifierType = Field(
+    targetItemIdentifier: Identifier = Field(
         None,
         alias="targetItemIdentifier",
         title="Sub-element of the subject",
@@ -706,7 +711,7 @@ class PaymentReconciliationAllocation(backboneelement.BackboneElement):
         title="Extension field for ``targetItemString``.",
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Category of payment",
@@ -796,7 +801,7 @@ class PaymentReconciliationProcessNote(backboneelement.BackboneElement):
     A note that describes or explains the processing in a human readable form.
     """
 
-    resource_type = Field("PaymentReconciliationProcessNote", const=True)
+    resource_type: str = Field("PaymentReconciliationProcessNote", const=True)
 
     text: fhirtypes.String = Field(
         None,
@@ -832,3 +837,6 @@ class PaymentReconciliationProcessNote(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "type", "text"]
+
+
+PaymentReconciliation.update_forward_refs()

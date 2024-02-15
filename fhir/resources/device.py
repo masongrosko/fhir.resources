@@ -13,6 +13,17 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .annotation import Annotation
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .codeablereference import CodeableReference
+from .contactpoint import ContactPoint
+from .count import Count
+from .duration import Duration
+from .identifier import Identifier
+from .quantity import Quantity
+from .range import Range
+from .reference import Reference
 
 
 class Device(domainresource.DomainResource):
@@ -26,9 +37,9 @@ class Device(domainresource.DomainResource):
     be a medical or non-medical device.
     """
 
-    resource_type = Field("Device", const=True)
+    resource_type: str = Field("Device", const=True)
 
-    availabilityStatus: fhirtypes.CodeableConceptType = Field(
+    availabilityStatus: CodeableConcept = Field(
         None,
         alias="availabilityStatus",
         title="lost | damaged | destroyed | available",
@@ -37,7 +48,7 @@ class Device(domainresource.DomainResource):
         element_property=True,
     )
 
-    biologicalSourceEvent: fhirtypes.IdentifierType = Field(
+    biologicalSourceEvent: Identifier = Field(
         None,
         alias="biologicalSourceEvent",
         title=(
@@ -50,7 +61,7 @@ class Device(domainresource.DomainResource):
         element_property=True,
     )
 
-    category: typing.List[fhirtypes.CodeableConceptType] = Field(
+    category: typing.List[CodeableConcept] = Field(
         None,
         alias="category",
         title="Indicates a high-level grouping of the device",
@@ -59,7 +70,7 @@ class Device(domainresource.DomainResource):
         element_property=True,
     )
 
-    conformsTo: typing.List[fhirtypes.DeviceConformsToType] = Field(
+    conformsTo: typing.List["DeviceConformsTo"] = Field(
         None,
         alias="conformsTo",
         title=(
@@ -76,7 +87,7 @@ class Device(domainresource.DomainResource):
         element_property=True,
     )
 
-    contact: typing.List[fhirtypes.ContactPointType] = Field(
+    contact: typing.List[ContactPoint] = Field(
         None,
         alias="contact",
         title="Details for human/organization for support",
@@ -88,7 +99,7 @@ class Device(domainresource.DomainResource):
         element_property=True,
     )
 
-    cycle: fhirtypes.CountType = Field(
+    cycle: Count = Field(
         None,
         alias="cycle",
         title=(
@@ -100,7 +111,7 @@ class Device(domainresource.DomainResource):
         element_property=True,
     )
 
-    definition: fhirtypes.CodeableReferenceType = Field(
+    definition: CodeableReference = Field(
         None,
         alias="definition",
         title="The reference to the definition for the device",
@@ -127,7 +138,7 @@ class Device(domainresource.DomainResource):
         None, alias="_displayName", title="Extension field for ``displayName``."
     )
 
-    duration: fhirtypes.DurationType = Field(
+    duration: Duration = Field(
         None,
         alias="duration",
         title=(
@@ -139,7 +150,7 @@ class Device(domainresource.DomainResource):
         element_property=True,
     )
 
-    endpoint: typing.List[fhirtypes.ReferenceType] = Field(
+    endpoint: typing.List[Reference] = Field(
         None,
         alias="endpoint",
         title=(
@@ -171,7 +182,7 @@ class Device(domainresource.DomainResource):
         None, alias="_expirationDate", title="Extension field for ``expirationDate``."
     )
 
-    gateway: typing.List[fhirtypes.CodeableReferenceType] = Field(
+    gateway: typing.List[CodeableReference] = Field(
         None,
         alias="gateway",
         title=(
@@ -189,7 +200,7 @@ class Device(domainresource.DomainResource):
         enum_reference_types=["Device"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Instance identifier",
@@ -201,7 +212,7 @@ class Device(domainresource.DomainResource):
         element_property=True,
     )
 
-    location: fhirtypes.ReferenceType = Field(
+    location: Reference = Field(
         None,
         alias="location",
         title="Where the device is found",
@@ -251,7 +262,7 @@ class Device(domainresource.DomainResource):
         None, alias="_manufacturer", title="Extension field for ``manufacturer``."
     )
 
-    mode: fhirtypes.CodeableConceptType = Field(
+    mode: CodeableConcept = Field(
         None,
         alias="mode",
         title="The designated condition for performing a task",
@@ -272,7 +283,7 @@ class Device(domainresource.DomainResource):
         None, alias="_modelNumber", title="Extension field for ``modelNumber``."
     )
 
-    name: typing.List[fhirtypes.DeviceNameType] = Field(
+    name: typing.List["DeviceName"] = Field(
         None,
         alias="name",
         title=(
@@ -290,7 +301,7 @@ class Device(domainresource.DomainResource):
         element_property=True,
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Device notes and comments",
@@ -302,7 +313,7 @@ class Device(domainresource.DomainResource):
         element_property=True,
     )
 
-    owner: fhirtypes.ReferenceType = Field(
+    owner: Reference = Field(
         None,
         alias="owner",
         title="Organization responsible for device",
@@ -316,7 +327,7 @@ class Device(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    parent: fhirtypes.ReferenceType = Field(
+    parent: Reference = Field(
         None,
         alias="parent",
         title=(
@@ -342,7 +353,7 @@ class Device(domainresource.DomainResource):
         None, alias="_partNumber", title="Extension field for ``partNumber``."
     )
 
-    property: typing.List[fhirtypes.DevicePropertyType] = Field(
+    property: typing.List["DeviceProperty"] = Field(
         None,
         alias="property",
         title=(
@@ -359,7 +370,7 @@ class Device(domainresource.DomainResource):
         element_property=True,
     )
 
-    safety: typing.List[fhirtypes.CodeableConceptType] = Field(
+    safety: typing.List[CodeableConcept] = Field(
         None,
         alias="safety",
         title="Safety Characteristics of Device",
@@ -404,7 +415,7 @@ class Device(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    type: typing.List[fhirtypes.CodeableConceptType] = Field(
+    type: typing.List[CodeableConcept] = Field(
         None,
         alias="type",
         title="The kind or type of device",
@@ -417,7 +428,7 @@ class Device(domainresource.DomainResource):
         element_property=True,
     )
 
-    udiCarrier: typing.List[fhirtypes.DeviceUdiCarrierType] = Field(
+    udiCarrier: typing.List["DeviceUdiCarrier"] = Field(
         None,
         alias="udiCarrier",
         title="Unique Device Identifier (UDI) Barcode string",
@@ -443,7 +454,7 @@ class Device(domainresource.DomainResource):
         None, alias="_url", title="Extension field for ``url``."
     )
 
-    version: typing.List[fhirtypes.DeviceVersionType] = Field(
+    version: typing.List["DeviceVersion"] = Field(
         None,
         alias="version",
         title=(
@@ -518,9 +529,9 @@ class DeviceConformsTo(backboneelement.BackboneElement):
     process, measurement, or specialization standards.
     """
 
-    resource_type = Field("DeviceConformsTo", const=True)
+    resource_type: str = Field("DeviceConformsTo", const=True)
 
-    category: fhirtypes.CodeableConceptType = Field(
+    category: CodeableConcept = Field(
         None,
         alias="category",
         title=(
@@ -532,7 +543,7 @@ class DeviceConformsTo(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    specification: fhirtypes.CodeableConceptType = Field(
+    specification: CodeableConcept = Field(
         ...,
         alias="specification",
         title=(
@@ -592,7 +603,7 @@ class DeviceName(backboneelement.BackboneElement):
     device represents one of the names available from DeviceDefinition.
     """
 
-    resource_type = Field("DeviceName", const=True)
+    resource_type: str = Field("DeviceName", const=True)
 
     display: bool = Field(
         None,
@@ -719,9 +730,9 @@ class DeviceProperty(backboneelement.BackboneElement):
     captured in more specific attributes.
     """
 
-    resource_type = Field("DeviceProperty", const=True)
+    resource_type: str = Field("DeviceProperty", const=True)
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title="Code that specifies the property being represented",
@@ -733,7 +744,7 @@ class DeviceProperty(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    valueAttachment: fhirtypes.AttachmentType = Field(
+    valueAttachment: Attachment = Field(
         None,
         alias="valueAttachment",
         title="Value of the property",
@@ -766,7 +777,7 @@ class DeviceProperty(backboneelement.BackboneElement):
         None, alias="_valueBoolean", title="Extension field for ``valueBoolean``."
     )
 
-    valueCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    valueCodeableConcept: CodeableConcept = Field(
         None,
         alias="valueCodeableConcept",
         title="Value of the property",
@@ -799,7 +810,7 @@ class DeviceProperty(backboneelement.BackboneElement):
         None, alias="_valueInteger", title="Extension field for ``valueInteger``."
     )
 
-    valueQuantity: fhirtypes.QuantityType = Field(
+    valueQuantity: Quantity = Field(
         None,
         alias="valueQuantity",
         title="Value of the property",
@@ -814,7 +825,7 @@ class DeviceProperty(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueRange: fhirtypes.RangeType = Field(
+    valueRange: Range = Field(
         None,
         alias="valueRange",
         title="Value of the property",
@@ -928,7 +939,7 @@ class DeviceUdiCarrier(backboneelement.BackboneElement):
     jurisdictions it could have been sold.
     """
 
-    resource_type = Field("DeviceUdiCarrier", const=True)
+    resource_type: str = Field("DeviceUdiCarrier", const=True)
 
     carrierAIDC: fhirtypes.Base64Binary = Field(
         None,
@@ -1137,9 +1148,9 @@ class DeviceVersion(backboneelement.BackboneElement):
     The actual design of the device or software version running on the device.
     """
 
-    resource_type = Field("DeviceVersion", const=True)
+    resource_type: str = Field("DeviceVersion", const=True)
 
-    component: fhirtypes.IdentifierType = Field(
+    component: Identifier = Field(
         None,
         alias="component",
         title=(
@@ -1163,7 +1174,7 @@ class DeviceVersion(backboneelement.BackboneElement):
         None, alias="_installDate", title="Extension field for ``installDate``."
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="The type of the device version, e.g. manufacturer, approved, internal",
@@ -1259,3 +1270,6 @@ class DeviceVersion(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+Device.update_forward_refs()

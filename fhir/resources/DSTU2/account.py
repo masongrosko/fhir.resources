@@ -10,7 +10,13 @@ from typing import List as ListType
 from pydantic.v1 import Field
 
 from . import fhirtypes
+from .codeableconcept import CodeableConcept
+from .coding import Coding
 from .domainresource import DomainResource
+from .identifier import Identifier
+from .money import Money
+from .period import Period
+from .reference import Reference
 
 
 class Account(DomainResource):
@@ -19,9 +25,9 @@ class Account(DomainResource):
     etc.
     """
 
-    resource_type = Field("Account", const=True)
+    resource_type: str = Field("Account", const=True)
 
-    balance: fhirtypes.MoneyType = Field(
+    balance: Money = Field(
         None,
         alias="balance",
         title="Type `Money` (represented as `dict` in JSON)",
@@ -35,7 +41,7 @@ class Account(DomainResource):
         description="Explanation of purpose/use",
     )
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="List of `Identifier` items (represented as `dict` in JSON)",
@@ -49,7 +55,7 @@ class Account(DomainResource):
         description="Human-readable label",
     )
 
-    owner: fhirtypes.ReferenceType = Field(
+    owner: Reference = Field(
         None,
         alias="owner",
         title=(
@@ -59,14 +65,14 @@ class Account(DomainResource):
         description="Who is responsible?",
     )
 
-    coveragePeriod: fhirtypes.PeriodType = Field(
+    coveragePeriod: Period = Field(
         None,
         alias="coveragePeriod",
         title="Type `Period` (represented as `dict` in JSON)",
         description="Transaction window",
     )
 
-    activePeriod: fhirtypes.PeriodType = Field(
+    activePeriod: Period = Field(
         None,
         alias="activePeriod",
         title="Type `Period` (represented as `dict` in JSON)",
@@ -80,7 +86,7 @@ class Account(DomainResource):
         description="active | inactive | entered-in-error",
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title=(
@@ -90,13 +96,13 @@ class Account(DomainResource):
         description="What is account tied to?",
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Type `CodeableConcept` (represented as `dict` in JSON)",
         description="E.g. patient, expense, depreciation",
     )
-    currency: fhirtypes.CodingType = Field(
+    currency: Coding = Field(
         None,
         alias="type",
         title="Type `Coding` (represented as `dict` in JSON).",

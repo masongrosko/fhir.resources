@@ -10,15 +10,18 @@ from typing import List as ListType
 from pydantic.v1 import Field
 
 from . import fhirtypes
+from .codeableconcept import CodeableConcept
 from .domainresource import DomainResource
+from .identifier import Identifier
+from .reference import Reference
 
 
 class Slot(DomainResource):
     """A slot of time on a schedule that may be available for booking appointments."""
 
-    resource_type = Field("Slot", const=True)
+    resource_type: str = Field("Slot", const=True)
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Type `CodeableConcept` (represented as `dict` in JSON)",
@@ -45,7 +48,7 @@ class Slot(DomainResource):
         description="Date/Time that the slot is to conclude",
     )
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="List of `Identifier` items (represented as `dict` in JSON)",
@@ -62,7 +65,7 @@ class Slot(DomainResource):
         ),
     )
 
-    schedule: fhirtypes.ReferenceType = Field(
+    schedule: Reference = Field(
         ...,
         alias="schedule",
         title=(

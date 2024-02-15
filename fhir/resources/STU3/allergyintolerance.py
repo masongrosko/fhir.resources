@@ -13,6 +13,13 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .age import Age
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .period import Period
+from .range import Range
+from .reference import Reference
 
 
 class AllergyIntolerance(domainresource.DomainResource):
@@ -25,7 +32,7 @@ class AllergyIntolerance(domainresource.DomainResource):
     an individual and associated with exposure to a substance.
     """
 
-    resource_type = Field("AllergyIntolerance", const=True)
+    resource_type: str = Field("AllergyIntolerance", const=True)
 
     assertedDate: fhirtypes.DateTime = Field(
         None,
@@ -42,7 +49,7 @@ class AllergyIntolerance(domainresource.DomainResource):
         None, alias="_assertedDate", title="Extension field for ``assertedDate``."
     )
 
-    asserter: fhirtypes.ReferenceType = Field(
+    asserter: Reference = Field(
         None,
         alias="asserter",
         title="Source of the information about the allergy",
@@ -83,7 +90,7 @@ class AllergyIntolerance(domainresource.DomainResource):
         None, alias="_clinicalStatus", title="Extension field for ``clinicalStatus``."
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Code that identifies the allergy or intolerance",
@@ -119,7 +126,7 @@ class AllergyIntolerance(domainresource.DomainResource):
         None, alias="_criticality", title="Extension field for ``criticality``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="External ids for this item",
@@ -149,7 +156,7 @@ class AllergyIntolerance(domainresource.DomainResource):
         None, alias="_lastOccurrence", title="Extension field for ``lastOccurrence``."
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Additional text not captured in other fields",
@@ -161,7 +168,7 @@ class AllergyIntolerance(domainresource.DomainResource):
         element_property=True,
     )
 
-    onsetAge: fhirtypes.AgeType = Field(
+    onsetAge: Age = Field(
         None,
         alias="onsetAge",
         title="When allergy or intolerance was identified",
@@ -194,7 +201,7 @@ class AllergyIntolerance(domainresource.DomainResource):
         None, alias="_onsetDateTime", title="Extension field for ``onsetDateTime``."
     )
 
-    onsetPeriod: fhirtypes.PeriodType = Field(
+    onsetPeriod: Period = Field(
         None,
         alias="onsetPeriod",
         title="When allergy or intolerance was identified",
@@ -209,7 +216,7 @@ class AllergyIntolerance(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    onsetRange: fhirtypes.RangeType = Field(
+    onsetRange: Range = Field(
         None,
         alias="onsetRange",
         title="When allergy or intolerance was identified",
@@ -242,7 +249,7 @@ class AllergyIntolerance(domainresource.DomainResource):
         None, alias="_onsetString", title="Extension field for ``onsetString``."
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         ...,
         alias="patient",
         title="Who the sensitivity is for",
@@ -253,7 +260,7 @@ class AllergyIntolerance(domainresource.DomainResource):
         enum_reference_types=["Patient"],
     )
 
-    reaction: typing.List[fhirtypes.AllergyIntoleranceReactionType] = Field(
+    reaction: typing.List["AllergyIntoleranceReaction"] = Field(
         None,
         alias="reaction",
         title="Adverse Reaction Events linked to exposure to substance",
@@ -265,7 +272,7 @@ class AllergyIntolerance(domainresource.DomainResource):
         element_property=True,
     )
 
-    recorder: fhirtypes.ReferenceType = Field(
+    recorder: Reference = Field(
         None,
         alias="recorder",
         title="Who recorded the sensitivity",
@@ -471,7 +478,7 @@ class AllergyIntoleranceReaction(backboneelement.BackboneElement):
     identified substance.
     """
 
-    resource_type = Field("AllergyIntoleranceReaction", const=True)
+    resource_type: str = Field("AllergyIntoleranceReaction", const=True)
 
     description: fhirtypes.String = Field(
         None,
@@ -488,7 +495,7 @@ class AllergyIntoleranceReaction(backboneelement.BackboneElement):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    exposureRoute: fhirtypes.CodeableConceptType = Field(
+    exposureRoute: CodeableConcept = Field(
         None,
         alias="exposureRoute",
         title="How the subject was exposed to the substance",
@@ -500,7 +507,7 @@ class AllergyIntoleranceReaction(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    manifestation: typing.List[fhirtypes.CodeableConceptType] = Field(
+    manifestation: typing.List[CodeableConcept] = Field(
         ...,
         alias="manifestation",
         title="Clinical symptoms/signs associated with the Event",
@@ -512,7 +519,7 @@ class AllergyIntoleranceReaction(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Text about event not captured in other fields",
@@ -554,7 +561,7 @@ class AllergyIntoleranceReaction(backboneelement.BackboneElement):
         None, alias="_severity", title="Extension field for ``severity``."
     )
 
-    substance: fhirtypes.CodeableConceptType = Field(
+    substance: CodeableConcept = Field(
         None,
         alias="substance",
         title=(
@@ -593,3 +600,6 @@ class AllergyIntoleranceReaction(backboneelement.BackboneElement):
             "exposureRoute",
             "note",
         ]
+
+
+AllergyIntolerance.update_forward_refs()

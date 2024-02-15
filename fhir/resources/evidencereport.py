@@ -13,6 +13,17 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .contactdetail import ContactDetail
+from .identifier import Identifier
+from .narrative import Narrative
+from .period import Period
+from .quantity import Quantity
+from .range import Range
+from .reference import Reference
+from .relatedartifact import RelatedArtifact
+from .usagecontext import UsageContext
 
 
 class EvidenceReport(domainresource.DomainResource):
@@ -26,9 +37,9 @@ class EvidenceReport(domainresource.DomainResource):
     Evidence, EvidenceVariable, and Citation resources and related concepts.
     """
 
-    resource_type = Field("EvidenceReport", const=True)
+    resource_type: str = Field("EvidenceReport", const=True)
 
-    author: typing.List[fhirtypes.ContactDetailType] = Field(
+    author: typing.List[ContactDetail] = Field(
         None,
         alias="author",
         title="Who authored the content",
@@ -55,7 +66,7 @@ class EvidenceReport(domainresource.DomainResource):
         None, alias="_citeAsMarkdown", title="Extension field for ``citeAsMarkdown``."
     )
 
-    citeAsReference: fhirtypes.ReferenceType = Field(
+    citeAsReference: Reference = Field(
         None,
         alias="citeAsReference",
         title="Citation for this report",
@@ -69,7 +80,7 @@ class EvidenceReport(domainresource.DomainResource):
         enum_reference_types=["Citation"],
     )
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -81,7 +92,7 @@ class EvidenceReport(domainresource.DomainResource):
         element_property=True,
     )
 
-    editor: typing.List[fhirtypes.ContactDetailType] = Field(
+    editor: typing.List[ContactDetail] = Field(
         None,
         alias="editor",
         title="Who edited the content",
@@ -93,7 +104,7 @@ class EvidenceReport(domainresource.DomainResource):
         element_property=True,
     )
 
-    endorser: typing.List[fhirtypes.ContactDetailType] = Field(
+    endorser: typing.List[ContactDetail] = Field(
         None,
         alias="endorser",
         title="Who endorsed the content",
@@ -105,7 +116,7 @@ class EvidenceReport(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Unique identifier for the evidence report",
@@ -118,7 +129,7 @@ class EvidenceReport(domainresource.DomainResource):
         element_property=True,
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Used for footnotes and annotations",
@@ -142,7 +153,7 @@ class EvidenceReport(domainresource.DomainResource):
         None, alias="_publisher", title="Extension field for ``publisher``."
     )
 
-    relatedArtifact: typing.List[fhirtypes.RelatedArtifactType] = Field(
+    relatedArtifact: typing.List[RelatedArtifact] = Field(
         None,
         alias="relatedArtifact",
         title="Link, description or reference to artifact associated with the report",
@@ -151,7 +162,7 @@ class EvidenceReport(domainresource.DomainResource):
         element_property=True,
     )
 
-    relatedIdentifier: typing.List[fhirtypes.IdentifierType] = Field(
+    relatedIdentifier: typing.List[Identifier] = Field(
         None,
         alias="relatedIdentifier",
         title=(
@@ -166,7 +177,7 @@ class EvidenceReport(domainresource.DomainResource):
         element_property=True,
     )
 
-    relatesTo: typing.List[fhirtypes.EvidenceReportRelatesToType] = Field(
+    relatesTo: typing.List["EvidenceReportRelatesTo"] = Field(
         None,
         alias="relatesTo",
         title="Relationships to other compositions/documents",
@@ -178,7 +189,7 @@ class EvidenceReport(domainresource.DomainResource):
         element_property=True,
     )
 
-    reviewer: typing.List[fhirtypes.ContactDetailType] = Field(
+    reviewer: typing.List[ContactDetail] = Field(
         None,
         alias="reviewer",
         title="Who reviewed the content",
@@ -190,7 +201,7 @@ class EvidenceReport(domainresource.DomainResource):
         element_property=True,
     )
 
-    section: typing.List[fhirtypes.EvidenceReportSectionType] = Field(
+    section: typing.List["EvidenceReportSection"] = Field(
         None,
         alias="section",
         title="Composition is broken into sections",
@@ -218,7 +229,7 @@ class EvidenceReport(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subject: fhirtypes.EvidenceReportSubjectType = Field(
+    subject: "EvidenceReportSubject" = Field(
         ...,
         alias="subject",
         title="Focus of the report",
@@ -230,7 +241,7 @@ class EvidenceReport(domainresource.DomainResource):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Kind of report",
@@ -265,7 +276,7 @@ class EvidenceReport(domainresource.DomainResource):
         None, alias="_url", title="Extension field for ``url``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="The context that the content is intended to support",
@@ -424,7 +435,7 @@ class EvidenceReportRelatesTo(backboneelement.BackboneElement):
     documents that already exist.
     """
 
-    resource_type = Field("EvidenceReportRelatesTo", const=True)
+    resource_type: str = Field("EvidenceReportRelatesTo", const=True)
 
     code: fhirtypes.Code = Field(
         None,
@@ -457,7 +468,7 @@ class EvidenceReportRelatesTo(backboneelement.BackboneElement):
         None, alias="_code", title="Extension field for ``code``."
     )
 
-    target: fhirtypes.EvidenceReportRelatesToTargetType = Field(
+    target: "EvidenceReportRelatesToTarget" = Field(
         ...,
         alias="target",
         title="Target of the relationship",
@@ -543,7 +554,7 @@ class EvidenceReportRelatesToTarget(backboneelement.BackboneElement):
     The target composition/document of this relationship.
     """
 
-    resource_type = Field("EvidenceReportRelatesToTarget", const=True)
+    resource_type: str = Field("EvidenceReportRelatesToTarget", const=True)
 
     display: fhirtypes.Markdown = Field(
         None,
@@ -557,7 +568,7 @@ class EvidenceReportRelatesToTarget(backboneelement.BackboneElement):
         None, alias="_display", title="Extension field for ``display``."
     )
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="Target of the relationship Identifier",
@@ -566,7 +577,7 @@ class EvidenceReportRelatesToTarget(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    resource: fhirtypes.ReferenceType = Field(
+    resource: Reference = Field(
         None,
         alias="resource",
         title="Target of the relationship Resource reference",
@@ -615,9 +626,9 @@ class EvidenceReportSection(backboneelement.BackboneElement):
     The root of the sections that make up the composition.
     """
 
-    resource_type = Field("EvidenceReportSection", const=True)
+    resource_type: str = Field("EvidenceReportSection", const=True)
 
-    author: typing.List[fhirtypes.ReferenceType] = Field(
+    author: typing.List[Reference] = Field(
         None,
         alias="author",
         title="Who and/or what authored the section",
@@ -639,7 +650,7 @@ class EvidenceReportSection(backboneelement.BackboneElement):
         ],
     )
 
-    emptyReason: fhirtypes.CodeableConceptType = Field(
+    emptyReason: CodeableConcept = Field(
         None,
         alias="emptyReason",
         title="Why the section is empty",
@@ -651,7 +662,7 @@ class EvidenceReportSection(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    entryClassifier: typing.List[fhirtypes.CodeableConceptType] = Field(
+    entryClassifier: typing.List[CodeableConcept] = Field(
         None,
         alias="entryClassifier",
         title="Extensible classifiers as content",
@@ -660,7 +671,7 @@ class EvidenceReportSection(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    entryQuantity: typing.List[fhirtypes.QuantityType] = Field(
+    entryQuantity: typing.List[Quantity] = Field(
         None,
         alias="entryQuantity",
         title="Quantity as content",
@@ -669,7 +680,7 @@ class EvidenceReportSection(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    entryReference: typing.List[fhirtypes.ReferenceType] = Field(
+    entryReference: typing.List[Reference] = Field(
         None,
         alias="entryReference",
         title="Reference to resources as content",
@@ -683,7 +694,7 @@ class EvidenceReportSection(backboneelement.BackboneElement):
         enum_reference_types=["Resource"],
     )
 
-    focus: fhirtypes.CodeableConceptType = Field(
+    focus: CodeableConcept = Field(
         None,
         alias="focus",
         title="Classification of section (recommended)",
@@ -695,7 +706,7 @@ class EvidenceReportSection(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    focusReference: fhirtypes.ReferenceType = Field(
+    focusReference: Reference = Field(
         None,
         alias="focusReference",
         title="Classification of section by Resource",
@@ -730,7 +741,7 @@ class EvidenceReportSection(backboneelement.BackboneElement):
         None, alias="_mode", title="Extension field for ``mode``."
     )
 
-    orderedBy: fhirtypes.CodeableConceptType = Field(
+    orderedBy: CodeableConcept = Field(
         None,
         alias="orderedBy",
         title="Order of section entries",
@@ -739,7 +750,7 @@ class EvidenceReportSection(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    section: typing.List[fhirtypes.EvidenceReportSectionType] = Field(
+    section: typing.List["EvidenceReportSection"] = Field(
         None,
         alias="section",
         title="Nested Section",
@@ -748,7 +759,7 @@ class EvidenceReportSection(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    text: fhirtypes.NarrativeType = Field(
+    text: Narrative = Field(
         None,
         alias="text",
         title="Text summary of the section, for human interpretation",
@@ -814,11 +825,9 @@ class EvidenceReportSubject(backboneelement.BackboneElement):
     about?".
     """
 
-    resource_type = Field("EvidenceReportSubject", const=True)
+    resource_type: str = Field("EvidenceReportSubject", const=True)
 
-    characteristic: typing.List[
-        fhirtypes.EvidenceReportSubjectCharacteristicType
-    ] = Field(
+    characteristic: typing.List["EvidenceReportSubjectCharacteristic"] = Field(
         None,
         alias="characteristic",
         title="Characteristic",
@@ -827,7 +836,7 @@ class EvidenceReportSubject(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Footnotes and/or explanatory notes",
@@ -853,9 +862,9 @@ class EvidenceReportSubjectCharacteristic(backboneelement.BackboneElement):
     Characteristic.
     """
 
-    resource_type = Field("EvidenceReportSubjectCharacteristic", const=True)
+    resource_type: str = Field("EvidenceReportSubjectCharacteristic", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         ...,
         alias="code",
         title="Characteristic code",
@@ -876,7 +885,7 @@ class EvidenceReportSubjectCharacteristic(backboneelement.BackboneElement):
         None, alias="_exclude", title="Extension field for ``exclude``."
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Timeframe for the characteristic",
@@ -900,7 +909,7 @@ class EvidenceReportSubjectCharacteristic(backboneelement.BackboneElement):
         None, alias="_valueBoolean", title="Extension field for ``valueBoolean``."
     )
 
-    valueCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    valueCodeableConcept: CodeableConcept = Field(
         None,
         alias="valueCodeableConcept",
         title="Characteristic value",
@@ -912,7 +921,7 @@ class EvidenceReportSubjectCharacteristic(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueQuantity: fhirtypes.QuantityType = Field(
+    valueQuantity: Quantity = Field(
         None,
         alias="valueQuantity",
         title="Characteristic value",
@@ -924,7 +933,7 @@ class EvidenceReportSubjectCharacteristic(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueRange: fhirtypes.RangeType = Field(
+    valueRange: Range = Field(
         None,
         alias="valueRange",
         title="Characteristic value",
@@ -936,7 +945,7 @@ class EvidenceReportSubjectCharacteristic(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueReference: fhirtypes.ReferenceType = Field(
+    valueReference: Reference = Field(
         None,
         alias="valueReference",
         title="Characteristic value",
@@ -1015,3 +1024,9 @@ class EvidenceReportSubjectCharacteristic(backboneelement.BackboneElement):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+EvidenceReport.update_forward_refs()
+EvidenceReportRelatesTo.update_forward_refs()
+EvidenceReportSection.update_forward_refs()
+EvidenceReportSubject.update_forward_refs()

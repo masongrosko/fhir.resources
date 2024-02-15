@@ -13,6 +13,13 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .dosage import Dosage
+from .duration import Duration
+from .money import Money
+from .quantity import Quantity
+from .ratio import Ratio
+from .reference import Reference
 
 
 class MedicationKnowledge(domainresource.DomainResource):
@@ -24,10 +31,10 @@ class MedicationKnowledge(domainresource.DomainResource):
     Information about a medication that is used to support knowledge.
     """
 
-    resource_type = Field("MedicationKnowledge", const=True)
+    resource_type: str = Field("MedicationKnowledge", const=True)
 
     administrationGuidelines: typing.List[
-        fhirtypes.MedicationKnowledgeAdministrationGuidelinesType
+        "MedicationKnowledgeAdministrationGuidelines"
     ] = Field(
         None,
         alias="administrationGuidelines",
@@ -37,7 +44,7 @@ class MedicationKnowledge(domainresource.DomainResource):
         element_property=True,
     )
 
-    amount: fhirtypes.QuantityType = Field(
+    amount: Quantity = Field(
         None,
         alias="amount",
         title="Amount of drug in package",
@@ -52,7 +59,7 @@ class MedicationKnowledge(domainresource.DomainResource):
         element_property=True,
     )
 
-    associatedMedication: typing.List[fhirtypes.ReferenceType] = Field(
+    associatedMedication: typing.List[Reference] = Field(
         None,
         alias="associatedMedication",
         title="A medication resource that is associated with this medication",
@@ -68,7 +75,7 @@ class MedicationKnowledge(domainresource.DomainResource):
         enum_reference_types=["Medication"],
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Code that identifies this medication",
@@ -83,7 +90,7 @@ class MedicationKnowledge(domainresource.DomainResource):
         element_property=True,
     )
 
-    contraindication: typing.List[fhirtypes.ReferenceType] = Field(
+    contraindication: typing.List[Reference] = Field(
         None,
         alias="contraindication",
         title="Potential clinical issue with or between medication(s)",
@@ -98,7 +105,7 @@ class MedicationKnowledge(domainresource.DomainResource):
         enum_reference_types=["DetectedIssue"],
     )
 
-    cost: typing.List[fhirtypes.MedicationKnowledgeCostType] = Field(
+    cost: typing.List["MedicationKnowledgeCost"] = Field(
         None,
         alias="cost",
         title="The pricing of the medication",
@@ -107,7 +114,7 @@ class MedicationKnowledge(domainresource.DomainResource):
         element_property=True,
     )
 
-    doseForm: fhirtypes.CodeableConceptType = Field(
+    doseForm: CodeableConcept = Field(
         None,
         alias="doseForm",
         title="powder | tablets | capsule +",
@@ -116,9 +123,7 @@ class MedicationKnowledge(domainresource.DomainResource):
         element_property=True,
     )
 
-    drugCharacteristic: typing.List[
-        fhirtypes.MedicationKnowledgeDrugCharacteristicType
-    ] = Field(
+    drugCharacteristic: typing.List["MedicationKnowledgeDrugCharacteristic"] = Field(
         None,
         alias="drugCharacteristic",
         title="Specifies descriptive properties of the medicine",
@@ -130,7 +135,7 @@ class MedicationKnowledge(domainresource.DomainResource):
         element_property=True,
     )
 
-    ingredient: typing.List[fhirtypes.MedicationKnowledgeIngredientType] = Field(
+    ingredient: typing.List["MedicationKnowledgeIngredient"] = Field(
         None,
         alias="ingredient",
         title="Active or inactive ingredient",
@@ -139,7 +144,7 @@ class MedicationKnowledge(domainresource.DomainResource):
         element_property=True,
     )
 
-    intendedRoute: typing.List[fhirtypes.CodeableConceptType] = Field(
+    intendedRoute: typing.List[CodeableConcept] = Field(
         None,
         alias="intendedRoute",
         title="The intended or approved route of administration",
@@ -148,7 +153,7 @@ class MedicationKnowledge(domainresource.DomainResource):
         element_property=True,
     )
 
-    kinetics: typing.List[fhirtypes.MedicationKnowledgeKineticsType] = Field(
+    kinetics: typing.List["MedicationKnowledgeKinetics"] = Field(
         None,
         alias="kinetics",
         title=(
@@ -160,7 +165,7 @@ class MedicationKnowledge(domainresource.DomainResource):
         element_property=True,
     )
 
-    manufacturer: fhirtypes.ReferenceType = Field(
+    manufacturer: Reference = Field(
         None,
         alias="manufacturer",
         title="Manufacturer of the item",
@@ -175,23 +180,21 @@ class MedicationKnowledge(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    medicineClassification: typing.List[
-        fhirtypes.MedicationKnowledgeMedicineClassificationType
-    ] = Field(
-        None,
-        alias="medicineClassification",
-        title=(
-            "Categorization of the medication within a formulary or classification "
-            "system"
-        ),
-        description=None,
-        # if property is element of this resource.
-        element_property=True,
+    medicineClassification: typing.List["MedicationKnowledgeMedicineClassification"] = (
+        Field(
+            None,
+            alias="medicineClassification",
+            title=(
+                "Categorization of the medication within a formulary or classification "
+                "system"
+            ),
+            description=None,
+            # if property is element of this resource.
+            element_property=True,
+        )
     )
 
-    monitoringProgram: typing.List[
-        fhirtypes.MedicationKnowledgeMonitoringProgramType
-    ] = Field(
+    monitoringProgram: typing.List["MedicationKnowledgeMonitoringProgram"] = Field(
         None,
         alias="monitoringProgram",
         title="Program under which a medication is reviewed",
@@ -200,7 +203,7 @@ class MedicationKnowledge(domainresource.DomainResource):
         element_property=True,
     )
 
-    monograph: typing.List[fhirtypes.MedicationKnowledgeMonographType] = Field(
+    monograph: typing.List["MedicationKnowledgeMonograph"] = Field(
         None,
         alias="monograph",
         title="Associated documentation about the medication",
@@ -209,7 +212,7 @@ class MedicationKnowledge(domainresource.DomainResource):
         element_property=True,
     )
 
-    packaging: fhirtypes.MedicationKnowledgePackagingType = Field(
+    packaging: "MedicationKnowledgePackaging" = Field(
         None,
         alias="packaging",
         title="Details about packaged medications",
@@ -232,7 +235,7 @@ class MedicationKnowledge(domainresource.DomainResource):
         title="Extension field for ``preparationInstruction``.",
     )
 
-    productType: typing.List[fhirtypes.CodeableConceptType] = Field(
+    productType: typing.List[CodeableConcept] = Field(
         None,
         alias="productType",
         title="Category of the medication or product",
@@ -244,7 +247,7 @@ class MedicationKnowledge(domainresource.DomainResource):
         element_property=True,
     )
 
-    regulatory: typing.List[fhirtypes.MedicationKnowledgeRegulatoryType] = Field(
+    regulatory: typing.List["MedicationKnowledgeRegulatory"] = Field(
         None,
         alias="regulatory",
         title="Regulatory information about a medication",
@@ -254,7 +257,7 @@ class MedicationKnowledge(domainresource.DomainResource):
     )
 
     relatedMedicationKnowledge: typing.List[
-        fhirtypes.MedicationKnowledgeRelatedMedicationKnowledgeType
+        "MedicationKnowledgeRelatedMedicationKnowledge"
     ] = Field(
         None,
         alias="relatedMedicationKnowledge",
@@ -348,11 +351,11 @@ class MedicationKnowledgeAdministrationGuidelines(backboneelement.BackboneElemen
     Guidelines for the administration of the medication.
     """
 
-    resource_type = Field("MedicationKnowledgeAdministrationGuidelines", const=True)
+    resource_type: str = Field(
+        "MedicationKnowledgeAdministrationGuidelines", const=True
+    )
 
-    dosage: typing.List[
-        fhirtypes.MedicationKnowledgeAdministrationGuidelinesDosageType
-    ] = Field(
+    dosage: typing.List["MedicationKnowledgeAdministrationGuidelinesDosage"] = Field(
         None,
         alias="dosage",
         title="Dosage for the medication for the specific guidelines",
@@ -361,7 +364,7 @@ class MedicationKnowledgeAdministrationGuidelines(backboneelement.BackboneElemen
         element_property=True,
     )
 
-    indicationCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    indicationCodeableConcept: CodeableConcept = Field(
         None,
         alias="indicationCodeableConcept",
         title=(
@@ -375,7 +378,7 @@ class MedicationKnowledgeAdministrationGuidelines(backboneelement.BackboneElemen
         one_of_many_required=False,
     )
 
-    indicationReference: fhirtypes.ReferenceType = Field(
+    indicationReference: Reference = Field(
         None,
         alias="indicationReference",
         title=(
@@ -392,7 +395,7 @@ class MedicationKnowledgeAdministrationGuidelines(backboneelement.BackboneElemen
     )
 
     patientCharacteristics: typing.List[
-        fhirtypes.MedicationKnowledgeAdministrationGuidelinesPatientCharacteristicsType
+        "MedicationKnowledgeAdministrationGuidelinesPatientCharacteristics"
     ] = Field(
         None,
         alias="patientCharacteristics",
@@ -475,11 +478,11 @@ class MedicationKnowledgeAdministrationGuidelinesDosage(
     Dosage for the medication for the specific guidelines.
     """
 
-    resource_type = Field(
+    resource_type: str = Field(
         "MedicationKnowledgeAdministrationGuidelinesDosage", const=True
     )
 
-    dosage: typing.List[fhirtypes.DosageType] = Field(
+    dosage: typing.List[Dosage] = Field(
         ...,
         alias="dosage",
         title="Dosage for the medication for the specific guidelines",
@@ -488,7 +491,7 @@ class MedicationKnowledgeAdministrationGuidelinesDosage(
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title="Type of dosage",
@@ -522,11 +525,11 @@ class MedicationKnowledgeAdministrationGuidelinesPatientCharacteristics(
     guidelines (for example, height, weight, gender, etc.).
     """
 
-    resource_type = Field(
+    resource_type: str = Field(
         "MedicationKnowledgeAdministrationGuidelinesPatientCharacteristics", const=True
     )
 
-    characteristicCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    characteristicCodeableConcept: CodeableConcept = Field(
         None,
         alias="characteristicCodeableConcept",
         title=(
@@ -544,7 +547,7 @@ class MedicationKnowledgeAdministrationGuidelinesPatientCharacteristics(
         one_of_many_required=True,
     )
 
-    characteristicQuantity: fhirtypes.QuantityType = Field(
+    characteristicQuantity: Quantity = Field(
         None,
         alias="characteristicQuantity",
         title=(
@@ -642,9 +645,9 @@ class MedicationKnowledgeCost(backboneelement.BackboneElement):
     The price of the medication.
     """
 
-    resource_type = Field("MedicationKnowledgeCost", const=True)
+    resource_type: str = Field("MedicationKnowledgeCost", const=True)
 
-    cost: fhirtypes.MoneyType = Field(
+    cost: Money = Field(
         ...,
         alias="cost",
         title="The price of the medication",
@@ -665,7 +668,7 @@ class MedicationKnowledgeCost(backboneelement.BackboneElement):
         None, alias="_source", title="Extension field for ``source``."
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title="The category of the cost information",
@@ -696,9 +699,9 @@ class MedicationKnowledgeDrugCharacteristic(backboneelement.BackboneElement):
     imprints, etc.
     """
 
-    resource_type = Field("MedicationKnowledgeDrugCharacteristic", const=True)
+    resource_type: str = Field("MedicationKnowledgeDrugCharacteristic", const=True)
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Code specifying the type of characteristic of medication",
@@ -727,7 +730,7 @@ class MedicationKnowledgeDrugCharacteristic(backboneelement.BackboneElement):
         title="Extension field for ``valueBase64Binary``.",
     )
 
-    valueCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    valueCodeableConcept: CodeableConcept = Field(
         None,
         alias="valueCodeableConcept",
         title="Description of the characteristic",
@@ -739,7 +742,7 @@ class MedicationKnowledgeDrugCharacteristic(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    valueQuantity: fhirtypes.QuantityType = Field(
+    valueQuantity: Quantity = Field(
         None,
         alias="valueQuantity",
         title="Description of the characteristic",
@@ -838,7 +841,7 @@ class MedicationKnowledgeIngredient(backboneelement.BackboneElement):
     Identifies a particular constituent of interest in the product.
     """
 
-    resource_type = Field("MedicationKnowledgeIngredient", const=True)
+    resource_type: str = Field("MedicationKnowledgeIngredient", const=True)
 
     isActive: bool = Field(
         None,
@@ -855,7 +858,7 @@ class MedicationKnowledgeIngredient(backboneelement.BackboneElement):
         None, alias="_isActive", title="Extension field for ``isActive``."
     )
 
-    itemCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    itemCodeableConcept: CodeableConcept = Field(
         None,
         alias="itemCodeableConcept",
         title="Medication(s) or substance(s) contained in the medication",
@@ -870,7 +873,7 @@ class MedicationKnowledgeIngredient(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    itemReference: fhirtypes.ReferenceType = Field(
+    itemReference: Reference = Field(
         None,
         alias="itemReference",
         title="Medication(s) or substance(s) contained in the medication",
@@ -887,7 +890,7 @@ class MedicationKnowledgeIngredient(backboneelement.BackboneElement):
         enum_reference_types=["Substance"],
     )
 
-    strength: fhirtypes.RatioType = Field(
+    strength: Ratio = Field(
         None,
         alias="strength",
         title="Quantity of ingredient present",
@@ -964,9 +967,9 @@ class MedicationKnowledgeKinetics(backboneelement.BackboneElement):
     of a medication from the body.
     """
 
-    resource_type = Field("MedicationKnowledgeKinetics", const=True)
+    resource_type: str = Field("MedicationKnowledgeKinetics", const=True)
 
-    areaUnderCurve: typing.List[fhirtypes.QuantityType] = Field(
+    areaUnderCurve: typing.List[Quantity] = Field(
         None,
         alias="areaUnderCurve",
         title="The drug concentration measured at certain discrete points in time",
@@ -975,7 +978,7 @@ class MedicationKnowledgeKinetics(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    halfLifePeriod: fhirtypes.DurationType = Field(
+    halfLifePeriod: Duration = Field(
         None,
         alias="halfLifePeriod",
         title="Time required for concentration in the body to decrease by half",
@@ -987,7 +990,7 @@ class MedicationKnowledgeKinetics(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    lethalDose50: typing.List[fhirtypes.QuantityType] = Field(
+    lethalDose50: typing.List[Quantity] = Field(
         None,
         alias="lethalDose50",
         title="The median lethal dose of a drug",
@@ -1021,9 +1024,9 @@ class MedicationKnowledgeMedicineClassification(backboneelement.BackboneElement)
     system.
     """
 
-    resource_type = Field("MedicationKnowledgeMedicineClassification", const=True)
+    resource_type: str = Field("MedicationKnowledgeMedicineClassification", const=True)
 
-    classification: typing.List[fhirtypes.CodeableConceptType] = Field(
+    classification: typing.List[CodeableConcept] = Field(
         None,
         alias="classification",
         title="Specific category assigned to the medication",
@@ -1035,7 +1038,7 @@ class MedicationKnowledgeMedicineClassification(backboneelement.BackboneElement)
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title=(
@@ -1065,7 +1068,7 @@ class MedicationKnowledgeMonitoringProgram(backboneelement.BackboneElement):
     The program under which the medication is reviewed.
     """
 
-    resource_type = Field("MedicationKnowledgeMonitoringProgram", const=True)
+    resource_type: str = Field("MedicationKnowledgeMonitoringProgram", const=True)
 
     name: fhirtypes.String = Field(
         None,
@@ -1079,7 +1082,7 @@ class MedicationKnowledgeMonitoringProgram(backboneelement.BackboneElement):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Type of program under which the medication is monitored",
@@ -1105,9 +1108,9 @@ class MedicationKnowledgeMonograph(backboneelement.BackboneElement):
     Associated documentation about the medication.
     """
 
-    resource_type = Field("MedicationKnowledgeMonograph", const=True)
+    resource_type: str = Field("MedicationKnowledgeMonograph", const=True)
 
-    source: fhirtypes.ReferenceType = Field(
+    source: Reference = Field(
         None,
         alias="source",
         title="Associated documentation about the medication",
@@ -1118,7 +1121,7 @@ class MedicationKnowledgeMonograph(backboneelement.BackboneElement):
         enum_reference_types=["DocumentReference", "Media"],
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="The category of medication document",
@@ -1148,9 +1151,9 @@ class MedicationKnowledgePackaging(backboneelement.BackboneElement):
     Information that only applies to packages (not products).
     """
 
-    resource_type = Field("MedicationKnowledgePackaging", const=True)
+    resource_type: str = Field("MedicationKnowledgePackaging", const=True)
 
-    quantity: fhirtypes.QuantityType = Field(
+    quantity: Quantity = Field(
         None,
         alias="quantity",
         title="The number of product units the package would contain if fully loaded",
@@ -1159,7 +1162,7 @@ class MedicationKnowledgePackaging(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title=(
@@ -1191,9 +1194,9 @@ class MedicationKnowledgeRegulatory(backboneelement.BackboneElement):
     Regulatory information about a medication.
     """
 
-    resource_type = Field("MedicationKnowledgeRegulatory", const=True)
+    resource_type: str = Field("MedicationKnowledgeRegulatory", const=True)
 
-    maxDispense: fhirtypes.MedicationKnowledgeRegulatoryMaxDispenseType = Field(
+    maxDispense: "MedicationKnowledgeRegulatoryMaxDispense" = Field(
         None,
         alias="maxDispense",
         title=(
@@ -1205,7 +1208,7 @@ class MedicationKnowledgeRegulatory(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    regulatoryAuthority: fhirtypes.ReferenceType = Field(
+    regulatoryAuthority: Reference = Field(
         ...,
         alias="regulatoryAuthority",
         title="Specifies the authority of the regulation",
@@ -1216,7 +1219,7 @@ class MedicationKnowledgeRegulatory(backboneelement.BackboneElement):
         enum_reference_types=["Organization"],
     )
 
-    schedule: typing.List[fhirtypes.MedicationKnowledgeRegulatoryScheduleType] = Field(
+    schedule: typing.List["MedicationKnowledgeRegulatorySchedule"] = Field(
         None,
         alias="schedule",
         title="Specifies the schedule of a medication in jurisdiction",
@@ -1225,9 +1228,7 @@ class MedicationKnowledgeRegulatory(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    substitution: typing.List[
-        fhirtypes.MedicationKnowledgeRegulatorySubstitutionType
-    ] = Field(
+    substitution: typing.List["MedicationKnowledgeRegulatorySubstitution"] = Field(
         None,
         alias="substitution",
         title=(
@@ -1265,9 +1266,9 @@ class MedicationKnowledgeRegulatoryMaxDispense(backboneelement.BackboneElement):
     period.
     """
 
-    resource_type = Field("MedicationKnowledgeRegulatoryMaxDispense", const=True)
+    resource_type: str = Field("MedicationKnowledgeRegulatoryMaxDispense", const=True)
 
-    period: fhirtypes.DurationType = Field(
+    period: Duration = Field(
         None,
         alias="period",
         title="The period that applies to the maximum number of units",
@@ -1276,7 +1277,7 @@ class MedicationKnowledgeRegulatoryMaxDispense(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    quantity: fhirtypes.QuantityType = Field(
+    quantity: Quantity = Field(
         ...,
         alias="quantity",
         title="The maximum number of units of the medication that can be dispensed",
@@ -1302,9 +1303,9 @@ class MedicationKnowledgeRegulatorySchedule(backboneelement.BackboneElement):
     Specifies the schedule of a medication in jurisdiction.
     """
 
-    resource_type = Field("MedicationKnowledgeRegulatorySchedule", const=True)
+    resource_type: str = Field("MedicationKnowledgeRegulatorySchedule", const=True)
 
-    schedule: fhirtypes.CodeableConceptType = Field(
+    schedule: CodeableConcept = Field(
         ...,
         alias="schedule",
         title="Specifies the specific drug schedule",
@@ -1331,7 +1332,7 @@ class MedicationKnowledgeRegulatorySubstitution(backboneelement.BackboneElement)
     regulatory perspective.
     """
 
-    resource_type = Field("MedicationKnowledgeRegulatorySubstitution", const=True)
+    resource_type: str = Field("MedicationKnowledgeRegulatorySubstitution", const=True)
 
     allowed: bool = Field(
         None,
@@ -1349,7 +1350,7 @@ class MedicationKnowledgeRegulatorySubstitution(backboneelement.BackboneElement)
         None, alias="_allowed", title="Extension field for ``allowed``."
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title="Specifies the type of substitution allowed",
@@ -1435,9 +1436,11 @@ class MedicationKnowledgeRelatedMedicationKnowledge(backboneelement.BackboneElem
     Associated or related knowledge about a medication.
     """
 
-    resource_type = Field("MedicationKnowledgeRelatedMedicationKnowledge", const=True)
+    resource_type: str = Field(
+        "MedicationKnowledgeRelatedMedicationKnowledge", const=True
+    )
 
-    reference: typing.List[fhirtypes.ReferenceType] = Field(
+    reference: typing.List[Reference] = Field(
         ...,
         alias="reference",
         title="Associated documentation about the associated medication knowledge",
@@ -1448,7 +1451,7 @@ class MedicationKnowledgeRelatedMedicationKnowledge(backboneelement.BackboneElem
         enum_reference_types=["MedicationKnowledge"],
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title="Category of medicationKnowledge",
@@ -1464,3 +1467,8 @@ class MedicationKnowledgeRelatedMedicationKnowledge(backboneelement.BackboneElem
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "type", "reference"]
+
+
+MedicationKnowledge.update_forward_refs()
+MedicationKnowledgeAdministrationGuidelines.update_forward_refs()
+MedicationKnowledgeRegulatory.update_forward_refs()

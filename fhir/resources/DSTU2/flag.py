@@ -10,7 +10,11 @@ from typing import List as ListType
 from pydantic.v1 import Field
 
 from . import fhirtypes
+from .codeableconcept import CodeableConcept
 from .domainresource import DomainResource
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class Flag(DomainResource):
@@ -20,9 +24,9 @@ class Flag(DomainResource):
     patient.
     """
 
-    resource_type = Field("Flag", const=True)
+    resource_type: str = Field("Flag", const=True)
 
-    author: fhirtypes.ReferenceType = Field(
+    author: Reference = Field(
         None,
         alias="author",
         title=(
@@ -32,21 +36,21 @@ class Flag(DomainResource):
         description="Flag creator",
     )
 
-    category: fhirtypes.CodeableConceptType = Field(
+    category: CodeableConcept = Field(
         None,
         alias="category",
         title="Type `CodeableConcept` (represented as `dict` in JSON)",
         description="Clinical, administrative, etc.",
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         ...,
         alias="code",
         title="Type `CodeableConcept` (represented as `dict` in JSON)",
         description="Coded or textual message to display to user",
     )
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title=(
@@ -56,14 +60,14 @@ class Flag(DomainResource):
         description="Alert relevant during encounter",
     )
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="List of `Identifier` items (represented as `dict` in JSON)",
         description="Business identifier",
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Type `Period` (represented as `dict` in JSON)",
@@ -77,7 +81,7 @@ class Flag(DomainResource):
         description="active | inactive | entered-in-error",
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         ...,
         alias="subject",
         title=(

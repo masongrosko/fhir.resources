@@ -13,6 +13,19 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .age import Age
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .codeablereference import CodeableReference
+from .datarequirement import DataRequirement
+from .duration import Duration
+from .expression import Expression
+from .identifier import Identifier
+from .period import Period
+from .range import Range
+from .reference import Reference
+from .relatedartifact import RelatedArtifact
+from .timing import Timing
 
 
 class RequestOrchestration(domainresource.DomainResource):
@@ -25,9 +38,9 @@ class RequestOrchestration(domainresource.DomainResource):
     that have inter-dependencies such as "give this medication after that one".
     """
 
-    resource_type = Field("RequestOrchestration", const=True)
+    resource_type: str = Field("RequestOrchestration", const=True)
 
-    action: typing.List[fhirtypes.RequestOrchestrationActionType] = Field(
+    action: typing.List["RequestOrchestrationAction"] = Field(
         None,
         alias="action",
         title="Proposed actions, if any",
@@ -36,7 +49,7 @@ class RequestOrchestration(domainresource.DomainResource):
         element_property=True,
     )
 
-    author: fhirtypes.ReferenceType = Field(
+    author: Reference = Field(
         None,
         alias="author",
         title="Device or practitioner that authored the request orchestration",
@@ -59,7 +72,7 @@ class RequestOrchestration(domainresource.DomainResource):
         None, alias="_authoredOn", title="Extension field for ``authoredOn``."
     )
 
-    basedOn: typing.List[fhirtypes.ReferenceType] = Field(
+    basedOn: typing.List[Reference] = Field(
         None,
         alias="basedOn",
         title="Fulfills plan, proposal, or order",
@@ -73,7 +86,7 @@ class RequestOrchestration(domainresource.DomainResource):
         enum_reference_types=["Resource"],
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="What's being requested/ordered",
@@ -82,7 +95,7 @@ class RequestOrchestration(domainresource.DomainResource):
         element_property=True,
     )
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title="Created as part of",
@@ -93,7 +106,7 @@ class RequestOrchestration(domainresource.DomainResource):
         enum_reference_types=["Encounter"],
     )
 
-    goal: typing.List[fhirtypes.ReferenceType] = Field(
+    goal: typing.List[Reference] = Field(
         None,
         alias="goal",
         title="What goals",
@@ -107,7 +120,7 @@ class RequestOrchestration(domainresource.DomainResource):
         enum_reference_types=["Goal"],
     )
 
-    groupIdentifier: fhirtypes.IdentifierType = Field(
+    groupIdentifier: Identifier = Field(
         None,
         alias="groupIdentifier",
         title="Composite request this is part of",
@@ -124,7 +137,7 @@ class RequestOrchestration(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business identifier",
@@ -206,7 +219,7 @@ class RequestOrchestration(domainresource.DomainResource):
         None, alias="_intent", title="Extension field for ``intent``."
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Additional notes about the response",
@@ -236,7 +249,7 @@ class RequestOrchestration(domainresource.DomainResource):
         None, alias="_priority", title="Extension field for ``priority``."
     )
 
-    reason: typing.List[fhirtypes.CodeableReferenceType] = Field(
+    reason: typing.List[CodeableReference] = Field(
         None,
         alias="reason",
         title="Why the request orchestration is needed",
@@ -255,7 +268,7 @@ class RequestOrchestration(domainresource.DomainResource):
         ],
     )
 
-    replaces: typing.List[fhirtypes.ReferenceType] = Field(
+    replaces: typing.List[Reference] = Field(
         None,
         alias="replaces",
         title="Request(s) replaced by this request",
@@ -299,7 +312,7 @@ class RequestOrchestration(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title="Who the request orchestration is about",
@@ -425,9 +438,9 @@ class RequestOrchestrationAction(backboneelement.BackboneElement):
     The actions, if any, produced by the evaluation of the artifact.
     """
 
-    resource_type = Field("RequestOrchestrationAction", const=True)
+    resource_type: str = Field("RequestOrchestrationAction", const=True)
 
-    action: typing.List[fhirtypes.RequestOrchestrationActionType] = Field(
+    action: typing.List["RequestOrchestrationAction"] = Field(
         None,
         alias="action",
         title="Sub action",
@@ -453,7 +466,7 @@ class RequestOrchestrationAction(backboneelement.BackboneElement):
         title="Extension field for ``cardinalityBehavior``.",
     )
 
-    code: typing.List[fhirtypes.CodeableConceptType] = Field(
+    code: typing.List[CodeableConcept] = Field(
         None,
         alias="code",
         title="Code representing the meaning of the action or sub-actions",
@@ -466,7 +479,7 @@ class RequestOrchestrationAction(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    condition: typing.List[fhirtypes.RequestOrchestrationActionConditionType] = Field(
+    condition: typing.List["RequestOrchestrationActionCondition"] = Field(
         None,
         alias="condition",
         title="Whether or not the action is applicable",
@@ -547,7 +560,7 @@ class RequestOrchestrationAction(backboneelement.BackboneElement):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    documentation: typing.List[fhirtypes.RelatedArtifactType] = Field(
+    documentation: typing.List[RelatedArtifact] = Field(
         None,
         alias="documentation",
         title="Supporting documentation for the intended performer of the action",
@@ -560,9 +573,7 @@ class RequestOrchestrationAction(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    dynamicValue: typing.List[
-        fhirtypes.RequestOrchestrationActionDynamicValueType
-    ] = Field(
+    dynamicValue: typing.List["RequestOrchestrationActionDynamicValue"] = Field(
         None,
         alias="dynamicValue",
         title="Dynamic aspects of the definition",
@@ -577,7 +588,7 @@ class RequestOrchestrationAction(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    goal: typing.List[fhirtypes.ReferenceType] = Field(
+    goal: typing.List[Reference] = Field(
         None,
         alias="goal",
         title="What goals",
@@ -608,7 +619,7 @@ class RequestOrchestrationAction(backboneelement.BackboneElement):
         title="Extension field for ``groupingBehavior``.",
     )
 
-    input: typing.List[fhirtypes.RequestOrchestrationActionInputType] = Field(
+    input: typing.List["RequestOrchestrationActionInput"] = Field(
         None,
         alias="input",
         title="Input data requirements",
@@ -632,7 +643,7 @@ class RequestOrchestrationAction(backboneelement.BackboneElement):
         None, alias="_linkId", title="Extension field for ``linkId``."
     )
 
-    location: fhirtypes.CodeableReferenceType = Field(
+    location: CodeableReference = Field(
         None,
         alias="location",
         title="Where it should happen",
@@ -646,7 +657,7 @@ class RequestOrchestrationAction(backboneelement.BackboneElement):
         enum_reference_types=["Location"],
     )
 
-    output: typing.List[fhirtypes.RequestOrchestrationActionOutputType] = Field(
+    output: typing.List["RequestOrchestrationActionOutput"] = Field(
         None,
         alias="output",
         title="Output data definition",
@@ -655,9 +666,7 @@ class RequestOrchestrationAction(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    participant: typing.List[
-        fhirtypes.RequestOrchestrationActionParticipantType
-    ] = Field(
+    participant: typing.List["RequestOrchestrationActionParticipant"] = Field(
         None,
         alias="participant",
         title="Who should perform the action",
@@ -716,9 +725,7 @@ class RequestOrchestrationAction(backboneelement.BackboneElement):
         None, alias="_priority", title="Extension field for ``priority``."
     )
 
-    relatedAction: typing.List[
-        fhirtypes.RequestOrchestrationActionRelatedActionType
-    ] = Field(
+    relatedAction: typing.List["RequestOrchestrationActionRelatedAction"] = Field(
         None,
         alias="relatedAction",
         title="Relationship to another action",
@@ -747,7 +754,7 @@ class RequestOrchestrationAction(backboneelement.BackboneElement):
         title="Extension field for ``requiredBehavior``.",
     )
 
-    resource: fhirtypes.ReferenceType = Field(
+    resource: Reference = Field(
         None,
         alias="resource",
         title="The target of the action",
@@ -805,7 +812,7 @@ class RequestOrchestrationAction(backboneelement.BackboneElement):
         None, alias="_textEquivalent", title="Extension field for ``textEquivalent``."
     )
 
-    timingAge: fhirtypes.AgeType = Field(
+    timingAge: Age = Field(
         None,
         alias="timingAge",
         title="When the action should take place",
@@ -832,7 +839,7 @@ class RequestOrchestrationAction(backboneelement.BackboneElement):
         None, alias="_timingDateTime", title="Extension field for ``timingDateTime``."
     )
 
-    timingDuration: fhirtypes.DurationType = Field(
+    timingDuration: Duration = Field(
         None,
         alias="timingDuration",
         title="When the action should take place",
@@ -844,7 +851,7 @@ class RequestOrchestrationAction(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    timingPeriod: fhirtypes.PeriodType = Field(
+    timingPeriod: Period = Field(
         None,
         alias="timingPeriod",
         title="When the action should take place",
@@ -856,7 +863,7 @@ class RequestOrchestrationAction(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    timingRange: fhirtypes.RangeType = Field(
+    timingRange: Range = Field(
         None,
         alias="timingRange",
         title="When the action should take place",
@@ -868,7 +875,7 @@ class RequestOrchestrationAction(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    timingTiming: fhirtypes.TimingType = Field(
+    timingTiming: Timing = Field(
         None,
         alias="timingTiming",
         title="When the action should take place",
@@ -910,7 +917,7 @@ class RequestOrchestrationAction(backboneelement.BackboneElement):
         None, alias="_transform", title="Extension field for ``transform``."
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="create | update | remove | fire-event",
@@ -1023,9 +1030,9 @@ class RequestOrchestrationActionCondition(backboneelement.BackboneElement):
     conditions for the action.
     """
 
-    resource_type = Field("RequestOrchestrationActionCondition", const=True)
+    resource_type: str = Field("RequestOrchestrationActionCondition", const=True)
 
-    expression: fhirtypes.ExpressionType = Field(
+    expression: Expression = Field(
         None,
         alias="expression",
         title="Boolean-valued expression",
@@ -1134,9 +1141,9 @@ class RequestOrchestrationActionDynamicValue(backboneelement.BackboneElement):
     the result.
     """
 
-    resource_type = Field("RequestOrchestrationActionDynamicValue", const=True)
+    resource_type: str = Field("RequestOrchestrationActionDynamicValue", const=True)
 
-    expression: fhirtypes.ExpressionType = Field(
+    expression: Expression = Field(
         None,
         alias="expression",
         title="An expression that provides the dynamic value for the customization",
@@ -1185,7 +1192,7 @@ class RequestOrchestrationActionInput(backboneelement.BackboneElement):
     Defines input data requirements for the action.
     """
 
-    resource_type = Field("RequestOrchestrationActionInput", const=True)
+    resource_type: str = Field("RequestOrchestrationActionInput", const=True)
 
     relatedData: fhirtypes.Id = Field(
         None,
@@ -1202,7 +1209,7 @@ class RequestOrchestrationActionInput(backboneelement.BackboneElement):
         None, alias="_relatedData", title="Extension field for ``relatedData``."
     )
 
-    requirement: fhirtypes.DataRequirementType = Field(
+    requirement: DataRequirement = Field(
         None,
         alias="requirement",
         title="What data is provided",
@@ -1253,7 +1260,7 @@ class RequestOrchestrationActionOutput(backboneelement.BackboneElement):
     Defines the outputs of the action, if any.
     """
 
-    resource_type = Field("RequestOrchestrationActionOutput", const=True)
+    resource_type: str = Field("RequestOrchestrationActionOutput", const=True)
 
     relatedData: fhirtypes.String = Field(
         None,
@@ -1270,7 +1277,7 @@ class RequestOrchestrationActionOutput(backboneelement.BackboneElement):
         None, alias="_relatedData", title="Extension field for ``relatedData``."
     )
 
-    requirement: fhirtypes.DataRequirementType = Field(
+    requirement: DataRequirement = Field(
         None,
         alias="requirement",
         title="What data is provided",
@@ -1321,7 +1328,7 @@ class RequestOrchestrationActionParticipant(backboneelement.BackboneElement):
     The participant that should perform or be responsible for this action.
     """
 
-    resource_type = Field("RequestOrchestrationActionParticipant", const=True)
+    resource_type: str = Field("RequestOrchestrationActionParticipant", const=True)
 
     actorCanonical: fhirtypes.Canonical = Field(
         None,
@@ -1340,7 +1347,7 @@ class RequestOrchestrationActionParticipant(backboneelement.BackboneElement):
         None, alias="_actorCanonical", title="Extension field for ``actorCanonical``."
     )
 
-    actorReference: fhirtypes.ReferenceType = Field(
+    actorReference: Reference = Field(
         None,
         alias="actorReference",
         title="Who/what is participating?",
@@ -1367,7 +1374,7 @@ class RequestOrchestrationActionParticipant(backboneelement.BackboneElement):
         ],
     )
 
-    function: fhirtypes.CodeableConceptType = Field(
+    function: CodeableConcept = Field(
         None,
         alias="function",
         title="E.g. Author, Reviewer, Witness, etc",
@@ -1379,7 +1386,7 @@ class RequestOrchestrationActionParticipant(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    role: fhirtypes.CodeableConceptType = Field(
+    role: CodeableConcept = Field(
         None,
         alias="role",
         title="E.g. Nurse, Surgeon, Parent, etc",
@@ -1435,7 +1442,7 @@ class RequestOrchestrationActionParticipant(backboneelement.BackboneElement):
         None, alias="_typeCanonical", title="Extension field for ``typeCanonical``."
     )
 
-    typeReference: fhirtypes.ReferenceType = Field(
+    typeReference: Reference = Field(
         None,
         alias="typeReference",
         title="Who or what can participate",
@@ -1527,7 +1534,7 @@ class RequestOrchestrationActionRelatedAction(backboneelement.BackboneElement):
     start of".
     """
 
-    resource_type = Field("RequestOrchestrationActionRelatedAction", const=True)
+    resource_type: str = Field("RequestOrchestrationActionRelatedAction", const=True)
 
     endRelationship: fhirtypes.Code = Field(
         None,
@@ -1557,7 +1564,7 @@ class RequestOrchestrationActionRelatedAction(backboneelement.BackboneElement):
         None, alias="_endRelationship", title="Extension field for ``endRelationship``."
     )
 
-    offsetDuration: fhirtypes.DurationType = Field(
+    offsetDuration: Duration = Field(
         None,
         alias="offsetDuration",
         title="Time offset for the relationship",
@@ -1572,7 +1579,7 @@ class RequestOrchestrationActionRelatedAction(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    offsetRange: fhirtypes.RangeType = Field(
+    offsetRange: Range = Field(
         None,
         alias="offsetRange",
         title="Time offset for the relationship",
@@ -1745,3 +1752,7 @@ class RequestOrchestrationActionRelatedAction(backboneelement.BackboneElement):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+RequestOrchestration.update_forward_refs()
+RequestOrchestrationAction.update_forward_refs()

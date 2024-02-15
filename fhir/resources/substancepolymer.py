@@ -11,6 +11,10 @@ import typing
 from pydantic.v1 import Field
 
 from . import backboneelement, domainresource, fhirtypes
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .quantity import Quantity
 
 
 class SubstancePolymer(domainresource.DomainResource):
@@ -21,9 +25,9 @@ class SubstancePolymer(domainresource.DomainResource):
     Properties of a substance specific to it being a polymer.
     """
 
-    resource_type = Field("SubstancePolymer", const=True)
+    resource_type: str = Field("SubstancePolymer", const=True)
 
-    class_fhir: fhirtypes.CodeableConceptType = Field(
+    class_fhir: CodeableConcept = Field(
         None,
         alias="class",
         title="Overall type of the polymer",
@@ -32,7 +36,7 @@ class SubstancePolymer(domainresource.DomainResource):
         element_property=True,
     )
 
-    copolymerConnectivity: typing.List[fhirtypes.CodeableConceptType] = Field(
+    copolymerConnectivity: typing.List[CodeableConcept] = Field(
         None,
         alias="copolymerConnectivity",
         title="Descrtibes the copolymer sequence type (polymer connectivity)",
@@ -41,7 +45,7 @@ class SubstancePolymer(domainresource.DomainResource):
         element_property=True,
     )
 
-    geometry: fhirtypes.CodeableConceptType = Field(
+    geometry: CodeableConcept = Field(
         None,
         alias="geometry",
         title=(
@@ -53,7 +57,7 @@ class SubstancePolymer(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title=(
@@ -81,7 +85,7 @@ class SubstancePolymer(domainresource.DomainResource):
         None, alias="_modification", title="Extension field for ``modification``."
     )
 
-    monomerSet: typing.List[fhirtypes.SubstancePolymerMonomerSetType] = Field(
+    monomerSet: typing.List["SubstancePolymerMonomerSet"] = Field(
         None,
         alias="monomerSet",
         title="Todo",
@@ -90,7 +94,7 @@ class SubstancePolymer(domainresource.DomainResource):
         element_property=True,
     )
 
-    repeat: typing.List[fhirtypes.SubstancePolymerRepeatType] = Field(
+    repeat: typing.List["SubstancePolymerRepeat"] = Field(
         None,
         alias="repeat",
         title="Specifies and quantifies the repeated units and their configuration",
@@ -132,9 +136,9 @@ class SubstancePolymerMonomerSet(backboneelement.BackboneElement):
     Todo.
     """
 
-    resource_type = Field("SubstancePolymerMonomerSet", const=True)
+    resource_type: str = Field("SubstancePolymerMonomerSet", const=True)
 
-    ratioType: fhirtypes.CodeableConceptType = Field(
+    ratioType: CodeableConcept = Field(
         None,
         alias="ratioType",
         title=(
@@ -146,9 +150,7 @@ class SubstancePolymerMonomerSet(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    startingMaterial: typing.List[
-        fhirtypes.SubstancePolymerMonomerSetStartingMaterialType
-    ] = Field(
+    startingMaterial: typing.List["SubstancePolymerMonomerSetStartingMaterial"] = Field(
         None,
         alias="startingMaterial",
         title=(
@@ -177,9 +179,9 @@ class SubstancePolymerMonomerSetStartingMaterial(backboneelement.BackboneElement
     The starting materials - monomer(s) used in the synthesis of the polymer.
     """
 
-    resource_type = Field("SubstancePolymerMonomerSetStartingMaterial", const=True)
+    resource_type: str = Field("SubstancePolymerMonomerSetStartingMaterial", const=True)
 
-    amount: fhirtypes.QuantityType = Field(
+    amount: Quantity = Field(
         None,
         alias="amount",
         title="A percentage",
@@ -188,7 +190,7 @@ class SubstancePolymerMonomerSetStartingMaterial(backboneelement.BackboneElement
         element_property=True,
     )
 
-    category: fhirtypes.CodeableConceptType = Field(
+    category: CodeableConcept = Field(
         None,
         alias="category",
         title="Substance high level category, e.g. chemical substance",
@@ -197,7 +199,7 @@ class SubstancePolymerMonomerSetStartingMaterial(backboneelement.BackboneElement
         element_property=True,
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="The type of substance for this starting material",
@@ -246,7 +248,7 @@ class SubstancePolymerRepeat(backboneelement.BackboneElement):
     Specifies and quantifies the repeated units and their configuration.
     """
 
-    resource_type = Field("SubstancePolymerRepeat", const=True)
+    resource_type: str = Field("SubstancePolymerRepeat", const=True)
 
     averageMolecularFormula: fhirtypes.String = Field(
         None,
@@ -262,7 +264,7 @@ class SubstancePolymerRepeat(backboneelement.BackboneElement):
         title="Extension field for ``averageMolecularFormula``.",
     )
 
-    repeatUnit: typing.List[fhirtypes.SubstancePolymerRepeatRepeatUnitType] = Field(
+    repeatUnit: typing.List["SubstancePolymerRepeatRepeatUnit"] = Field(
         None,
         alias="repeatUnit",
         title="An SRU - Structural Repeat Unit",
@@ -271,7 +273,7 @@ class SubstancePolymerRepeat(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    repeatUnitAmountType: fhirtypes.CodeableConceptType = Field(
+    repeatUnitAmountType: CodeableConcept = Field(
         None,
         alias="repeatUnitAmountType",
         title=(
@@ -307,7 +309,7 @@ class SubstancePolymerRepeatRepeatUnit(backboneelement.BackboneElement):
     An SRU - Structural Repeat Unit.
     """
 
-    resource_type = Field("SubstancePolymerRepeatRepeatUnit", const=True)
+    resource_type: str = Field("SubstancePolymerRepeatRepeatUnit", const=True)
 
     amount: fhirtypes.Integer = Field(
         None,
@@ -322,7 +324,7 @@ class SubstancePolymerRepeatRepeatUnit(backboneelement.BackboneElement):
     )
 
     degreeOfPolymerisation: typing.List[
-        fhirtypes.SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisationType
+        "SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation"
     ] = Field(
         None,
         alias="degreeOfPolymerisation",
@@ -335,7 +337,7 @@ class SubstancePolymerRepeatRepeatUnit(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    orientation: fhirtypes.CodeableConceptType = Field(
+    orientation: CodeableConcept = Field(
         None,
         alias="orientation",
         title=(
@@ -348,7 +350,7 @@ class SubstancePolymerRepeatRepeatUnit(backboneelement.BackboneElement):
     )
 
     structuralRepresentation: typing.List[
-        fhirtypes.SubstancePolymerRepeatRepeatUnitStructuralRepresentationType
+        "SubstancePolymerRepeatRepeatUnitStructuralRepresentation"
     ] = Field(
         None,
         alias="structuralRepresentation",
@@ -399,7 +401,7 @@ class SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation(
     polymerisation within a block can be described.
     """
 
-    resource_type = Field(
+    resource_type: str = Field(
         "SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation", const=True
     )
 
@@ -439,7 +441,7 @@ class SubstancePolymerRepeatRepeatUnitDegreeOfPolymerisation(
         None, alias="_low", title="Extension field for ``low``."
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title=(
@@ -478,11 +480,11 @@ class SubstancePolymerRepeatRepeatUnitStructuralRepresentation(
     A graphical structure for this SRU.
     """
 
-    resource_type = Field(
+    resource_type: str = Field(
         "SubstancePolymerRepeatRepeatUnitStructuralRepresentation", const=True
     )
 
-    attachment: fhirtypes.AttachmentType = Field(
+    attachment: Attachment = Field(
         None,
         alias="attachment",
         title="An attached file with the structural representation",
@@ -491,7 +493,7 @@ class SubstancePolymerRepeatRepeatUnitStructuralRepresentation(
         element_property=True,
     )
 
-    format: fhirtypes.CodeableConceptType = Field(
+    format: CodeableConcept = Field(
         None,
         alias="format",
         title=(
@@ -518,7 +520,7 @@ class SubstancePolymerRepeatRepeatUnitStructuralRepresentation(
         None, alias="_representation", title="Extension field for ``representation``."
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="The type of structure (e.g. Full, Partial, Representative)",
@@ -542,3 +544,9 @@ class SubstancePolymerRepeatRepeatUnitStructuralRepresentation(
             "format",
             "attachment",
         ]
+
+
+SubstancePolymer.update_forward_refs()
+SubstancePolymerMonomerSet.update_forward_refs()
+SubstancePolymerRepeat.update_forward_refs()
+SubstancePolymerRepeatRepeatUnit.update_forward_refs()

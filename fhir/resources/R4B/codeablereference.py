@@ -8,7 +8,9 @@ Last updated: 2022-05-28T12:47:40.239+10:00
 """
 from pydantic.v1 import Field
 
-from . import element, fhirtypes
+from . import element
+from .codeableconcept import CodeableConcept
+from .reference import Reference
 
 
 class CodeableReference(element.Element):
@@ -21,9 +23,9 @@ class CodeableReference(element.Element):
     concept defined in a terminology or ontology (by class).
     """
 
-    resource_type = Field("CodeableReference", const=True)
+    resource_type: str = Field("CodeableReference", const=True)
 
-    concept: fhirtypes.CodeableConceptType = Field(
+    concept: CodeableConcept = Field(
         None,
         alias="concept",
         title="Reference to a concept (by class)",
@@ -35,7 +37,7 @@ class CodeableReference(element.Element):
         element_property=True,
     )
 
-    reference: fhirtypes.ReferenceType = Field(
+    reference: Reference = Field(
         None,
         alias="reference",
         title="Reference to a resource (by instance)",

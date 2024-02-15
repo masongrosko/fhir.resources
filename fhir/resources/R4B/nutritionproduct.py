@@ -13,6 +13,14 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .annotation import Annotation
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .codeablereference import CodeableReference
+from .identifier import Identifier
+from .quantity import Quantity
+from .ratio import Ratio
+from .reference import Reference
 
 
 class NutritionProduct(domainresource.DomainResource):
@@ -24,9 +32,9 @@ class NutritionProduct(domainresource.DomainResource):
     A food or fluid product that is consumed by patients.
     """
 
-    resource_type = Field("NutritionProduct", const=True)
+    resource_type: str = Field("NutritionProduct", const=True)
 
-    category: typing.List[fhirtypes.CodeableConceptType] = Field(
+    category: typing.List[CodeableConcept] = Field(
         None,
         alias="category",
         title=(
@@ -41,7 +49,7 @@ class NutritionProduct(domainresource.DomainResource):
         element_property=True,
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="A code designating a specific type of nutritional product",
@@ -53,7 +61,7 @@ class NutritionProduct(domainresource.DomainResource):
         element_property=True,
     )
 
-    ingredient: typing.List[fhirtypes.NutritionProductIngredientType] = Field(
+    ingredient: typing.List["NutritionProductIngredient"] = Field(
         None,
         alias="ingredient",
         title="Ingredients contained in this product",
@@ -62,7 +70,7 @@ class NutritionProduct(domainresource.DomainResource):
         element_property=True,
     )
 
-    instance: fhirtypes.NutritionProductInstanceType = Field(
+    instance: "NutritionProductInstance" = Field(
         None,
         alias="instance",
         title=(
@@ -77,7 +85,7 @@ class NutritionProduct(domainresource.DomainResource):
         element_property=True,
     )
 
-    knownAllergen: typing.List[fhirtypes.CodeableReferenceType] = Field(
+    knownAllergen: typing.List[CodeableReference] = Field(
         None,
         alias="knownAllergen",
         title="Known or suspected allergens that are a part of this product",
@@ -91,7 +99,7 @@ class NutritionProduct(domainresource.DomainResource):
         enum_reference_types=["Substance"],
     )
 
-    manufacturer: typing.List[fhirtypes.ReferenceType] = Field(
+    manufacturer: typing.List[Reference] = Field(
         None,
         alias="manufacturer",
         title="Manufacturer, representative or officially responsible for the product",
@@ -105,7 +113,7 @@ class NutritionProduct(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Comments made about the product",
@@ -114,7 +122,7 @@ class NutritionProduct(domainresource.DomainResource):
         element_property=True,
     )
 
-    nutrient: typing.List[fhirtypes.NutritionProductNutrientType] = Field(
+    nutrient: typing.List["NutritionProductNutrient"] = Field(
         None,
         alias="nutrient",
         title="The product's nutritional information expressed by the nutrients",
@@ -123,9 +131,7 @@ class NutritionProduct(domainresource.DomainResource):
         element_property=True,
     )
 
-    productCharacteristic: typing.List[
-        fhirtypes.NutritionProductProductCharacteristicType
-    ] = Field(
+    productCharacteristic: typing.List["NutritionProductProductCharacteristic"] = Field(
         None,
         alias="productCharacteristic",
         title="Specifies descriptive properties of the nutrition product",
@@ -245,9 +251,9 @@ class NutritionProductIngredient(backboneelement.BackboneElement):
     Ingredients contained in this product.
     """
 
-    resource_type = Field("NutritionProductIngredient", const=True)
+    resource_type: str = Field("NutritionProductIngredient", const=True)
 
-    amount: typing.List[fhirtypes.RatioType] = Field(
+    amount: typing.List[Ratio] = Field(
         None,
         alias="amount",
         title="The amount of ingredient that is in the product",
@@ -256,7 +262,7 @@ class NutritionProductIngredient(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    item: fhirtypes.CodeableReferenceType = Field(
+    item: CodeableReference = Field(
         ...,
         alias="item",
         title="The ingredient contained in the product",
@@ -286,7 +292,7 @@ class NutritionProductInstance(backboneelement.BackboneElement):
     physical, countable instances or occurrences of the product.
     """
 
-    resource_type = Field("NutritionProductInstance", const=True)
+    resource_type: str = Field("NutritionProductInstance", const=True)
 
     expiry: fhirtypes.DateTime = Field(
         None,
@@ -303,7 +309,7 @@ class NutritionProductInstance(backboneelement.BackboneElement):
         None, alias="_expiry", title="Extension field for ``expiry``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="The identifier for the physical instance, typically a serial number",
@@ -324,7 +330,7 @@ class NutritionProductInstance(backboneelement.BackboneElement):
         None, alias="_lotNumber", title="Extension field for ``lotNumber``."
     )
 
-    quantity: fhirtypes.QuantityType = Field(
+    quantity: Quantity = Field(
         None,
         alias="quantity",
         title="The amount of items or instances",
@@ -379,9 +385,9 @@ class NutritionProductNutrient(backboneelement.BackboneElement):
     The product's nutritional information expressed by the nutrients.
     """
 
-    resource_type = Field("NutritionProductNutrient", const=True)
+    resource_type: str = Field("NutritionProductNutrient", const=True)
 
-    amount: typing.List[fhirtypes.RatioType] = Field(
+    amount: typing.List[Ratio] = Field(
         None,
         alias="amount",
         title=(
@@ -393,7 +399,7 @@ class NutritionProductNutrient(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    item: fhirtypes.CodeableReferenceType = Field(
+    item: CodeableReference = Field(
         None,
         alias="item",
         title="The (relevant) nutrients in the product",
@@ -421,9 +427,9 @@ class NutritionProductProductCharacteristic(backboneelement.BackboneElement):
     Specifies descriptive properties of the nutrition product.
     """
 
-    resource_type = Field("NutritionProductProductCharacteristic", const=True)
+    resource_type: str = Field("NutritionProductProductCharacteristic", const=True)
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title="Code specifying the type of characteristic",
@@ -435,7 +441,7 @@ class NutritionProductProductCharacteristic(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    valueAttachment: fhirtypes.AttachmentType = Field(
+    valueAttachment: Attachment = Field(
         None,
         alias="valueAttachment",
         title="The value of the characteristic",
@@ -479,7 +485,7 @@ class NutritionProductProductCharacteristic(backboneelement.BackboneElement):
         None, alias="_valueBoolean", title="Extension field for ``valueBoolean``."
     )
 
-    valueCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    valueCodeableConcept: CodeableConcept = Field(
         None,
         alias="valueCodeableConcept",
         title="The value of the characteristic",
@@ -491,7 +497,7 @@ class NutritionProductProductCharacteristic(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueQuantity: fhirtypes.QuantityType = Field(
+    valueQuantity: Quantity = Field(
         None,
         alias="valueQuantity",
         title="The value of the characteristic",
@@ -583,3 +589,6 @@ class NutritionProductProductCharacteristic(backboneelement.BackboneElement):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+NutritionProduct.update_forward_refs()

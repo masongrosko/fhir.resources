@@ -10,8 +10,12 @@ from typing import List as ListType
 from pydantic.v1 import Field
 
 from . import fhirtypes
+from .annotation import Annotation
 from .backboneelement import BackboneElement
+from .codeableconcept import CodeableConcept
 from .domainresource import DomainResource
+from .identifier import Identifier
+from .reference import Reference
 
 
 class DiagnosticOrder(DomainResource):
@@ -21,7 +25,7 @@ class DiagnosticOrder(DomainResource):
     performed.
     """
 
-    resource_type = Field("DiagnosticOrder", const=True)
+    resource_type: str = Field("DiagnosticOrder", const=True)
 
     status: fhirtypes.Code = Field(
         None,
@@ -51,7 +55,7 @@ class DiagnosticOrder(DomainResource):
         ],
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         ...,
         alias="subject",
         title=(
@@ -63,7 +67,7 @@ class DiagnosticOrder(DomainResource):
         enum_reference_types=["Patient", "Group", "Location", "Device"],
     )
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title="Type `FHIRReference` referencing `Encounter` (represented as `dict` in JSON).",
@@ -72,14 +76,14 @@ class DiagnosticOrder(DomainResource):
         enum_reference_types=["Encounter"],
     )
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="List of `Identifier` items (represented as `dict` in JSON).",
         description="Identifiers assigned to this order.",
     )
 
-    specimen: ListType[fhirtypes.ReferenceType] = Field(
+    specimen: ListType[Reference] = Field(
         None,
         alias="specimen",
         title=(
@@ -91,7 +95,7 @@ class DiagnosticOrder(DomainResource):
         enum_reference_types=["Specimen"],
     )
 
-    orderer: fhirtypes.ReferenceType = Field(
+    orderer: Reference = Field(
         None,
         alias="orderer",
         title=(
@@ -103,14 +107,14 @@ class DiagnosticOrder(DomainResource):
         enum_reference_types=["Practitioner"],
     )
 
-    reason: ListType[fhirtypes.CodeableConceptType] = Field(
+    reason: ListType[CodeableConcept] = Field(
         None,
         alias="reason",
         title="List of `CodeableConcept` items (represented as `dict` in JSON).",
         description="Explanation/Justification for test.",
     )
 
-    supportingInformation: ListType[fhirtypes.ReferenceType] = Field(
+    supportingInformation: ListType[Reference] = Field(
         None,
         alias="supportingInformation",
         title=(
@@ -132,21 +136,21 @@ class DiagnosticOrder(DomainResource):
         enum_values=["routine", "urgent", "asap", "stat"],
     )
 
-    event: ListType[fhirtypes.DiagnosticOrderEventType] = Field(
+    event: ListType["DiagnosticOrderEvent"] = Field(
         None,
         alias="event",
         title="List of `DiagnosticOrderEvent` items (represented as `dict` in JSON).",
         description="A list of events of interest in the lifecycle.",
     )
 
-    item: ListType[fhirtypes.DiagnosticOrderItemType] = Field(
+    item: ListType["DiagnosticOrderItem"] = Field(
         None,
         alias="item",
         title="List of `DiagnosticOrderItem` items (represented as `dict` in JSON).",
         description="The items the orderer requested.",
     )
 
-    note: ListType[fhirtypes.AnnotationType] = Field(
+    note: ListType[Annotation] = Field(
         None,
         alias="note",
         title="List of `Annotation` items (represented as `dict` in JSON).",
@@ -162,7 +166,7 @@ class DiagnosticOrderEvent(BackboneElement):
     (specimens received), when it was completed.
     """
 
-    resource_type = Field("DiagnosticOrderEvent", const=True)
+    resource_type: str = Field("DiagnosticOrderEvent", const=True)
 
     status: fhirtypes.Code = Field(
         ...,
@@ -192,7 +196,7 @@ class DiagnosticOrderEvent(BackboneElement):
         ],
     )
 
-    description: fhirtypes.CodeableConceptType = Field(
+    description: CodeableConcept = Field(
         None,
         alias="description",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -206,7 +210,7 @@ class DiagnosticOrderEvent(BackboneElement):
         description="The date at which the event happened.",
     )
 
-    actor: fhirtypes.ReferenceType = Field(
+    actor: Reference = Field(
         None,
         alias="actor",
         title=(
@@ -227,16 +231,16 @@ class DiagnosticOrderItem(BackboneElement):
     contexts, more than one investigation can be requested.
     """
 
-    resource_type = Field("DiagnosticOrderItem", const=True)
+    resource_type: str = Field("DiagnosticOrderItem", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         ...,
         alias="code",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="Code to indicate the item (test or panel) being ordered.",
     )
 
-    specimen: ListType[fhirtypes.ReferenceType] = Field(
+    specimen: ListType[Reference] = Field(
         None,
         alias="specimen",
         title=(
@@ -248,7 +252,7 @@ class DiagnosticOrderItem(BackboneElement):
         enum_reference_types=["Specimen"],
     )
 
-    bodySite: fhirtypes.CodeableConceptType = Field(
+    bodySite: CodeableConcept = Field(
         None,
         alias="bodySite",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -283,9 +287,13 @@ class DiagnosticOrderItem(BackboneElement):
         ],
     )
 
-    event: ListType[fhirtypes.DiagnosticOrderEventType] = Field(
+    event: ListType["DiagnosticOrderEvent"] = Field(
         None,
         alias="event",
         title="List of `DiagnosticOrderEvent` items (represented as `dict` in JSON).",
         description="A list of events of interest in the lifecycle.",
     )
+
+
+DiagnosticOrder.update_forward_refs()
+DiagnosticOrderItem.update_forward_refs()

@@ -11,6 +11,8 @@ import typing
 from pydantic.v1 import Field
 
 from . import domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
 
 
 class FormularyItem(domainresource.DomainResource):
@@ -25,9 +27,9 @@ class FormularyItem(domainresource.DomainResource):
     item in the formulary and is not inherent to the item itself.
     """
 
-    resource_type = Field("FormularyItem", const=True)
+    resource_type: str = Field("FormularyItem", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Codes that identify this formulary item",
@@ -39,7 +41,7 @@ class FormularyItem(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business identifier for this formulary item",

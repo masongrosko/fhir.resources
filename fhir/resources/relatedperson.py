@@ -11,6 +11,14 @@ import typing
 from pydantic.v1 import Field
 
 from . import backboneelement, domainresource, fhirtypes
+from .address import Address
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .contactpoint import ContactPoint
+from .humanname import HumanName
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class RelatedPerson(domainresource.DomainResource):
@@ -25,7 +33,7 @@ class RelatedPerson(domainresource.DomainResource):
     formal responsibility in the care process.
     """
 
-    resource_type = Field("RelatedPerson", const=True)
+    resource_type: str = Field("RelatedPerson", const=True)
 
     active: bool = Field(
         None,
@@ -39,7 +47,7 @@ class RelatedPerson(domainresource.DomainResource):
         None, alias="_active", title="Extension field for ``active``."
     )
 
-    address: typing.List[fhirtypes.AddressType] = Field(
+    address: typing.List[Address] = Field(
         None,
         alias="address",
         title="Address where the related person can be contacted or visited",
@@ -60,7 +68,7 @@ class RelatedPerson(domainresource.DomainResource):
         None, alias="_birthDate", title="Extension field for ``birthDate``."
     )
 
-    communication: typing.List[fhirtypes.RelatedPersonCommunicationType] = Field(
+    communication: typing.List["RelatedPersonCommunication"] = Field(
         None,
         alias="communication",
         title=(
@@ -90,7 +98,7 @@ class RelatedPerson(domainresource.DomainResource):
         None, alias="_gender", title="Extension field for ``gender``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="A human identifier for this person",
@@ -99,7 +107,7 @@ class RelatedPerson(domainresource.DomainResource):
         element_property=True,
     )
 
-    name: typing.List[fhirtypes.HumanNameType] = Field(
+    name: typing.List[HumanName] = Field(
         None,
         alias="name",
         title="A name associated with the person",
@@ -108,7 +116,7 @@ class RelatedPerson(domainresource.DomainResource):
         element_property=True,
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         ...,
         alias="patient",
         title="The patient this person is related to",
@@ -119,7 +127,7 @@ class RelatedPerson(domainresource.DomainResource):
         enum_reference_types=["Patient"],
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Period of time that this relationship is considered valid",
@@ -131,7 +139,7 @@ class RelatedPerson(domainresource.DomainResource):
         element_property=True,
     )
 
-    photo: typing.List[fhirtypes.AttachmentType] = Field(
+    photo: typing.List[Attachment] = Field(
         None,
         alias="photo",
         title="Image of the person",
@@ -140,7 +148,7 @@ class RelatedPerson(domainresource.DomainResource):
         element_property=True,
     )
 
-    relationship: typing.List[fhirtypes.CodeableConceptType] = Field(
+    relationship: typing.List[CodeableConcept] = Field(
         None,
         alias="relationship",
         title="The relationship of the related person to the patient",
@@ -152,7 +160,7 @@ class RelatedPerson(domainresource.DomainResource):
         element_property=True,
     )
 
-    telecom: typing.List[fhirtypes.ContactPointType] = Field(
+    telecom: typing.List[ContactPoint] = Field(
         None,
         alias="telecom",
         title="A contact detail for the person",
@@ -203,9 +211,9 @@ class RelatedPersonCommunication(backboneelement.BackboneElement):
     the patient's health.
     """
 
-    resource_type = Field("RelatedPersonCommunication", const=True)
+    resource_type: str = Field("RelatedPersonCommunication", const=True)
 
-    language: fhirtypes.CodeableConceptType = Field(
+    language: CodeableConcept = Field(
         ...,
         alias="language",
         title=(
@@ -244,3 +252,6 @@ class RelatedPersonCommunication(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "language", "preferred"]
+
+
+RelatedPerson.update_forward_refs()

@@ -12,6 +12,10 @@ from pydantic.v1 import Field, root_validator
 
 from . import domainresource, fhirtypes
 from .backboneelement import BackboneElement
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .reference import Reference
+from .timing import Timing
 
 
 class SupplyRequest(domainresource.DomainResource):
@@ -20,9 +24,9 @@ class SupplyRequest(domainresource.DomainResource):
     A record of a request for a medication, substance or device used in the healthcare setting.
     """
 
-    resource_type = Field("SupplyRequest", const=True)
+    resource_type: str = Field("SupplyRequest", const=True)
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         None,
         alias="patient",
         title="Type 'Reference' referencing 'Patient' (represented as 'dict' in JSON).",
@@ -32,7 +36,7 @@ class SupplyRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    source: fhirtypes.ReferenceType = Field(
+    source: Reference = Field(
         None,
         alias="source",
         title=(
@@ -53,7 +57,7 @@ class SupplyRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="Unique identifier",
@@ -72,7 +76,7 @@ class SupplyRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    kind: fhirtypes.CodeableConceptType = Field(
+    kind: CodeableConcept = Field(
         None,
         alias="kind",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -80,7 +84,7 @@ class SupplyRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    orderedItem: fhirtypes.ReferenceType = Field(
+    orderedItem: Reference = Field(
         None,
         alias="orderedItem",
         title=(
@@ -93,7 +97,7 @@ class SupplyRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    supplier: ListType[fhirtypes.ReferenceType] = Field(
+    supplier: ListType[Reference] = Field(
         None,
         alias="supplier",
         title=(
@@ -105,7 +109,7 @@ class SupplyRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    reasonCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    reasonCodeableConcept: CodeableConcept = Field(
         None,
         alias="reasonCodeableConcept",
         title="Why the supply item was requested",
@@ -116,7 +120,7 @@ class SupplyRequest(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    reasonReference: fhirtypes.ReferenceType = Field(
+    reasonReference: Reference = Field(
         None,
         alias="reasonReference",
         title="Type 'Reference' referencing 'Any' (represented as 'dict' in JSON).",
@@ -128,7 +132,7 @@ class SupplyRequest(domainresource.DomainResource):
         enum_reference_types=["Resource"],
     )
 
-    when: fhirtypes.SupplyRequestWhenType = Field(
+    when: "SupplyRequestWhen" = Field(
         None,
         alias="when",
         title="Type `SupplyRequestWhen` (represented as `dict` in JSON).",
@@ -181,9 +185,9 @@ class SupplyRequestWhen(BackboneElement):
     When the request should be fulfilled.
     """
 
-    resource_type = Field("SupplyRequestWhen", const=True)
+    resource_type: str = Field("SupplyRequestWhen", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -191,10 +195,13 @@ class SupplyRequestWhen(BackboneElement):
         element_property=True,
     )
 
-    schedule: fhirtypes.TimingType = Field(
+    schedule: Timing = Field(
         None,
         alias="schedule",
         title="Type `Timing` (represented as `dict` in JSON).",
         description="Formal fulfillment schedule",
         element_property=True,
     )
+
+
+SupplyRequest.update_forward_refs()

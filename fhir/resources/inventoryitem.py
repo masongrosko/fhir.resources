@@ -13,6 +13,16 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .address import Address
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .duration import Duration
+from .identifier import Identifier
+from .quantity import Quantity
+from .range import Range
+from .ratio import Ratio
+from .reference import Reference
 
 
 class InventoryItem(domainresource.DomainResource):
@@ -24,9 +34,9 @@ class InventoryItem(domainresource.DomainResource):
     related workflows.
     """
 
-    resource_type = Field("InventoryItem", const=True)
+    resource_type: str = Field("InventoryItem", const=True)
 
-    association: typing.List[fhirtypes.InventoryItemAssociationType] = Field(
+    association: typing.List["InventoryItemAssociation"] = Field(
         None,
         alias="association",
         title="Association with other items or products",
@@ -35,7 +45,7 @@ class InventoryItem(domainresource.DomainResource):
         element_property=True,
     )
 
-    baseUnit: fhirtypes.CodeableConceptType = Field(
+    baseUnit: CodeableConcept = Field(
         None,
         alias="baseUnit",
         title=(
@@ -47,7 +57,7 @@ class InventoryItem(domainresource.DomainResource):
         element_property=True,
     )
 
-    category: typing.List[fhirtypes.CodeableConceptType] = Field(
+    category: typing.List[CodeableConcept] = Field(
         None,
         alias="category",
         title="Category or class of the item",
@@ -56,7 +66,7 @@ class InventoryItem(domainresource.DomainResource):
         element_property=True,
     )
 
-    characteristic: typing.List[fhirtypes.InventoryItemCharacteristicType] = Field(
+    characteristic: typing.List["InventoryItemCharacteristic"] = Field(
         None,
         alias="characteristic",
         title="Characteristic of the item",
@@ -65,7 +75,7 @@ class InventoryItem(domainresource.DomainResource):
         element_property=True,
     )
 
-    code: typing.List[fhirtypes.CodeableConceptType] = Field(
+    code: typing.List[CodeableConcept] = Field(
         None,
         alias="code",
         title="Code designating the specific type of item",
@@ -74,7 +84,7 @@ class InventoryItem(domainresource.DomainResource):
         element_property=True,
     )
 
-    description: fhirtypes.InventoryItemDescriptionType = Field(
+    description: "InventoryItemDescription" = Field(
         None,
         alias="description",
         title="Descriptive characteristics of the item",
@@ -83,7 +93,7 @@ class InventoryItem(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business identifier for the inventory item",
@@ -92,7 +102,7 @@ class InventoryItem(domainresource.DomainResource):
         element_property=True,
     )
 
-    instance: fhirtypes.InventoryItemInstanceType = Field(
+    instance: "InventoryItemInstance" = Field(
         None,
         alias="instance",
         title="Instances or occurrences of the product",
@@ -101,7 +111,7 @@ class InventoryItem(domainresource.DomainResource):
         element_property=True,
     )
 
-    inventoryStatus: typing.List[fhirtypes.CodeableConceptType] = Field(
+    inventoryStatus: typing.List[CodeableConcept] = Field(
         None,
         alias="inventoryStatus",
         title="The usage status like recalled, in use, discarded",
@@ -114,7 +124,7 @@ class InventoryItem(domainresource.DomainResource):
         element_property=True,
     )
 
-    name: typing.List[fhirtypes.InventoryItemNameType] = Field(
+    name: typing.List["InventoryItemName"] = Field(
         None,
         alias="name",
         title=(
@@ -129,7 +139,7 @@ class InventoryItem(domainresource.DomainResource):
         element_property=True,
     )
 
-    netContent: fhirtypes.QuantityType = Field(
+    netContent: Quantity = Field(
         None,
         alias="netContent",
         title="Net content or amount present in the item",
@@ -138,7 +148,7 @@ class InventoryItem(domainresource.DomainResource):
         element_property=True,
     )
 
-    productReference: fhirtypes.ReferenceType = Field(
+    productReference: Reference = Field(
         None,
         alias="productReference",
         title="Link to a product resource used in clinical workflows",
@@ -154,15 +164,15 @@ class InventoryItem(domainresource.DomainResource):
         ],
     )
 
-    responsibleOrganization: typing.List[
-        fhirtypes.InventoryItemResponsibleOrganizationType
-    ] = Field(
-        None,
-        alias="responsibleOrganization",
-        title="Organization(s) responsible for the product",
-        description=None,
-        # if property is element of this resource.
-        element_property=True,
+    responsibleOrganization: typing.List["InventoryItemResponsibleOrganization"] = (
+        Field(
+            None,
+            alias="responsibleOrganization",
+            title="Organization(s) responsible for the product",
+            description=None,
+            # if property is element of this resource.
+            element_property=True,
+        )
     )
 
     status: fhirtypes.Code = Field(
@@ -280,9 +290,9 @@ class InventoryItemAssociation(backboneelement.BackboneElement):
     Association with other items or products.
     """
 
-    resource_type = Field("InventoryItemAssociation", const=True)
+    resource_type: str = Field("InventoryItemAssociation", const=True)
 
-    associationType: fhirtypes.CodeableConceptType = Field(
+    associationType: CodeableConcept = Field(
         ...,
         alias="associationType",
         title="The type of association between the device and the other item",
@@ -295,7 +305,7 @@ class InventoryItemAssociation(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    quantity: fhirtypes.RatioType = Field(
+    quantity: Ratio = Field(
         ...,
         alias="quantity",
         title="The quantity of the product in this product",
@@ -311,7 +321,7 @@ class InventoryItemAssociation(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    relatedItem: fhirtypes.ReferenceType = Field(
+    relatedItem: Reference = Field(
         ...,
         alias="relatedItem",
         title="The related item or product",
@@ -355,9 +365,9 @@ class InventoryItemCharacteristic(backboneelement.BackboneElement):
     The descriptive or identifying characteristics of the item.
     """
 
-    resource_type = Field("InventoryItemCharacteristic", const=True)
+    resource_type: str = Field("InventoryItemCharacteristic", const=True)
 
-    characteristicType: fhirtypes.CodeableConceptType = Field(
+    characteristicType: CodeableConcept = Field(
         ...,
         alias="characteristicType",
         title="The characteristic that is being defined",
@@ -366,7 +376,7 @@ class InventoryItemCharacteristic(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    valueAddress: fhirtypes.AddressType = Field(
+    valueAddress: Address = Field(
         None,
         alias="valueAddress",
         title="The value of the attribute",
@@ -378,7 +388,7 @@ class InventoryItemCharacteristic(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueAnnotation: fhirtypes.AnnotationType = Field(
+    valueAnnotation: Annotation = Field(
         None,
         alias="valueAnnotation",
         title="The value of the attribute",
@@ -405,7 +415,7 @@ class InventoryItemCharacteristic(backboneelement.BackboneElement):
         None, alias="_valueBoolean", title="Extension field for ``valueBoolean``."
     )
 
-    valueCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    valueCodeableConcept: CodeableConcept = Field(
         None,
         alias="valueCodeableConcept",
         title="The value of the attribute",
@@ -447,7 +457,7 @@ class InventoryItemCharacteristic(backboneelement.BackboneElement):
         None, alias="_valueDecimal", title="Extension field for ``valueDecimal``."
     )
 
-    valueDuration: fhirtypes.DurationType = Field(
+    valueDuration: Duration = Field(
         None,
         alias="valueDuration",
         title="The value of the attribute",
@@ -474,7 +484,7 @@ class InventoryItemCharacteristic(backboneelement.BackboneElement):
         None, alias="_valueInteger", title="Extension field for ``valueInteger``."
     )
 
-    valueQuantity: fhirtypes.QuantityType = Field(
+    valueQuantity: Quantity = Field(
         None,
         alias="valueQuantity",
         title="The value of the attribute",
@@ -486,7 +496,7 @@ class InventoryItemCharacteristic(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueRange: fhirtypes.RangeType = Field(
+    valueRange: Range = Field(
         None,
         alias="valueRange",
         title="The value of the attribute",
@@ -498,7 +508,7 @@ class InventoryItemCharacteristic(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueRatio: fhirtypes.RatioType = Field(
+    valueRatio: Ratio = Field(
         None,
         alias="valueRatio",
         title="The value of the attribute",
@@ -630,7 +640,7 @@ class InventoryItemDescription(backboneelement.BackboneElement):
     The descriptive characteristics of the inventory item.
     """
 
-    resource_type = Field("InventoryItemDescription", const=True)
+    resource_type: str = Field("InventoryItemDescription", const=True)
 
     description: fhirtypes.String = Field(
         None,
@@ -677,7 +687,7 @@ class InventoryItemInstance(backboneelement.BackboneElement):
     Instances or occurrences of the product.
     """
 
-    resource_type = Field("InventoryItemInstance", const=True)
+    resource_type: str = Field("InventoryItemInstance", const=True)
 
     expiry: fhirtypes.DateTime = Field(
         None,
@@ -691,7 +701,7 @@ class InventoryItemInstance(backboneelement.BackboneElement):
         None, alias="_expiry", title="Extension field for ``expiry``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="The identifier for the physical instance, typically a serial number",
@@ -700,7 +710,7 @@ class InventoryItemInstance(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    location: fhirtypes.ReferenceType = Field(
+    location: Reference = Field(
         None,
         alias="location",
         title="The location that the item is associated with",
@@ -723,7 +733,7 @@ class InventoryItemInstance(backboneelement.BackboneElement):
         None, alias="_lotNumber", title="Extension field for ``lotNumber``."
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title="The subject that the item is associated with",
@@ -763,7 +773,7 @@ class InventoryItemName(backboneelement.BackboneElement):
     name.
     """
 
-    resource_type = Field("InventoryItemName", const=True)
+    resource_type: str = Field("InventoryItemName", const=True)
 
     language: fhirtypes.Code = Field(
         None,
@@ -791,7 +801,7 @@ class InventoryItemName(backboneelement.BackboneElement):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    nameType: fhirtypes.CodingType = Field(
+    nameType: Coding = Field(
         ...,
         alias="nameType",
         title="The type of name e.g. 'brand-name', 'functional-name', 'common-name'",
@@ -876,9 +886,9 @@ class InventoryItemResponsibleOrganization(backboneelement.BackboneElement):
     Organization(s) responsible for the product.
     """
 
-    resource_type = Field("InventoryItemResponsibleOrganization", const=True)
+    resource_type: str = Field("InventoryItemResponsibleOrganization", const=True)
 
-    organization: fhirtypes.ReferenceType = Field(
+    organization: Reference = Field(
         ...,
         alias="organization",
         title="An organization that is associated with the item",
@@ -892,7 +902,7 @@ class InventoryItemResponsibleOrganization(backboneelement.BackboneElement):
         enum_reference_types=["Organization"],
     )
 
-    role: fhirtypes.CodeableConceptType = Field(
+    role: CodeableConcept = Field(
         ...,
         alias="role",
         title="The role of the organization e.g. manufacturer, distributor, or other",
@@ -908,3 +918,6 @@ class InventoryItemResponsibleOrganization(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "role", "organization"]
+
+
+InventoryItem.update_forward_refs()

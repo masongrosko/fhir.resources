@@ -11,6 +11,7 @@ from pydantic.v1 import Field
 
 from . import fhirtypes
 from .backboneelement import BackboneElement
+from .codeableconcept import CodeableConcept
 from .domainresource import DomainResource
 
 
@@ -21,9 +22,9 @@ class OperationOutcome(DomainResource):
     system action.
     """
 
-    resource_type = Field("OperationOutcome", const=True)
+    resource_type: str = Field("OperationOutcome", const=True)
 
-    issue: ListType[fhirtypes.OperationOutcomeIssueType] = Field(
+    issue: ListType["OperationOutcomeIssue"] = Field(
         None,
         alias="issue",
         title="List of `OperationOutcomeIssue` items (represented as `dict` in JSON).",
@@ -37,7 +38,7 @@ class OperationOutcomeIssue(BackboneElement):
     An error, warning or information message that results from a system action.
     """
 
-    resource_type = Field("OperationOutcomeIssue", const=True)
+    resource_type: str = Field("OperationOutcomeIssue", const=True)
 
     code: fhirtypes.Code = Field(
         ..., alias="code", title="Type `Code`.", description="Error or warning code."
@@ -48,7 +49,7 @@ class OperationOutcomeIssue(BackboneElement):
         title="Type `Code`.",
         description="fatal | error | warning | information.",
     )
-    details: fhirtypes.CodeableConceptType = Field(
+    details: CodeableConcept = Field(
         None,
         alias="details",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -68,3 +69,6 @@ class OperationOutcomeIssue(BackboneElement):
         title="List of `String` items.",
         description="XPath of element(s) related to issue.",
     )
+
+
+OperationOutcome.update_forward_refs()

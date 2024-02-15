@@ -13,6 +13,11 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .codeablereference import CodeableReference
+from .identifier import Identifier
+from .reference import Reference
 
 
 class GenomicStudy(domainresource.DomainResource):
@@ -25,9 +30,9 @@ class GenomicStudy(domainresource.DomainResource):
     genomic data.
     """
 
-    resource_type = Field("GenomicStudy", const=True)
+    resource_type: str = Field("GenomicStudy", const=True)
 
-    analysis: typing.List[fhirtypes.GenomicStudyAnalysisType] = Field(
+    analysis: typing.List["GenomicStudyAnalysis"] = Field(
         None,
         alias="analysis",
         title="Genomic Analysis Event",
@@ -39,7 +44,7 @@ class GenomicStudy(domainresource.DomainResource):
         element_property=True,
     )
 
-    basedOn: typing.List[fhirtypes.ReferenceType] = Field(
+    basedOn: typing.List[Reference] = Field(
         None,
         alias="basedOn",
         title="Event resources that the genomic study is based on",
@@ -62,7 +67,7 @@ class GenomicStudy(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title="The healthcare event with which this genomics study is associated",
@@ -73,7 +78,7 @@ class GenomicStudy(domainresource.DomainResource):
         enum_reference_types=["Encounter"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Identifiers for this genomic study",
@@ -113,7 +118,7 @@ class GenomicStudy(domainresource.DomainResource):
         None, alias="_instantiatesUri", title="Extension field for ``instantiatesUri``."
     )
 
-    interpreter: typing.List[fhirtypes.ReferenceType] = Field(
+    interpreter: typing.List[Reference] = Field(
         None,
         alias="interpreter",
         title="Healthcare professionals who interpreted the genomic study",
@@ -124,7 +129,7 @@ class GenomicStudy(domainresource.DomainResource):
         enum_reference_types=["Practitioner", "PractitionerRole"],
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Comments related to the genomic study",
@@ -133,7 +138,7 @@ class GenomicStudy(domainresource.DomainResource):
         element_property=True,
     )
 
-    reason: typing.List[fhirtypes.CodeableReferenceType] = Field(
+    reason: typing.List[CodeableReference] = Field(
         None,
         alias="reason",
         title="Why the genomic study was performed",
@@ -144,7 +149,7 @@ class GenomicStudy(domainresource.DomainResource):
         enum_reference_types=["Condition", "Observation"],
     )
 
-    referrer: fhirtypes.ReferenceType = Field(
+    referrer: Reference = Field(
         None,
         alias="referrer",
         title="Healthcare professional who requested or referred the genomic study",
@@ -189,7 +194,7 @@ class GenomicStudy(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         ...,
         alias="subject",
         title="The primary subject of the genomic study",
@@ -206,7 +211,7 @@ class GenomicStudy(domainresource.DomainResource):
         ],
     )
 
-    type: typing.List[fhirtypes.CodeableConceptType] = Field(
+    type: typing.List[CodeableConcept] = Field(
         None,
         alias="type",
         title=(
@@ -323,9 +328,9 @@ class GenomicStudyAnalysis(backboneelement.BackboneElement):
     GenomicStudy.
     """
 
-    resource_type = Field("GenomicStudyAnalysis", const=True)
+    resource_type: str = Field("GenomicStudyAnalysis", const=True)
 
-    changeType: typing.List[fhirtypes.CodeableConceptType] = Field(
+    changeType: typing.List[CodeableConcept] = Field(
         None,
         alias="changeType",
         title=(
@@ -352,7 +357,7 @@ class GenomicStudyAnalysis(backboneelement.BackboneElement):
         None, alias="_date", title="Extension field for ``date``."
     )
 
-    device: typing.List[fhirtypes.GenomicStudyAnalysisDeviceType] = Field(
+    device: typing.List["GenomicStudyAnalysisDevice"] = Field(
         None,
         alias="device",
         title=(
@@ -364,7 +369,7 @@ class GenomicStudyAnalysis(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    focus: typing.List[fhirtypes.ReferenceType] = Field(
+    focus: typing.List[Reference] = Field(
         None,
         alias="focus",
         title=(
@@ -385,7 +390,7 @@ class GenomicStudyAnalysis(backboneelement.BackboneElement):
         enum_reference_types=["Resource"],
     )
 
-    genomeBuild: fhirtypes.CodeableConceptType = Field(
+    genomeBuild: CodeableConcept = Field(
         None,
         alias="genomeBuild",
         title="Genome build that is used in this analysis",
@@ -394,7 +399,7 @@ class GenomicStudyAnalysis(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Identifiers for the analysis event",
@@ -403,7 +408,7 @@ class GenomicStudyAnalysis(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    input: typing.List[fhirtypes.GenomicStudyAnalysisInputType] = Field(
+    input: typing.List["GenomicStudyAnalysisInput"] = Field(
         None,
         alias="input",
         title="Inputs for the analysis event",
@@ -443,7 +448,7 @@ class GenomicStudyAnalysis(backboneelement.BackboneElement):
         None, alias="_instantiatesUri", title="Extension field for ``instantiatesUri``."
     )
 
-    methodType: typing.List[fhirtypes.CodeableConceptType] = Field(
+    methodType: typing.List[CodeableConcept] = Field(
         None,
         alias="methodType",
         title=(
@@ -458,7 +463,7 @@ class GenomicStudyAnalysis(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Any notes capture with the analysis event",
@@ -467,7 +472,7 @@ class GenomicStudyAnalysis(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    output: typing.List[fhirtypes.GenomicStudyAnalysisOutputType] = Field(
+    output: typing.List["GenomicStudyAnalysisOutput"] = Field(
         None,
         alias="output",
         title="Outputs for the analysis event",
@@ -476,7 +481,7 @@ class GenomicStudyAnalysis(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    performer: typing.List[fhirtypes.GenomicStudyAnalysisPerformerType] = Field(
+    performer: typing.List["GenomicStudyAnalysisPerformer"] = Field(
         None,
         alias="performer",
         title="Performer for the analysis event",
@@ -485,7 +490,7 @@ class GenomicStudyAnalysis(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    protocolPerformed: fhirtypes.ReferenceType = Field(
+    protocolPerformed: Reference = Field(
         None,
         alias="protocolPerformed",
         title="The protocol that was performed for the analysis event",
@@ -496,7 +501,7 @@ class GenomicStudyAnalysis(backboneelement.BackboneElement):
         enum_reference_types=["Procedure", "Task"],
     )
 
-    regionsCalled: typing.List[fhirtypes.ReferenceType] = Field(
+    regionsCalled: typing.List[Reference] = Field(
         None,
         alias="regionsCalled",
         title="Genomic regions actually called in the analysis event (BED file)",
@@ -507,7 +512,7 @@ class GenomicStudyAnalysis(backboneelement.BackboneElement):
         enum_reference_types=["DocumentReference", "Observation"],
     )
 
-    regionsStudied: typing.List[fhirtypes.ReferenceType] = Field(
+    regionsStudied: typing.List[Reference] = Field(
         None,
         alias="regionsStudied",
         title="The genomic regions to be studied in the analysis (BED file)",
@@ -518,7 +523,7 @@ class GenomicStudyAnalysis(backboneelement.BackboneElement):
         enum_reference_types=["DocumentReference", "Observation"],
     )
 
-    specimen: typing.List[fhirtypes.ReferenceType] = Field(
+    specimen: typing.List[Reference] = Field(
         None,
         alias="specimen",
         title="The specimen used in the analysis event",
@@ -581,9 +586,9 @@ class GenomicStudyAnalysisDevice(backboneelement.BackboneElement):
     and parameters.
     """
 
-    resource_type = Field("GenomicStudyAnalysisDevice", const=True)
+    resource_type: str = Field("GenomicStudyAnalysisDevice", const=True)
 
-    device: fhirtypes.ReferenceType = Field(
+    device: Reference = Field(
         None,
         alias="device",
         title="Device used for the analysis",
@@ -594,7 +599,7 @@ class GenomicStudyAnalysisDevice(backboneelement.BackboneElement):
         enum_reference_types=["Device"],
     )
 
-    function: fhirtypes.CodeableConceptType = Field(
+    function: CodeableConcept = Field(
         None,
         alias="function",
         title="Specific function for the device used for the analysis",
@@ -620,9 +625,9 @@ class GenomicStudyAnalysisInput(backboneelement.BackboneElement):
     Inputs for the analysis event.
     """
 
-    resource_type = Field("GenomicStudyAnalysisInput", const=True)
+    resource_type: str = Field("GenomicStudyAnalysisInput", const=True)
 
-    file: fhirtypes.ReferenceType = Field(
+    file: Reference = Field(
         None,
         alias="file",
         title="File containing input data",
@@ -633,7 +638,7 @@ class GenomicStudyAnalysisInput(backboneelement.BackboneElement):
         enum_reference_types=["DocumentReference"],
     )
 
-    generatedByIdentifier: fhirtypes.IdentifierType = Field(
+    generatedByIdentifier: Identifier = Field(
         None,
         alias="generatedByIdentifier",
         title=(
@@ -647,7 +652,7 @@ class GenomicStudyAnalysisInput(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    generatedByReference: fhirtypes.ReferenceType = Field(
+    generatedByReference: Reference = Field(
         None,
         alias="generatedByReference",
         title=(
@@ -663,7 +668,7 @@ class GenomicStudyAnalysisInput(backboneelement.BackboneElement):
         enum_reference_types=["GenomicStudy"],
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Type of input data (e.g., BAM, CRAM, or FASTA)",
@@ -737,9 +742,9 @@ class GenomicStudyAnalysisOutput(backboneelement.BackboneElement):
     Outputs for the analysis event.
     """
 
-    resource_type = Field("GenomicStudyAnalysisOutput", const=True)
+    resource_type: str = Field("GenomicStudyAnalysisOutput", const=True)
 
-    file: fhirtypes.ReferenceType = Field(
+    file: Reference = Field(
         None,
         alias="file",
         title="File containing output data",
@@ -750,7 +755,7 @@ class GenomicStudyAnalysisOutput(backboneelement.BackboneElement):
         enum_reference_types=["DocumentReference"],
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Type of output data (e.g., VCF, MAF, or BAM)",
@@ -776,9 +781,9 @@ class GenomicStudyAnalysisPerformer(backboneelement.BackboneElement):
     Performer for the analysis event.
     """
 
-    resource_type = Field("GenomicStudyAnalysisPerformer", const=True)
+    resource_type: str = Field("GenomicStudyAnalysisPerformer", const=True)
 
-    actor: fhirtypes.ReferenceType = Field(
+    actor: Reference = Field(
         None,
         alias="actor",
         title=(
@@ -797,7 +802,7 @@ class GenomicStudyAnalysisPerformer(backboneelement.BackboneElement):
         ],
     )
 
-    role: fhirtypes.CodeableConceptType = Field(
+    role: CodeableConcept = Field(
         None,
         alias="role",
         title="Role of the actor for this analysis",
@@ -813,3 +818,7 @@ class GenomicStudyAnalysisPerformer(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "actor", "role"]
+
+
+GenomicStudy.update_forward_refs()
+GenomicStudyAnalysis.update_forward_refs()

@@ -11,6 +11,7 @@ import typing
 from pydantic.v1 import Field
 
 from . import datatype, fhirtypes
+from .contactpoint import ContactPoint
 
 
 class ContactDetail(datatype.DataType):
@@ -22,7 +23,7 @@ class ContactDetail(datatype.DataType):
     Specifies contact information for a person or organization.
     """
 
-    resource_type = Field("ContactDetail", const=True)
+    resource_type: str = Field("ContactDetail", const=True)
 
     name: fhirtypes.String = Field(
         None,
@@ -36,7 +37,7 @@ class ContactDetail(datatype.DataType):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    telecom: typing.List[fhirtypes.ContactPointType] = Field(
+    telecom: typing.List[ContactPoint] = Field(
         None,
         alias="telecom",
         title="Contact details for individual or organization",

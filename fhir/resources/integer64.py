@@ -20,7 +20,7 @@ class Integer64(primitivetype.PrimitiveType):
     A very large whole number
     """
 
-    resource_type = Field("integer64", const=True)
+    resource_type: str = Field("integer64", const=True)
 
     value: fhirtypes.Integer64 = Field(
         None,

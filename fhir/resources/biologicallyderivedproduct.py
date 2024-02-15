@@ -11,6 +11,15 @@ import typing
 from pydantic.v1 import Field, root_validator
 
 from . import backboneelement, domainresource, fhirtypes
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .identifier import Identifier
+from .period import Period
+from .quantity import Quantity
+from .range import Range
+from .ratio import Ratio
+from .reference import Reference
 
 
 class BiologicallyDerivedProduct(domainresource.DomainResource):
@@ -25,9 +34,9 @@ class BiologicallyDerivedProduct(domainresource.DomainResource):
     into another (possibly the same) biological entity.
     """
 
-    resource_type = Field("BiologicallyDerivedProduct", const=True)
+    resource_type: str = Field("BiologicallyDerivedProduct", const=True)
 
-    biologicalSourceEvent: fhirtypes.IdentifierType = Field(
+    biologicalSourceEvent: Identifier = Field(
         None,
         alias="biologicalSourceEvent",
         title=(
@@ -40,7 +49,7 @@ class BiologicallyDerivedProduct(domainresource.DomainResource):
         element_property=True,
     )
 
-    collection: fhirtypes.BiologicallyDerivedProductCollectionType = Field(
+    collection: "BiologicallyDerivedProductCollection" = Field(
         None,
         alias="collection",
         title="How this product was collected",
@@ -77,7 +86,7 @@ class BiologicallyDerivedProduct(domainresource.DomainResource):
         None, alias="_expirationDate", title="Extension field for ``expirationDate``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Instance identifier",
@@ -90,7 +99,7 @@ class BiologicallyDerivedProduct(domainresource.DomainResource):
         element_property=True,
     )
 
-    parent: typing.List[fhirtypes.ReferenceType] = Field(
+    parent: typing.List[Reference] = Field(
         None,
         alias="parent",
         title="The parent biologically-derived product",
@@ -101,7 +110,7 @@ class BiologicallyDerivedProduct(domainresource.DomainResource):
         enum_reference_types=["BiologicallyDerivedProduct"],
     )
 
-    processingFacility: typing.List[fhirtypes.ReferenceType] = Field(
+    processingFacility: typing.List[Reference] = Field(
         None,
         alias="processingFacility",
         title=(
@@ -115,7 +124,7 @@ class BiologicallyDerivedProduct(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    productCategory: fhirtypes.CodingType = Field(
+    productCategory: Coding = Field(
         None,
         alias="productCategory",
         title="organ | tissue | fluid | cells | biologicalAgent",
@@ -124,7 +133,7 @@ class BiologicallyDerivedProduct(domainresource.DomainResource):
         element_property=True,
     )
 
-    productCode: fhirtypes.CodeableConceptType = Field(
+    productCode: CodeableConcept = Field(
         None,
         alias="productCode",
         title="A code that identifies the kind of this biologically derived product",
@@ -138,7 +147,7 @@ class BiologicallyDerivedProduct(domainresource.DomainResource):
         element_property=True,
     )
 
-    productStatus: fhirtypes.CodingType = Field(
+    productStatus: Coding = Field(
         None,
         alias="productStatus",
         title="available | unavailable",
@@ -147,7 +156,7 @@ class BiologicallyDerivedProduct(domainresource.DomainResource):
         element_property=True,
     )
 
-    property: typing.List[fhirtypes.BiologicallyDerivedProductPropertyType] = Field(
+    property: typing.List["BiologicallyDerivedProductProperty"] = Field(
         None,
         alias="property",
         title=(
@@ -158,7 +167,7 @@ class BiologicallyDerivedProduct(domainresource.DomainResource):
         element_property=True,
     )
 
-    request: typing.List[fhirtypes.ReferenceType] = Field(
+    request: typing.List[Reference] = Field(
         None,
         alias="request",
         title="Request to obtain and/or infuse this product",
@@ -169,7 +178,7 @@ class BiologicallyDerivedProduct(domainresource.DomainResource):
         enum_reference_types=["ServiceRequest"],
     )
 
-    storageTempRequirements: fhirtypes.RangeType = Field(
+    storageTempRequirements: Range = Field(
         None,
         alias="storageTempRequirements",
         title="Product storage temperature requirements",
@@ -220,7 +229,7 @@ class BiologicallyDerivedProductCollection(backboneelement.BackboneElement):
     How this product was collected.
     """
 
-    resource_type = Field("BiologicallyDerivedProductCollection", const=True)
+    resource_type: str = Field("BiologicallyDerivedProductCollection", const=True)
 
     collectedDateTime: fhirtypes.DateTime = Field(
         None,
@@ -239,7 +248,7 @@ class BiologicallyDerivedProductCollection(backboneelement.BackboneElement):
         title="Extension field for ``collectedDateTime``.",
     )
 
-    collectedPeriod: fhirtypes.PeriodType = Field(
+    collectedPeriod: Period = Field(
         None,
         alias="collectedPeriod",
         title="Time of product collection",
@@ -251,7 +260,7 @@ class BiologicallyDerivedProductCollection(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    collector: fhirtypes.ReferenceType = Field(
+    collector: Reference = Field(
         None,
         alias="collector",
         title="Individual performing collection",
@@ -262,7 +271,7 @@ class BiologicallyDerivedProductCollection(backboneelement.BackboneElement):
         enum_reference_types=["Practitioner", "PractitionerRole"],
     )
 
-    source: fhirtypes.ReferenceType = Field(
+    source: Reference = Field(
         None,
         alias="source",
         title=(
@@ -342,9 +351,9 @@ class BiologicallyDerivedProductProperty(backboneelement.BackboneElement):
     A property that is specific to this BiologicallyDerviedProduct instance.
     """
 
-    resource_type = Field("BiologicallyDerivedProductProperty", const=True)
+    resource_type: str = Field("BiologicallyDerivedProductProperty", const=True)
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title="Code that specifies the property",
@@ -356,7 +365,7 @@ class BiologicallyDerivedProductProperty(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    valueAttachment: fhirtypes.AttachmentType = Field(
+    valueAttachment: Attachment = Field(
         None,
         alias="valueAttachment",
         title="Property values",
@@ -383,7 +392,7 @@ class BiologicallyDerivedProductProperty(backboneelement.BackboneElement):
         None, alias="_valueBoolean", title="Extension field for ``valueBoolean``."
     )
 
-    valueCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    valueCodeableConcept: CodeableConcept = Field(
         None,
         alias="valueCodeableConcept",
         title="Property values",
@@ -410,7 +419,7 @@ class BiologicallyDerivedProductProperty(backboneelement.BackboneElement):
         None, alias="_valueInteger", title="Extension field for ``valueInteger``."
     )
 
-    valuePeriod: fhirtypes.PeriodType = Field(
+    valuePeriod: Period = Field(
         None,
         alias="valuePeriod",
         title="Property values",
@@ -422,7 +431,7 @@ class BiologicallyDerivedProductProperty(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueQuantity: fhirtypes.QuantityType = Field(
+    valueQuantity: Quantity = Field(
         None,
         alias="valueQuantity",
         title="Property values",
@@ -434,7 +443,7 @@ class BiologicallyDerivedProductProperty(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueRange: fhirtypes.RangeType = Field(
+    valueRange: Range = Field(
         None,
         alias="valueRange",
         title="Property values",
@@ -446,7 +455,7 @@ class BiologicallyDerivedProductProperty(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueRatio: fhirtypes.RatioType = Field(
+    valueRatio: Ratio = Field(
         None,
         alias="valueRatio",
         title="Property values",
@@ -544,3 +553,6 @@ class BiologicallyDerivedProductProperty(backboneelement.BackboneElement):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+BiologicallyDerivedProduct.update_forward_refs()

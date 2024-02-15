@@ -11,6 +11,10 @@ import typing
 from pydantic.v1 import Field, root_validator
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class BiologicallyDerivedProduct(domainresource.DomainResource):
@@ -24,9 +28,9 @@ class BiologicallyDerivedProduct(domainresource.DomainResource):
     into another (possibly the same) biological entity.
     """
 
-    resource_type = Field("BiologicallyDerivedProduct", const=True)
+    resource_type: str = Field("BiologicallyDerivedProduct", const=True)
 
-    collection: fhirtypes.BiologicallyDerivedProductCollectionType = Field(
+    collection: "BiologicallyDerivedProductCollection" = Field(
         None,
         alias="collection",
         title="How this product was collected",
@@ -35,7 +39,7 @@ class BiologicallyDerivedProduct(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="External ids for this item",
@@ -50,7 +54,7 @@ class BiologicallyDerivedProduct(domainresource.DomainResource):
         element_property=True,
     )
 
-    manipulation: fhirtypes.BiologicallyDerivedProductManipulationType = Field(
+    manipulation: "BiologicallyDerivedProductManipulation" = Field(
         None,
         alias="manipulation",
         title="Any manipulation of product post-collection",
@@ -63,7 +67,7 @@ class BiologicallyDerivedProduct(domainresource.DomainResource):
         element_property=True,
     )
 
-    parent: typing.List[fhirtypes.ReferenceType] = Field(
+    parent: typing.List[Reference] = Field(
         None,
         alias="parent",
         title="BiologicallyDerivedProduct parent",
@@ -74,7 +78,7 @@ class BiologicallyDerivedProduct(domainresource.DomainResource):
         enum_reference_types=["BiologicallyDerivedProduct"],
     )
 
-    processing: typing.List[fhirtypes.BiologicallyDerivedProductProcessingType] = Field(
+    processing: typing.List["BiologicallyDerivedProductProcessing"] = Field(
         None,
         alias="processing",
         title="Any processing of the product during collection",
@@ -102,7 +106,7 @@ class BiologicallyDerivedProduct(domainresource.DomainResource):
         None, alias="_productCategory", title="Extension field for ``productCategory``."
     )
 
-    productCode: fhirtypes.CodeableConceptType = Field(
+    productCode: CodeableConcept = Field(
         None,
         alias="productCode",
         title="What this biologically derived product is",
@@ -126,7 +130,7 @@ class BiologicallyDerivedProduct(domainresource.DomainResource):
         None, alias="_quantity", title="Extension field for ``quantity``."
     )
 
-    request: typing.List[fhirtypes.ReferenceType] = Field(
+    request: typing.List[Reference] = Field(
         None,
         alias="request",
         title="Procedure request",
@@ -152,7 +156,7 @@ class BiologicallyDerivedProduct(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    storage: typing.List[fhirtypes.BiologicallyDerivedProductStorageType] = Field(
+    storage: typing.List["BiologicallyDerivedProductStorage"] = Field(
         None,
         alias="storage",
         title="Product storage",
@@ -198,7 +202,7 @@ class BiologicallyDerivedProductCollection(backboneelement.BackboneElement):
     How this product was collected.
     """
 
-    resource_type = Field("BiologicallyDerivedProductCollection", const=True)
+    resource_type: str = Field("BiologicallyDerivedProductCollection", const=True)
 
     collectedDateTime: fhirtypes.DateTime = Field(
         None,
@@ -217,7 +221,7 @@ class BiologicallyDerivedProductCollection(backboneelement.BackboneElement):
         title="Extension field for ``collectedDateTime``.",
     )
 
-    collectedPeriod: fhirtypes.PeriodType = Field(
+    collectedPeriod: Period = Field(
         None,
         alias="collectedPeriod",
         title="Time of product collection",
@@ -229,7 +233,7 @@ class BiologicallyDerivedProductCollection(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    collector: fhirtypes.ReferenceType = Field(
+    collector: Reference = Field(
         None,
         alias="collector",
         title="Individual performing collection",
@@ -240,7 +244,7 @@ class BiologicallyDerivedProductCollection(backboneelement.BackboneElement):
         enum_reference_types=["Practitioner", "PractitionerRole"],
     )
 
-    source: fhirtypes.ReferenceType = Field(
+    source: Reference = Field(
         None,
         alias="source",
         title="Who is product from",
@@ -320,7 +324,7 @@ class BiologicallyDerivedProductManipulation(backboneelement.BackboneElement):
     Peripheral Blood Stem Cells to make it more suitable for infusion.
     """
 
-    resource_type = Field("BiologicallyDerivedProductManipulation", const=True)
+    resource_type: str = Field("BiologicallyDerivedProductManipulation", const=True)
 
     description: fhirtypes.String = Field(
         None,
@@ -349,7 +353,7 @@ class BiologicallyDerivedProductManipulation(backboneelement.BackboneElement):
         None, alias="_timeDateTime", title="Extension field for ``timeDateTime``."
     )
 
-    timePeriod: fhirtypes.PeriodType = Field(
+    timePeriod: Period = Field(
         None,
         alias="timePeriod",
         title="Time of manipulation",
@@ -426,9 +430,9 @@ class BiologicallyDerivedProductProcessing(backboneelement.BackboneElement):
     during the collection of Peripheral Blood Stem Cells.
     """
 
-    resource_type = Field("BiologicallyDerivedProductProcessing", const=True)
+    resource_type: str = Field("BiologicallyDerivedProductProcessing", const=True)
 
-    additive: fhirtypes.ReferenceType = Field(
+    additive: Reference = Field(
         None,
         alias="additive",
         title="Substance added during processing",
@@ -451,7 +455,7 @@ class BiologicallyDerivedProductProcessing(backboneelement.BackboneElement):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    procedure: fhirtypes.CodeableConceptType = Field(
+    procedure: CodeableConcept = Field(
         None,
         alias="procedure",
         title="Procesing code",
@@ -475,7 +479,7 @@ class BiologicallyDerivedProductProcessing(backboneelement.BackboneElement):
         None, alias="_timeDateTime", title="Extension field for ``timeDateTime``."
     )
 
-    timePeriod: fhirtypes.PeriodType = Field(
+    timePeriod: Period = Field(
         None,
         alias="timePeriod",
         title="Time of processing",
@@ -551,7 +555,7 @@ class BiologicallyDerivedProductStorage(backboneelement.BackboneElement):
     Product storage.
     """
 
-    resource_type = Field("BiologicallyDerivedProductStorage", const=True)
+    resource_type: str = Field("BiologicallyDerivedProductStorage", const=True)
 
     description: fhirtypes.String = Field(
         None,
@@ -565,7 +569,7 @@ class BiologicallyDerivedProductStorage(backboneelement.BackboneElement):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    duration: fhirtypes.PeriodType = Field(
+    duration: Period = Field(
         None,
         alias="duration",
         title="Storage timeperiod",
@@ -616,3 +620,6 @@ class BiologicallyDerivedProductStorage(backboneelement.BackboneElement):
             "scale",
             "duration",
         ]
+
+
+BiologicallyDerivedProduct.update_forward_refs()

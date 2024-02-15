@@ -13,6 +13,11 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .contactdetail import ContactDetail
+from .identifier import Identifier
+from .usagecontext import UsageContext
 
 
 class MessageDefinition(domainresource.DomainResource):
@@ -27,11 +32,9 @@ class MessageDefinition(domainresource.DomainResource):
     content to be transmitted and what response(s), if any, are permitted.
     """
 
-    resource_type = Field("MessageDefinition", const=True)
+    resource_type: str = Field("MessageDefinition", const=True)
 
-    allowedResponse: typing.List[
-        fhirtypes.MessageDefinitionAllowedResponseType
-    ] = Field(
+    allowedResponse: typing.List["MessageDefinitionAllowedResponse"] = Field(
         None,
         alias="allowedResponse",
         title="Responses to this message",
@@ -75,7 +78,7 @@ class MessageDefinition(domainresource.DomainResource):
         None, alias="_category", title="Extension field for ``category``."
     )
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -154,7 +157,7 @@ class MessageDefinition(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    eventCoding: fhirtypes.CodingType = Field(
+    eventCoding: Coding = Field(
         None,
         alias="eventCoding",
         title="Event code  or link to the EventDefinition",
@@ -197,7 +200,7 @@ class MessageDefinition(domainresource.DomainResource):
         None, alias="_experimental", title="Extension field for ``experimental``."
     )
 
-    focus: typing.List[fhirtypes.MessageDefinitionFocusType] = Field(
+    focus: typing.List["MessageDefinitionFocus"] = Field(
         None,
         alias="focus",
         title="Resource(s) that are the subject of the event",
@@ -230,7 +233,7 @@ class MessageDefinition(domainresource.DomainResource):
         None, alias="_graph", title="Extension field for ``graph``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business Identifier for a given MessageDefinition",
@@ -243,7 +246,7 @@ class MessageDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction for message definition (if applicable)",
@@ -399,7 +402,7 @@ class MessageDefinition(domainresource.DomainResource):
         None, alias="_url", title="Extension field for ``url``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="The context that the content is intended to support",
@@ -434,7 +437,7 @@ class MessageDefinition(domainresource.DomainResource):
         None, alias="_version", title="Extension field for ``version``."
     )
 
-    versionAlgorithmCoding: fhirtypes.CodingType = Field(
+    versionAlgorithmCoding: Coding = Field(
         None,
         alias="versionAlgorithmCoding",
         title="How to compare versions",
@@ -625,7 +628,7 @@ class MessageDefinitionAllowedResponse(backboneelement.BackboneElement):
     response to this message.
     """
 
-    resource_type = Field("MessageDefinitionAllowedResponse", const=True)
+    resource_type: str = Field("MessageDefinitionAllowedResponse", const=True)
 
     message: fhirtypes.Canonical = Field(
         None,
@@ -739,7 +742,7 @@ class MessageDefinitionFocus(backboneelement.BackboneElement):
     records for a merge.
     """
 
-    resource_type = Field("MessageDefinitionFocus", const=True)
+    resource_type: str = Field("MessageDefinitionFocus", const=True)
 
     code: fhirtypes.Code = Field(
         None,
@@ -870,3 +873,6 @@ class MessageDefinitionFocus(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+MessageDefinition.update_forward_refs()

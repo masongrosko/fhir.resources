@@ -10,7 +10,10 @@ from typing import List as ListType
 from pydantic.v1 import Field
 
 from . import fhirtypes
+from .codeableconcept import CodeableConcept
 from .domainresource import DomainResource
+from .identifier import Identifier
+from .reference import Reference
 
 
 class Basic(DomainResource):
@@ -21,9 +24,9 @@ class Basic(DomainResource):
     appropriate for inclusion in the FHIR specification.
     """
 
-    resource_type = Field("Basic", const=True)
+    resource_type: str = Field("Basic", const=True)
 
-    author: fhirtypes.ReferenceType = Field(
+    author: Reference = Field(
         None,
         alias="author",
         title=(
@@ -33,7 +36,7 @@ class Basic(DomainResource):
         description="Who created",
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         ...,
         alias="code",
         title="Type `CodeableConcept` (represented as `dict` in JSON)",
@@ -47,14 +50,14 @@ class Basic(DomainResource):
         description="When created",
     )
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="List of `Identifier` items (represented as `dict` in JSON)",
         description="Business identifier",
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title=(

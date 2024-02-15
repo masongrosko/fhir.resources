@@ -13,6 +13,10 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import element, fhirtypes
+from .datarequirement import DataRequirement
+from .expression import Expression
+from .reference import Reference
+from .timing import Timing
 
 
 class TriggerDefinition(element.Element):
@@ -25,9 +29,9 @@ class TriggerDefinition(element.Element):
     data events, or periodic, as determined by the type element.
     """
 
-    resource_type = Field("TriggerDefinition", const=True)
+    resource_type: str = Field("TriggerDefinition", const=True)
 
-    condition: fhirtypes.ExpressionType = Field(
+    condition: Expression = Field(
         None,
         alias="condition",
         title="Whether the event triggers (boolean expression)",
@@ -40,7 +44,7 @@ class TriggerDefinition(element.Element):
         element_property=True,
     )
 
-    data: typing.List[fhirtypes.DataRequirementType] = Field(
+    data: typing.List[DataRequirement] = Field(
         None,
         alias="data",
         title="Triggering data of the event (multiple = 'and')",
@@ -99,7 +103,7 @@ class TriggerDefinition(element.Element):
         None, alias="_timingDateTime", title="Extension field for ``timingDateTime``."
     )
 
-    timingReference: fhirtypes.ReferenceType = Field(
+    timingReference: Reference = Field(
         None,
         alias="timingReference",
         title="Timing of the event",
@@ -113,7 +117,7 @@ class TriggerDefinition(element.Element):
         enum_reference_types=["Schedule"],
     )
 
-    timingTiming: fhirtypes.TimingType = Field(
+    timingTiming: Timing = Field(
         None,
         alias="timingTiming",
         title="Timing of the event",

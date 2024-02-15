@@ -10,6 +10,10 @@ from typing import List as ListType
 from pydantic.v1 import Field
 
 from . import backboneelement, domainresource, fhirtypes
+from .attachment import Attachment
+from .coding import Coding
+from .identifier import Identifier
+from .reference import Reference
 
 
 class ImagingStudy(domainresource.DomainResource):
@@ -23,9 +27,9 @@ class ImagingStudy(domainresource.DomainResource):
     ultrasound), but a study may have multiple series of different modalities.
     """
 
-    resource_type = Field("ImagingStudy", const=True)
+    resource_type: str = Field("ImagingStudy", const=True)
 
-    accession: fhirtypes.IdentifierType = Field(
+    accession: Identifier = Field(
         None,
         alias="accession",
         title="Type `Identifier` (represented as `dict` in JSON).",
@@ -50,7 +54,7 @@ class ImagingStudy(domainresource.DomainResource):
         ),
     )
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="Identifiers for the whole study",
@@ -60,7 +64,7 @@ class ImagingStudy(domainresource.DomainResource):
         ),
     )
 
-    interpreter: fhirtypes.ReferenceType = Field(
+    interpreter: Reference = Field(
         None,
         alias="interpreter",
         title="Who interpreted images",
@@ -69,7 +73,7 @@ class ImagingStudy(domainresource.DomainResource):
         enum_reference_types=["Practitioner"],
     )
 
-    modalityList: ListType[fhirtypes.CodingType] = Field(
+    modalityList: ListType[Coding] = Field(
         None,
         alias="modalityList",
         title="All series modality if actual acquisition modalities",
@@ -104,7 +108,7 @@ class ImagingStudy(domainresource.DomainResource):
         ),
     )
 
-    order: ListType[fhirtypes.ReferenceType] = Field(
+    order: ListType[Reference] = Field(
         None,
         alias="order",
         title=(
@@ -116,7 +120,7 @@ class ImagingStudy(domainresource.DomainResource):
         enum_reference_types=["DiagnosticOrder"],
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         ...,
         alias="patient",
         title="Type `Reference` referencing `Patient` (represented as `dict` in JSON).",
@@ -125,7 +129,7 @@ class ImagingStudy(domainresource.DomainResource):
         enum_reference_types=["Patient"],
     )
 
-    procedure: ListType[fhirtypes.ReferenceType] = Field(
+    procedure: ListType[Reference] = Field(
         None,
         alias="procedure",
         title="The performed Procedure reference",
@@ -134,7 +138,7 @@ class ImagingStudy(domainresource.DomainResource):
         enum_reference_types=["Procedure"],
     )
 
-    referrer: fhirtypes.ReferenceType = Field(
+    referrer: Reference = Field(
         None,
         alias="referrer",
         title="Referring physician",
@@ -143,7 +147,7 @@ class ImagingStudy(domainresource.DomainResource):
         enum_reference_types=["Practitioner"],
     )
 
-    series: ListType[fhirtypes.ImagingStudySeriesType] = Field(
+    series: ListType["ImagingStudySeries"] = Field(
         None,
         alias="series",
         title="Each study has one or more series of instances",
@@ -178,7 +182,7 @@ class ImagingStudySeries(backboneelement.BackboneElement):
     Each study has one or more series of images or other content.
     """
 
-    resource_type = Field("ImagingStudySeries", const=True)
+    resource_type: str = Field("ImagingStudySeries", const=True)
 
     availability: fhirtypes.Code = Field(
         None,
@@ -188,7 +192,7 @@ class ImagingStudySeries(backboneelement.BackboneElement):
         enum_values=["ONLINE", "OFFLINE", "NEARLINE", "UNAVAILABLE"],
     )
 
-    bodySite: fhirtypes.CodingType = Field(
+    bodySite: Coding = Field(
         None,
         alias="bodySite",
         title="Body part examined",
@@ -208,7 +212,7 @@ class ImagingStudySeries(backboneelement.BackboneElement):
         description="A description of the series.",
     )
 
-    instance: ListType[fhirtypes.ImagingStudySeriesInstanceType] = Field(
+    instance: ListType["ImagingStudySeriesInstance"] = Field(
         None,
         alias="instance",
         title="A single SOP instance from the series",
@@ -218,7 +222,7 @@ class ImagingStudySeries(backboneelement.BackboneElement):
         ),
     )
 
-    laterality: fhirtypes.CodingType = Field(
+    laterality: Coding = Field(
         None,
         alias="laterality",
         title="Body part laterality",
@@ -230,7 +234,7 @@ class ImagingStudySeries(backboneelement.BackboneElement):
         ),
     )
 
-    modality: fhirtypes.CodingType = Field(
+    modality: Coding = Field(
         ...,
         alias="modality",
         title="The modality of the instances in the series",
@@ -285,9 +289,9 @@ class ImagingStudySeriesInstance(backboneelement.BackboneElement):
     state.
     """
 
-    resource_type = Field("ImagingStudySeriesInstance", const=True)
+    resource_type: str = Field("ImagingStudySeriesInstance", const=True)
 
-    content: ListType[fhirtypes.AttachmentType] = Field(
+    content: ListType[Attachment] = Field(
         None,
         alias="content",
         title="List of `Attachment` items (represented as `dict` in JSON).",
@@ -328,3 +332,7 @@ class ImagingStudySeriesInstance(backboneelement.BackboneElement):
         title="DICOM SOP Instance UID",
         description="The DICOM SOP Instance UID for this image or other DICOM content.",
     )
+
+
+ImagingStudy.update_forward_refs()
+ImagingStudySeries.update_forward_refs()

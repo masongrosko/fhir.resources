@@ -13,6 +13,12 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .codeablereference import CodeableReference
+from .identifier import Identifier
+from .quantity import Quantity
+from .reference import Reference
 
 
 class DeviceDispense(domainresource.DomainResource):
@@ -25,9 +31,9 @@ class DeviceDispense(domainresource.DomainResource):
     patient, or to a professional for their use.
     """
 
-    resource_type = Field("DeviceDispense", const=True)
+    resource_type: str = Field("DeviceDispense", const=True)
 
-    basedOn: typing.List[fhirtypes.ReferenceType] = Field(
+    basedOn: typing.List[Reference] = Field(
         None,
         alias="basedOn",
         title="The order or request that this dispense is fulfilling",
@@ -38,7 +44,7 @@ class DeviceDispense(domainresource.DomainResource):
         enum_reference_types=["CarePlan", "DeviceRequest"],
     )
 
-    category: typing.List[fhirtypes.CodeableConceptType] = Field(
+    category: typing.List[CodeableConcept] = Field(
         None,
         alias="category",
         title="Type of device dispense",
@@ -47,7 +53,7 @@ class DeviceDispense(domainresource.DomainResource):
         element_property=True,
     )
 
-    destination: fhirtypes.ReferenceType = Field(
+    destination: Reference = Field(
         None,
         alias="destination",
         title="Where the device was sent or should be sent",
@@ -61,7 +67,7 @@ class DeviceDispense(domainresource.DomainResource):
         enum_reference_types=["Location"],
     )
 
-    device: fhirtypes.CodeableReferenceType = Field(
+    device: CodeableReference = Field(
         ...,
         alias="device",
         title="What device was supplied",
@@ -77,7 +83,7 @@ class DeviceDispense(domainresource.DomainResource):
         enum_reference_types=["Device", "DeviceDefinition"],
     )
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title="Encounter associated with event",
@@ -88,7 +94,7 @@ class DeviceDispense(domainresource.DomainResource):
         enum_reference_types=["Encounter"],
     )
 
-    eventHistory: typing.List[fhirtypes.ReferenceType] = Field(
+    eventHistory: typing.List[Reference] = Field(
         None,
         alias="eventHistory",
         title="A list of relevant lifecycle events",
@@ -102,7 +108,7 @@ class DeviceDispense(domainresource.DomainResource):
         enum_reference_types=["Provenance"],
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business identifier for this dispensation",
@@ -111,7 +117,7 @@ class DeviceDispense(domainresource.DomainResource):
         element_property=True,
     )
 
-    location: fhirtypes.ReferenceType = Field(
+    location: Reference = Field(
         None,
         alias="location",
         title="Where the dispense occurred",
@@ -122,7 +128,7 @@ class DeviceDispense(domainresource.DomainResource):
         enum_reference_types=["Location"],
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Information about the dispense",
@@ -134,7 +140,7 @@ class DeviceDispense(domainresource.DomainResource):
         element_property=True,
     )
 
-    partOf: typing.List[fhirtypes.ReferenceType] = Field(
+    partOf: typing.List[Reference] = Field(
         None,
         alias="partOf",
         title="The bigger event that this dispense is a part of",
@@ -145,7 +151,7 @@ class DeviceDispense(domainresource.DomainResource):
         enum_reference_types=["Procedure"],
     )
 
-    performer: typing.List[fhirtypes.DeviceDispensePerformerType] = Field(
+    performer: typing.List["DeviceDispensePerformer"] = Field(
         None,
         alias="performer",
         title="Who performed event",
@@ -166,7 +172,7 @@ class DeviceDispense(domainresource.DomainResource):
         None, alias="_preparedDate", title="Extension field for ``preparedDate``."
     )
 
-    quantity: fhirtypes.QuantityType = Field(
+    quantity: Quantity = Field(
         None,
         alias="quantity",
         title="Amount dispensed",
@@ -175,7 +181,7 @@ class DeviceDispense(domainresource.DomainResource):
         element_property=True,
     )
 
-    receiver: fhirtypes.ReferenceType = Field(
+    receiver: Reference = Field(
         None,
         alias="receiver",
         title="Who collected the device or where the medication was delivered",
@@ -226,7 +232,7 @@ class DeviceDispense(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    statusReason: fhirtypes.CodeableReferenceType = Field(
+    statusReason: CodeableReference = Field(
         None,
         alias="statusReason",
         title="Why a dispense was or was not performed",
@@ -237,7 +243,7 @@ class DeviceDispense(domainresource.DomainResource):
         enum_reference_types=["DetectedIssue"],
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         ...,
         alias="subject",
         title="Who the dispense is for",
@@ -251,7 +257,7 @@ class DeviceDispense(domainresource.DomainResource):
         enum_reference_types=["Patient", "Practitioner"],
     )
 
-    supportingInformation: typing.List[fhirtypes.ReferenceType] = Field(
+    supportingInformation: typing.List[Reference] = Field(
         None,
         alias="supportingInformation",
         title="Information that supports the dispensing of the device",
@@ -262,7 +268,7 @@ class DeviceDispense(domainresource.DomainResource):
         enum_reference_types=["Resource"],
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Trial fill, partial fill, emergency fill, etc",
@@ -407,9 +413,9 @@ class DeviceDispensePerformer(backboneelement.BackboneElement):
     Indicates who or what performed the event.
     """
 
-    resource_type = Field("DeviceDispensePerformer", const=True)
+    resource_type: str = Field("DeviceDispensePerformer", const=True)
 
-    actor: fhirtypes.ReferenceType = Field(
+    actor: Reference = Field(
         ...,
         alias="actor",
         title="Individual who was performing",
@@ -431,7 +437,7 @@ class DeviceDispensePerformer(backboneelement.BackboneElement):
         ],
     )
 
-    function: fhirtypes.CodeableConceptType = Field(
+    function: CodeableConcept = Field(
         None,
         alias="function",
         title="Who performed the dispense and what they did",
@@ -450,3 +456,6 @@ class DeviceDispensePerformer(backboneelement.BackboneElement):
         with preserving original sequence order.
         """
         return ["id", "extension", "modifierExtension", "function", "actor"]
+
+
+DeviceDispense.update_forward_refs()

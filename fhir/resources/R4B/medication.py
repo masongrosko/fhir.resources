@@ -11,6 +11,10 @@ import typing
 from pydantic.v1 import Field, root_validator
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .ratio import Ratio
+from .reference import Reference
 
 
 class Medication(domainresource.DomainResource):
@@ -24,9 +28,9 @@ class Medication(domainresource.DomainResource):
     medication as well as for making statements about medication use.
     """
 
-    resource_type = Field("Medication", const=True)
+    resource_type: str = Field("Medication", const=True)
 
-    amount: fhirtypes.RatioType = Field(
+    amount: Ratio = Field(
         None,
         alias="amount",
         title="Amount of drug in package",
@@ -41,7 +45,7 @@ class Medication(domainresource.DomainResource):
         element_property=True,
     )
 
-    batch: fhirtypes.MedicationBatchType = Field(
+    batch: "MedicationBatch" = Field(
         None,
         alias="batch",
         title="Details about packaged medications",
@@ -50,7 +54,7 @@ class Medication(domainresource.DomainResource):
         element_property=True,
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Codes that identify this medication",
@@ -65,7 +69,7 @@ class Medication(domainresource.DomainResource):
         element_property=True,
     )
 
-    form: fhirtypes.CodeableConceptType = Field(
+    form: CodeableConcept = Field(
         None,
         alias="form",
         title="powder | tablets | capsule +",
@@ -74,7 +78,7 @@ class Medication(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business identifier for this medication",
@@ -83,7 +87,7 @@ class Medication(domainresource.DomainResource):
         element_property=True,
     )
 
-    ingredient: typing.List[fhirtypes.MedicationIngredientType] = Field(
+    ingredient: typing.List["MedicationIngredient"] = Field(
         None,
         alias="ingredient",
         title="Active or inactive ingredient",
@@ -92,7 +96,7 @@ class Medication(domainresource.DomainResource):
         element_property=True,
     )
 
-    manufacturer: fhirtypes.ReferenceType = Field(
+    manufacturer: Reference = Field(
         None,
         alias="manufacturer",
         title="Manufacturer of the item",
@@ -157,7 +161,7 @@ class MedicationBatch(backboneelement.BackboneElement):
     Information that only applies to packages (not products).
     """
 
-    resource_type = Field("MedicationBatch", const=True)
+    resource_type: str = Field("MedicationBatch", const=True)
 
     expirationDate: fhirtypes.DateTime = Field(
         None,
@@ -201,7 +205,7 @@ class MedicationIngredient(backboneelement.BackboneElement):
     Identifies a particular constituent of interest in the product.
     """
 
-    resource_type = Field("MedicationIngredient", const=True)
+    resource_type: str = Field("MedicationIngredient", const=True)
 
     isActive: bool = Field(
         None,
@@ -218,7 +222,7 @@ class MedicationIngredient(backboneelement.BackboneElement):
         None, alias="_isActive", title="Extension field for ``isActive``."
     )
 
-    itemCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    itemCodeableConcept: CodeableConcept = Field(
         None,
         alias="itemCodeableConcept",
         title="The actual ingredient or content",
@@ -233,7 +237,7 @@ class MedicationIngredient(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    itemReference: fhirtypes.ReferenceType = Field(
+    itemReference: Reference = Field(
         None,
         alias="itemReference",
         title="The actual ingredient or content",
@@ -250,7 +254,7 @@ class MedicationIngredient(backboneelement.BackboneElement):
         enum_reference_types=["Substance", "Medication"],
     )
 
-    strength: fhirtypes.RatioType = Field(
+    strength: Ratio = Field(
         None,
         alias="strength",
         title="Quantity of ingredient present",
@@ -316,3 +320,6 @@ class MedicationIngredient(backboneelement.BackboneElement):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+Medication.update_forward_refs()

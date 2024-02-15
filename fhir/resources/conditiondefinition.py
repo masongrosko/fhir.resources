@@ -13,6 +13,13 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .contactdetail import ContactDetail
+from .identifier import Identifier
+from .quantity import Quantity
+from .reference import Reference
+from .usagecontext import UsageContext
 
 
 class ConditionDefinition(domainresource.DomainResource):
@@ -24,9 +31,9 @@ class ConditionDefinition(domainresource.DomainResource):
     A definition of a condition and information relevant to managing it.
     """
 
-    resource_type = Field("ConditionDefinition", const=True)
+    resource_type: str = Field("ConditionDefinition", const=True)
 
-    bodySite: fhirtypes.CodeableConceptType = Field(
+    bodySite: CodeableConcept = Field(
         None,
         alias="bodySite",
         title="Anatomical location, if relevant",
@@ -35,7 +42,7 @@ class ConditionDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         ...,
         alias="code",
         title="Identification of the condition, problem or diagnosis",
@@ -44,7 +51,7 @@ class ConditionDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -156,7 +163,7 @@ class ConditionDefinition(domainresource.DomainResource):
         None, alias="_hasStage", title="Extension field for ``hasStage``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Additional identifier for the condition definition",
@@ -169,7 +176,7 @@ class ConditionDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction for condition definition (if applicable)",
@@ -181,7 +188,7 @@ class ConditionDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    medication: typing.List[fhirtypes.ConditionDefinitionMedicationType] = Field(
+    medication: typing.List["ConditionDefinitionMedication"] = Field(
         None,
         alias="medication",
         title="Medications particularly relevant for this condition",
@@ -206,7 +213,7 @@ class ConditionDefinition(domainresource.DomainResource):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    observation: typing.List[fhirtypes.ConditionDefinitionObservationType] = Field(
+    observation: typing.List["ConditionDefinitionObservation"] = Field(
         None,
         alias="observation",
         title="Observations particularly relevant to this condition",
@@ -215,7 +222,7 @@ class ConditionDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    plan: typing.List[fhirtypes.ConditionDefinitionPlanType] = Field(
+    plan: typing.List["ConditionDefinitionPlan"] = Field(
         None,
         alias="plan",
         title="Plan that is appropriate",
@@ -224,7 +231,7 @@ class ConditionDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    precondition: typing.List[fhirtypes.ConditionDefinitionPreconditionType] = Field(
+    precondition: typing.List["ConditionDefinitionPrecondition"] = Field(
         None,
         alias="precondition",
         title="Observation that suggets this condition",
@@ -248,7 +255,7 @@ class ConditionDefinition(domainresource.DomainResource):
         None, alias="_publisher", title="Extension field for ``publisher``."
     )
 
-    questionnaire: typing.List[fhirtypes.ConditionDefinitionQuestionnaireType] = Field(
+    questionnaire: typing.List["ConditionDefinitionQuestionnaire"] = Field(
         None,
         alias="questionnaire",
         title="Questionnaire for this condition",
@@ -257,7 +264,7 @@ class ConditionDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    severity: fhirtypes.CodeableConceptType = Field(
+    severity: CodeableConcept = Field(
         None,
         alias="severity",
         title="Subjective severity of condition",
@@ -269,7 +276,7 @@ class ConditionDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    stage: fhirtypes.CodeableConceptType = Field(
+    stage: CodeableConcept = Field(
         None,
         alias="stage",
         title="Stage/grade, usually assessed formally",
@@ -315,7 +322,7 @@ class ConditionDefinition(domainresource.DomainResource):
         None, alias="_subtitle", title="Extension field for ``subtitle``."
     )
 
-    team: typing.List[fhirtypes.ReferenceType] = Field(
+    team: typing.List[Reference] = Field(
         None,
         alias="team",
         title="Appropriate team for this condition",
@@ -364,7 +371,7 @@ class ConditionDefinition(domainresource.DomainResource):
         None, alias="_url", title="Extension field for ``url``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="The context that the content is intended to support",
@@ -399,7 +406,7 @@ class ConditionDefinition(domainresource.DomainResource):
         None, alias="_version", title="Extension field for ``version``."
     )
 
-    versionAlgorithmCoding: fhirtypes.CodingType = Field(
+    versionAlgorithmCoding: Coding = Field(
         None,
         alias="versionAlgorithmCoding",
         title="How to compare versions",
@@ -589,9 +596,9 @@ class ConditionDefinitionMedication(backboneelement.BackboneElement):
     Medications particularly relevant for this condition.
     """
 
-    resource_type = Field("ConditionDefinitionMedication", const=True)
+    resource_type: str = Field("ConditionDefinitionMedication", const=True)
 
-    category: fhirtypes.CodeableConceptType = Field(
+    category: CodeableConcept = Field(
         None,
         alias="category",
         title="Category that is relevant",
@@ -600,7 +607,7 @@ class ConditionDefinitionMedication(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Code for relevant Medication",
@@ -626,9 +633,9 @@ class ConditionDefinitionObservation(backboneelement.BackboneElement):
     Observations particularly relevant to this condition.
     """
 
-    resource_type = Field("ConditionDefinitionObservation", const=True)
+    resource_type: str = Field("ConditionDefinitionObservation", const=True)
 
-    category: fhirtypes.CodeableConceptType = Field(
+    category: CodeableConcept = Field(
         None,
         alias="category",
         title="Category that is relevant",
@@ -637,7 +644,7 @@ class ConditionDefinitionObservation(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Code for relevant Observation",
@@ -663,9 +670,9 @@ class ConditionDefinitionPlan(backboneelement.BackboneElement):
     Plan that is appropriate.
     """
 
-    resource_type = Field("ConditionDefinitionPlan", const=True)
+    resource_type: str = Field("ConditionDefinitionPlan", const=True)
 
-    reference: fhirtypes.ReferenceType = Field(
+    reference: Reference = Field(
         ...,
         alias="reference",
         title="The actual plan",
@@ -676,7 +683,7 @@ class ConditionDefinitionPlan(backboneelement.BackboneElement):
         enum_reference_types=["PlanDefinition"],
     )
 
-    role: fhirtypes.CodeableConceptType = Field(
+    role: CodeableConcept = Field(
         None,
         alias="role",
         title="Use for the plan",
@@ -703,9 +710,9 @@ class ConditionDefinitionPrecondition(backboneelement.BackboneElement):
     An observation that suggests that this condition applies.
     """
 
-    resource_type = Field("ConditionDefinitionPrecondition", const=True)
+    resource_type: str = Field("ConditionDefinitionPrecondition", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         ...,
         alias="code",
         title="Code for relevant Observation",
@@ -730,7 +737,7 @@ class ConditionDefinitionPrecondition(backboneelement.BackboneElement):
         None, alias="_type", title="Extension field for ``type``."
     )
 
-    valueCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    valueCodeableConcept: CodeableConcept = Field(
         None,
         alias="valueCodeableConcept",
         title="Value of Observation",
@@ -742,7 +749,7 @@ class ConditionDefinitionPrecondition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    valueQuantity: fhirtypes.QuantityType = Field(
+    valueQuantity: Quantity = Field(
         None,
         alias="valueQuantity",
         title="Value of Observation",
@@ -876,7 +883,7 @@ class ConditionDefinitionQuestionnaire(backboneelement.BackboneElement):
     Questionnaire for this condition.
     """
 
-    resource_type = Field("ConditionDefinitionQuestionnaire", const=True)
+    resource_type: str = Field("ConditionDefinitionQuestionnaire", const=True)
 
     purpose: fhirtypes.Code = Field(
         None,
@@ -894,7 +901,7 @@ class ConditionDefinitionQuestionnaire(backboneelement.BackboneElement):
         None, alias="_purpose", title="Extension field for ``purpose``."
     )
 
-    reference: fhirtypes.ReferenceType = Field(
+    reference: Reference = Field(
         ...,
         alias="reference",
         title="Specific Questionnaire",
@@ -971,3 +978,6 @@ class ConditionDefinitionQuestionnaire(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+ConditionDefinition.update_forward_refs()

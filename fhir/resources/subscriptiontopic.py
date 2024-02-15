@@ -13,6 +13,12 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .contactdetail import ContactDetail
+from .identifier import Identifier
+from .period import Period
+from .usagecontext import UsageContext
 
 
 class SubscriptionTopic(domainresource.DomainResource):
@@ -26,7 +32,7 @@ class SubscriptionTopic(domainresource.DomainResource):
     labels useful to filter projections from this topic.
     """
 
-    resource_type = Field("SubscriptionTopic", const=True)
+    resource_type: str = Field("SubscriptionTopic", const=True)
 
     approvalDate: fhirtypes.Date = Field(
         None,
@@ -44,7 +50,7 @@ class SubscriptionTopic(domainresource.DomainResource):
         None, alias="_approvalDate", title="Extension field for ``approvalDate``."
     )
 
-    canFilterBy: typing.List[fhirtypes.SubscriptionTopicCanFilterByType] = Field(
+    canFilterBy: typing.List["SubscriptionTopicCanFilterBy"] = Field(
         None,
         alias="canFilterBy",
         title=(
@@ -61,7 +67,7 @@ class SubscriptionTopic(domainresource.DomainResource):
         element_property=True,
     )
 
-    contact: typing.List[fhirtypes.ContactDetailType] = Field(
+    contact: typing.List[ContactDetail] = Field(
         None,
         alias="contact",
         title="Contact details for the publisher",
@@ -156,7 +162,7 @@ class SubscriptionTopic(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    effectivePeriod: fhirtypes.PeriodType = Field(
+    effectivePeriod: Period = Field(
         None,
         alias="effectivePeriod",
         title="The effective date range for the SubscriptionTopic",
@@ -168,7 +174,7 @@ class SubscriptionTopic(domainresource.DomainResource):
         element_property=True,
     )
 
-    eventTrigger: typing.List[fhirtypes.SubscriptionTopicEventTriggerType] = Field(
+    eventTrigger: typing.List["SubscriptionTopicEventTrigger"] = Field(
         None,
         alias="eventTrigger",
         title="Event definitions the SubscriptionTopic",
@@ -193,7 +199,7 @@ class SubscriptionTopic(domainresource.DomainResource):
         None, alias="_experimental", title="Extension field for ``experimental``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business identifier for subscription topic",
@@ -206,7 +212,7 @@ class SubscriptionTopic(domainresource.DomainResource):
         element_property=True,
     )
 
-    jurisdiction: typing.List[fhirtypes.CodeableConceptType] = Field(
+    jurisdiction: typing.List[CodeableConcept] = Field(
         None,
         alias="jurisdiction",
         title="Intended jurisdiction of the SubscriptionTopic (if applicable)",
@@ -247,9 +253,7 @@ class SubscriptionTopic(domainresource.DomainResource):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    notificationShape: typing.List[
-        fhirtypes.SubscriptionTopicNotificationShapeType
-    ] = Field(
+    notificationShape: typing.List["SubscriptionTopicNotificationShape"] = Field(
         None,
         alias="notificationShape",
         title=(
@@ -297,9 +301,7 @@ class SubscriptionTopic(domainresource.DomainResource):
         None, alias="_purpose", title="Extension field for ``purpose``."
     )
 
-    resourceTrigger: typing.List[
-        fhirtypes.SubscriptionTopicResourceTriggerType
-    ] = Field(
+    resourceTrigger: typing.List["SubscriptionTopicResourceTrigger"] = Field(
         None,
         alias="resourceTrigger",
         title="Definition of a resource-based trigger for the subscription topic",
@@ -370,7 +372,7 @@ class SubscriptionTopic(domainresource.DomainResource):
         None, alias="_url", title="Extension field for ``url``."
     )
 
-    useContext: typing.List[fhirtypes.UsageContextType] = Field(
+    useContext: typing.List[UsageContext] = Field(
         None,
         alias="useContext",
         title="Content intends to support these contexts",
@@ -402,7 +404,7 @@ class SubscriptionTopic(domainresource.DomainResource):
         None, alias="_version", title="Extension field for ``version``."
     )
 
-    versionAlgorithmCoding: fhirtypes.CodingType = Field(
+    versionAlgorithmCoding: Coding = Field(
         None,
         alias="versionAlgorithmCoding",
         title="How to compare versions",
@@ -592,7 +594,7 @@ class SubscriptionTopicCanFilterBy(backboneelement.BackboneElement):
     parameters defined within this SubscriptionTopic context (e.g., hub.event).
     """
 
-    resource_type = Field("SubscriptionTopicCanFilterBy", const=True)
+    resource_type: str = Field("SubscriptionTopicCanFilterBy", const=True)
 
     comparator: typing.List[typing.Optional[fhirtypes.Code]] = Field(
         None,
@@ -800,7 +802,7 @@ class SubscriptionTopicEventTrigger(backboneelement.BackboneElement):
     Event definition which can be used to trigger the SubscriptionTopic.
     """
 
-    resource_type = Field("SubscriptionTopicEventTrigger", const=True)
+    resource_type: str = Field("SubscriptionTopicEventTrigger", const=True)
 
     description: fhirtypes.Markdown = Field(
         None,
@@ -819,7 +821,7 @@ class SubscriptionTopicEventTrigger(backboneelement.BackboneElement):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    event: fhirtypes.CodeableConceptType = Field(
+    event: CodeableConcept = Field(
         ...,
         alias="event",
         title="Event which can trigger a notification from the SubscriptionTopic",
@@ -941,7 +943,7 @@ class SubscriptionTopicNotificationShape(backboneelement.BackboneElement):
     notifications from this Subscription Topic.
     """
 
-    resource_type = Field("SubscriptionTopicNotificationShape", const=True)
+    resource_type: str = Field("SubscriptionTopicNotificationShape", const=True)
 
     include: typing.List[typing.Optional[fhirtypes.String]] = Field(
         None,
@@ -1090,7 +1092,7 @@ class SubscriptionTopicResourceTrigger(backboneelement.BackboneElement):
     matching ANY of the definitions will trigger a notification).
     """
 
-    resource_type = Field("SubscriptionTopicResourceTrigger", const=True)
+    resource_type: str = Field("SubscriptionTopicResourceTrigger", const=True)
 
     description: fhirtypes.Markdown = Field(
         None,
@@ -1125,7 +1127,7 @@ class SubscriptionTopicResourceTrigger(backboneelement.BackboneElement):
         title="Extension field for ``fhirPathCriteria``.",
     )
 
-    queryCriteria: fhirtypes.SubscriptionTopicResourceTriggerQueryCriteriaType = Field(
+    queryCriteria: "SubscriptionTopicResourceTriggerQueryCriteria" = Field(
         None,
         alias="queryCriteria",
         title="Query based trigger rule",
@@ -1272,7 +1274,9 @@ class SubscriptionTopicResourceTriggerQueryCriteria(backboneelement.BackboneElem
     trigger a notification for this subscription topic.
     """
 
-    resource_type = Field("SubscriptionTopicResourceTriggerQueryCriteria", const=True)
+    resource_type: str = Field(
+        "SubscriptionTopicResourceTriggerQueryCriteria", const=True
+    )
 
     current: fhirtypes.String = Field(
         None,
@@ -1378,3 +1382,7 @@ class SubscriptionTopicResourceTriggerQueryCriteria(backboneelement.BackboneElem
             "resultForDelete",
             "requireBoth",
         ]
+
+
+SubscriptionTopic.update_forward_refs()
+SubscriptionTopicResourceTrigger.update_forward_refs()

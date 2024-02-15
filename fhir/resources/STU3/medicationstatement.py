@@ -13,6 +13,12 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import domainresource, fhirtypes
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .dosage import Dosage
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class MedicationStatement(domainresource.DomainResource):
@@ -47,9 +53,9 @@ class MedicationStatement(domainresource.DomainResource):
     missing detailed information.
     """
 
-    resource_type = Field("MedicationStatement", const=True)
+    resource_type: str = Field("MedicationStatement", const=True)
 
-    basedOn: typing.List[fhirtypes.ReferenceType] = Field(
+    basedOn: typing.List[Reference] = Field(
         None,
         alias="basedOn",
         title="Fulfils plan, proposal or order",
@@ -68,7 +74,7 @@ class MedicationStatement(domainresource.DomainResource):
         ],
     )
 
-    category: fhirtypes.CodeableConceptType = Field(
+    category: CodeableConcept = Field(
         None,
         alias="category",
         title="Type of medication usage",
@@ -80,7 +86,7 @@ class MedicationStatement(domainresource.DomainResource):
         element_property=True,
     )
 
-    context: fhirtypes.ReferenceType = Field(
+    context: Reference = Field(
         None,
         alias="context",
         title="Encounter / Episode associated with MedicationStatement",
@@ -109,7 +115,7 @@ class MedicationStatement(domainresource.DomainResource):
         None, alias="_dateAsserted", title="Extension field for ``dateAsserted``."
     )
 
-    derivedFrom: typing.List[fhirtypes.ReferenceType] = Field(
+    derivedFrom: typing.List[Reference] = Field(
         None,
         alias="derivedFrom",
         title="Additional supporting information",
@@ -124,7 +130,7 @@ class MedicationStatement(domainresource.DomainResource):
         enum_reference_types=["Resource"],
     )
 
-    dosage: typing.List[fhirtypes.DosageType] = Field(
+    dosage: typing.List[Dosage] = Field(
         None,
         alias="dosage",
         title="Details of how medication is/was taken or should be taken",
@@ -154,7 +160,7 @@ class MedicationStatement(domainresource.DomainResource):
         title="Extension field for ``effectiveDateTime``.",
     )
 
-    effectivePeriod: fhirtypes.PeriodType = Field(
+    effectivePeriod: Period = Field(
         None,
         alias="effectivePeriod",
         title="The date/time or interval when the medication was taken",
@@ -170,7 +176,7 @@ class MedicationStatement(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="External identifier",
@@ -188,7 +194,7 @@ class MedicationStatement(domainresource.DomainResource):
         element_property=True,
     )
 
-    informationSource: fhirtypes.ReferenceType = Field(
+    informationSource: Reference = Field(
         None,
         alias="informationSource",
         title=(
@@ -212,7 +218,7 @@ class MedicationStatement(domainresource.DomainResource):
         ],
     )
 
-    medicationCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    medicationCodeableConcept: CodeableConcept = Field(
         None,
         alias="medicationCodeableConcept",
         title="What medication was taken",
@@ -229,7 +235,7 @@ class MedicationStatement(domainresource.DomainResource):
         one_of_many_required=True,
     )
 
-    medicationReference: fhirtypes.ReferenceType = Field(
+    medicationReference: Reference = Field(
         None,
         alias="medicationReference",
         title="What medication was taken",
@@ -248,7 +254,7 @@ class MedicationStatement(domainresource.DomainResource):
         enum_reference_types=["Medication"],
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Further information about the statement",
@@ -260,7 +266,7 @@ class MedicationStatement(domainresource.DomainResource):
         element_property=True,
     )
 
-    partOf: typing.List[fhirtypes.ReferenceType] = Field(
+    partOf: typing.List[Reference] = Field(
         None,
         alias="partOf",
         title="Part of referenced event",
@@ -277,7 +283,7 @@ class MedicationStatement(domainresource.DomainResource):
         ],
     )
 
-    reasonCode: typing.List[fhirtypes.CodeableConceptType] = Field(
+    reasonCode: typing.List[CodeableConcept] = Field(
         None,
         alias="reasonCode",
         title="Reason for why the medication is being/was taken",
@@ -286,7 +292,7 @@ class MedicationStatement(domainresource.DomainResource):
         element_property=True,
     )
 
-    reasonNotTaken: typing.List[fhirtypes.CodeableConceptType] = Field(
+    reasonNotTaken: typing.List[CodeableConcept] = Field(
         None,
         alias="reasonNotTaken",
         title="True if asserting medication was not given",
@@ -295,7 +301,7 @@ class MedicationStatement(domainresource.DomainResource):
         element_property=True,
     )
 
-    reasonReference: typing.List[fhirtypes.ReferenceType] = Field(
+    reasonReference: typing.List[Reference] = Field(
         None,
         alias="reasonReference",
         title=(
@@ -336,7 +342,7 @@ class MedicationStatement(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         ...,
         alias="subject",
         title="Who is/was taking  the medication",

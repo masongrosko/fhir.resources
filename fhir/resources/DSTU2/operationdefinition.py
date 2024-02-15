@@ -12,6 +12,9 @@ from pydantic.v1 import Field, root_validator
 
 from . import domainresource, fhirtypes
 from .backboneelement import BackboneElement
+from .contactpoint import ContactPoint
+from .parametersparameter import ParametersParameter
+from .reference import Reference
 
 
 class OperationDefinition(domainresource.DomainResource):
@@ -23,7 +26,7 @@ class OperationDefinition(domainresource.DomainResource):
     or a named query (using the search interaction).
     """
 
-    resource_type = Field("OperationDefinition", const=True)
+    resource_type: str = Field("OperationDefinition", const=True)
 
     url: fhirtypes.Uri = Field(
         None,
@@ -100,7 +103,7 @@ class OperationDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    contact: ListType[fhirtypes.OperationDefinitionContactType] = Field(
+    contact: ListType["OperationDefinitionContact"] = Field(
         None,
         alias="contact",
         title="Contact details of the publisher",
@@ -168,7 +171,7 @@ class OperationDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    base: fhirtypes.ReferenceType = Field(
+    base: Reference = Field(
         None,
         alias="base",
         title=(
@@ -214,7 +217,7 @@ class OperationDefinition(domainresource.DomainResource):
         element_property=True,
     )
 
-    parameter: ListType[fhirtypes.OperationDefinitionParameterType] = Field(
+    parameter: ListType["OperationDefinitionParameter"] = Field(
         None,
         alias="parameter",
         title="Contact details of the publisher",
@@ -231,7 +234,7 @@ class OperationDefinitionContact(BackboneElement):
     Contacts to assist a user in finding and communicating with the publisher.
     """
 
-    resource_type = Field("OperationDefinitionContact", const=True)
+    resource_type: str = Field("OperationDefinitionContact", const=True)
 
     name: fhirtypes.String = Field(
         None,
@@ -241,7 +244,7 @@ class OperationDefinitionContact(BackboneElement):
         element_property=True,
     )
 
-    telecom: ListType[fhirtypes.ContactPointType] = Field(
+    telecom: ListType[ContactPoint] = Field(
         None,
         alias="telecom",
         title="List of `ContactPoint` items (represented as `dict` in JSON).",
@@ -257,7 +260,7 @@ class OperationDefinitionParameter(BackboneElement):
     The parameters for the operation/query.
     """
 
-    resource_type = Field("OperationDefinitionParameter", const=True)
+    resource_type: str = Field("OperationDefinitionParameter", const=True)
 
     name: fhirtypes.Code = Field(
         None,
@@ -310,7 +313,7 @@ class OperationDefinitionParameter(BackboneElement):
         element_property=True,
     )
 
-    profile: fhirtypes.ReferenceType = Field(
+    profile: Reference = Field(
         None,
         alias="profile",
         title=(
@@ -323,7 +326,7 @@ class OperationDefinitionParameter(BackboneElement):
         element_property=True,
     )
 
-    binding: ListType[fhirtypes.OperationDefinitionParameterBindingType] = Field(
+    binding: ListType["OperationDefinitionParameterBinding"] = Field(
         None,
         alias="binding",
         title="ValueSet details if this is coded",
@@ -332,7 +335,7 @@ class OperationDefinitionParameter(BackboneElement):
         element_property=True,
     )
 
-    part: typing.List[fhirtypes.ParametersParameterType] = Field(
+    part: typing.List[ParametersParameter] = Field(
         None,
         alias="part",
         title="Named part of a parameter (e.g. Tuple)",
@@ -349,7 +352,7 @@ class OperationDefinitionParameterBinding(BackboneElement):
     Binds to a value set if this parameter is coded (code, Coding, CodeableConcept).
     """
 
-    resource_type = Field("OperationDefinitionParameterBinding", const=True)
+    resource_type: str = Field("OperationDefinitionParameterBinding", const=True)
 
     strength: fhirtypes.Code = Field(
         None,
@@ -378,7 +381,7 @@ class OperationDefinitionParameterBinding(BackboneElement):
         one_of_many_required=False,
     )
 
-    valueSetReference: fhirtypes.ReferenceType = Field(
+    valueSetReference: Reference = Field(
         None,
         alias="valueSetReference",
         title="Type 'Reference' referencing 'ValueSet'  (represented as 'dict' in JSON).",
@@ -437,3 +440,7 @@ class OperationDefinitionParameterBinding(BackboneElement):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+OperationDefinition.update_forward_refs()
+OperationDefinitionParameter.update_forward_refs()

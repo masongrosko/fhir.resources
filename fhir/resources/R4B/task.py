@@ -13,6 +13,37 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .address import Address
+from .age import Age
+from .annotation import Annotation
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .contactdetail import ContactDetail
+from .contactpoint import ContactPoint
+from .contributor import Contributor
+from .count import Count
+from .datarequirement import DataRequirement
+from .distance import Distance
+from .dosage import Dosage
+from .duration import Duration
+from .expression import Expression
+from .humanname import HumanName
+from .identifier import Identifier
+from .meta import Meta
+from .money import Money
+from .parameterdefinition import ParameterDefinition
+from .period import Period
+from .quantity import Quantity
+from .range import Range
+from .ratio import Ratio
+from .reference import Reference
+from .relatedartifact import RelatedArtifact
+from .sampleddata import SampledData
+from .signature import Signature
+from .timing import Timing
+from .triggerdefinition import TriggerDefinition
+from .usagecontext import UsageContext
 
 
 class Task(domainresource.DomainResource):
@@ -23,7 +54,7 @@ class Task(domainresource.DomainResource):
     A task to be performed.
     """
 
-    resource_type = Field("Task", const=True)
+    resource_type: str = Field("Task", const=True)
 
     authoredOn: fhirtypes.DateTime = Field(
         None,
@@ -37,7 +68,7 @@ class Task(domainresource.DomainResource):
         None, alias="_authoredOn", title="Extension field for ``authoredOn``."
     )
 
-    basedOn: typing.List[fhirtypes.ReferenceType] = Field(
+    basedOn: typing.List[Reference] = Field(
         None,
         alias="basedOn",
         title="Request fulfilled by this task",
@@ -56,7 +87,7 @@ class Task(domainresource.DomainResource):
         enum_reference_types=["Resource"],
     )
 
-    businessStatus: fhirtypes.CodeableConceptType = Field(
+    businessStatus: CodeableConcept = Field(
         None,
         alias="businessStatus",
         title='E.g. "Specimen collected", "IV prepped"',
@@ -65,7 +96,7 @@ class Task(domainresource.DomainResource):
         element_property=True,
     )
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Task Type",
@@ -86,7 +117,7 @@ class Task(domainresource.DomainResource):
         None, alias="_description", title="Extension field for ``description``."
     )
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title="Healthcare event during which this task originated",
@@ -100,7 +131,7 @@ class Task(domainresource.DomainResource):
         enum_reference_types=["Encounter"],
     )
 
-    executionPeriod: fhirtypes.PeriodType = Field(
+    executionPeriod: Period = Field(
         None,
         alias="executionPeriod",
         title="Start and end time of execution",
@@ -113,7 +144,7 @@ class Task(domainresource.DomainResource):
         element_property=True,
     )
 
-    focus: fhirtypes.ReferenceType = Field(
+    focus: Reference = Field(
         None,
         alias="focus",
         title="What task is acting on",
@@ -127,7 +158,7 @@ class Task(domainresource.DomainResource):
         enum_reference_types=["Resource"],
     )
 
-    for_fhir: fhirtypes.ReferenceType = Field(
+    for_fhir: Reference = Field(
         None,
         alias="for",
         title="Beneficiary of the Task",
@@ -141,7 +172,7 @@ class Task(domainresource.DomainResource):
         enum_reference_types=["Resource"],
     )
 
-    groupIdentifier: fhirtypes.IdentifierType = Field(
+    groupIdentifier: Identifier = Field(
         None,
         alias="groupIdentifier",
         title="Requisition or grouper id",
@@ -153,7 +184,7 @@ class Task(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Task Instance Identifier",
@@ -162,7 +193,7 @@ class Task(domainresource.DomainResource):
         element_property=True,
     )
 
-    input: typing.List[fhirtypes.TaskInputType] = Field(
+    input: typing.List["TaskInput"] = Field(
         None,
         alias="input",
         title="Information used to perform task",
@@ -208,7 +239,7 @@ class Task(domainresource.DomainResource):
         None, alias="_instantiatesUri", title="Extension field for ``instantiatesUri``."
     )
 
-    insurance: typing.List[fhirtypes.ReferenceType] = Field(
+    insurance: typing.List[Reference] = Field(
         None,
         alias="insurance",
         title="Associated insurance coverage",
@@ -267,7 +298,7 @@ class Task(domainresource.DomainResource):
         None, alias="_lastModified", title="Extension field for ``lastModified``."
     )
 
-    location: fhirtypes.ReferenceType = Field(
+    location: Reference = Field(
         None,
         alias="location",
         title="Where task occurs",
@@ -278,7 +309,7 @@ class Task(domainresource.DomainResource):
         enum_reference_types=["Location"],
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Comments made about the task",
@@ -287,7 +318,7 @@ class Task(domainresource.DomainResource):
         element_property=True,
     )
 
-    output: typing.List[fhirtypes.TaskOutputType] = Field(
+    output: typing.List["TaskOutput"] = Field(
         None,
         alias="output",
         title="Information produced as part of task",
@@ -296,7 +327,7 @@ class Task(domainresource.DomainResource):
         element_property=True,
     )
 
-    owner: fhirtypes.ReferenceType = Field(
+    owner: Reference = Field(
         None,
         alias="owner",
         title="Responsible individual",
@@ -319,7 +350,7 @@ class Task(domainresource.DomainResource):
         ],
     )
 
-    partOf: typing.List[fhirtypes.ReferenceType] = Field(
+    partOf: typing.List[Reference] = Field(
         None,
         alias="partOf",
         title="Composite task",
@@ -330,7 +361,7 @@ class Task(domainresource.DomainResource):
         enum_reference_types=["Task"],
     )
 
-    performerType: typing.List[fhirtypes.CodeableConceptType] = Field(
+    performerType: typing.List[CodeableConcept] = Field(
         None,
         alias="performerType",
         title="Requested performer",
@@ -357,7 +388,7 @@ class Task(domainresource.DomainResource):
         None, alias="_priority", title="Extension field for ``priority``."
     )
 
-    reasonCode: fhirtypes.CodeableConceptType = Field(
+    reasonCode: CodeableConcept = Field(
         None,
         alias="reasonCode",
         title="Why task is needed",
@@ -366,7 +397,7 @@ class Task(domainresource.DomainResource):
         element_property=True,
     )
 
-    reasonReference: fhirtypes.ReferenceType = Field(
+    reasonReference: Reference = Field(
         None,
         alias="reasonReference",
         title="Why task is needed",
@@ -377,7 +408,7 @@ class Task(domainresource.DomainResource):
         enum_reference_types=["Resource"],
     )
 
-    relevantHistory: typing.List[fhirtypes.ReferenceType] = Field(
+    relevantHistory: typing.List[Reference] = Field(
         None,
         alias="relevantHistory",
         title="Key events in history of the Task",
@@ -392,7 +423,7 @@ class Task(domainresource.DomainResource):
         enum_reference_types=["Provenance"],
     )
 
-    requester: fhirtypes.ReferenceType = Field(
+    requester: Reference = Field(
         None,
         alias="requester",
         title="Who is asking for task to be done",
@@ -410,7 +441,7 @@ class Task(domainresource.DomainResource):
         ],
     )
 
-    restriction: fhirtypes.TaskRestrictionType = Field(
+    restriction: "TaskRestriction" = Field(
         None,
         alias="restriction",
         title="Constraints on fulfillment tasks",
@@ -440,7 +471,7 @@ class Task(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    statusReason: fhirtypes.CodeableConceptType = Field(
+    statusReason: CodeableConcept = Field(
         None,
         alias="statusReason",
         title="Reason for current status",
@@ -566,9 +597,9 @@ class TaskInput(backboneelement.BackboneElement):
     Additional information that may be needed in the execution of the task.
     """
 
-    resource_type = Field("TaskInput", const=True)
+    resource_type: str = Field("TaskInput", const=True)
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title="Label for the input",
@@ -580,7 +611,7 @@ class TaskInput(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    valueAddress: fhirtypes.AddressType = Field(
+    valueAddress: Address = Field(
         None,
         alias="valueAddress",
         title="Content to use in performing the task",
@@ -592,7 +623,7 @@ class TaskInput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueAge: fhirtypes.AgeType = Field(
+    valueAge: Age = Field(
         None,
         alias="valueAge",
         title="Content to use in performing the task",
@@ -604,7 +635,7 @@ class TaskInput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueAnnotation: fhirtypes.AnnotationType = Field(
+    valueAnnotation: Annotation = Field(
         None,
         alias="valueAnnotation",
         title="Content to use in performing the task",
@@ -616,7 +647,7 @@ class TaskInput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueAttachment: fhirtypes.AttachmentType = Field(
+    valueAttachment: Attachment = Field(
         None,
         alias="valueAttachment",
         title="Content to use in performing the task",
@@ -690,7 +721,7 @@ class TaskInput(backboneelement.BackboneElement):
         None, alias="_valueCode", title="Extension field for ``valueCode``."
     )
 
-    valueCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    valueCodeableConcept: CodeableConcept = Field(
         None,
         alias="valueCodeableConcept",
         title="Content to use in performing the task",
@@ -702,7 +733,7 @@ class TaskInput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueCoding: fhirtypes.CodingType = Field(
+    valueCoding: Coding = Field(
         None,
         alias="valueCoding",
         title="Content to use in performing the task",
@@ -714,7 +745,7 @@ class TaskInput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueContactDetail: fhirtypes.ContactDetailType = Field(
+    valueContactDetail: ContactDetail = Field(
         None,
         alias="valueContactDetail",
         title="Content to use in performing the task",
@@ -726,7 +757,7 @@ class TaskInput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueContactPoint: fhirtypes.ContactPointType = Field(
+    valueContactPoint: ContactPoint = Field(
         None,
         alias="valueContactPoint",
         title="Content to use in performing the task",
@@ -738,7 +769,7 @@ class TaskInput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueContributor: fhirtypes.ContributorType = Field(
+    valueContributor: Contributor = Field(
         None,
         alias="valueContributor",
         title="Content to use in performing the task",
@@ -750,7 +781,7 @@ class TaskInput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueCount: fhirtypes.CountType = Field(
+    valueCount: Count = Field(
         None,
         alias="valueCount",
         title="Content to use in performing the task",
@@ -762,7 +793,7 @@ class TaskInput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueDataRequirement: fhirtypes.DataRequirementType = Field(
+    valueDataRequirement: DataRequirement = Field(
         None,
         alias="valueDataRequirement",
         title="Content to use in performing the task",
@@ -819,7 +850,7 @@ class TaskInput(backboneelement.BackboneElement):
         None, alias="_valueDecimal", title="Extension field for ``valueDecimal``."
     )
 
-    valueDistance: fhirtypes.DistanceType = Field(
+    valueDistance: Distance = Field(
         None,
         alias="valueDistance",
         title="Content to use in performing the task",
@@ -831,7 +862,7 @@ class TaskInput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueDosage: fhirtypes.DosageType = Field(
+    valueDosage: Dosage = Field(
         None,
         alias="valueDosage",
         title="Content to use in performing the task",
@@ -843,7 +874,7 @@ class TaskInput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueDuration: fhirtypes.DurationType = Field(
+    valueDuration: Duration = Field(
         None,
         alias="valueDuration",
         title="Content to use in performing the task",
@@ -855,7 +886,7 @@ class TaskInput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueExpression: fhirtypes.ExpressionType = Field(
+    valueExpression: Expression = Field(
         None,
         alias="valueExpression",
         title="Content to use in performing the task",
@@ -867,7 +898,7 @@ class TaskInput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueHumanName: fhirtypes.HumanNameType = Field(
+    valueHumanName: HumanName = Field(
         None,
         alias="valueHumanName",
         title="Content to use in performing the task",
@@ -894,7 +925,7 @@ class TaskInput(backboneelement.BackboneElement):
         None, alias="_valueId", title="Extension field for ``valueId``."
     )
 
-    valueIdentifier: fhirtypes.IdentifierType = Field(
+    valueIdentifier: Identifier = Field(
         None,
         alias="valueIdentifier",
         title="Content to use in performing the task",
@@ -951,7 +982,7 @@ class TaskInput(backboneelement.BackboneElement):
         None, alias="_valueMarkdown", title="Extension field for ``valueMarkdown``."
     )
 
-    valueMeta: fhirtypes.MetaType = Field(
+    valueMeta: Meta = Field(
         None,
         alias="valueMeta",
         title="Content to use in performing the task",
@@ -963,7 +994,7 @@ class TaskInput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueMoney: fhirtypes.MoneyType = Field(
+    valueMoney: Money = Field(
         None,
         alias="valueMoney",
         title="Content to use in performing the task",
@@ -990,7 +1021,7 @@ class TaskInput(backboneelement.BackboneElement):
         None, alias="_valueOid", title="Extension field for ``valueOid``."
     )
 
-    valueParameterDefinition: fhirtypes.ParameterDefinitionType = Field(
+    valueParameterDefinition: ParameterDefinition = Field(
         None,
         alias="valueParameterDefinition",
         title="Content to use in performing the task",
@@ -1002,7 +1033,7 @@ class TaskInput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valuePeriod: fhirtypes.PeriodType = Field(
+    valuePeriod: Period = Field(
         None,
         alias="valuePeriod",
         title="Content to use in performing the task",
@@ -1031,7 +1062,7 @@ class TaskInput(backboneelement.BackboneElement):
         title="Extension field for ``valuePositiveInt``.",
     )
 
-    valueQuantity: fhirtypes.QuantityType = Field(
+    valueQuantity: Quantity = Field(
         None,
         alias="valueQuantity",
         title="Content to use in performing the task",
@@ -1043,7 +1074,7 @@ class TaskInput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueRange: fhirtypes.RangeType = Field(
+    valueRange: Range = Field(
         None,
         alias="valueRange",
         title="Content to use in performing the task",
@@ -1055,7 +1086,7 @@ class TaskInput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueRatio: fhirtypes.RatioType = Field(
+    valueRatio: Ratio = Field(
         None,
         alias="valueRatio",
         title="Content to use in performing the task",
@@ -1067,7 +1098,7 @@ class TaskInput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueReference: fhirtypes.ReferenceType = Field(
+    valueReference: Reference = Field(
         None,
         alias="valueReference",
         title="Content to use in performing the task",
@@ -1079,7 +1110,7 @@ class TaskInput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueRelatedArtifact: fhirtypes.RelatedArtifactType = Field(
+    valueRelatedArtifact: RelatedArtifact = Field(
         None,
         alias="valueRelatedArtifact",
         title="Content to use in performing the task",
@@ -1091,7 +1122,7 @@ class TaskInput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueSampledData: fhirtypes.SampledDataType = Field(
+    valueSampledData: SampledData = Field(
         None,
         alias="valueSampledData",
         title="Content to use in performing the task",
@@ -1103,7 +1134,7 @@ class TaskInput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueSignature: fhirtypes.SignatureType = Field(
+    valueSignature: Signature = Field(
         None,
         alias="valueSignature",
         title="Content to use in performing the task",
@@ -1145,7 +1176,7 @@ class TaskInput(backboneelement.BackboneElement):
         None, alias="_valueTime", title="Extension field for ``valueTime``."
     )
 
-    valueTiming: fhirtypes.TimingType = Field(
+    valueTiming: Timing = Field(
         None,
         alias="valueTiming",
         title="Content to use in performing the task",
@@ -1157,7 +1188,7 @@ class TaskInput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueTriggerDefinition: fhirtypes.TriggerDefinitionType = Field(
+    valueTriggerDefinition: TriggerDefinition = Field(
         None,
         alias="valueTriggerDefinition",
         title="Content to use in performing the task",
@@ -1216,7 +1247,7 @@ class TaskInput(backboneelement.BackboneElement):
         None, alias="_valueUrl", title="Extension field for ``valueUrl``."
     )
 
-    valueUsageContext: fhirtypes.UsageContextType = Field(
+    valueUsageContext: UsageContext = Field(
         None,
         alias="valueUsageContext",
         title="Content to use in performing the task",
@@ -1407,9 +1438,9 @@ class TaskOutput(backboneelement.BackboneElement):
     Outputs produced by the Task.
     """
 
-    resource_type = Field("TaskOutput", const=True)
+    resource_type: str = Field("TaskOutput", const=True)
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title="Label for output",
@@ -1418,7 +1449,7 @@ class TaskOutput(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    valueAddress: fhirtypes.AddressType = Field(
+    valueAddress: Address = Field(
         None,
         alias="valueAddress",
         title="Result of output",
@@ -1430,7 +1461,7 @@ class TaskOutput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueAge: fhirtypes.AgeType = Field(
+    valueAge: Age = Field(
         None,
         alias="valueAge",
         title="Result of output",
@@ -1442,7 +1473,7 @@ class TaskOutput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueAnnotation: fhirtypes.AnnotationType = Field(
+    valueAnnotation: Annotation = Field(
         None,
         alias="valueAnnotation",
         title="Result of output",
@@ -1454,7 +1485,7 @@ class TaskOutput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueAttachment: fhirtypes.AttachmentType = Field(
+    valueAttachment: Attachment = Field(
         None,
         alias="valueAttachment",
         title="Result of output",
@@ -1528,7 +1559,7 @@ class TaskOutput(backboneelement.BackboneElement):
         None, alias="_valueCode", title="Extension field for ``valueCode``."
     )
 
-    valueCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    valueCodeableConcept: CodeableConcept = Field(
         None,
         alias="valueCodeableConcept",
         title="Result of output",
@@ -1540,7 +1571,7 @@ class TaskOutput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueCoding: fhirtypes.CodingType = Field(
+    valueCoding: Coding = Field(
         None,
         alias="valueCoding",
         title="Result of output",
@@ -1552,7 +1583,7 @@ class TaskOutput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueContactDetail: fhirtypes.ContactDetailType = Field(
+    valueContactDetail: ContactDetail = Field(
         None,
         alias="valueContactDetail",
         title="Result of output",
@@ -1564,7 +1595,7 @@ class TaskOutput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueContactPoint: fhirtypes.ContactPointType = Field(
+    valueContactPoint: ContactPoint = Field(
         None,
         alias="valueContactPoint",
         title="Result of output",
@@ -1576,7 +1607,7 @@ class TaskOutput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueContributor: fhirtypes.ContributorType = Field(
+    valueContributor: Contributor = Field(
         None,
         alias="valueContributor",
         title="Result of output",
@@ -1588,7 +1619,7 @@ class TaskOutput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueCount: fhirtypes.CountType = Field(
+    valueCount: Count = Field(
         None,
         alias="valueCount",
         title="Result of output",
@@ -1600,7 +1631,7 @@ class TaskOutput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueDataRequirement: fhirtypes.DataRequirementType = Field(
+    valueDataRequirement: DataRequirement = Field(
         None,
         alias="valueDataRequirement",
         title="Result of output",
@@ -1657,7 +1688,7 @@ class TaskOutput(backboneelement.BackboneElement):
         None, alias="_valueDecimal", title="Extension field for ``valueDecimal``."
     )
 
-    valueDistance: fhirtypes.DistanceType = Field(
+    valueDistance: Distance = Field(
         None,
         alias="valueDistance",
         title="Result of output",
@@ -1669,7 +1700,7 @@ class TaskOutput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueDosage: fhirtypes.DosageType = Field(
+    valueDosage: Dosage = Field(
         None,
         alias="valueDosage",
         title="Result of output",
@@ -1681,7 +1712,7 @@ class TaskOutput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueDuration: fhirtypes.DurationType = Field(
+    valueDuration: Duration = Field(
         None,
         alias="valueDuration",
         title="Result of output",
@@ -1693,7 +1724,7 @@ class TaskOutput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueExpression: fhirtypes.ExpressionType = Field(
+    valueExpression: Expression = Field(
         None,
         alias="valueExpression",
         title="Result of output",
@@ -1705,7 +1736,7 @@ class TaskOutput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueHumanName: fhirtypes.HumanNameType = Field(
+    valueHumanName: HumanName = Field(
         None,
         alias="valueHumanName",
         title="Result of output",
@@ -1732,7 +1763,7 @@ class TaskOutput(backboneelement.BackboneElement):
         None, alias="_valueId", title="Extension field for ``valueId``."
     )
 
-    valueIdentifier: fhirtypes.IdentifierType = Field(
+    valueIdentifier: Identifier = Field(
         None,
         alias="valueIdentifier",
         title="Result of output",
@@ -1789,7 +1820,7 @@ class TaskOutput(backboneelement.BackboneElement):
         None, alias="_valueMarkdown", title="Extension field for ``valueMarkdown``."
     )
 
-    valueMeta: fhirtypes.MetaType = Field(
+    valueMeta: Meta = Field(
         None,
         alias="valueMeta",
         title="Result of output",
@@ -1801,7 +1832,7 @@ class TaskOutput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueMoney: fhirtypes.MoneyType = Field(
+    valueMoney: Money = Field(
         None,
         alias="valueMoney",
         title="Result of output",
@@ -1828,7 +1859,7 @@ class TaskOutput(backboneelement.BackboneElement):
         None, alias="_valueOid", title="Extension field for ``valueOid``."
     )
 
-    valueParameterDefinition: fhirtypes.ParameterDefinitionType = Field(
+    valueParameterDefinition: ParameterDefinition = Field(
         None,
         alias="valueParameterDefinition",
         title="Result of output",
@@ -1840,7 +1871,7 @@ class TaskOutput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valuePeriod: fhirtypes.PeriodType = Field(
+    valuePeriod: Period = Field(
         None,
         alias="valuePeriod",
         title="Result of output",
@@ -1869,7 +1900,7 @@ class TaskOutput(backboneelement.BackboneElement):
         title="Extension field for ``valuePositiveInt``.",
     )
 
-    valueQuantity: fhirtypes.QuantityType = Field(
+    valueQuantity: Quantity = Field(
         None,
         alias="valueQuantity",
         title="Result of output",
@@ -1881,7 +1912,7 @@ class TaskOutput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueRange: fhirtypes.RangeType = Field(
+    valueRange: Range = Field(
         None,
         alias="valueRange",
         title="Result of output",
@@ -1893,7 +1924,7 @@ class TaskOutput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueRatio: fhirtypes.RatioType = Field(
+    valueRatio: Ratio = Field(
         None,
         alias="valueRatio",
         title="Result of output",
@@ -1905,7 +1936,7 @@ class TaskOutput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueReference: fhirtypes.ReferenceType = Field(
+    valueReference: Reference = Field(
         None,
         alias="valueReference",
         title="Result of output",
@@ -1917,7 +1948,7 @@ class TaskOutput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueRelatedArtifact: fhirtypes.RelatedArtifactType = Field(
+    valueRelatedArtifact: RelatedArtifact = Field(
         None,
         alias="valueRelatedArtifact",
         title="Result of output",
@@ -1929,7 +1960,7 @@ class TaskOutput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueSampledData: fhirtypes.SampledDataType = Field(
+    valueSampledData: SampledData = Field(
         None,
         alias="valueSampledData",
         title="Result of output",
@@ -1941,7 +1972,7 @@ class TaskOutput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueSignature: fhirtypes.SignatureType = Field(
+    valueSignature: Signature = Field(
         None,
         alias="valueSignature",
         title="Result of output",
@@ -1983,7 +2014,7 @@ class TaskOutput(backboneelement.BackboneElement):
         None, alias="_valueTime", title="Extension field for ``valueTime``."
     )
 
-    valueTiming: fhirtypes.TimingType = Field(
+    valueTiming: Timing = Field(
         None,
         alias="valueTiming",
         title="Result of output",
@@ -1995,7 +2026,7 @@ class TaskOutput(backboneelement.BackboneElement):
         one_of_many_required=True,
     )
 
-    valueTriggerDefinition: fhirtypes.TriggerDefinitionType = Field(
+    valueTriggerDefinition: TriggerDefinition = Field(
         None,
         alias="valueTriggerDefinition",
         title="Result of output",
@@ -2054,7 +2085,7 @@ class TaskOutput(backboneelement.BackboneElement):
         None, alias="_valueUrl", title="Extension field for ``valueUrl``."
     )
 
-    valueUsageContext: fhirtypes.UsageContextType = Field(
+    valueUsageContext: UsageContext = Field(
         None,
         alias="valueUsageContext",
         title="Result of output",
@@ -2247,9 +2278,9 @@ class TaskRestriction(backboneelement.BackboneElement):
     any limitations on what parts of the referenced request should be actioned.
     """
 
-    resource_type = Field("TaskRestriction", const=True)
+    resource_type: str = Field("TaskRestriction", const=True)
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="When fulfillment sought",
@@ -2258,7 +2289,7 @@ class TaskRestriction(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    recipient: typing.List[fhirtypes.ReferenceType] = Field(
+    recipient: typing.List[Reference] = Field(
         None,
         alias="recipient",
         title="For whom is fulfillment sought?",
@@ -2305,3 +2336,6 @@ class TaskRestriction(backboneelement.BackboneElement):
             "period",
             "recipient",
         ]
+
+
+Task.update_forward_refs()

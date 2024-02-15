@@ -10,7 +10,12 @@ from typing import List as ListType
 from pydantic.v1 import Field
 
 from . import fhirtypes
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .contactpoint import ContactPoint
 from .domainresource import DomainResource
+from .identifier import Identifier
+from .reference import Reference
 
 
 class Device(DomainResource):
@@ -26,7 +31,7 @@ class Device(DomainResource):
     items such as a machine, cellphone, computer, application, etc.
     """
 
-    resource_type = Field("Device", const=True)
+    resource_type: str = Field("Device", const=True)
 
     manufacturer: fhirtypes.String = Field(
         None,
@@ -86,47 +91,47 @@ class Device(DomainResource):
         title="Type `DateTime`.",
         description="Date and time of expiry of this device (if applicable).",
     )
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         None,
         alias="type",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="What kind of device this is.",
     )
-    owner: fhirtypes.ReferenceType = Field(
+    owner: Reference = Field(
         None,
         alias="owner",
         title="Type `Reference` referencing `Organization` (represented as `dict` in JSON).",
         description="Organization responsible for device.",
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         None,
         alias="patient",
         title="Type `Reference` referencing `Patient` (represented as `dict` in JSON).",
         description="If the resource is affixed to a person.",
     )
 
-    location: fhirtypes.ReferenceType = Field(
+    location: Reference = Field(
         None,
         alias="location",
         title="Type `Reference` referencing `Location` (represented as `dict` in JSON).",
         description="Where the resource is found.",
     )
 
-    contact: ListType[fhirtypes.ContactPointType] = Field(
+    contact: ListType[ContactPoint] = Field(
         None,
         alias="contact",
         title="List of `ContactPoint` items (represented as `dict` in JSON).",
         description="Details for human/organization for support.",
     )
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="List of `Identifier` items (represented as `dict` in JSON).",
         description="Instance id from manufacturer, owner, and others.",
     )
 
-    note: ListType[fhirtypes.AnnotationType] = Field(
+    note: ListType[Annotation] = Field(
         None,
         alias="note",
         title="List of `Annotation` items (represented as `dict` in JSON).",

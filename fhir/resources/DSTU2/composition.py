@@ -11,7 +11,12 @@ from pydantic.v1 import Field
 
 from . import fhirtypes
 from .backboneelement import BackboneElement
+from .codeableconcept import CodeableConcept
 from .domainresource import DomainResource
+from .identifier import Identifier
+from .narrative import Narrative
+from .period import Period
+from .reference import Reference
 
 
 class Composition(DomainResource):
@@ -27,16 +32,16 @@ class Composition(DomainResource):
     the first resource contained.
     """
 
-    resource_type = Field("Composition", const=True)
+    resource_type: str = Field("Composition", const=True)
 
-    attester: ListType[fhirtypes.CompositionAttesterType] = Field(
+    attester: ListType["CompositionAttester"] = Field(
         None,
         alias="attester",
         title="List of `CompositionAttester` items (represented as `dict` in JSON)",
         description="Attests to accuracy of composition",
     )
 
-    author: ListType[fhirtypes.ReferenceType] = Field(
+    author: ListType[Reference] = Field(
         ...,
         alias="author",
         title=(
@@ -46,7 +51,7 @@ class Composition(DomainResource):
         description="Who and/or what authored the composition",
     )
 
-    class_fhir: fhirtypes.CodeableConceptType = Field(
+    class_fhir: CodeableConcept = Field(
         None,
         alias="class",
         title="Type `CodeableConcept` (represented as `dict` in JSON)",
@@ -60,7 +65,7 @@ class Composition(DomainResource):
         description="As defined by affinity domain",
     )
 
-    custodian: fhirtypes.ReferenceType = Field(
+    custodian: Reference = Field(
         None,
         alias="custodian",
         title=(
@@ -77,7 +82,7 @@ class Composition(DomainResource):
         description="Composition editing time",
     )
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title=(
@@ -87,21 +92,21 @@ class Composition(DomainResource):
         description="Context of the Composition",
     )
 
-    event: ListType[fhirtypes.CompositionEventType] = Field(
+    event: ListType["CompositionEvent"] = Field(
         None,
         alias="event",
         title="List of `CompositionEvent` items (represented as `dict` in JSON)",
         description="The clinical service(s) being documented",
     )
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="Type `Identifier` (represented as `dict` in JSON)",
         description="Logical identifier of composition (version-independent)",
     )
 
-    section: ListType[fhirtypes.CompositionSectionType] = Field(
+    section: ListType["CompositionSection"] = Field(
         None,
         alias="section",
         title="List of `CompositionSection` items (represented as `dict` in JSON)",
@@ -115,7 +120,7 @@ class Composition(DomainResource):
         description="preliminary | final | amended | entered-in-error",
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         ...,
         alias="subject",
         title=(
@@ -131,7 +136,7 @@ class Composition(DomainResource):
         description="Human Readable name/title",
     )
 
-    type: fhirtypes.CodeableConceptType = Field(
+    type: CodeableConcept = Field(
         ...,
         alias="type",
         title="Type `CodeableConcept` (represented as `dict` in JSON)",
@@ -145,7 +150,7 @@ class CompositionAttester(BackboneElement):
     A participant who has attested to the accuracy of the composition/document.
     """
 
-    resource_type = Field("CompositionAttester", const=True)
+    resource_type: str = Field("CompositionAttester", const=True)
 
     mode: ListType[fhirtypes.Code] = Field(
         ...,
@@ -154,7 +159,7 @@ class CompositionAttester(BackboneElement):
         description="personal | professional | legal | official",
     )
 
-    party: fhirtypes.ReferenceType = Field(
+    party: Reference = Field(
         None,
         alias="party",
         title=(
@@ -179,16 +184,16 @@ class CompositionEvent(BackboneElement):
     documented.
     """
 
-    resource_type = Field("CompositionEvent", const=True)
+    resource_type: str = Field("CompositionEvent", const=True)
 
-    code: ListType[fhirtypes.CodeableConceptType] = Field(
+    code: ListType[CodeableConcept] = Field(
         None,
         alias="code",
         title="List of `CodeableConcept` items (represented as `dict` in JSON)",
         description="Code(s) that apply to the event being documented",
     )
 
-    detail: ListType[fhirtypes.ReferenceType] = Field(
+    detail: ListType[Reference] = Field(
         None,
         alias="detail",
         title=(
@@ -198,7 +203,7 @@ class CompositionEvent(BackboneElement):
         description="The event(s) being documented",
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Type `Period` (represented as `dict` in JSON)",
@@ -212,23 +217,23 @@ class CompositionSection(BackboneElement):
     The root of the sections that make up the composition.
     """
 
-    resource_type = Field("CompositionSection", const=True)
+    resource_type: str = Field("CompositionSection", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         None,
         alias="code",
         title="Type `CodeableConcept` (represented as `dict` in JSON)",
         description="Classification of section (recommended)",
     )
 
-    emptyReason: fhirtypes.CodeableConceptType = Field(
+    emptyReason: CodeableConcept = Field(
         None,
         alias="emptyReason",
         title="Type `CodeableConcept` (represented as `dict` in JSON)",
         description="Why the section is empty",
     )
 
-    entry: ListType[fhirtypes.ReferenceType] = Field(
+    entry: ListType[Reference] = Field(
         None,
         alias="entry",
         title=(
@@ -245,21 +250,21 @@ class CompositionSection(BackboneElement):
         description="working | snapshot | changes",
     )
 
-    orderedBy: fhirtypes.CodeableConceptType = Field(
+    orderedBy: CodeableConcept = Field(
         None,
         alias="orderedBy",
         title="Type `CodeableConcept` (represented as `dict` in JSON)",
         description="Order of section entries",
     )
 
-    section: ListType[fhirtypes.CompositionSectionType] = Field(
+    section: ListType["CompositionSection"] = Field(
         None,
         alias="section",
         title="List of `CompositionSection` items (represented as `dict` in JSON)",
         description="Nested Section",
     )
 
-    text: fhirtypes.NarrativeType = Field(
+    text: Narrative = Field(
         None,
         alias="text",
         title="Type `Narrative` (represented as `dict` in JSON)",
@@ -272,3 +277,7 @@ class CompositionSection(BackboneElement):
         title="Type `String` (represented as `dict` in JSON)",
         description="Label for section (e.g. for ToC)",
     )
+
+
+Composition.update_forward_refs()
+CompositionSection.update_forward_refs()

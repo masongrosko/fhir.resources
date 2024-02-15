@@ -10,6 +10,9 @@ from typing import List as ListType
 from pydantic.v1 import Field
 
 from . import domainresource, fhirtypes
+from .coding import Coding
+from .identifier import Identifier
+from .reference import Reference
 
 
 class PaymentNotice(domainresource.DomainResource):
@@ -21,9 +24,9 @@ class PaymentNotice(domainresource.DomainResource):
     rendered, and the request and response resource references.
     """
 
-    resource_type = Field("PaymentNotice", const=True)
+    resource_type: str = Field("PaymentNotice", const=True)
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="Business identifier",
@@ -31,7 +34,7 @@ class PaymentNotice(domainresource.DomainResource):
         element_property=True,
     )
 
-    ruleset: fhirtypes.CodingType = Field(
+    ruleset: Coding = Field(
         None,
         alias="ruleset",
         title="Type `Coding` (represented as `dict` in JSON).",
@@ -39,7 +42,7 @@ class PaymentNotice(domainresource.DomainResource):
         element_property=True,
     )
 
-    originalRuleset: fhirtypes.CodingType = Field(
+    originalRuleset: Coding = Field(
         None,
         alias="originalRuleset",
         title="Type `Coding` (represented as `dict` in JSON).",
@@ -55,7 +58,7 @@ class PaymentNotice(domainresource.DomainResource):
         element_property=True,
     )
 
-    target: fhirtypes.ReferenceType = Field(
+    target: Reference = Field(
         None,
         alias="target",
         title="Type 'Reference' referencing 'Organization'  (represented as 'dict' in JSON).",
@@ -65,7 +68,7 @@ class PaymentNotice(domainresource.DomainResource):
         element_property=True,
     )
 
-    provider: fhirtypes.ReferenceType = Field(
+    provider: Reference = Field(
         None,
         alias="provider",
         title="Type 'Reference' referencing 'Practitioner'  (represented as 'dict' in JSON).",
@@ -75,7 +78,7 @@ class PaymentNotice(domainresource.DomainResource):
         element_property=True,
     )
 
-    organization: fhirtypes.ReferenceType = Field(
+    organization: Reference = Field(
         None,
         alias="organization",
         title="Type 'Reference' referencing 'Organization'  (represented as 'dict' in JSON).",
@@ -85,7 +88,7 @@ class PaymentNotice(domainresource.DomainResource):
         element_property=True,
     )
 
-    request: fhirtypes.ReferenceType = Field(
+    request: Reference = Field(
         None,
         alias="request",
         title="Type 'Reference' referencing 'Any'  (represented as 'dict' in JSON).",
@@ -95,7 +98,7 @@ class PaymentNotice(domainresource.DomainResource):
         element_property=True,
     )
 
-    response: fhirtypes.ReferenceType = Field(
+    response: Reference = Field(
         None,
         alias="response",
         title="Type 'Reference' referencing 'Any'  (represented as 'dict' in JSON).",
@@ -105,7 +108,7 @@ class PaymentNotice(domainresource.DomainResource):
         element_property=True,
     )
 
-    paymentStatus: fhirtypes.CodingType = Field(
+    paymentStatus: Coding = Field(
         None,
         alias="paymentStatus",
         title="Type `Coding` (represented as `dict` in JSON).",

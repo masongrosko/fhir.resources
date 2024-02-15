@@ -11,8 +11,15 @@ from typing import List as ListType
 from pydantic.v1 import Field, root_validator
 
 from . import fhirtypes
+from .address import Address
+from .attachment import Attachment
 from .backboneelement import BackboneElement
+from .codeableconcept import CodeableConcept
+from .contactpoint import ContactPoint
 from .domainresource import DomainResource
+from .humanname import HumanName
+from .identifier import Identifier
+from .reference import Reference
 
 
 class Patient(DomainResource):
@@ -22,7 +29,7 @@ class Patient(DomainResource):
     animal receiving care or other health-related services.
     """
 
-    resource_type = Field("Patient", const=True)
+    resource_type: str = Field("Patient", const=True)
 
     active: fhirtypes.Boolean = Field(
         None,
@@ -30,13 +37,13 @@ class Patient(DomainResource):
         title="Type `bool`.",
         description="Whether this patient's record is in active use.",
     )
-    address: ListType[fhirtypes.AddressType] = Field(
+    address: ListType[Address] = Field(
         None,
         alias="address",
         title="List of `Address` items (represented as `dict` in JSON).",
         description="Addresses for the individual.",
     )
-    animal: fhirtypes.PatientAnimalType = Field(
+    animal: "PatientAnimal" = Field(
         None,
         alias="animal",
         title="Type `PatientAnimal` (represented as `dict` in JSON).",
@@ -50,7 +57,7 @@ class Patient(DomainResource):
         description="The date of birth for the individual.",
     )
 
-    careProvider: ListType[fhirtypes.ReferenceType] = Field(
+    careProvider: ListType[Reference] = Field(
         None,
         alias="careProvider",
         title=(
@@ -59,7 +66,7 @@ class Patient(DomainResource):
         ),
         description="Patient's nominated primary care provider.",
     )
-    communication: ListType[fhirtypes.PatientCommunicationType] = Field(
+    communication: ListType["PatientCommunication"] = Field(
         None,
         alias="communication",
         title=("List of `PatientCommunication` items (represented as `dict` in JSON)."),
@@ -69,7 +76,7 @@ class Patient(DomainResource):
         ),
     )
 
-    contact: ListType[fhirtypes.PatientContactType] = Field(
+    contact: ListType["PatientContact"] = Field(
         None,
         alias="contact",
         title=("List of `PatientContact` items (represented as `dict` in JSON)."),
@@ -102,27 +109,27 @@ class Patient(DomainResource):
         description="male | female | other | unknown.",
     )
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="List of `Identifier` items (represented as `dict` in JSON).",
         description="An identifier for this patient.",
     )
-    link: ListType[fhirtypes.PatientLinkType] = Field(
+    link: ListType["PatientLink"] = Field(
         None,
         alias="link",
         title="List of `PatientLink` items (represented as `dict` in JSON).",
         description="Link to another patient resource that concerns the same actual person.",
     )
 
-    managingOrganization: fhirtypes.ReferenceType = Field(
+    managingOrganization: Reference = Field(
         None,
         alias="managingOrganization",
         title="Type `Reference` referencing `Organization` (represented as `dict` in JSON).",
         description="Organization that is the custodian of the patient record.",
     )
 
-    maritalStatus: fhirtypes.CodeableConceptType = Field(
+    maritalStatus: CodeableConcept = Field(
         None,
         alias="maritalStatus",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -147,20 +154,20 @@ class Patient(DomainResource):
         one_of_many_required=False,
     )
 
-    name: ListType[fhirtypes.HumanNameType] = Field(
+    name: ListType[HumanName] = Field(
         None,
         alias="name",
         title="List of `HumanName` items (represented as `dict` in JSON).",
         description="A name associated with the patient.",
     )
 
-    photo: ListType[fhirtypes.AttachmentType] = Field(
+    photo: ListType[Attachment] = Field(
         None,
         alias="photo",
         title="List of `Attachment` items (represented as `dict` in JSON).",
         description="Image of the patient.",
     )
-    telecom: ListType[fhirtypes.ContactPointType] = Field(
+    telecom: ListType[ContactPoint] = Field(
         None,
         alias="telecom",
         title="List of `ContactPoint` items (represented as `dict` in JSON).",
@@ -213,23 +220,23 @@ class PatientAnimal(BackboneElement):
     This patient is known to be an animal.
     """
 
-    resource_type = Field("PatientAnimal", const=True)
+    resource_type: str = Field("PatientAnimal", const=True)
 
-    breed: fhirtypes.CodeableConceptType = Field(
+    breed: CodeableConcept = Field(
         None,
         alias="breed",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="E.g. Poodle, Angus.",
     )
 
-    genderStatus: fhirtypes.CodeableConceptType = Field(
+    genderStatus: CodeableConcept = Field(
         None,
         alias="genderStatus",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
         description="E.g. Neutered, Intact.",
     )
 
-    species: fhirtypes.CodeableConceptType = Field(
+    species: CodeableConcept = Field(
         None,
         alias="species",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -245,9 +252,9 @@ class PatientCommunication(BackboneElement):
     her health.
     """
 
-    resource_type = Field("PatientCommunication", const=True)
+    resource_type: str = Field("PatientCommunication", const=True)
 
-    language: fhirtypes.CodeableConceptType = Field(
+    language: CodeableConcept = Field(
         None,
         alias="language",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -268,9 +275,9 @@ class PatientCommunication(BackboneElement):
 class PatientContact(BackboneElement):
     """A contact party (e.g. guardian, partner, friend) for the patient."""
 
-    resource_type = Field("PatientContact", const=True)
+    resource_type: str = Field("PatientContact", const=True)
 
-    address: fhirtypes.AddressType = Field(
+    address: Address = Field(
         None,
         alias="address",
         title="Type `Address` (represented as `dict` in JSON).",
@@ -284,20 +291,20 @@ class PatientContact(BackboneElement):
         description="male | female | other | unknown.",
     )
 
-    name: fhirtypes.HumanNameType = Field(
+    name: HumanName = Field(
         None,
         alias="name",
         title="Type `HumanName` (represented as `dict` in JSON).",
         description="A name associated with the contact person.",
     )
-    organization: fhirtypes.ReferenceType = Field(
+    organization: Reference = Field(
         None,
         alias="organization",
         title="Type `Reference` referencing `Organization` (represented as `dict` in JSON).",
         description="Organization that is associated with the contact.",
     )
 
-    period: fhirtypes.ReferenceType = Field(
+    period: Reference = Field(
         None,
         alias="period",
         title="Type `Period` (represented as `dict` in JSON).",
@@ -307,14 +314,14 @@ class PatientContact(BackboneElement):
         ),
     )
 
-    relationship: ListType[fhirtypes.CodeableConceptType] = Field(
+    relationship: ListType[CodeableConcept] = Field(
         None,
         alias="relationship",
         title="List of `CodeableConcept` items (represented as `dict` in JSON).",
         description="The kind of relationship.",
     )
 
-    telecom: ListType[fhirtypes.ContactPointType] = Field(
+    telecom: ListType[ContactPoint] = Field(
         None,
         alias="telecom",
         title="List of `ContactPoint` items (represented as `dict` in JSON).",
@@ -328,9 +335,9 @@ class PatientLink(BackboneElement):
     Link to another patient resource that concerns the same actual patient.
     """
 
-    resource_type = Field("PatientLink", const=True)
+    resource_type: str = Field("PatientLink", const=True)
 
-    other: fhirtypes.ReferenceType = Field(
+    other: Reference = Field(
         ...,
         alias="other",
         title="Type `Reference` referencing `Patient` (represented as `dict` in JSON).",
@@ -343,3 +350,6 @@ class PatientLink(BackboneElement):
         title="Type `Code`.",
         description="replace | refer | seealso - type of link.",
     )
+
+
+Patient.update_forward_refs()

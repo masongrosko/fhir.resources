@@ -13,6 +13,13 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .age import Age
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .period import Period
+from .range import Range
+from .reference import Reference
 
 
 class FamilyMemberHistory(domainresource.DomainResource):
@@ -25,9 +32,9 @@ class FamilyMemberHistory(domainresource.DomainResource):
     patient relevant in the context of care for the patient.
     """
 
-    resource_type = Field("FamilyMemberHistory", const=True)
+    resource_type: str = Field("FamilyMemberHistory", const=True)
 
-    ageAge: fhirtypes.AgeType = Field(
+    ageAge: Age = Field(
         None,
         alias="ageAge",
         title="(approximate) age",
@@ -42,7 +49,7 @@ class FamilyMemberHistory(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    ageRange: fhirtypes.RangeType = Field(
+    ageRange: Range = Field(
         None,
         alias="ageRange",
         title="(approximate) age",
@@ -90,7 +97,7 @@ class FamilyMemberHistory(domainresource.DomainResource):
         None, alias="_bornDate", title="Extension field for ``bornDate``."
     )
 
-    bornPeriod: fhirtypes.PeriodType = Field(
+    bornPeriod: Period = Field(
         None,
         alias="bornPeriod",
         title="(approximate) date of birth",
@@ -117,7 +124,7 @@ class FamilyMemberHistory(domainresource.DomainResource):
         None, alias="_bornString", title="Extension field for ``bornString``."
     )
 
-    condition: typing.List[fhirtypes.FamilyMemberHistoryConditionType] = Field(
+    condition: typing.List["FamilyMemberHistoryCondition"] = Field(
         None,
         alias="condition",
         title="Condition that the related person had",
@@ -143,7 +150,7 @@ class FamilyMemberHistory(domainresource.DomainResource):
         None, alias="_date", title="Extension field for ``date``."
     )
 
-    deceasedAge: fhirtypes.AgeType = Field(
+    deceasedAge: Age = Field(
         None,
         alias="deceasedAge",
         title="Dead? How old/when?",
@@ -194,7 +201,7 @@ class FamilyMemberHistory(domainresource.DomainResource):
         None, alias="_deceasedDate", title="Extension field for ``deceasedDate``."
     )
 
-    deceasedRange: fhirtypes.RangeType = Field(
+    deceasedRange: Range = Field(
         None,
         alias="deceasedRange",
         title="Dead? How old/when?",
@@ -227,7 +234,7 @@ class FamilyMemberHistory(domainresource.DomainResource):
         None, alias="_deceasedString", title="Extension field for ``deceasedString``."
     )
 
-    definition: typing.List[fhirtypes.ReferenceType] = Field(
+    definition: typing.List[Reference] = Field(
         None,
         alias="definition",
         title="Instantiates protocol or definition",
@@ -271,7 +278,7 @@ class FamilyMemberHistory(domainresource.DomainResource):
         None, alias="_gender", title="Extension field for ``gender``."
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="External Id(s) for this record",
@@ -318,7 +325,7 @@ class FamilyMemberHistory(domainresource.DomainResource):
         None, alias="_notDone", title="Extension field for ``notDone``."
     )
 
-    notDoneReason: fhirtypes.CodeableConceptType = Field(
+    notDoneReason: CodeableConcept = Field(
         None,
         alias="notDoneReason",
         title="subject-unknown | withheld | unable-to-obtain | deferred",
@@ -327,7 +334,7 @@ class FamilyMemberHistory(domainresource.DomainResource):
         element_property=True,
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="General note about related person",
@@ -340,7 +347,7 @@ class FamilyMemberHistory(domainresource.DomainResource):
         element_property=True,
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         ...,
         alias="patient",
         title="Patient history is about",
@@ -351,7 +358,7 @@ class FamilyMemberHistory(domainresource.DomainResource):
         enum_reference_types=["Patient"],
     )
 
-    reasonCode: typing.List[fhirtypes.CodeableConceptType] = Field(
+    reasonCode: typing.List[CodeableConcept] = Field(
         None,
         alias="reasonCode",
         title="Why was family member history performed?",
@@ -363,7 +370,7 @@ class FamilyMemberHistory(domainresource.DomainResource):
         element_property=True,
     )
 
-    reasonReference: typing.List[fhirtypes.ReferenceType] = Field(
+    reasonReference: typing.List[Reference] = Field(
         None,
         alias="reasonReference",
         title="Why was family member history performed?",
@@ -382,7 +389,7 @@ class FamilyMemberHistory(domainresource.DomainResource):
         ],
     )
 
-    relationship: fhirtypes.CodeableConceptType = Field(
+    relationship: CodeableConcept = Field(
         ...,
         alias="relationship",
         title="Relationship to the subject",
@@ -576,9 +583,9 @@ class FamilyMemberHistoryCondition(backboneelement.BackboneElement):
     - one per condition.
     """
 
-    resource_type = Field("FamilyMemberHistoryCondition", const=True)
+    resource_type: str = Field("FamilyMemberHistoryCondition", const=True)
 
-    code: fhirtypes.CodeableConceptType = Field(
+    code: CodeableConcept = Field(
         ...,
         alias="code",
         title="Condition suffered by relation",
@@ -592,7 +599,7 @@ class FamilyMemberHistoryCondition(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Extra information about condition",
@@ -604,7 +611,7 @@ class FamilyMemberHistoryCondition(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    onsetAge: fhirtypes.AgeType = Field(
+    onsetAge: Age = Field(
         None,
         alias="onsetAge",
         title="When condition first manifested",
@@ -620,7 +627,7 @@ class FamilyMemberHistoryCondition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    onsetPeriod: fhirtypes.PeriodType = Field(
+    onsetPeriod: Period = Field(
         None,
         alias="onsetPeriod",
         title="When condition first manifested",
@@ -636,7 +643,7 @@ class FamilyMemberHistoryCondition(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    onsetRange: fhirtypes.RangeType = Field(
+    onsetRange: Range = Field(
         None,
         alias="onsetRange",
         title="When condition first manifested",
@@ -671,7 +678,7 @@ class FamilyMemberHistoryCondition(backboneelement.BackboneElement):
         None, alias="_onsetString", title="Extension field for ``onsetString``."
     )
 
-    outcome: fhirtypes.CodeableConceptType = Field(
+    outcome: CodeableConcept = Field(
         None,
         alias="outcome",
         title="deceased | permanent disability | etc.",
@@ -742,3 +749,6 @@ class FamilyMemberHistoryCondition(backboneelement.BackboneElement):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+FamilyMemberHistory.update_forward_refs()

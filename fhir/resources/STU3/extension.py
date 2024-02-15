@@ -11,6 +11,28 @@ import typing
 from pydantic.v1 import Field, root_validator
 
 from . import element, fhirtypes
+from .address import Address
+from .age import Age
+from .annotation import Annotation
+from .attachment import Attachment
+from .codeableconcept import CodeableConcept
+from .coding import Coding
+from .contactpoint import ContactPoint
+from .count import Count
+from .distance import Distance
+from .duration import Duration
+from .humanname import HumanName
+from .identifier import Identifier
+from .meta import Meta
+from .money import Money
+from .period import Period
+from .quantity import Quantity
+from .range import Range
+from .ratio import Ratio
+from .reference import Reference
+from .sampleddata import SampledData
+from .signature import Signature
+from .timing import Timing
 
 
 class Extension(element.Element):
@@ -22,7 +44,7 @@ class Extension(element.Element):
     Optional Extension Element - found in all resources.
     """
 
-    resource_type = Field("Extension", const=True)
+    resource_type: str = Field("Extension", const=True)
 
     url: fhirtypes.Uri = Field(
         None,
@@ -37,7 +59,7 @@ class Extension(element.Element):
         element_required=True,
     )
 
-    valueAddress: fhirtypes.AddressType = Field(
+    valueAddress: Address = Field(
         None,
         alias="valueAddress",
         title="Value of extension",
@@ -52,7 +74,7 @@ class Extension(element.Element):
         one_of_many_required=False,
     )
 
-    valueAge: fhirtypes.AgeType = Field(
+    valueAge: Age = Field(
         None,
         alias="valueAge",
         title="Value of extension",
@@ -67,7 +89,7 @@ class Extension(element.Element):
         one_of_many_required=False,
     )
 
-    valueAnnotation: fhirtypes.AnnotationType = Field(
+    valueAnnotation: Annotation = Field(
         None,
         alias="valueAnnotation",
         title="Value of extension",
@@ -82,7 +104,7 @@ class Extension(element.Element):
         one_of_many_required=False,
     )
 
-    valueAttachment: fhirtypes.AttachmentType = Field(
+    valueAttachment: Attachment = Field(
         None,
         alias="valueAttachment",
         title="Value of extension",
@@ -142,7 +164,7 @@ class Extension(element.Element):
         one_of_many_required=False,
     )
 
-    valueCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    valueCodeableConcept: CodeableConcept = Field(
         None,
         alias="valueCodeableConcept",
         title="Value of extension",
@@ -157,7 +179,7 @@ class Extension(element.Element):
         one_of_many_required=False,
     )
 
-    valueCoding: fhirtypes.CodingType = Field(
+    valueCoding: Coding = Field(
         None,
         alias="valueCoding",
         title="Value of extension",
@@ -172,7 +194,7 @@ class Extension(element.Element):
         one_of_many_required=False,
     )
 
-    valueContactPoint: fhirtypes.ContactPointType = Field(
+    valueContactPoint: ContactPoint = Field(
         None,
         alias="valueContactPoint",
         title="Value of extension",
@@ -187,7 +209,7 @@ class Extension(element.Element):
         one_of_many_required=False,
     )
 
-    valueCount: fhirtypes.CountType = Field(
+    valueCount: Count = Field(
         None,
         alias="valueCount",
         title="Value of extension",
@@ -247,7 +269,7 @@ class Extension(element.Element):
         one_of_many_required=False,
     )
 
-    valueDistance: fhirtypes.DistanceType = Field(
+    valueDistance: Distance = Field(
         None,
         alias="valueDistance",
         title="Value of extension",
@@ -262,7 +284,7 @@ class Extension(element.Element):
         one_of_many_required=False,
     )
 
-    valueDuration: fhirtypes.DurationType = Field(
+    valueDuration: Duration = Field(
         None,
         alias="valueDuration",
         title="Value of extension",
@@ -277,7 +299,7 @@ class Extension(element.Element):
         one_of_many_required=False,
     )
 
-    valueHumanName: fhirtypes.HumanNameType = Field(
+    valueHumanName: HumanName = Field(
         None,
         alias="valueHumanName",
         title="Value of extension",
@@ -307,7 +329,7 @@ class Extension(element.Element):
         one_of_many_required=False,
     )
 
-    valueIdentifier: fhirtypes.IdentifierType = Field(
+    valueIdentifier: Identifier = Field(
         None,
         alias="valueIdentifier",
         title="Value of extension",
@@ -367,7 +389,7 @@ class Extension(element.Element):
         one_of_many_required=False,
     )
 
-    valueMeta: fhirtypes.MetaType = Field(
+    valueMeta: Meta = Field(
         None,
         alias="valueMeta",
         title="Value of extension",
@@ -382,7 +404,7 @@ class Extension(element.Element):
         one_of_many_required=False,
     )
 
-    valueMoney: fhirtypes.MoneyType = Field(
+    valueMoney: Money = Field(
         None,
         alias="valueMoney",
         title="Value of extension",
@@ -412,7 +434,7 @@ class Extension(element.Element):
         one_of_many_required=False,
     )
 
-    valuePeriod: fhirtypes.PeriodType = Field(
+    valuePeriod: Period = Field(
         None,
         alias="valuePeriod",
         title="Value of extension",
@@ -442,7 +464,7 @@ class Extension(element.Element):
         one_of_many_required=False,
     )
 
-    valueQuantity: fhirtypes.QuantityType = Field(
+    valueQuantity: Quantity = Field(
         None,
         alias="valueQuantity",
         title="Value of extension",
@@ -457,7 +479,7 @@ class Extension(element.Element):
         one_of_many_required=False,
     )
 
-    valueRange: fhirtypes.RangeType = Field(
+    valueRange: Range = Field(
         None,
         alias="valueRange",
         title="Value of extension",
@@ -472,7 +494,7 @@ class Extension(element.Element):
         one_of_many_required=False,
     )
 
-    valueRatio: fhirtypes.RatioType = Field(
+    valueRatio: Ratio = Field(
         None,
         alias="valueRatio",
         title="Value of extension",
@@ -487,7 +509,7 @@ class Extension(element.Element):
         one_of_many_required=False,
     )
 
-    valueReference: fhirtypes.ReferenceType = Field(
+    valueReference: Reference = Field(
         None,
         alias="valueReference",
         title="Value of extension",
@@ -502,7 +524,7 @@ class Extension(element.Element):
         one_of_many_required=False,
     )
 
-    valueSampledData: fhirtypes.SampledDataType = Field(
+    valueSampledData: SampledData = Field(
         None,
         alias="valueSampledData",
         title="Value of extension",
@@ -517,7 +539,7 @@ class Extension(element.Element):
         one_of_many_required=False,
     )
 
-    valueSignature: fhirtypes.SignatureType = Field(
+    valueSignature: Signature = Field(
         None,
         alias="valueSignature",
         title="Value of extension",
@@ -562,7 +584,7 @@ class Extension(element.Element):
         one_of_many_required=False,
     )
 
-    valueTiming: fhirtypes.TimingType = Field(
+    valueTiming: Timing = Field(
         None,
         alias="valueTiming",
         title="Value of extension",

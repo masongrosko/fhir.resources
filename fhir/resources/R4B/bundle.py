@@ -13,6 +13,9 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, fhirtypes, resource
+from .identifier import Identifier
+from .resource import Resource
+from .signature import Signature
 
 
 class Bundle(resource.Resource):
@@ -24,9 +27,9 @@ class Bundle(resource.Resource):
     A container for a collection of resources.
     """
 
-    resource_type = Field("Bundle", const=True)
+    resource_type: str = Field("Bundle", const=True)
 
-    entry: typing.List[fhirtypes.BundleEntryType] = Field(
+    entry: typing.List["BundleEntry"] = Field(
         None,
         alias="entry",
         title="Entry in the bundle - will have a resource or information",
@@ -38,7 +41,7 @@ class Bundle(resource.Resource):
         element_property=True,
     )
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="Persistent identifier for the bundle",
@@ -50,7 +53,7 @@ class Bundle(resource.Resource):
         element_property=True,
     )
 
-    link: typing.List[fhirtypes.BundleLinkType] = Field(
+    link: typing.List["BundleLink"] = Field(
         None,
         alias="link",
         title="Links related to this Bundle",
@@ -59,7 +62,7 @@ class Bundle(resource.Resource):
         element_property=True,
     )
 
-    signature: fhirtypes.SignatureType = Field(
+    signature: Signature = Field(
         None,
         alias="signature",
         title="Digital Signature",
@@ -219,7 +222,7 @@ class BundleEntry(backboneelement.BackboneElement):
     information about a resource (transactions and history only).
     """
 
-    resource_type = Field("BundleEntry", const=True)
+    resource_type: str = Field("BundleEntry", const=True)
 
     fullUrl: fhirtypes.Uri = Field(
         None,
@@ -242,7 +245,7 @@ class BundleEntry(backboneelement.BackboneElement):
         None, alias="_fullUrl", title="Extension field for ``fullUrl``."
     )
 
-    link: typing.List[fhirtypes.BundleLinkType] = Field(
+    link: typing.List["BundleLink"] = Field(
         None,
         alias="link",
         title="Links related to this entry",
@@ -251,7 +254,7 @@ class BundleEntry(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    request: fhirtypes.BundleEntryRequestType = Field(
+    request: "BundleEntryRequest" = Field(
         None,
         alias="request",
         title="Additional execution information (transaction/batch/history)",
@@ -264,7 +267,7 @@ class BundleEntry(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    resource: fhirtypes.ResourceType = Field(
+    resource: Resource = Field(
         None,
         alias="resource",
         title="A resource in the bundle",
@@ -276,7 +279,7 @@ class BundleEntry(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    response: fhirtypes.BundleEntryResponseType = Field(
+    response: "BundleEntryResponse" = Field(
         None,
         alias="response",
         title="Results of execution (transaction/batch/history)",
@@ -289,7 +292,7 @@ class BundleEntry(backboneelement.BackboneElement):
         element_property=True,
     )
 
-    search: fhirtypes.BundleEntrySearchType = Field(
+    search: "BundleEntrySearch" = Field(
         None,
         alias="search",
         title="Search related information",
@@ -331,7 +334,7 @@ class BundleEntryRequest(backboneelement.BackboneElement):
     to create the version contained in the entry.
     """
 
-    resource_type = Field("BundleEntryRequest", const=True)
+    resource_type: str = Field("BundleEntryRequest", const=True)
 
     ifMatch: fhirtypes.String = Field(
         None,
@@ -521,7 +524,7 @@ class BundleEntryResponse(backboneelement.BackboneElement):
     operation where when returning history.
     """
 
-    resource_type = Field("BundleEntryResponse", const=True)
+    resource_type: str = Field("BundleEntryResponse", const=True)
 
     etag: fhirtypes.String = Field(
         None,
@@ -567,7 +570,7 @@ class BundleEntryResponse(backboneelement.BackboneElement):
         None, alias="_location", title="Extension field for ``location``."
     )
 
-    outcome: fhirtypes.ResourceType = Field(
+    outcome: Resource = Field(
         None,
         alias="outcome",
         title="OperationOutcome with hints and warnings (for batch/transaction)",
@@ -683,7 +686,7 @@ class BundleEntrySearch(backboneelement.BackboneElement):
     entry.
     """
 
-    resource_type = Field("BundleEntrySearch", const=True)
+    resource_type: str = Field("BundleEntrySearch", const=True)
 
     mode: fhirtypes.Code = Field(
         None,
@@ -734,7 +737,7 @@ class BundleLink(backboneelement.BackboneElement):
     A series of links that provide context to this bundle.
     """
 
-    resource_type = Field("BundleLink", const=True)
+    resource_type: str = Field("BundleLink", const=True)
 
     relation: fhirtypes.String = Field(
         None,
@@ -837,3 +840,7 @@ class BundleLink(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+Bundle.update_forward_refs()
+BundleEntry.update_forward_refs()

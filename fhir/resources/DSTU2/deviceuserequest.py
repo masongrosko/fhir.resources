@@ -11,6 +11,11 @@ from typing import List as ListType
 from pydantic.v1 import Field, root_validator
 
 from . import domainresource, fhirtypes
+from .codeableconcept import CodeableConcept
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
+from .timing import Timing
 
 
 class DeviceUseRequest(domainresource.DomainResource):
@@ -21,9 +26,9 @@ class DeviceUseRequest(domainresource.DomainResource):
     walker.
     """
 
-    resource_type = Field("DeviceUseRequest", const=True)
+    resource_type: str = Field("DeviceUseRequest", const=True)
 
-    bodySiteCodeableConcept: fhirtypes.CodeableConceptType = Field(
+    bodySiteCodeableConcept: CodeableConcept = Field(
         None,
         alias="bodySiteCodeableConcept",
         title="Type `CodeableConcept` (represented as `dict` in JSON).",
@@ -33,7 +38,7 @@ class DeviceUseRequest(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    bodySiteReference: fhirtypes.ReferenceType = Field(
+    bodySiteReference: Reference = Field(
         None,
         alias="bodySiteReference",
         title="Type `FHIRReference` referencing `BodySite` (represented as `dict` in JSON).",
@@ -45,7 +50,7 @@ class DeviceUseRequest(domainresource.DomainResource):
         enum_reference_types=["BodySite"],
     )
 
-    encounter: fhirtypes.ReferenceType = Field(
+    encounter: Reference = Field(
         None,
         alias="encounter",
         title="Encounter motivating request",
@@ -57,7 +62,7 @@ class DeviceUseRequest(domainresource.DomainResource):
         enum_reference_types=["Encounter"],
     )
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="External Request identifier",
@@ -89,7 +94,7 @@ class DeviceUseRequest(domainresource.DomainResource):
         enum_values=["routine", "urgent", "asap", "stat"],
     )
 
-    prnReason: ListType[fhirtypes.CodeableConceptType] = Field(
+    prnReason: ListType[CodeableConcept] = Field(
         None,
         alias="reasonCode",
         title="List of `CodeableConcept` items (represented as `dict` in JSON).",
@@ -120,7 +125,7 @@ class DeviceUseRequest(domainresource.DomainResource):
         ],
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         ...,
         alias="subject",
         title="Focus of request",
@@ -129,7 +134,7 @@ class DeviceUseRequest(domainresource.DomainResource):
         enum_reference_types=["Patient"],
     )
 
-    device: fhirtypes.ReferenceType = Field(
+    device: Reference = Field(
         ...,
         alias="device",
         title=(
@@ -140,7 +145,7 @@ class DeviceUseRequest(domainresource.DomainResource):
         enum_reference_types=["Device"],
     )
 
-    indication: ListType[fhirtypes.CodeableConceptType] = Field(
+    indication: ListType[CodeableConcept] = Field(
         None,
         alias="indication",
         title="List of `CodeableConcept` items (represented as `dict` in JSON).",
@@ -161,7 +166,7 @@ class DeviceUseRequest(domainresource.DomainResource):
         description="When recorded.",
     )
 
-    timingTiming: fhirtypes.TimingType = Field(
+    timingTiming: Timing = Field(
         None,
         alias="timingTiming",
         title="Type `Timing` (represented as `dict` in JSON).",
@@ -171,7 +176,7 @@ class DeviceUseRequest(domainresource.DomainResource):
         one_of_many_required=False,
     )
 
-    timingPeriod: fhirtypes.PeriodType = Field(
+    timingPeriod: Period = Field(
         None,
         alias="timingPeriod",
         title="Type `Period` (represented as `dict` in JSON).",

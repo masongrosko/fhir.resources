@@ -13,6 +13,9 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import backboneelement, domainresource, fhirtypes
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class ProcessRequest(domainresource.DomainResource):
@@ -25,7 +28,7 @@ class ProcessRequest(domainresource.DomainResource):
     for an action to be performed by the target on or about existing resources.
     """
 
-    resource_type = Field("ProcessRequest", const=True)
+    resource_type: str = Field("ProcessRequest", const=True)
 
     action: fhirtypes.Code = Field(
         None,
@@ -69,7 +72,7 @@ class ProcessRequest(domainresource.DomainResource):
         typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
     ] = Field(None, alias="_exclude", title="Extension field for ``exclude``.")
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="Business Identifier",
@@ -90,7 +93,7 @@ class ProcessRequest(domainresource.DomainResource):
         typing.Union[fhirtypes.FHIRPrimitiveExtensionType, None]
     ] = Field(None, alias="_include", title="Extension field for ``include``.")
 
-    item: typing.List[fhirtypes.ProcessRequestItemType] = Field(
+    item: typing.List["ProcessRequestItem"] = Field(
         None,
         alias="item",
         title="Items to re-adjudicate",
@@ -114,7 +117,7 @@ class ProcessRequest(domainresource.DomainResource):
         None, alias="_nullify", title="Extension field for ``nullify``."
     )
 
-    organization: fhirtypes.ReferenceType = Field(
+    organization: Reference = Field(
         None,
         alias="organization",
         title="Responsible organization",
@@ -128,7 +131,7 @@ class ProcessRequest(domainresource.DomainResource):
         enum_reference_types=["Organization"],
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Selection period",
@@ -140,7 +143,7 @@ class ProcessRequest(domainresource.DomainResource):
         element_property=True,
     )
 
-    provider: fhirtypes.ReferenceType = Field(
+    provider: Reference = Field(
         None,
         alias="provider",
         title="Responsible practitioner",
@@ -166,7 +169,7 @@ class ProcessRequest(domainresource.DomainResource):
         None, alias="_reference", title="Extension field for ``reference``."
     )
 
-    request: fhirtypes.ReferenceType = Field(
+    request: Reference = Field(
         None,
         alias="request",
         title="Reference to the Request resource",
@@ -177,7 +180,7 @@ class ProcessRequest(domainresource.DomainResource):
         enum_reference_types=["Resource"],
     )
 
-    response: fhirtypes.ReferenceType = Field(
+    response: Reference = Field(
         None,
         alias="response",
         title="Reference to the Response resource",
@@ -206,7 +209,7 @@ class ProcessRequest(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    target: fhirtypes.ReferenceType = Field(
+    target: Reference = Field(
         None,
         alias="target",
         title="Party which is the target of the request",
@@ -260,7 +263,7 @@ class ProcessRequestItem(backboneelement.BackboneElement):
     entire submission is re-adjudicated.
     """
 
-    resource_type = Field("ProcessRequestItem", const=True)
+    resource_type: str = Field("ProcessRequestItem", const=True)
 
     sequenceLinkId: fhirtypes.Integer = Field(
         None,
@@ -341,3 +344,6 @@ class ProcessRequestItem(backboneelement.BackboneElement):
             raise ValidationError(errors, cls)  # type: ignore
 
         return values
+
+
+ProcessRequest.update_forward_refs()

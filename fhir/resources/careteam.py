@@ -11,6 +11,14 @@ import typing
 from pydantic.v1 import Field, root_validator
 
 from . import backboneelement, domainresource, fhirtypes
+from .annotation import Annotation
+from .codeableconcept import CodeableConcept
+from .codeablereference import CodeableReference
+from .contactpoint import ContactPoint
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
+from .timing import Timing
 
 
 class CareTeam(domainresource.DomainResource):
@@ -23,9 +31,9 @@ class CareTeam(domainresource.DomainResource):
     participate in the coordination and delivery of care.
     """
 
-    resource_type = Field("CareTeam", const=True)
+    resource_type: str = Field("CareTeam", const=True)
 
-    category: typing.List[fhirtypes.CodeableConceptType] = Field(
+    category: typing.List[CodeableConcept] = Field(
         None,
         alias="category",
         title="Type of team",
@@ -38,7 +46,7 @@ class CareTeam(domainresource.DomainResource):
         element_property=True,
     )
 
-    identifier: typing.List[fhirtypes.IdentifierType] = Field(
+    identifier: typing.List[Identifier] = Field(
         None,
         alias="identifier",
         title="External Ids for this team",
@@ -51,7 +59,7 @@ class CareTeam(domainresource.DomainResource):
         element_property=True,
     )
 
-    managingOrganization: typing.List[fhirtypes.ReferenceType] = Field(
+    managingOrganization: typing.List[Reference] = Field(
         None,
         alias="managingOrganization",
         title="Organization responsible for the care team",
@@ -77,7 +85,7 @@ class CareTeam(domainresource.DomainResource):
         None, alias="_name", title="Extension field for ``name``."
     )
 
-    note: typing.List[fhirtypes.AnnotationType] = Field(
+    note: typing.List[Annotation] = Field(
         None,
         alias="note",
         title="Comments made about the CareTeam",
@@ -86,7 +94,7 @@ class CareTeam(domainresource.DomainResource):
         element_property=True,
     )
 
-    participant: typing.List[fhirtypes.CareTeamParticipantType] = Field(
+    participant: typing.List["CareTeamParticipant"] = Field(
         None,
         alias="participant",
         title="Members of the team",
@@ -98,7 +106,7 @@ class CareTeam(domainresource.DomainResource):
         element_property=True,
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Time period team covers",
@@ -110,7 +118,7 @@ class CareTeam(domainresource.DomainResource):
         element_property=True,
     )
 
-    reason: typing.List[fhirtypes.CodeableReferenceType] = Field(
+    reason: typing.List[CodeableReference] = Field(
         None,
         alias="reason",
         title="Why the care team exists",
@@ -136,7 +144,7 @@ class CareTeam(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    subject: fhirtypes.ReferenceType = Field(
+    subject: Reference = Field(
         None,
         alias="subject",
         title="Who care team is for",
@@ -150,7 +158,7 @@ class CareTeam(domainresource.DomainResource):
         enum_reference_types=["Patient", "Group"],
     )
 
-    telecom: typing.List[fhirtypes.ContactPointType] = Field(
+    telecom: typing.List[ContactPoint] = Field(
         None,
         alias="telecom",
         title="A contact detail for the care team (that applies to all members)",
@@ -201,9 +209,9 @@ class CareTeamParticipant(backboneelement.BackboneElement):
     the care team.
     """
 
-    resource_type = Field("CareTeamParticipant", const=True)
+    resource_type: str = Field("CareTeamParticipant", const=True)
 
-    coveragePeriod: fhirtypes.PeriodType = Field(
+    coveragePeriod: Period = Field(
         None,
         alias="coveragePeriod",
         title="When the member is generally available within this care team",
@@ -215,7 +223,7 @@ class CareTeamParticipant(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    coverageTiming: fhirtypes.TimingType = Field(
+    coverageTiming: Timing = Field(
         None,
         alias="coverageTiming",
         title="When the member is generally available within this care team",
@@ -227,7 +235,7 @@ class CareTeamParticipant(backboneelement.BackboneElement):
         one_of_many_required=False,
     )
 
-    member: fhirtypes.ReferenceType = Field(
+    member: Reference = Field(
         None,
         alias="member",
         title="Who is involved",
@@ -248,7 +256,7 @@ class CareTeamParticipant(backboneelement.BackboneElement):
         ],
     )
 
-    onBehalfOf: fhirtypes.ReferenceType = Field(
+    onBehalfOf: Reference = Field(
         None,
         alias="onBehalfOf",
         title="Organization of the practitioner",
@@ -259,7 +267,7 @@ class CareTeamParticipant(backboneelement.BackboneElement):
         enum_reference_types=["Organization"],
     )
 
-    role: fhirtypes.CodeableConceptType = Field(
+    role: CodeableConcept = Field(
         None,
         alias="role",
         title="Type of involvement",
@@ -326,3 +334,6 @@ class CareTeamParticipant(backboneelement.BackboneElement):
                 raise ValueError(f"Expect any of field value from this list {fields}.")
 
         return values
+
+
+CareTeam.update_forward_refs()

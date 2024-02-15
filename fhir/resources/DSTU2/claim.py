@@ -11,7 +11,12 @@ from pydantic.v1 import Field
 
 from . import fhirtypes
 from .backboneelement import BackboneElement
+from .coding import Coding
 from .domainresource import DomainResource
+from .identifier import Identifier
+from .money import Money
+from .quantity import Quantity
+from .reference import Reference
 
 
 class Claim(DomainResource):
@@ -22,7 +27,7 @@ class Claim(DomainResource):
     recovery.
     """
 
-    resource_type = Field("Claim", const=True)
+    resource_type: str = Field("Claim", const=True)
 
     type: fhirtypes.Code = Field(
         None,
@@ -37,7 +42,7 @@ class Claim(DomainResource):
         title="Type `Date` (represented as `dict` in JSON)",
         description="Accident Date",
     )
-    accidentType: fhirtypes.CodingType = Field(
+    accidentType: Coding = Field(
         None,
         alias="accidentType",
         title="Type `Coding` (represented as `dict` in JSON)",
@@ -51,14 +56,14 @@ class Claim(DomainResource):
         description="Creation date",
     )
 
-    diagnosis: ListType[fhirtypes.ClaimDiagnosisType] = Field(
+    diagnosis: ListType["ClaimDiagnosis"] = Field(
         None,
         alias="diagnosis",
         title="List of `ClaimDiagnosis` items (represented as `dict` in JSON)",
         description="List of Diagnosis",
     )
 
-    enterer: fhirtypes.ReferenceType = Field(
+    enterer: Reference = Field(
         None,
         alias="enterer",
         title=(
@@ -68,7 +73,7 @@ class Claim(DomainResource):
         description="Author",
     )
 
-    facility: fhirtypes.ReferenceType = Field(
+    facility: Reference = Field(
         None,
         alias="facility",
         title=(
@@ -77,28 +82,28 @@ class Claim(DomainResource):
         description="Servicing Facility",
     )
 
-    fundsReserve: fhirtypes.CodingType = Field(
+    fundsReserve: Coding = Field(
         None,
         alias="fundsReserve",
         title="Type `Coding` (represented as `dict` in JSON)",
         description="Funds requested to be reserved",
     )
 
-    identifier: ListType[fhirtypes.IdentifierType] = Field(
+    identifier: ListType[Identifier] = Field(
         None,
         alias="identifier",
         title="List of `Identifier` items (represented as `dict` in JSON)",
         description="Claim number",
     )
 
-    item: ListType[fhirtypes.ClaimItemType] = Field(
+    item: ListType["ClaimItem"] = Field(
         None,
         alias="item",
         title="List of `ClaimItem` items (represented as `dict` in JSON)",
         description="Goods and Services",
     )
 
-    organization: fhirtypes.ReferenceType = Field(
+    organization: Reference = Field(
         None,
         alias="organization",
         title=(
@@ -108,7 +113,7 @@ class Claim(DomainResource):
         description="Responsible organization",
     )
 
-    originalPrescription: fhirtypes.ReferenceType = Field(
+    originalPrescription: Reference = Field(
         None,
         alias="originalPrescription",
         title=(
@@ -118,21 +123,21 @@ class Claim(DomainResource):
         description="Original prescription if superceded by fulfiller",
     )
 
-    patient: fhirtypes.ReferenceType = Field(
+    patient: Reference = Field(
         ...,
         alias="patient",
         title="Type `Reference` referencing `Patient` (represented as `dict` in JSON)",
         description="The subject of the Products and Services",
     )
 
-    payee: fhirtypes.ClaimPayeeType = Field(
+    payee: "ClaimPayee" = Field(
         None,
         alias="payee",
         title="Type `ClaimPayee` (represented as `dict` in JSON)",
         description="Party to be paid any benefits payable",
     )
 
-    prescription: fhirtypes.ReferenceType = Field(
+    prescription: Reference = Field(
         None,
         alias="prescription",
         title=(
@@ -142,14 +147,14 @@ class Claim(DomainResource):
         description="Prescription authorizing services or products",
     )
 
-    priority: fhirtypes.CodingType = Field(
+    priority: Coding = Field(
         None,
         alias="priority",
         title="Type `Coding` (represented as `dict` in JSON)",
         description="Desired processing priority",
     )
 
-    provider: fhirtypes.ReferenceType = Field(
+    provider: Reference = Field(
         None,
         alias="provider",
         title=(
@@ -159,7 +164,7 @@ class Claim(DomainResource):
         description="Responsible provider",
     )
 
-    referral: fhirtypes.ReferenceType = Field(
+    referral: Reference = Field(
         None,
         alias="referral",
         title=(
@@ -175,55 +180,55 @@ class Claim(DomainResource):
         title="Type `Code` (represented as `dict` in JSON)",
         description="complete | proposed | exploratory | other",
     )
-    additionalMaterials: ListType[fhirtypes.CodingType] = Field(
+    additionalMaterials: ListType[Coding] = Field(
         None,
         alias="additionalMaterials",
         title="List of `Coding` items (represented as `dict` in JSON).",
         description="Additional materials, documents, etc..",
     )
 
-    condition: ListType[fhirtypes.CodingType] = Field(
+    condition: ListType[Coding] = Field(
         None,
         alias="condition",
         title="List of `Coding` items (represented as `dict` in JSON).",
         description="List of presenting Conditions.",
     )
-    coverage: ListType[fhirtypes.ClaimCoverageType] = Field(
+    coverage: ListType["ClaimCoverage"] = Field(
         None,
         alias="coverage",
         title="List of `ClaimCoverage` items (represented as `dict` in JSON).",
         description="Insurance or medical plan.",
     )
 
-    exception: ListType[fhirtypes.CodingType] = Field(
+    exception: ListType[Coding] = Field(
         None,
         alias="exception",
         title="List of `Coding` items (represented as `dict` in JSON).",
         description="Eligibility exceptions.",
     )
 
-    interventionException: ListType[fhirtypes.CodingType] = Field(
+    interventionException: ListType[Coding] = Field(
         None,
         alias="interventionException",
         title="List of `Coding` items (represented as `dict` in JSON).",
         description="Intervention and exception code (Pharma).",
     )
 
-    missingTeeth: ListType[fhirtypes.ClaimMissingTeethType] = Field(
+    missingTeeth: ListType["ClaimMissingTeeth"] = Field(
         None,
         alias="missingTeeth",
         title="List of `ClaimMissingTeeth` items (represented as `dict` in JSON).",
         description="Only if type = oral.",
     )
 
-    originalRuleset: fhirtypes.CodingType = Field(
+    originalRuleset: Coding = Field(
         None,
         alias="originalRuleset",
         title="Type `Coding` (represented as `dict` in JSON).",
         description="Original specification followed.",
     )
 
-    ruleset: fhirtypes.CodingType = Field(
+    ruleset: Coding = Field(
         None,
         alias="ruleset",
         title="Type `Coding` (represented as `dict` in JSON).",
@@ -234,7 +239,7 @@ class Claim(DomainResource):
         None, alias="school", title="Type `str`.", description="Name of School."
     )
 
-    target: fhirtypes.ReferenceType = Field(
+    target: Reference = Field(
         None,
         alias="target",
         title="Type `Reference` referencing `Organization` (represented as `dict` in JSON).",
@@ -248,7 +253,7 @@ class ClaimCoverage(BackboneElement):
     Financial instrument by which payment information for health care.
     """
 
-    resource_type = Field("ClaimCoverage", const=True)
+    resource_type: str = Field("ClaimCoverage", const=True)
 
     businessArrangement: fhirtypes.String = Field(
         None,
@@ -257,14 +262,14 @@ class ClaimCoverage(BackboneElement):
         description="Business agreement.",
     )
 
-    claimResponse: fhirtypes.ReferenceType = Field(
+    claimResponse: Reference = Field(
         None,
         alias="claimResponse",
         title="Type `Reference` referencing `ClaimResponse` (represented as `dict` in JSON).",
         description="Adjudication results.",
     )
 
-    coverage: fhirtypes.ReferenceType = Field(
+    coverage: Reference = Field(
         None,
         alias="coverage",
         title="Type `Reference` referencing `Coverage` (represented as `dict` in JSON).",
@@ -275,7 +280,7 @@ class ClaimCoverage(BackboneElement):
         None, alias="focal", title="Type `bool`.", description="The focal Coverage."
     )
 
-    originalRuleset: fhirtypes.CodingType = Field(
+    originalRuleset: Coding = Field(
         None,
         alias="originalRuleset",
         title="Type `Coding` (represented as `dict` in JSON).",
@@ -289,7 +294,7 @@ class ClaimCoverage(BackboneElement):
         description="Pre-Authorization/Determination Reference.",
     )
 
-    relationship: fhirtypes.CodingType = Field(
+    relationship: Coding = Field(
         None,
         alias="relationship",
         title="Type `Coding` (represented as `dict` in JSON).",
@@ -310,9 +315,9 @@ class ClaimDiagnosis(BackboneElement):
     Ordered list of patient diagnosis for which care is sought.
     """
 
-    resource_type = Field("ClaimDiagnosis", const=True)
+    resource_type: str = Field("ClaimDiagnosis", const=True)
 
-    diagnosis: fhirtypes.CodingType = Field(
+    diagnosis: Coding = Field(
         ...,
         alias="diagnosis",
         title="Type `Coding` (represented as `dict` in JSON).",
@@ -331,14 +336,14 @@ class ClaimItem(BackboneElement):
 
     resource_type = "ClaimItem"
 
-    bodySite: fhirtypes.CodingType = Field(
+    bodySite: Coding = Field(
         None,
         alias="bodySite",
         title="Type `Coding` (represented as `dict` in JSON).",
         description="Service Location.",
     )
 
-    detail: ListType[fhirtypes.ClaimItemDetailType] = Field(
+    detail: ListType["ClaimItemDetail"] = Field(
         None,
         alias="detail",
         title="List of `ClaimItemDetail` items (represented as `dict` in JSON).",
@@ -356,14 +361,14 @@ class ClaimItem(BackboneElement):
         None, alias="factor", title="Type `float`.", description="Price scaling factor."
     )
 
-    modifier: ListType[fhirtypes.CodingType] = Field(
+    modifier: ListType[Coding] = Field(
         None,
         alias="modifier",
         title="List of `Coding` items (represented as `dict` in JSON).",
         description="Service/Product billing modifiers.",
     )
 
-    net: fhirtypes.MoneyType = Field(
+    net: Money = Field(
         None,
         alias="net",
         title="Type `Quantity` referencing `Money` (represented as `dict` in JSON).",
@@ -377,21 +382,21 @@ class ClaimItem(BackboneElement):
         description="Difficulty scaling factor.",
     )
 
-    prosthesis: fhirtypes.ClaimItemProsthesisType = Field(
+    prosthesis: "ClaimItemProsthesis" = Field(
         None,
         alias="prosthesis",
         title="Type `ClaimItemProsthesis` (represented as `dict` in JSON).",
         description="Prosthetic details.",
     )
 
-    provider: fhirtypes.ReferenceType = Field(
+    provider: Reference = Field(
         None,
         alias="provider",
         title="Type `Reference` referencing `Practitioner` (represented as `dict` in JSON).",
         description="Responsible practitioner.",
     )
 
-    quantity: fhirtypes.QuantityType = Field(
+    quantity: Quantity = Field(
         None,
         alias="quantity",
         title="Type `Quantity` referencing `SimpleQuantity` (represented as `dict` in JSON).",
@@ -402,7 +407,7 @@ class ClaimItem(BackboneElement):
         ..., alias="sequence", title="type `int`.", description="Service instance."
     )
 
-    service: fhirtypes.CodingType = Field(
+    service: Coding = Field(
         None,
         alias="service",
         title="Type `Coding` (represented as `dict` in JSON).",
@@ -416,28 +421,28 @@ class ClaimItem(BackboneElement):
         description="Date of Service.",
     )
 
-    subSite: ListType[fhirtypes.CodingType] = Field(
+    subSite: ListType[Coding] = Field(
         None,
         alias="subSite",
         title="List of `Coding` items (represented as `dict` in JSON).",
         description="Service Sub-location.",
     )
 
-    type: fhirtypes.CodingType = Field(
+    type: Coding = Field(
         None,
         alias="type",
         title="Type `Coding` (represented as `dict` in JSON).",
         description="Group or type of product or service.",
     )
 
-    udi: fhirtypes.CodingType = Field(
+    udi: Coding = Field(
         None,
         alias="udi",
         title="Type `Coding` (represented as `dict` in JSON).",
         description="Unique Device Identifier.",
     )
 
-    unitPrice: fhirtypes.MoneyType = Field(
+    unitPrice: Money = Field(
         None,
         alias="unitPrice",
         title="Type `Quantity` referencing `Money` (represented as `dict` in JSON).",
@@ -451,23 +456,23 @@ class ClaimItemDetail(BackboneElement):
     Second tier of goods and services.
     """
 
-    resource_type = Field("ClaimItemDetail", const=True)
+    resource_type: str = Field("ClaimItemDetail", const=True)
 
-    type: fhirtypes.CodingType = Field(
+    type: Coding = Field(
         None,
         alias="type",
         title="Type `Coding` (represented as `dict` in JSON).",
         description="Group or type of product or service.",
     )
 
-    udi: fhirtypes.CodingType = Field(
+    udi: Coding = Field(
         None,
         alias="udi",
         title="Type `Coding` (represented as `dict` in JSON).",
         description="Unique Device Identifier.",
     )
 
-    unitPrice: fhirtypes.MoneyType = Field(
+    unitPrice: Money = Field(
         None,
         alias="unitPrice",
         title="Type `Quantity` referencing `Money` (represented as `dict` in JSON).",
@@ -477,13 +482,13 @@ class ClaimItemDetail(BackboneElement):
         ..., alias="sequence", title="type `int`.", description="Service instance."
     )
 
-    service: fhirtypes.CodingType = Field(
+    service: Coding = Field(
         None,
         alias="service",
         title="Type `Coding` (represented as `dict` in JSON).",
         description="Item Code.",
     )
-    quantity: fhirtypes.QuantityType = Field(
+    quantity: Quantity = Field(
         None,
         alias="quantity",
         title="Type `Quantity` referencing `SimpleQuantity` (represented as `dict` in JSON).",
@@ -492,7 +497,7 @@ class ClaimItemDetail(BackboneElement):
     factor: fhirtypes.Decimal = Field(
         None, alias="factor", title="Type `float`.", description="Price scaling factor."
     )
-    net: fhirtypes.MoneyType = Field(
+    net: Money = Field(
         None,
         alias="net",
         title="Type `Quantity` referencing `Money` (represented as `dict` in JSON).",
@@ -506,7 +511,7 @@ class ClaimItemDetail(BackboneElement):
         description="Difficulty scaling factor.",
     )
 
-    subDetail: ListType[fhirtypes.ClaimItemDetailSubDetailType] = Field(
+    subDetail: ListType["ClaimItemDetailSubDetail"] = Field(
         None,
         alias="subDetail",
         title="List of `ClaimItemDetailSubDetail` items (represented as `dict` in JSON).",
@@ -520,22 +525,22 @@ class ClaimItemDetailSubDetail(BackboneElement):
     Third tier of goods and services.
     """
 
-    resource_type = Field("ClaimItemDetailSubDetail", const=True)
+    resource_type: str = Field("ClaimItemDetailSubDetail", const=True)
 
-    type: fhirtypes.CodingType = Field(
+    type: Coding = Field(
         None,
         alias="type",
         title="Type `Coding` (represented as `dict` in JSON).",
         description="Group or type of product or service.",
     )
-    udi: fhirtypes.CodingType = Field(
+    udi: Coding = Field(
         None,
         alias="udi",
         title="Type `Coding` (represented as `dict` in JSON).",
         description="Unique Device Identifier.",
     )
 
-    unitPrice: fhirtypes.MoneyType = Field(
+    unitPrice: Money = Field(
         None,
         alias="unitPrice",
         title="Type `Quantity` referencing `Money` (represented as `dict` in JSON).",
@@ -545,13 +550,13 @@ class ClaimItemDetailSubDetail(BackboneElement):
         ..., alias="sequence", title="type `int`.", description="Service instance."
     )
 
-    service: fhirtypes.CodingType = Field(
+    service: Coding = Field(
         None,
         alias="service",
         title="Type `Coding` (represented as `dict` in JSON).",
         description="Item Code.",
     )
-    quantity: fhirtypes.QuantityType = Field(
+    quantity: Quantity = Field(
         None,
         alias="quantity",
         title="Type `Quantity` referencing `SimpleQuantity` (represented as `dict` in JSON).",
@@ -560,7 +565,7 @@ class ClaimItemDetailSubDetail(BackboneElement):
     factor: fhirtypes.Decimal = Field(
         None, alias="factor", title="Type `float`.", description="Price scaling factor."
     )
-    net: fhirtypes.MoneyType = Field(
+    net: Money = Field(
         None,
         alias="net",
         title="Type `Quantity` referencing `Money` (represented as `dict` in JSON).",
@@ -581,7 +586,7 @@ class ClaimItemProsthesis(BackboneElement):
     The materials and placement date of prior fixed prosthesis.
     """
 
-    resource_type = Field("ClaimItemProsthesis", const=True)
+    resource_type: str = Field("ClaimItemProsthesis", const=True)
 
     initial: fhirtypes.Boolean = Field(
         None,
@@ -597,7 +602,7 @@ class ClaimItemProsthesis(BackboneElement):
         description="Initial service Date.",
     )
 
-    priorMaterial: fhirtypes.CodingType = Field(
+    priorMaterial: Coding = Field(
         None,
         alias="priorMaterial",
         title="Type `Coding` (represented as `dict` in JSON).",
@@ -612,7 +617,7 @@ class ClaimMissingTeeth(BackboneElement):
     been previously  extracted or for other reasons.
     """
 
-    resource_type = Field("ClaimMissingTeeth", const=True)
+    resource_type: str = Field("ClaimMissingTeeth", const=True)
 
     extractionDate: fhirtypes.Date = Field(
         None,
@@ -621,14 +626,14 @@ class ClaimMissingTeeth(BackboneElement):
         description="Date of Extraction.",
     )
 
-    reason: fhirtypes.CodingType = Field(
+    reason: Coding = Field(
         None,
         alias="reason",
         title="Type `Coding` (represented as `dict` in JSON).",
         description="Reason for missing.",
     )
 
-    tooth: fhirtypes.CodingType = Field(
+    tooth: Coding = Field(
         None,
         alias="tooth",
         title="Type `Coding` (represented as `dict` in JSON).",
@@ -642,32 +647,37 @@ class ClaimPayee(BackboneElement):
     The party to be reimbursed for the services.
     """
 
-    resource_type = Field("ClaimPayee", const=True)
+    resource_type: str = Field("ClaimPayee", const=True)
 
-    organization: fhirtypes.ReferenceType = Field(
+    organization: Reference = Field(
         None,
         alias="organization",
         title="Type `Reference` referencing `Organization` (represented as `dict` in JSON).",
         description="Organization who is the payee.",
     )
 
-    person: fhirtypes.ReferenceType = Field(
+    person: Reference = Field(
         None,
         alias="person",
         title="Type `Reference` referencing `Patient` (represented as `dict` in JSON).",
         description="Other person who is the payee.",
     )
 
-    provider: fhirtypes.ReferenceType = Field(
+    provider: Reference = Field(
         None,
         alias="provider",
         title="Type `Reference` referencing `Practitioner` (represented as `dict` in JSON).",
         description="Provider who is the payee.",
     )
 
-    type: fhirtypes.CodingType = Field(
+    type: Coding = Field(
         None,
         alias="type",
         title="Type `Coding` (represented as `dict` in JSON).",
         description="Party to be paid any benefits payable.",
     )
+
+
+Claim.update_forward_refs()
+ClaimItem.update_forward_refs()
+ClaimItemDetailSubDetail.update_forward_refs()

@@ -26,7 +26,7 @@ class Narrative(datatype.DataType):
     and business information for the resource.
     """
 
-    resource_type = Field("Narrative", const=True)
+    resource_type: str = Field("Narrative", const=True)
 
     div: fhirtypes.Xhtml = Field(
         None,

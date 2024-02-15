@@ -13,6 +13,9 @@ from pydantic.v1.error_wrappers import ErrorWrapper, ValidationError
 from pydantic.v1.errors import MissingError, NoneIsNotAllowedError
 
 from . import domainresource, fhirtypes
+from .identifier import Identifier
+from .period import Period
+from .reference import Reference
 
 
 class ResearchSubject(domainresource.DomainResource):
@@ -29,7 +32,7 @@ class ResearchSubject(domainresource.DomainResource):
     involves the gathering of information about human or animal subjects.
     """
 
-    resource_type = Field("ResearchSubject", const=True)
+    resource_type: str = Field("ResearchSubject", const=True)
 
     actualArm: fhirtypes.String = Field(
         None,
@@ -61,7 +64,7 @@ class ResearchSubject(domainresource.DomainResource):
         None, alias="_assignedArm", title="Extension field for ``assignedArm``."
     )
 
-    consent: fhirtypes.ReferenceType = Field(
+    consent: Reference = Field(
         None,
         alias="consent",
         title="Agreement to participate in study",
@@ -75,7 +78,7 @@ class ResearchSubject(domainresource.DomainResource):
         enum_reference_types=["Consent"],
     )
 
-    identifier: fhirtypes.IdentifierType = Field(
+    identifier: Identifier = Field(
         None,
         alias="identifier",
         title="Business Identifier for research subject",
@@ -87,7 +90,7 @@ class ResearchSubject(domainresource.DomainResource):
         element_property=True,
     )
 
-    individual: fhirtypes.ReferenceType = Field(
+    individual: Reference = Field(
         ...,
         alias="individual",
         title="Who is part of study",
@@ -98,7 +101,7 @@ class ResearchSubject(domainresource.DomainResource):
         enum_reference_types=["Patient"],
     )
 
-    period: fhirtypes.PeriodType = Field(
+    period: Period = Field(
         None,
         alias="period",
         title="Start and end of participation",
@@ -132,7 +135,7 @@ class ResearchSubject(domainresource.DomainResource):
         None, alias="_status", title="Extension field for ``status``."
     )
 
-    study: fhirtypes.ReferenceType = Field(
+    study: Reference = Field(
         ...,
         alias="study",
         title="Study subject is part of",
